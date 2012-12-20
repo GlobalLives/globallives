@@ -105,7 +105,12 @@ textarea {
     font-weight: bold;
     font-style: normal;
 }
-
+@font-face {
+    font-family: "Montreal Serial";
+    src: url("../fonts/Montreal Serial-Medium.otf");
+    font-weight: medium;
+    font-style: normal;
+}
 html, body {
 	height: 100%;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -124,6 +129,7 @@ a {
 }
 
 #page {
+	padding-top: 80px;
 	min-height: 100%;
 	background: #111;
 	max-width: 100%;
@@ -131,11 +137,13 @@ a {
 }
 
 header {
-	position: relative;
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%;
 	background: white;
 	overflow: visible;
 	box-shadow: 0 0 25px rgba(0,0,0,0.5);
-	z-index: 2;
+	z-index: 3;
 }
 
 .site-title {
@@ -218,19 +226,21 @@ section h2 {
 
 #main {
 	position: relative;
-	height: 640px;
+	height: 480px;
 	background: #df965f url('../img/bg.jpg') center top no-repeat;
+	background-size: cover;
 }
 
 #main h1 {
 	font-size: 62px;
-	font-weight: bold;
-	text-shadow: 0 10px 25px rgba(0,0,0,0.25);
+	font-weight: medium;
+	text-shadow: 0 10px 15px rgba(0,0,0,0.5);
+	line-height: 1.25em;
 }
 
 #main #play-button {
 	display: block;
-	margin: 100px auto 0;
+	margin: 80px auto 0;
 	width: 220px;
 	padding: 20px;
 	color: #777777;
@@ -238,7 +248,7 @@ section h2 {
 	border-radius: 10px;
 	text-decoration: none;
 	font-size: 24px;
-	box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+	box-shadow: 0 10px 15px rgba(0,0,0,0.5);
 }
 
 #main iframe {
@@ -255,7 +265,7 @@ section h2 {
 }
 #about {
 	position: relative;
-	background: #df965f;
+	background: #0ad;
 	box-shadow: 0 0 25px rgba(0,0,0,0.25);
 	z-index: 2;
 }
@@ -278,6 +288,8 @@ section h2 {
 	padding: 25px;
 }
 #credits .linky {
+	display: inline-block;
+	padding-top: 2em;
 	border-bottom: 1px solid;
 }
 footer {
