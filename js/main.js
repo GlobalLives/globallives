@@ -1,10 +1,10 @@
 $(function(){
 
-	$('#kickstarter-video').hide();
+	$('#youtube-embed').hide();
 	
 	$('#play-button').click(function() {
 		$('#play-button, #site-description').hide();
-		$('#kickstarter-video').show();
+		$('#youtube-embed').show();
 	});
 	
 });

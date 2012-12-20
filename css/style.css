@@ -226,7 +226,7 @@ section h2 {
 
 #main {
 	position: relative;
-	height: 480px;
+	height: 400px;
 	background: #df965f url('../img/bg.jpg') center top no-repeat;
 	background-size: cover;
 }
@@ -252,7 +252,7 @@ section h2 {
 }
 
 #main iframe {
-	margin: 50px 0;
+	margin: 20px 0;
 	max-width: 100%;
 	border-radius: 10px;
 	box-shadow:0 0 25px rgba(0,0,0,0.5);
@@ -295,6 +295,7 @@ section h2 {
 footer {
 	min-height: 360px;
 	background: black url('../img/edges.jpg') no-repeat;
+	background-size: cover;
 	font-size: 12px;
 }
 
