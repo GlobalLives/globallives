@@ -1,0 +1,424 @@
+/*	==========================================================================
+	Imports
+	========================================================================== */
+
+	@font-face {
+		font-family: "Montreal Serial";
+		src: url("../fonts/Montreal Serial-Regular.otf");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Montreal Serial";
+		src: url("../fonts/Montreal Serial-Bold.otf");
+		font-weight: bold;
+		font-style: normal;
+	}
+	
+	@import "imports";
+	
+
+
+/*	==========================================================================
+	Base
+	========================================================================== */
+
+	body {
+		height: 100%;
+		#gradient > .vertical(@grayLighter,@grayLight);
+
+		text-rendering: optimizeLegibility;
+	}
+
+	#wrap {
+		background: @grayLight url('../img/bg.jpg') center top no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+	}
+
+/*	==========================================================================
+	Header
+	========================================================================== */
+
+	#banner {
+		position: relative;
+		background: @white;
+		.box-shadow(0 0 25px rgba(0,0,0,1));
+		z-index: 9999;
+		.site-title {
+			margin: 0; padding: 0;
+			a {
+				display: block;
+				height: 100px; width: 130px;
+				background: transparent url('../img/logo.jpg') center no-repeat;
+				text-indent: -9999px;
+				overflow: hidden;
+			}
+		}
+		#nav-main {
+			background: @grayDark fixed;
+			#gradient > .vertical(@grayDark, @black);
+/* 			 background-image: -webkit-linear-gradient(#333, #111); */
+			.menu-primary-header-navigation-container {
+				float: left;
+				ul {
+					margin: 0; padding: 0;
+					list-style: none;
+				}
+				li {
+					display: inline-block;
+					a {
+					    margin-right: 25px; padding: 5px 25px 5px 0;
+					    border-right: 1px dotted @grayLight;
+					    line-height: 40px;
+					    font-family: @headingsFontFamily;
+					    color: @grayLighter;
+					    text-shadow: 0 0 1px @black;
+					}
+					&:last-child a {
+					    margin-right: 0; padding-right: 0;
+					    border-right: none;
+					}
+				}
+			}
+			.menu-social-media-icons-container {
+				float: right;
+				width: 150px;
+				ul {
+					margin: 0; padding: 0;
+				}
+				li {
+					display: inline-block;
+					a {
+						display: inline-block;
+						margin: 5px 0;
+						height: 32px; width: 32px;
+						text-indent: -9999px;
+						overflow: auto;
+					}
+					&.icon-tw a {
+						background: transparent url('../img/icon-tw.png') no-repeat;
+					}
+					&.icon-fb a {
+						background: transparent url('../img/icon-fb.png') no-repeat;
+					}
+					&.icon-yt a {
+						background: transparent url('../img/icon-yt.png') no-repeat;
+					}
+				}
+			}
+		}
+		#masthead {
+			#searchtab, #jointab, #logintab {
+				margin: 10px;
+			}
+		}
+		#nav-utility {
+			background: url('../img/edges-color.png') center no-repeat;
+			.lang-btn {
+				float: left;
+				margin: 10px 0;
+			}
+			.container {
+				position: relative;
+			}
+			.nav-tabs {
+				position: absolute;
+				bottom: 0; right: 0;
+				margin: 0; padding: 0;
+				float: right;
+				a {
+					background: @grayLighter;
+				}
+				li.active a {
+					background: @white;
+				}
+			}
+		}
+	}
+
+	/* Fixed Topbar Navigation */
+	body.top-navbar { padding-top: 60px; }
+	body.admin-bar .navbar-fixed-top { top: 28px; }
+	
+	
+
+/*	==========================================================================
+	Content
+	========================================================================== */
+
+	#content {
+	}
+
+	.local-navigation-menu {
+		margin: 0; padding: 0;
+		list-style: none;
+		li {
+			border-bottom: 1px dotted @grayLight;
+			&:last-child {
+				border: none;
+			}
+		}
+		a {
+			display: block;
+			padding: 1em 0;
+			color: @grayLight;
+			&:hover {
+				color: @gray;
+				text-decoration: none;
+			}
+		}
+		li.current_page_item a {
+			color: @gray;
+		}
+	}
+
+
+/*	==========================================================================
+	Primary Content
+	========================================================================== */
+
+	#main { 
+	}
+	.page-excerpt {
+		max-width: 35em;
+		min-height: 160px;
+		margin: 2em auto;
+		background: transparent url('../img/logo-subtle.png') center no-repeat;
+		text-align: center;
+		font: normal 1.75em/1.2 @headingsFontFamily;
+		color: @white;
+		text-shadow: 0 0 10px rgba(0,0,0,0.75);
+		p {
+			padding-top: 1.5em;
+		}
+	}
+	.static-page-container {
+		margin: 5em 0;
+		padding: 2em 2em 5em;
+		background: @white url('../img/logo-coda.png') bottom center no-repeat;
+		.border-radius(10px);
+		
+	}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+#sidebar { }
+
+
+
+/* ==========================================================================
+   Blog
+   ========================================================================== */
+
+.hentry header { }
+.hentry time { }
+.hentry p.byline { }
+.hentry .entry-content { }
+.hentry footer { }
+
+	.blog #wrap, .single-post #wrap {
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.blog-title {
+		margin: 1em 0;
+		padding-left: 36px;
+		color: @white;
+		background: transparent url('../img/logo-blog.png') center left no-repeat;
+		font: 24px/1.5em @headingsFontFamily;
+	}
+
+	/* Every post */
+	
+	.entry-date {
+		display: inline-block;
+		padding: 10px;
+		color: @grayDark;
+		background: @white;
+		font: 14px/1.5em @headingsFontFamily;
+	}
+	.entry-header {
+		padding: 10px;
+		color: @white;
+		background: @orange;
+		.entry-category {
+			font: 24px/1.5 @headingsFontFamily;
+		}
+		a {
+			color: @white;
+		}
+		h2 {
+			margin: 0;
+			font-weight: normal;
+		}
+	}
+	.entry-content {
+		padding: 10px;
+		background: @white;
+	}
+	.entry-share {
+		display: inline-block;
+		width: auto;
+		padding: 10px;
+		background: @grayLight;
+	}
+	
+	/* Customize Top Post & Past Posts */
+	
+	.top-post .post {
+		clear: both;
+		margin: 22em 0 3em;
+	}
+	.blog .past-posts-container {
+		margin: 0 0 5em;
+		padding: 2em 2em 5em;
+		background: @white url('../img/logo-coda.png') bottom center no-repeat;
+		.border-radius(10px);
+		.post {
+			margin: 0 0 2em;
+			padding: 2em;
+			background: #ccc center no-repeat;
+			background-size: cover;
+			.entry-date {
+				margin: 10em 0 0;
+			}
+			.entry-header {
+				display: block;
+			}
+			.entry-category {
+				margin: 0;
+				font-size: 16px;
+			}
+			.entry-title {
+				margin: 0;
+				font-size: 18px;
+			}
+			.entry-content {
+				margin: 0;
+				width: auto;
+			}
+			.entry-share {
+				display: inline-block;
+			}
+		}
+		.posts-navigation {
+			margin: 2em 0;
+			padding: 1em 0 0;
+			border-top: 1px dotted @grayLight;
+			text-align: center;
+			a {
+				padding: 10px;
+				color: @white;
+				#gradient > .vertical(@gray, @black);
+			}
+		}
+	}
+	.single-post {
+		.entry-author {
+			float: left;
+			width: 50%;
+		}
+		.entry-tags {
+			float: right;
+			width: 50%;
+			text-align: right;
+		}
+		.entry-content {
+			margin-top: 2em;
+			padding: 0;
+		}
+		.entry-about-author {
+			.author-thumbnail {
+				float: left;
+				height: 50px; width: 50px;
+				border-radius: 50%;
+				overflow: hidden;
+				img {
+					height: 100%;
+					width: auto;
+				}
+			}
+			.author-meta {
+				margin-left: 60px;
+			}
+			.author-description {
+				clear: both;
+				margin: 1em 0;
+				padding: 0 0 1em;
+				border-bottom: 1px dotted @gray;
+			}
+		}
+	}
+	.single-post-header {
+		
+	}
+	.single-post-container {
+		clear: both;
+		margin: 0 0 5em;
+		padding: 2em 2em 5em;
+		background: @white url('../img/logo-coda.png') bottom center no-repeat;
+		.border-radius(10px);
+		
+	}
+
+
+/*	==========================================================================
+	Footer
+	========================================================================== */
+
+	#content-info {
+		padding: 5em 0;
+		min-height: 360px;
+		background: black url('../img/edges.jpg') no-repeat;
+		.box-shadow(0 0 25px rgba(0,0,0,1));
+		font-size: 12px;
+		a {
+			color: white;
+		}
+	}
+	.footer-navigation-menus {
+		color: @white;
+		h4 {
+			margin-top: 0;
+			font-size: 16px;
+		}
+		ul {
+			margin: 0; padding: 0;
+			list-style: none;
+		}
+	}
+
+
+/*	==========================================================================
+	WordPress Generated Classes
+	http://codex.wordpress.org/CSS#WordPress_Generated_Classes
+	========================================================================== */
+
+	.aligncenter { display: block; margin: 0 auto; }
+	.alignleft { float: left; }
+	.alignright { float: right; }
+	figure.alignnone { margin-left: 0; margin-right: 0; }
+	.more-link {
+		display: block;
+		width: 8em;
+		margin: 1em 0 0; padding: 5px;
+		color: @gray;
+		#gradient > .vertical(@grayLighter, @gray);
+		text-align: center;
+	}
+
+
+/*	==========================================================================
+	Media Queries
+	========================================================================== */
+
+@media (max-width: 979px) {
+  /* Fix top padding when using the responsive grid with the fixed topbar */
+  body.top-navbar {
+    padding-top: 0;
+  }
+}
