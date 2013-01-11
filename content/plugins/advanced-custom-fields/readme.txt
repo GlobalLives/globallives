@@ -90,6 +90,39 @@ http://support.advancedcustomfields.com/
 
 == Changelog ==
 
+= 3.5.7.2 =
+* [Fixed] Fix fields not showing on attachment edit page in WP 3.5 - http://support.advancedcustomfields.com/discussion/4261/after-upgrading-to-3-5-acf-fields-assigned-to-show-on-attachments-media-edit-are-not-showing
+* [Fixed] Fix sub repeater css bug - http://support.advancedcustomfields.com/discussion/4361/repeater-add-button-inappropriately-disabled
+* [Fixed] Fix issue where acf_form includes scripts twice - http://support.advancedcustomfields.com/discussion/4372/afc-repeater-on-front-end
+* [Fixed] Fix location rule bug with new shopp product - http://support.advancedcustomfields.com/discussion/4406/shopp-idnew-product-page-doesn039t-have-acf-fields
+* [Fixed] Fix location rule bug with taxonomy / post_taxonomy - http://support.advancedcustomfields.com/discussion/4407/taxonomy-rules-ignored-until-toggling-the-taxonomy
+
+= 3.5.7.1 =
+* [Fixed] Fix issues with location rules wrongly matching
+
+= 3.5.7 =
+* [Fixed] Fix sub field default value - http://support.advancedcustomfields.com/discussion/3706/select-field-default-value-not-working
+* [Added] Add filters for custom location rules - http://support.advancedcustomfields.com/discussion/4285/how-to-retrieve-a-custom-field-within-the-function-php
+* [Fixed] Fix XML import to create unique field ID's - http://support.advancedcustomfields.com/discussion/4328/check-acf_next_field_id-to-avoid-data-corruption
+* [Fixed] Fix conditional logic with validation - http://support.advancedcustomfields.com/discussion/4295/issue-with-conditional-logic-and-obrigatory-fields
+* [Fixed] Fix repeater + relationship bug - http://support.advancedcustomfields.com/discussion/4296/relationship-field-bug
+
+= 3.5.6.3 =
+* [Fixed] Fix bug with 3.5.6 not showing front end form
+
+= 3.5.6.2 =
+* [Fixed] Fix WYSIWYG webkit browser issues.
+
+= 3.5.6.1 =
+* [Fixed] Fix bug causing field groups to not display on the options page.
+
+= 3.5.6 =
+* [Fixed] Fix content editor double in webkit browser - http://support.advancedcustomfields.com/discussion/4223/duplicate-editor-box-safari-bug-has-returned
+* [Fixed] Fix bug with post format location rule not working - http://support.advancedcustomfields.com/discussion/4264/not-recognizing-post-type-formats-following-upgrade-to-version-3-5-5
+* [Fixed] Fix conditional logic with tabs - http://support.advancedcustomfields.com/discussion/4201/tabs-and-logical-condition
+* [Fixed] Fix missing icons for conditional logic / menu in older WP
+* [Added] Add PHP fix for new lines in field key - http://support.advancedcustomfields.com/discussion/4087/can039t-add-new-field
+
 = 3.5.5 =
 * [Added] Add new Tab field
 * [Fixed] Improve WYSIWYG code for better compatibility

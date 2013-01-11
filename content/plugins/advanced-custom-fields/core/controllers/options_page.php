@@ -132,7 +132,10 @@ class acf_options_page
 		}
 		
 		
-		$metabox_ids = $this->parent->get_input_metabox_ids(false, false);
+		// get field groups
+		$filter = array();
+		$metabox_ids = array();
+		$metabox_ids = apply_filters( 'acf/location/match_field_groups', $metabox_ids, $filter );
 
 		
 		if(empty($metabox_ids))
@@ -156,8 +159,9 @@ class acf_options_page
 			foreach($acfs as $acf)
 			{
 				// hide / show
-				$show = in_array($acf['id'], $metabox_ids) ? "true" : "false";
-				if($show == "true")
+				$show = in_array($acf['id'], $metabox_ids) ? 1 : 0;
+
+				if( $show )
 				{				
 					// add meta box
 					add_meta_box(

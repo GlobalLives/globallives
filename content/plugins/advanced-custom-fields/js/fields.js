@@ -99,6 +99,13 @@ var acf = {
 		field.attr('data-type', val);
 		
 		
+		// tab - override field_name
+		if( val == 'tab' )
+		{
+			tbody.find('tr.field_name input[type="text"]').val('').trigger('keyup');
+		}
+		
+		
 		// show field options if they already exist
 		if( tbody.children( 'tr.field_option_' + val ).exists() )
 		{
@@ -1138,7 +1145,7 @@ var acf = {
 	*  @created: 15/10/12
 	*/
 	
-	$('tr.conditional-logic a.add').live('click',function(){
+	$('tr.conditional-logic .acf-button-add').live('click',function(){
 		
 		// vars
 		var old_tr = $(this).closest('tr'),
@@ -1181,7 +1188,7 @@ var acf = {
 	*  @created: 15/10/12
 	*/
 	
-	$('tr.conditional-logic a.remove').live('click',function(){
+	$('tr.conditional-logic .acf-button-remove').live('click',function(){
 		
 		var table = $(this).closest('table');
 		

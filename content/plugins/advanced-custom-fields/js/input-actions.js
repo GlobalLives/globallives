@@ -73,7 +73,7 @@ var acf = {
 			$(this).addClass(layout);
 			
 			// show / hide
-			if( show == 'true' )
+			if( show == "1" )
 			{
 				$(this).removeClass('acf-hidden');
 				$('#adv-settings .acf_hide_label[for="acf_' + id + '-hide"]').show();
@@ -161,6 +161,13 @@ var acf = {
 			div.data('validation', true);
 			
 
+			// if is hidden by conditional logic, ignore
+			if( div.hasClass('acf-conditional_logic-hide') )
+			{
+				return;
+			}
+			
+			
 			// text / textarea
 			if( div.find('input[type="text"], input[type="number"], input[type="hidden"], textarea').val() == "" )
 			{
@@ -847,12 +854,20 @@ var acf = {
 	
 	acf.add_wysiwyg_events = function( id ){
 		
+		// validate tinymce
+		if( typeof(tinyMCE) != "object" )
+		{
+			return;
+		}
+		
+		
 		var editor = tinyMCE.get( id );
 		
 		if( !editor )
 		{
 			return;
 		}
+		
 		
 		var	container = $('#wp-' + id + '-wrap'),
 			body = $( editor.getBody() );
@@ -941,32 +956,64 @@ var acf = {
 	});
 
 	
+	/*
+	*  window load
+	*
+	*  @description: 
+	*  @since: 3.5.5
+	*  @created: 22/12/12
+	*/
+	
 	$(window).load(function(){
 		
-		// trigger click on hidden wysiwyg (to get in HTML mode)
-		if( $('#wp-acf_settings-wrap').exists() )
+		// vars
+		var wp_content = $('#wp-content-wrap').exists(),
+			wp_acf_settings = $('#wp-acf_settings-wrap').exists()
+			mode = 'tmce';
+		
+		
+		// has_editor
+		if( wp_content )
 		{
-			$('#acf_settings-tmce').trigger('click');
+			// html_mode
+			if( $('#wp-content-wrap').hasClass('html-active') )
+			{
+				mode = 'html';
+			}
 		}
 		
 		
-		// setup fields
-		$(document).trigger('acf/setup_fields', $('#poststuff'));
+		setTimeout(function(){
+			
+			// trigger click on hidden wysiwyg (to get in HTML mode)
+			if( wp_acf_settings && mode == 'html' )
+			{
+				$('#acf_settings-tmce').trigger('click');
+			}
+			
+		}, 1);
 		
 		
-		// trigger html mode for people who want to stay in HTML mode
-		if( $('#wp-content-wrap').hasClass('html-active') )
-		{
-			$('#wp-content-wrap #content-html').trigger('click');
-		}
-		
-		
-		// add wysiwyg events to standard editor
-		if( $('#wp-content-wrap').exists() )
-		{
-			acf.add_wysiwyg_events( 'content' );
-		}
-		
+		setTimeout(function(){
+
+			// setup fields
+			$(document).trigger('acf/setup_fields', $('#poststuff'));
+			
+			
+			// trigger html mode for people who want to stay in HTML mode
+			if( wp_acf_settings && mode == 'html' )
+			{
+				$('#acf_settings-html').trigger('click');
+			}
+			
+			// Add events to content editor
+			if( wp_content )
+			{
+				acf.add_wysiwyg_events( 'content' );
+			}
+			
+			
+		}, 10);
 		
 	});
 	
@@ -1150,11 +1197,14 @@ var acf = {
 		if( row_count >= max_rows )
 		{
 			repeater.addClass('disabled');
+			repeater.find('> .repeater-footer .acf-button').addClass('disabled');
 		}
 		else
 		{
 			repeater.removeClass('disabled');
+			repeater.find('> .repeater-footer .acf-button').removeClass('disabled');
 		}
+		
 	}
 	
 	
@@ -1274,7 +1324,7 @@ var acf = {
 	
 	
 	// add row - before
-	$('.repeater .add-row-before').live('click', function(){
+	$('.repeater td.remove .add-row-before').live('click', function(){
 		
 		var repeater = $(this).closest('.repeater'),
 			before = $(this).closest('tr');
@@ -1329,7 +1379,7 @@ var acf = {
 	
 	
 	// remove field
-	$('.repeater .acf-button-remove').live('click', function(){
+	$('.repeater td.remove .acf-button-remove').live('click', function(){
 		var tr = $(this).closest('tr');
 		repeater_remove_row( tr );
 		return false;
@@ -1961,7 +2011,7 @@ var acf = {
 			// create tab group if it doesnt exist
 			if( ! inside.children('.acf-tab-group').exists() )
 			{
-				inside.prepend('<ul class="hl clearfix acf-tab-group"></ul>');
+				inside.children('.field-tab:first').before('<ul class="hl clearfix acf-tab-group"></ul>');
 			}
 			
 			
@@ -1997,8 +2047,7 @@ var acf = {
 		var a = $(this),
 			id = a.attr('data-id'),
 			ul = a.closest('ul'),
-			inside = ul.closest('.acf_postbox').children('.inside'),
-			field = inside.children('.field-' + id);
+			inside = ul.closest('.acf_postbox').children('.inside');
 		
 		
 		// classes
@@ -2007,10 +2056,21 @@ var acf = {
 		
 		
 		// hide / show
-		inside.children('.field').hide();
-		field.nextUntil('.field-tab').show();
-		
-		
+		inside.children('.field-tab').each(function(){
+			
+			var tab = $(this);
+			
+			if( tab.hasClass('field-' + id) )
+			{
+				tab.nextUntil('.field-tab').removeClass('acf-tab_group-hide').addClass('acf-tab_group-show');
+			}
+			else
+			{
+				tab.nextUntil('.field-tab').removeClass('acf-tab_group-show').addClass('acf-tab_group-hide');
+			}
+			
+		});
+
 		$(this).trigger('blur');
 		
 		return false;

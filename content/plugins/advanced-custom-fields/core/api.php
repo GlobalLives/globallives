@@ -587,6 +587,7 @@ function acf_form_head()
 	do_action('acf_print_scripts-input');
 	do_action('acf_print_styles-input');
 	
+	
 	// need wp styling
 	wp_enqueue_style(array(
 		'colors-fresh'
@@ -600,20 +601,6 @@ function acf_form_head()
 
 function acf_form_wp_head()
 {
-	// global vars
-	global $post, $acf;
-	
-
-	// Style
-	echo '<link rel="stylesheet" type="text/css" href="'.$acf->dir.'/css/global.css?ver=' . $acf->version . '" />';
-	echo '<link rel="stylesheet" type="text/css" href="'.$acf->dir.'/css/input.css?ver=' . $acf->version . '" />';
-
-
-	// Javascript
-	echo '<script type="text/javascript" src="'.$acf->dir.'/js/input-actions.js?ver=' . $acf->version . '" ></script>';
-	
-	
-	
 	// add user js + css
 	do_action('acf_head-input');
 }
@@ -660,9 +647,14 @@ function acf_form($options = null)
 	
 	
 	// register post box
-	if(!$options['field_groups'])
+	if( !$options['field_groups'] )
 	{
-		$options['field_groups'] = $acf->get_input_metabox_ids(array('post_id' => $options['post_id']), false);
+		// get field groups
+		$filter = array(
+			'post_id' => $options['post_id']
+		);
+		$options['field_groups'] = array();
+		$options['field_groups'] = apply_filters( 'acf/location/match_field_groups', $options['field_groups'], $filter );
 	}
 	
 	
@@ -672,9 +664,13 @@ function acf_form($options = null)
 		echo '<div id="message" class="updated"><p>' . $options['updated_message'] . '</p></div>';
 	}
 	
+	
+	// Javascript
+	echo '<script type="text/javascript">acf.post_id = ' . $options['post_id'] . '; acf.nonce = "' . wp_create_nonce( 'acf_nonce' ) . '";</script>';
+	
+	
 	// display form
 	?>
-	<script type="text/javascript">acf.post_id = <?php echo $options['post_id']; ?>;</script>
 	<form action="" id="post" method="post" <?php if($options['form_attributes']){foreach($options['form_attributes'] as $k => $v){echo $k . '="' . $v .'" '; }} ?>>
 	<div style="display:none">
 		<input type="hidden" name="acf_save" value="true" />
@@ -710,7 +706,7 @@ function acf_form($options = null)
 				echo '<div id="acf_' . $field_group['id'] . '" class="postbox acf_postbox">';
 				echo '<h3 class="hndle"><span>' . $field_group['title'] . '</span></h3>';
 				echo '<div class="inside">';
-					echo '<div class="options" data-layout="' . $field_group['options']['layout'] . '" data-show="true"></div>';
+					echo '<div class="options" data-layout="' . $field_group['options']['layout'] . '" data-show="1"></div>';
 					$acf->render_fields_for_input($field_group['fields'], $options['post_id']);
 				echo '</div></div>';
 			}
