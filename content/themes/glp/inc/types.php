@@ -12,6 +12,15 @@
 
 	add_post_type_support( 'page', 'excerpt' );
 
+	add_filter( 'body_class', 'add_page_slug_body_class' );
+	function add_page_slug_body_class( $classes ) {
+		global $post;
+		if ( isset( $post ) && ( $post->post_type == 'page' ) ) {
+			$classes[] = $post->post_type . '-' . $post->post_name;
+		}
+		return $classes;
+	}
+		
 /*	==========================================================================
 	Participants
 	========================================================================== */
@@ -35,5 +44,17 @@
 			)
 		));
 	}
+	function get_participant_thumbnail_url( $participant_id ) {
+		$participant = get_post( $participant_id );
+		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($participant->ID, 'thumbnail'));
+		return $thumbnail[0];
+	}
+	function the_participant_thumbnail_url( $participant_id ) {
+		echo get_participant_thumbnail_url( $participant_id );
+	}
 
-?>
+/*	==========================================================================
+	Users
+	========================================================================== */
+
+	

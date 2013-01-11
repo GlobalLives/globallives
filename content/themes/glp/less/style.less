@@ -44,7 +44,6 @@
 	#banner {
 		position: relative;
 		background: @white;
-		.box-shadow(0 0 25px rgba(0,0,0,1));
 		z-index: 9999;
 		.site-title {
 			margin: 0; padding: 0;
@@ -57,9 +56,14 @@
 			}
 		}
 		#nav-main {
-			background: @grayDark fixed;
 			#gradient > .vertical(@grayDark, @black);
-/* 			 background-image: -webkit-linear-gradient(#333, #111); */
+			.box-shadow(0 10px 15px rgba(0,0,0,0.5));
+			position: relative; z-index: 9999;
+			&.affix {
+				position: fixed;
+				top: 0; left: 0;
+				width: 100%;
+			}
 			.menu-primary-header-navigation-container {
 				float: left;
 				ul {
@@ -97,13 +101,13 @@
 						text-indent: -9999px;
 						overflow: auto;
 					}
-					&.icon-tw a {
+					&.social-tw a {
 						background: transparent url('../img/icon-tw.png') no-repeat;
 					}
-					&.icon-fb a {
+					&.social-fb a {
 						background: transparent url('../img/icon-fb.png') no-repeat;
 					}
-					&.icon-yt a {
+					&.social-yt a {
 						background: transparent url('../img/icon-yt.png') no-repeat;
 					}
 				}
@@ -112,6 +116,18 @@
 		#masthead {
 			#searchtab, #jointab, #logintab {
 				margin: 10px;
+			}
+			#nav-user {
+				float: right;
+				li {
+					margin: 2em 1em 0;
+					text-align: center;
+					.border-radius(@borderRadiusLarge);
+					font: 0.8em/2 @headingsFontFamily;
+					i {
+						margin-bottom: 0.5em;
+					}
+				}
 			}
 		}
 		#nav-utility {
@@ -129,7 +145,13 @@
 				margin: 0; padding: 0;
 				float: right;
 				a {
+					padding: 1em 2em 0.5em;
 					background: @grayLighter;
+					font: 13px/1.5 @headingsFontFamily;
+					i {
+						position: relative;
+						margin: -2px 0 0 -2px;
+					}
 				}
 				li.active a {
 					background: @white;
@@ -137,11 +159,6 @@
 			}
 		}
 	}
-
-	/* Fixed Topbar Navigation */
-	body.top-navbar { padding-top: 60px; }
-	body.admin-bar .navbar-fixed-top { top: 28px; }
-	
 	
 
 /*	==========================================================================
@@ -179,8 +196,6 @@
 	Primary Content
 	========================================================================== */
 
-	#main { 
-	}
 	.page-excerpt {
 		max-width: 35em;
 		min-height: 160px;
@@ -198,17 +213,120 @@
 		margin: 5em 0;
 		padding: 2em 2em 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(10px);
+		.border-radius(@borderRadiusLarge);
 		
 	}
 
-/* ==========================================================================
-   Sidebar
-   ========================================================================== */
 
-#sidebar { }
+/*	==========================================================================
+	Home
+	========================================================================== */
 
+	.home #wrap {
+		background: @white center no-repeat fixed;
+	}
+	#nav-featured {
+		margin: 0; padding: 0 0 2em;
+		#gradient > .vertical(@grayDarker,@black);
+		h2 {
+			margin: 10px 0;
+			font-size: 1.25em;
+			font-weight: normal;
+			color: @white;
+		}
+		ul {
+			margin: 0; padding: 0;
+			list-style: none;
+		}
+		.featured-thumbnail {
+			height: 105px; width: 155px;
+			border: 10px solid @white;
+			overflow: hidden;
+			background: @white;
+			text-align: center;
+			.box-shadow(0 0 5px rgba(0,0,0,0.5));
+			img {
+				box-sizing: border-box;
+				display: block;
+				width: 100%; height: auto;
+				-webkit-filter: ~"saturate(0%)";
+			}
+			&.active img, img:hover {
+				-webkit-filter: ~"saturate(100%)";
+			}
+		}
+	}
+	#stage {
+		padding: 2em 0;
+	}
+	.front-page {
+		margin: 0 auto;
+		max-width: 50em;
+		text-align: center;
+		.page-excerpt {
+			margin: 0 0 2em;
+			color: @black;
+			font-size: 2em;
+			text-shadow: none;
+		}
+		.page-content {
+			border-bottom: 1px dotted @white;
+			p {
+				font: 18px/1.2 @headingsFontFamily;
+				color: @gray;
+			}
+		}
+	}
+	.participant-summary {
+		color: @white;
+		.participant-map {
+			margin: 0 0 1em;
+		}
+		.participant-meta {
+			font-size: 0.8em;
+		}
+		.participant-content {
+			margin: 1em 0;
+			font-size: 0.8em;
+		}
+		.participant-location {
+			font-weight: normal;
+		}
+	}
 
+/*	==========================================================================
+	Home
+	========================================================================== */
+
+	.page-explore {
+		#content {
+			position: relative;
+			width: 100%;
+		}
+		#popover {
+			position: absolute;
+			top: 0; left: 0;
+			opacity: 0;
+			padding: 0.5em;
+			background: @grayLighter;
+			.border-radius(@borderRadiusSmall);
+			.box-shadow(0 5px 5px rgba(0,0,0,0.5));
+			.popover-location {
+				font-weight: normal;
+			}
+			.popover-thumbnail {
+				border: 10px solid @white;
+			}
+		}
+	}
+	#mapview {
+		position: relative;
+		width: 100%;
+		height: 640px;
+		background: #666;
+		.marker {
+		}
+	}
 
 /* ==========================================================================
    Blog
@@ -277,7 +395,7 @@
 		margin: 0 0 5em;
 		padding: 2em 2em 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(10px);
+		.border-radius(@borderRadiusLarge);
 		.post {
 			margin: 0 0 2em;
 			padding: 2em;
@@ -361,7 +479,7 @@
 		margin: 0 0 5em;
 		padding: 2em 2em 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(10px);
+		.border-radius(@borderRadiusLarge);
 		
 	}
 
@@ -370,6 +488,28 @@
 	Footer
 	========================================================================== */
 
+	#nav-modules {
+		border-top: 1px solid @white;
+		#gradient > .vertical(@grayLighter,@grayLight);
+		.widget {
+			margin-top: 2em; margin-bottom: 2em;
+			min-height: 150px;
+			background: @white;
+			.border-radius(@borderRadiusLarge);
+			.widget-inner {
+				padding: 1em;
+			}
+			h4 {
+				margin: 0 0 1em;
+				padding-bottom: 0.5em;
+				color: @grayLight;
+				border-bottom: 1px dotted @grayLight;	
+				font-size: 16px;
+				font-weight: normal;
+				
+			}
+		}
+	}
 	#content-info {
 		padding: 5em 0;
 		min-height: 360px;

@@ -5,9 +5,10 @@
  * Keep this file clean and only use it for requires.
  */
 
-require( get_template_directory() . '/inc/types.php' );		// Add custom post types
+require( get_template_directory() . '/inc/ajax.php' );		// AJAX functions using admin-ajax.php
 require( get_template_directory() . '/inc/layouts.php' );	// Wrap the theme in layout.php
-require( get_template_directory() . '/inc/queue.php' );		// Enqueue styles and scripts
 require( get_template_directory() . '/inc/menus.php' );		// Add custom menus
+require( get_template_directory() . '/inc/queue.php' );		// Enqueue styles and scripts
+require( get_template_directory() . '/inc/types.php' );		// Add custom post types
 
 ?>
