@@ -46,6 +46,15 @@ $(function() {
 		set_background( src, {from: '#fff'} );
 	}
 
+/* Explore the Collection */
+
+	/* Most of the JS is in the page-explore.php template because it needs PHP. */
+	
+	$('#popover').hide();
+	$('#popover .close').click( function() {
+		$(this).parent().hide();
+	});
+		
 /* Blog* */
 	
 	if ($('.blog').length) { // Make sure we're on the blog page
