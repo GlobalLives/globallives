@@ -809,6 +809,12 @@ body{height:100%;background-color:#c2c2c2;background-image:-moz-linear-gradient(
 .page-explore #popover{position:absolute;top:0;left:0;opacity:0;padding:0.5em;background:#dddddd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);}.page-explore #popover .popover-location{font-weight:normal;}
 .page-explore #popover .popover-thumbnail{border:10px solid #ffffff;}
 #mapview{position:relative;width:100%;height:640px;background:#666;}
+.single-participant{color:#ffffff;}.single-participant #wrap{background:#000000;}
+.single-participant #content{position:relative;width:100%;}
+.single-participant .participant-video-embed{min-height:640px;max-width:100%;}
+.single-participant .participant-detail-content{margin:2em 0 0;padding:1em 0;background-color:#363636;background-image:-moz-linear-gradient(top, #222222, #555555);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#555555));background-image:-webkit-linear-gradient(top, #222222, #555555);background-image:-o-linear-gradient(top, #222222, #555555);background-image:linear-gradient(to bottom, #222222, #555555);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff555555', GradientType=0);border-top:1px solid #555555;}
+.single-participant .participant-detail-content .participant-content{margin:1em 0;}
+.single-participant .participant-detail-content .participant-location{font-size:0.8em;font-weight:normal;}
 .blog #wrap,.single-post #wrap{background-repeat:no-repeat;background-size:cover;}
 .blog-title{margin:1em 0;padding-left:36px;color:#ffffff;background:transparent url('../img/logo-blog.png') center left no-repeat;font:24px/1.5em "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
 .entry-date{display:inline-block;padding:10px;color:#444444;background:#ffffff;font:14px/1.5em "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}

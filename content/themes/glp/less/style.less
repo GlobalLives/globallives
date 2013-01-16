@@ -329,6 +329,41 @@
 		}
 	}
 
+/*	==========================================================================
+	Participant Detail
+	========================================================================== */
+
+	.single-participant {
+		color: @white;
+		#wrap {
+			background: @black;
+		}
+		#content {
+			position: relative;
+			width: 100%;
+		}		
+		.participant-video-embed {
+			min-height: 640px;
+			max-width: 100%;
+		}
+		.participant-detail-content {
+			margin: 2em 0 0;
+			padding: 1em 0;
+			#gradient > .vertical(@grayDarker,@gray);
+			border-top: 1px solid @gray;
+			.participant-meta {
+			}
+			.participant-content {
+			    margin: 1em 0;
+			}
+			.participant-location {
+				font-size: 0.8em;
+				font-weight: normal;
+			}
+		}
+		
+	}
+
 /* ==========================================================================
    Blog
    ========================================================================== */
