@@ -1,8 +1,10 @@
 <?php while (have_posts()) : the_post(); ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('participant-detail'); ?><?php if (has_post_thumbnail()) : ?> data-bg="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>"<?php endif; ?>>
-	<div class="participant-detail-video container">
-	    <iframe class="participant-video-embed span12" src="http://www.youtube.com/embed/<?php the_field('summary_video'); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0" allowfullscreen="" frameborder="0"></iframe>
-	    <div class="participant-video-buttons span12">[SHARE] [EMBED] [ENQUEUE] [DOWNLOAD]</div>
+<article id="post-<?php the_ID(); ?>" <?php post_class('participant-detail'); ?>>
+	<div id="stage" class="participant-detail-video container">
+		<div class="row">
+			<iframe class="participant-video-embed span12" src="http://www.youtube.com/embed/<?php the_field('summary_video'); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0" allowfullscreen="" frameborder="0"></iframe>
+			<div class="participant-video-buttons span12">[SHARE] [EMBED] [ENQUEUE] [DOWNLOAD]</div>
+		</div>
 	</div>
 	
 	<div class="participant-detail-content">
@@ -11,7 +13,7 @@
 	
 	    		<div class="span6">
 	    		    <header>
-	    		    	<h2 class="participant-title"><?php the_title(); ?> <span class="participant-location"><?php the_field('location'); ?></span></h2>
+	    		    	<h2 class="participant-title"><span class="participant-name"><?php the_title(); ?> </span> &mdash; <span class="participant-location"><?php the_field('location'); ?></span></h2>
 	    		    </header>
 	    		    <div class="participant-meta row">
 	    		    	<div class="span3">
@@ -32,8 +34,20 @@
 	    		<div class="span6">
 	    		    <div class="row">
 	    		
-	    		    	<div class="span4">
+	    		    	<div class="participant-clips span4">
 	    		    		<h3><?php _e('Footage','glp'); ?></h3>
+	    		    		<?php foreach( get_field('clips') as $clip ) : ?>
+	    		    			<article class="participant-clip">
+		    		    			<div class="row">
+		    		    				<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>"><?php echo get_the_post_thumbnail( $clip->ID ); ?></div>
+		    		    				<div class="span2">
+	    		    						<h5 class="clip-title"><?php echo $clip->post_title; ?></h5>
+	    		    						<p class="clip-duration"><?php the_field('duration',$clip->ID); ?></p>
+	    		    						<a class="" href=""><i class="icon icon-white icon-arrow-down"></i> Download</a> <a class="" href=""><i class="icon icon-white icon-plus"></i> Queue</a>
+	    		    					</div>
+		    		    			</div>
+	    		    			</article>
+	    		    		<?php endforeach; ?>
 	    		    	</div>
 	    		
 	    		    	<div class="span2">

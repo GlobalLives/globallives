@@ -54,6 +54,19 @@ $(function() {
 	$('#popover .close').click( function() {
 		$(this).parent().hide();
 	});
+
+/* Participant Detail */
+
+	$('.participant-clip .clip-thumbnail').click(function() {
+		var clip_id = $(this).data('clip-id');
+		$('#stage').load('/wp/wp-admin/admin-ajax.php',
+			{ action: 'get_participant_clip', clip_id: clip_id },
+			function() {
+				$(this).addClass('active');
+			}
+		);
+		
+	});
 		
 /* Blog* */
 	

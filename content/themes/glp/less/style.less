@@ -10,12 +10,26 @@
 	}
 
 	@font-face {
-		font-family: "Montreal Serial";
+		font-family: "Montreal Serial Bold";
 		src: url("../fonts/Montreal Serial-Bold.otf");
-		font-weight: bold;
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Montreal Serial Light";
+		src: url("../fonts/Montreal Serial-Light.otf");
+		font-weight: normal;
 		font-style: normal;
 	}
 	
+	@font-face {
+		font-family: "Montreal Serial Medium";
+		src: url("../fonts/Montreal Serial-Medium.otf");
+		font-weight: normal;
+		font-style: normal;
+	}
+			
 	@import "imports";
 	
 
@@ -308,15 +322,31 @@
 			display: none;
 			position: absolute;
 			top: 50%; left: 50%;
-			padding: 0.5em;
+			padding: 0 1em;
 			background: @grayLighter;
+			border: 1px solid @white;
 			.border-radius(@borderRadiusSmall);
-			.box-shadow(0 5px 5px rgba(0,0,0,0.5));
+			.box-shadow(0 25px 25px rgba(0,0,0,0.25));
+			font-size: 12px;
+			h3 {
+				margin: 0; padding: 0;
+				font-size: 16px;
+				font-weight: normal;
+			}
+			.popover-name {
+				color: @black;
+				font-weight: bold;
+			}
 			.popover-location {
 				font-weight: normal;
 			}
 			.popover-thumbnail {
-				border: 10px solid @white;
+				margin-bottom: 1em;
+				border: 5px solid @white;
+				.box-shadow(0 2px 2px rgba(0,0,0,0.5););
+			}
+			.btn {
+				margin-top: 1em;
 			}
 			.close {
 				margin: 0; padding: 0;
@@ -375,19 +405,50 @@
 		.participant-detail-content {
 			margin: 2em 0 0;
 			padding: 1em 0;
-			#gradient > .vertical(@grayDarker,@gray);
+			#gradient > .vertical(@grayDarker,@grayDark);
 			border-top: 1px solid @gray;
+			text-shadow: 0 0 1px #000;
+			.participant-title {
+				font-weight: normal;
+				font-size: 24px;
+				line-height: 48px;
+				border-bottom: 1px dotted @gray;
+			}
+			.participant-name {
+				font-weight: bold;
+			}
 			.participant-meta {
 			}
 			.participant-content {
 			    margin: 1em 0;
 			}
 			.participant-location {
-				font-size: 0.8em;
-				font-weight: normal;
+				font-weight: light;
 			}
 		}
-		
+		.participant-clips {
+			h3 {
+				line-height: 48px;
+				border-bottom: 1px dotted @gray;
+			}
+			.participant-clip {
+				padding: 1em 0;
+				border-bottom: 1px dotted @gray;
+				.clip-thumbnail {
+					position: relative;
+					img {
+						border: 5px solid @white;
+					}
+					&:after {
+						position: absolute;
+						top: 40%; left: 45%;
+						color: @white;
+						font-size: 36px;
+						content: '►';
+					}	
+				}
+			}
+		}
 	}
 
 /* ==========================================================================

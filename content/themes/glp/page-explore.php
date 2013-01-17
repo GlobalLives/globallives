@@ -1,14 +1,15 @@
 <div id="mapview"></div>
 <div id="popover" class="span4">
-    <h3><span class="popover-name"></span> &mdash; <span class="popover-location"></h3>
-    <div class="row">
-    	<div class="span1"><img class="popover-thumbnail" src=""></div>
-    	<div class="span3">
-    		<b><?php _e('Occupation'); ?>:</b> <span class="popover-occupation"></span><br>
-    		<b><?php _e('Date of Birth'); ?>:</b> <span class="popover-dob"></span>
-    	</div>
-    </div>
-    <button type="button" class="close">&times;</button>
+	<h3><span class="popover-name"></span> &mdash; <span class="popover-location"></h3>
+	<div class="row">
+		<div class="span1"><img class="popover-thumbnail" src=""></div>
+		<div class="span3">
+			<b><?php _e('Occupation'); ?>:</b> <span class="popover-occupation"></span><br>
+			<b><?php _e('Date of Birth'); ?>:</b> <span class="popover-dob"></span>
+			<p><a class="btn popover-permalink" href="">&#9658; <?php _e('Full Story','glp'); ?></a></p>
+		</div>
+	</div>
+	<button type="button" class="close">&times;</button>
 </div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -29,7 +30,8 @@ var data,
 <?php $participants = get_posts(array( 'post_type' => 'participant' )); foreach ($participants as $participant) : ?>
 		{
 			name: '<?php echo $participant->post_title; ?>',
-			src: '<?php the_participant_thumbnail_url( $participant->ID ); ?>',
+			permalink: '<?php echo get_permalink($participant->ID); ?>',
+			thumbnail: '<?php the_participant_thumbnail_url( $participant->ID ); ?>',
 			occupation: '<?php the_field('occupation', $participant->ID); ?>',
 			dob: '<?php the_field('dob', $participant->ID); ?>',
 			location: '<?php the_field('location', $participant->ID); ?>',
@@ -47,7 +49,8 @@ var data,
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
 		$('#popover .popover-dob').text(d.dob);
-		$('#popover .popover-thumbnail').attr('src', d.src);
+		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
+		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover').show();
 	}
 	 

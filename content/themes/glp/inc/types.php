@@ -25,10 +25,9 @@
 	Participants
 	========================================================================== */
 
-	add_action( 'init', 'create_custom_post_types' );
-	function create_custom_post_types() {
+	add_action( 'init', 'create_participant_post_type' );
+	function create_participant_post_type() {
    
-		# Participants
 		register_post_type( 'participant', array(
 			'labels' => array(
 			    'name'			=> __( 'Participants' ),
@@ -54,7 +53,27 @@
 	}
 
 /*	==========================================================================
+	Videos
+	========================================================================== */
+
+	add_action( 'init', 'create_clip_post_type' );
+	function create_clip_post_type() {
+   
+		register_post_type( 'clip', array(
+			'labels' => array(
+			    'name'			=> __( 'Clips' ),
+			    'singular_name'	=> __( 'Clip' )
+			),
+			'public' => true,
+			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
+			'menu_position' => 5,
+			'has_archive' => false
+		));
+	}
+	
+/*	==========================================================================
 	Users
 	========================================================================== */
+
 
 	

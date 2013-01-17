@@ -1,4 +1,4 @@
-@font-face{font-family:"Montreal Serial";src:url("../fonts/Montreal Serial-Regular.otf");font-weight:normal;font-style:normal;}@font-face{font-family:"Montreal Serial";src:url("../fonts/Montreal Serial-Bold.otf");font-weight:bold;font-style:normal;}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
+@font-face{font-family:"Montreal Serial";src:url("../fonts/Montreal Serial-Regular.otf");font-weight:normal;font-style:normal;}@font-face{font-family:"Montreal Serial Bold";src:url("../fonts/Montreal Serial-Bold.otf");font-weight:normal;font-style:normal;}@font-face{font-family:"Montreal Serial Light";src:url("../fonts/Montreal Serial-Light.otf");font-weight:normal;font-style:normal;}@font-face{font-family:"Montreal Serial Medium";src:url("../fonts/Montreal Serial-Medium.otf");font-weight:normal;font-style:normal;}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
 audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
 audio:not([controls]){display:none;}
 html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
@@ -806,8 +806,11 @@ body{height:100%;background-color:#c2c2c2;background-image:-moz-linear-gradient(
 .participant-summary .participant-content{margin:1em 0;font-size:0.8em;}
 .participant-summary .participant-location{font-weight:normal;}
 .page-explore #content{position:relative;width:100%;}
-.page-explore #popover{display:none;position:absolute;top:50%;left:50%;padding:0.5em;background:#dddddd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);box-shadow:0 5px 5px rgba(0, 0, 0, 0.5);}.page-explore #popover .popover-location{font-weight:normal;}
-.page-explore #popover .popover-thumbnail{border:10px solid #ffffff;}
+.page-explore #popover{display:none;position:absolute;top:50%;left:50%;padding:0 1em;background:#dddddd;border:1px solid #ffffff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 25px 25px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 25px 25px rgba(0, 0, 0, 0.25);box-shadow:0 25px 25px rgba(0, 0, 0, 0.25);font-size:12px;}.page-explore #popover h3{margin:0;padding:0;font-size:16px;font-weight:normal;}
+.page-explore #popover .popover-name{color:#000000;font-weight:bold;}
+.page-explore #popover .popover-location{font-weight:normal;}
+.page-explore #popover .popover-thumbnail{margin-bottom:1em;border:5px solid #ffffff;-webkit-box-shadow:0 2px 2px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 2px 2px rgba(0, 0, 0, 0.5);box-shadow:0 2px 2px rgba(0, 0, 0, 0.5);}
+.page-explore #popover .btn{margin-top:1em;}
 .page-explore #popover .close{margin:0;padding:0;height:25px;width:25px;position:absolute;top:5px;right:5px;color:#555555;background:#ffffff;border:none;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;line-height:25px;}
 #mapview{position:relative;width:100%;height:640px;background:#555555;}#mapview #countries{fill:#222222;stroke:#555555;stroke-width:1;}
 #mapview .marker{fill:#555555;cursor:pointer;}#mapview .marker.africa{fill:#f89406;}
@@ -820,9 +823,13 @@ body{height:100%;background-color:#c2c2c2;background-image:-moz-linear-gradient(
 .single-participant{color:#ffffff;}.single-participant #wrap{background:#000000;}
 .single-participant #content{position:relative;width:100%;}
 .single-participant .participant-video-embed{min-height:640px;max-width:100%;}
-.single-participant .participant-detail-content{margin:2em 0 0;padding:1em 0;background-color:#363636;background-image:-moz-linear-gradient(top, #222222, #555555);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#555555));background-image:-webkit-linear-gradient(top, #222222, #555555);background-image:-o-linear-gradient(top, #222222, #555555);background-image:linear-gradient(to bottom, #222222, #555555);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff555555', GradientType=0);border-top:1px solid #555555;}
+.single-participant .participant-detail-content{margin:2em 0 0;padding:1em 0;background-color:#303030;background-image:-moz-linear-gradient(top, #222222, #444444);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#444444));background-image:-webkit-linear-gradient(top, #222222, #444444);background-image:-o-linear-gradient(top, #222222, #444444);background-image:linear-gradient(to bottom, #222222, #444444);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff444444', GradientType=0);border-top:1px solid #555555;text-shadow:0 0 1px #000;}.single-participant .participant-detail-content .participant-title{font-weight:normal;font-size:24px;line-height:48px;border-bottom:1px dotted #555555;}
+.single-participant .participant-detail-content .participant-name{font-weight:bold;}
 .single-participant .participant-detail-content .participant-content{margin:1em 0;}
-.single-participant .participant-detail-content .participant-location{font-size:0.8em;font-weight:normal;}
+.single-participant .participant-detail-content .participant-location{font-weight:light;}
+.single-participant .participant-clips h3{line-height:48px;border-bottom:1px dotted #555555;}
+.single-participant .participant-clips .participant-clip{padding:1em 0;border-bottom:1px dotted #555555;}.single-participant .participant-clips .participant-clip .clip-thumbnail{position:relative;}.single-participant .participant-clips .participant-clip .clip-thumbnail img{border:5px solid #ffffff;}
+.single-participant .participant-clips .participant-clip .clip-thumbnail:after{position:absolute;top:40%;left:45%;color:#ffffff;font-size:36px;content:'►';}
 .blog #wrap,.single-post #wrap{background-repeat:no-repeat;background-size:cover;}
 .blog-title{margin:1em 0;padding-left:36px;color:#ffffff;background:transparent url('../img/logo-blog.png') center left no-repeat;font:24px/1.5em "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
 .entry-date{display:inline-block;padding:10px;color:#444444;background:#ffffff;font:14px/1.5em "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
