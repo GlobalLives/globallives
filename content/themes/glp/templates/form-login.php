@@ -4,5 +4,5 @@
 	<button type="submit" class="btn">Go</button>
 
 	<input type="hidden" name="rememberme" value="forever" />
-	<input type="hidden" name="redirect_to" value="http://globallives.dev/" />
+	<input type="hidden" name="redirect_to" value="<?php the_permalink(); ?>" />
 </form>
