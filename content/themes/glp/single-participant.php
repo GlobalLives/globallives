@@ -3,7 +3,7 @@
 	<div id="stage" class="participant-detail-video container">
 		<div class="row">
 			<iframe class="participant-video-embed span12" src="http://www.youtube.com/embed/<?php the_field('summary_video'); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0" allowfullscreen="" frameborder="0"></iframe>
-			<div class="participant-video-buttons span12">[SHARE] [EMBED] [ENQUEUE] [DOWNLOAD]</div>
+			<div class="participant-video-buttons span12"><a class="btn">[SHARE]</a> <a class="btn">[EMBED]</a> <a class="btn">[ENQUEUE]</a> <a class="btn">[DOWNLOAD]</a></div>
 		</div>
 	</div>
 	
@@ -35,7 +35,7 @@
 	    		    <div class="row">
 	    		
 	    		    	<div class="participant-clips span4">
-	    		    		<h3><?php _e('Footage','glp'); ?></h3>
+	    		    		<h3><?php _e('Footage','glp'); ?> (<?php echo count(get_field('clips')); ?>)</h3>
 	    		    		<?php foreach( get_field('clips') as $clip ) : ?>
 	    		    			<article class="participant-clip">
 		    		    			<div class="row">
@@ -43,7 +43,7 @@
 		    		    				<div class="span2">
 	    		    						<h5 class="clip-title"><?php echo $clip->post_title; ?></h5>
 	    		    						<p class="clip-duration"><?php the_field('duration',$clip->ID); ?></p>
-	    		    						<a class="" href=""><i class="icon icon-white icon-arrow-down"></i> Download</a> <a class="" href=""><i class="icon icon-white icon-plus"></i> Queue</a>
+	    		    						<?php if ($download_url = get_field('download_url',$clip->ID)) : ?><a class="" href="<?php echo $download_url; ?>"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?> <a class="" href=""><i class="icon icon-white icon-plus"></i> Queue</a>
 	    		    					</div>
 		    		    			</div>
 	    		    			</article>
@@ -51,7 +51,13 @@
 	    		    	</div>
 	    		
 	    		    	<div class="span2">
-	    		    		<h3><?php _e('Filter Clips','glp'); ?></h3>
+	    		    		<div class="participant-filter-clips">
+	    		    		<h4><?php _e('Filter Clips','glp'); ?></h4>
+	    		    		<h5><?php _e('By Popular Tags','glp'); ?></h5>
+	    		    		<?php foreach( get_participant_clip_tags(get_the_ID()) as $clip_tag ) : ?>
+	    		    			<a><?php echo $clip_tag->name; ?></a>
+	    		    		<?php endforeach; ?>
+	    		    		</div>	    		    		
 	    		    	</div>
 	    		    </div>
 	    		</div>

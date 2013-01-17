@@ -51,9 +51,18 @@
 	function the_participant_thumbnail_url( $participant_id ) {
 		echo get_participant_thumbnail_url( $participant_id );
 	}
+	
+	function get_participant_clip_tags( $participant_id ) {
+		$clip_tags = array();
+		$clips = get_field('clips',$participant_id);
+		foreach( $clips as $clip ) {
+			$clip_tags += get_the_terms($clip->ID, 'post_tag');
+		}
+		return $clip_tags;
+	}
 
 /*	==========================================================================
-	Videos
+	Clips
 	========================================================================== */
 
 	add_action( 'init', 'create_clip_post_type' );
@@ -67,7 +76,8 @@
 			'public' => true,
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
-			'has_archive' => false
+			'has_archive' => false,
+			'taxonomies' => array('post_tag')
 		));
 	}
 	
