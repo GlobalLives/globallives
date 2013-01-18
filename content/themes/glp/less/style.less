@@ -17,7 +17,13 @@
 
 		text-rendering: optimizeLegibility;
 	}
-
+	
+	hr {
+		width: 100%;
+		border: 0;
+		border-top: 1px dotted @grayLight;
+	}
+	
 	#wrap {
 		background: @grayLight url('../img/bg.jpg') center top no-repeat;
 		background-attachment: fixed;
@@ -283,7 +289,7 @@
 	}
 
 /*	==========================================================================
-	Home
+	Explore the Collection
 	========================================================================== */
 
 	.page-explore {
@@ -467,15 +473,75 @@
 		}
 	}
 
-/* ==========================================================================
-   Blog
-   ========================================================================== */
 
-.hentry header { }
-.hentry time { }
-.hentry p.byline { }
-.hentry .entry-content { }
-.hentry footer { }
+/*	==========================================================================
+	Member Profile
+	========================================================================== */
+
+	.page-profile, .author {
+		
+		.profile-header {
+			position: relative;
+			color: @white;
+			background: @orange;
+			.border-radius(@borderRadiusLarge @borderRadiusLarge 0 0);
+			.profile-header-inner {
+				padding: 10px;
+			}
+			.profile-location {
+				font: 24px @headingsFontFamily;
+			}
+			.profile-name {
+				margin: 0; padding: 0 200px 0 0;
+				font-weight: normal;
+			}
+			.profile-username {
+				position: absolute;
+				bottom: 10px; right: 10px;
+				color: darken(@orange,15%);
+				font-size: 1.2em;
+			}
+		}
+		.profile-container {
+			margin-bottom: 5em;
+			background: @white url('../img/logo-coda.png') bottom center no-repeat;
+			.border-radius(@borderRadiusLarge 0 @borderRadiusLarge @borderRadiusLarge);
+			.profile-siderbar-inner {
+				margin: 0; padding: 2em 0;
+			}
+			.profile-thumbnail {
+				margin: 0 0 1em 0;
+				height: 200px; width: 100%;
+				overflow: hidden;
+				img {					
+					width: 100%;
+					height: auto;
+				}
+			}
+			.profile-body-inner {
+				padding: 2em 1em 2em 0;
+			}
+			.profile-activity {
+				margin: 0; padding: 0;
+				list-style: none;
+				.activity-thumbnail {
+					img { .border-radius(50%); }
+				}
+				.activity-meta {
+					margin: 0 0 1em;
+					color: @grayLight;
+				}
+				.activity-username, .activity-post {
+					font-weight: bold;
+				}
+			}
+		}
+		
+	}
+
+/*	==========================================================================
+	Blog
+	========================================================================== */
 
 	.blog #wrap, .single-post #wrap {
 		background-repeat: no-repeat;

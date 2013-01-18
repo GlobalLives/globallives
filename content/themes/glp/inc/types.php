@@ -85,5 +85,25 @@
 	Users
 	========================================================================== */
 
+	add_action('init', 'set_profile_base');
+	function set_profile_base() {
+		global $wp_rewrite;
+		$wp_rewrite->author_base = 'profile';
+	}
 
-	
+	function get_profile_activities( $user_id ) {
+		$activities = array();
+		// First get comments made by the user
+		$comments = get_comments(array( 'user_id' => $user_id ));
+		foreach ($comments as $comment) {
+			$activity = array(
+				'activity_type' => 'comment',
+				'activity_description' => __('wrote a comment on','glp') . ' <span class="activity-post">'.get_the_title($comment->comment_post_ID).'</span>',
+				'activity_user' => $user_id,
+				'activity_content' => $comment->comment_content,
+				'activity_timestamp' => strtotime($comment->comment_date)
+			);
+			$activities[] = $activity;
+		}
+		return $activities;
+	}
