@@ -93,8 +93,9 @@
 
 	function get_profile_activities( $user_id ) {
 		$activities = array();
+		$user = get_userdata( $user_id );
 		// First get comments made by the user
-		$comments = get_comments(array( 'user_id' => $user_id ));
+		$comments = get_comments(array( 'user_id' => $user_id, 'status' => 'approve' ));
 		foreach ($comments as $comment) {
 			$activity = array(
 				'activity_type' => 'comment',
@@ -104,6 +105,21 @@
 				'activity_timestamp' => strtotime($comment->comment_date)
 			);
 			$activities[] = $activity;
+		}
+		
+		// Add mentions
+		$mentions = get_comments(array( 'status' => 'approve' ));
+		foreach ($mentions as $mention) {
+			if ( strpos($mention->comment_content, '@'.$user->user_login) === 0 ) {
+				$activity = array(
+					'activity_type' => 'mention',
+					'activity_description' => __('mentioned this user on','glp') . ' <span class="activity-post">'.get_the_title($mention->comment_post_ID).'</span>',
+					'activity_user' => $mention->user_id,
+					'activity_content' => $mention->comment_content,
+					'activity_timestamp' => strtotime($mention->comment_date)
+				);
+				$activities[] = $activity;
+			}
 		}
 		return $activities;
 	}
