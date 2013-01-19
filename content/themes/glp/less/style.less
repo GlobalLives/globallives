@@ -494,6 +494,7 @@
 			.profile-name {
 				margin: 0; padding: 0 200px 0 0;
 				font-weight: normal;
+				font-size: 48px;
 			}
 			.profile-username {
 				position: absolute;
@@ -501,6 +502,14 @@
 				color: darken(@orange,15%);
 				font-size: 1.2em;
 			}
+			.edit-profile {
+				position: absolute;
+				top: 10px; right: 10px;
+				color: @white;
+				background: transparent;
+				text-shadow: none;
+			}
+
 		}
 		.profile-container {
 			margin-bottom: 5em;
@@ -537,6 +546,32 @@
 			}
 		}
 		
+		.profile-edit-form {
+			input,textarea {
+				display: block;
+				margin: 5px 0; padding: 5px !important;
+				background: rgba(128,128,128,0.25);
+				border: none;
+			}
+			.profile-name, .profile-location {
+				width: 80%;
+			}
+			.profile-bio {
+				width: 80%;
+				height: 200px;
+			}
+			.profile-website {
+				width: 80%%;
+			}
+			.checkbox {
+				margin: 0; padding: 0;
+				clear: left;
+				input {
+					display: inline;
+					margin-right: 1em;
+				}
+			}
+		}
 	}
 
 /*	==========================================================================

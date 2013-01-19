@@ -1,10 +1,11 @@
-<?php global $profile; ?>
+<?php global $profile, $current_user; ?>
 <article id="user-<?php echo $profile->ID; ?>" class="container">
 	<header class="row">
 		<div class="profile-header span9 offset3">
 			<div class="profile-header-inner">
+				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile btn" href="<?php the_permalink(); ?>?profile-edit=1"><i class="icon icon-white icon-pencil"></i> <?php _e('Edit profile','glp'); ?></a><?php endif; ?>
 				<h2 class="profile-location"><?php the_field('location','user_'.$profile->ID); ?></h2>
-				<h1 class="profile-name"><?php echo $profile->display_name; ?></h1>
+				<h1 class="profile-name"><?php echo $profile->nickname; ?></h1>
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
 			</div>
 		</div>
@@ -33,7 +34,7 @@
 			<div class="profile-body-inner">
 				<h4><?php _e('About','glp'); ?></h4>
 				<p class="profile-bio"><?php echo $profile->description; ?></p>
-				<?php if ($profile->user_url) : ?><p class="profile-website"><b><?php echo $profile->display_name; ?><?php _e("'s website",'glp'); ?>:</b><br><?php echo $profile->user_url; ?></p><?php endif; ?>
+				<?php if ($profile->user_url) : ?><p class="profile-website"><b><?php echo $profile->nickname; ?><?php _e("'s website",'glp'); ?>:</b><br><?php echo $profile->user_url; ?></p><?php endif; ?>
 				<hr>
 				<p class="profile-activity-buttons">
 					<span class="span2"><?php _e('All Activity','glp'); ?></span>
