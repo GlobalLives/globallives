@@ -33,36 +33,39 @@ add_action( 'widgets_init', 'create_custom_sidebars' );
 function create_custom_sidebars() {
 
 	register_sidebar(array(
-
 		'name' => __( 'Footer Sidebar', 'glp' ),
 		'id' => 'sidebar-footer',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h1 class="widget-title">',
 		'after_title' => '</h1>'
-
 	));
 	
 	register_sidebar(array(
-
 		'name' => __( 'Blog Sidebar', 'glp' ),
 		'id' => 'sidebar-blog',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h4 class="widget-title">',
 		'after_title' => '</h4>'
-
 	));
 	
 	register_sidebar(array(
-
 		'name' => __( 'Modules Sidebar', 'glp' ),
 		'id' => 'sidebar-modules',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s span4"><div class="widget-inner">',
 		'after_widget' => '</div></aside>',
 		'before_title' => '<h4 class="widget-title">',
 		'after_title' => '</h4>'
-
+	));
+	
+	register_sidebar(array(
+		'name' => __( 'Events Sidebar', 'glp' ),
+		'id' => 'sidebar-events',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s span4"><div class="widget-inner">',
+		'after_widget' => '</div></aside>',
+		'before_title' => '<h4 class="widget-title">',
+		'after_title' => '</h4>'
 	));
 
 }
