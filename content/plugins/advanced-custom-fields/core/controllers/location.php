@@ -144,15 +144,17 @@ class acf_location
 		
 
 		// WPML
-		if( $options['lang'] )
+		if( defined('ICL_LANGUAGE_CODE') )
 		{
-			global $sitepress;
-			$sitepress->switch_lang( $options['lang'] );
+			$options['lang'] = ICL_LANGUAGE_CODE;
+			
+			//global $sitepress;
+			//$sitepress->switch_lang( $options['lang'] );
 		}
 		
 		
 		// find all acf objects
-		$acfs = $this->parent->get_field_groups();
+		$acfs = apply_filters('acf/get_field_groups', false);
 		
 		
 		// blank array to hold acfs
@@ -271,15 +273,22 @@ class acf_location
 			return false;
 		}
 		
-		$post = $options['post_id'];
-		        
+		
+		// translate $rule['value']
+		// - this variable will hold the origional post_id, but $options['post_id'] will hold the translated version
+		//if( function_exists('icl_object_id') )
+		//{
+		//	$rule['value'] = icl_object_id( $rule['value'], $options['post_type'], true );
+		//}
+		
+		
         if($rule['operator'] == "==")
         {
-        	$match = ( $post == $rule['value'] );
+        	$match = ( $options['post_id'] == $rule['value'] );
         }
         elseif($rule['operator'] == "!=")
         {
-        	$match = ( $post != $rule['value'] );
+        	$match = ( $options['post_id'] != $rule['value'] );
         }
         
         return $match;
@@ -435,14 +444,26 @@ class acf_location
 		}
 		
 		
+		if( ! $page_template )
+		{
+			$post_type = $options['post_type'];
+
+			if( !$post_type )
+			{
+				$post_type = get_post_type( $options['post_id'] );
+			}
+			
+			if( $post_type == 'page' )
+			{
+				$page_template = "default";
+			}
+		}
+		
+		
+		
         if($rule['operator'] == "==")
         {
         	$match = ( $page_template == $rule['value'] );
-        	
-        	if( $rule['value'] == "default" && !$page_template )
-        	{
-        		$match = true;
-        	}
         }
         elseif($rule['operator'] == "!=")
         {
@@ -479,6 +500,24 @@ class acf_location
 				$cats[] = $cat->term_id;
 			}
 		}
+		
+		$post_type = $options['post_type'];
+
+		if( !$post_type )
+		{
+			$post_type = get_post_type( $options['post_id'] );
+		}
+		
+		$taxonomies = get_object_taxonomies( $post_type );
+	
+			
+		
+		// If no $cats, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
+		if( in_array('category', $taxonomies) && empty($cats) )
+		{
+			$cats[] = '1';
+		}
+		
 
         if($rule['operator'] == "==")
         {
@@ -637,7 +676,13 @@ class acf_location
 				return false;
 			}
 			
-			$post_type = get_post_type( $options['post_id'] );
+			$post_type = $options['post_type'];
+
+			if( !$post_type )
+			{
+				$post_type = get_post_type( $options['post_id'] );
+			}
+			
 			$taxonomies = get_object_taxonomies( $post_type );
 			
         	if($taxonomies)
@@ -654,6 +699,13 @@ class acf_location
 					}
 				}
 			}
+		}
+		
+		
+		// If no $cats, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
+		if( in_array('category', $taxonomies) && empty($terms) )
+		{
+			$terms[] = '1';
 		}
 
         
@@ -795,10 +847,10 @@ class acf_location
 	
 	function rule_match_ef_media( $match, $rule, $options )
 	{
-		global $wp_version;
+		global $pagenow;
 
 		
-		if( version_compare($wp_version, '3.5', '>=') )
+		if( $pagenow == 'post.php' )
 		{
 			// in 3.5, the media rule should check the post type
 			$rule['param'] = 'post_type';

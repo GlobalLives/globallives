@@ -89,7 +89,7 @@ class acf_Repeater extends acf_Field
 				foreach( $field['sub_fields'] as $sub_field)
 				{
 					$sub_value = isset($sub_field['default_value']) ? $sub_field['default_value'] : false;
-					$field['value'][$i][ $sub_field['name'] ] = $sub_value;
+					$field['value'][$i][ $sub_field['key'] ] = $sub_value;
 				}
 				
 			}
@@ -114,7 +114,7 @@ class acf_Repeater extends acf_Field
 		foreach( $field['sub_fields'] as $sub_field)
 		{
 			$sub_value = isset($sub_field['default_value']) ? $sub_field['default_value'] : false;
-			$field['value']['acfcloneindex'][ $sub_field['name'] ] = $sub_value;
+			$field['value']['acfcloneindex'][ $sub_field['key'] ] = $sub_value;
 		}
 
 ?>
@@ -207,13 +207,13 @@ class acf_Repeater extends acf_Field
 				<?php
 				
 				// add value
-				$sub_field['value'] = isset($value[$sub_field['name']]) ? $value[$sub_field['name']] : '';
+				$sub_field['value'] = isset($value[$sub_field['key']]) ? $value[$sub_field['key']] : '';
 					
 				// add name
 				$sub_field['name'] = $field['name'] . '[' . $i . '][' . $sub_field['key'] . ']';
 					
 				// create field
-				$this->parent->create_field($sub_field);
+				do_action('acf/create_field', $sub_field);
 				
 				?>
 			</td>
@@ -378,7 +378,7 @@ class acf_Repeater extends acf_Field
 									</td>
 									<td>
 										<?php 
-										$this->parent->create_field(array(
+										do_action('acf/create_field', array(
 											'type'	=>	'text',
 											'name'	=>	'fields['.$key.'][sub_fields]['.$sub_field['key'].'][label]',
 											'value'	=>	$sub_field['label'],
@@ -394,7 +394,7 @@ class acf_Repeater extends acf_Field
 									</td>
 									<td>
 										<?php 
-										$this->parent->create_field(array(
+										do_action('acf/create_field', array(
 											'type'	=>	'text',
 											'name'	=>	'fields['.$key.'][sub_fields]['.$sub_field['key'].'][name]',
 											'value'	=>	$sub_field['name'],
@@ -407,7 +407,7 @@ class acf_Repeater extends acf_Field
 									<td class="label"><label><span class="required">*</span><?php _e("Field Type",'acf'); ?></label></td>
 									<td>
 										<?php 
-										$this->parent->create_field(array(
+										do_action('acf/create_field', array(
 											'type'	=>	'select',
 											'name'	=>	'fields['.$key.'][sub_fields]['.$sub_field['key'].'][type]',
 											'value'	=>	$sub_field['type'],
@@ -427,7 +427,7 @@ class acf_Repeater extends acf_Field
 											$sub_field['instructions'] = "";
 										}
 										
-										$this->parent->create_field(array(
+										do_action('acf/create_field', array(
 											'type'	=>	'text',
 											'name'	=>	'fields['.$key.'][sub_fields]['.$sub_field['key'].'][instructions]',
 											'value'	=>	$sub_field['instructions'],
@@ -449,7 +449,7 @@ class acf_Repeater extends acf_Field
 											$sub_field['column_width'] = "";
 										}
 										
-										$this->parent->create_field(array(
+										do_action('acf/create_field', array(
 											'type'	=>	'number',
 											'name'	=>	'fields['.$key.'][sub_fields]['.$sub_field['key'].'][column_width]',
 											'value'	=>	$sub_field['column_width'],
@@ -500,7 +500,7 @@ class acf_Repeater extends acf_Field
 	</td>
 	<td>
 		<?php 
-		$this->parent->create_field(array(
+		do_action('acf/create_field', array(
 			'type'	=>	'text',
 			'name'	=>	'fields['.$key.'][row_min]',
 			'value'	=>	$field['row_min'],
@@ -514,7 +514,7 @@ class acf_Repeater extends acf_Field
 	</td>
 	<td>
 		<?php 
-		$this->parent->create_field(array(
+		do_action('acf/create_field', array(
 			'type'	=>	'text',
 			'name'	=>	'fields['.$key.'][row_limit]',
 			'value'	=>	$field['row_limit'],
@@ -528,7 +528,7 @@ class acf_Repeater extends acf_Field
 	</td>
 	<td>
 		<?php 
-		$this->parent->create_field(array(
+		do_action('acf/create_field', array(
 			'type'	=>	'radio',
 			'name'	=>	'fields['.$key.'][layout]',
 			'value'	=>	$field['layout'],
@@ -547,7 +547,7 @@ class acf_Repeater extends acf_Field
 	</td>
 	<td>
 		<?php 
-		$this->parent->create_field(array(
+		do_action('acf/create_field', array(
 			'type'	=>	'text',
 			'name'	=>	'fields['.$key.'][button_label]',
 			'value'	=>	$field['button_label'],
@@ -643,13 +643,10 @@ class acf_Repeater extends acf_Field
 				$total++;
 					
 				// loop through sub fields
-				foreach($field['sub_fields'] as $sub_field)
+				foreach( $field['sub_fields'] as $sub_field )
 				{
 					// get sub field data
 					$v = isset($row[$sub_field['key']]) ? $row[$sub_field['key']] : '';
-					
-					// add to parent value
-					//$parent_value[$i][$sub_field['name']] = $v;
 					
 					// update full name
 					$sub_field['name'] = $field['name'] . '_' . $i . '_' . $sub_field['name'];
@@ -660,6 +657,28 @@ class acf_Repeater extends acf_Field
 			}
 		}
 		
+		
+		/*
+		*  Remove Old Data
+		*
+		*  @credit: http://support.advancedcustomfields.com/discussion/1994/deleting-single-repeater-fields-does-not-remove-entry-from-database
+		*/
+		
+		$old_total = (int) parent::get_value($post_id, $field);
+		
+		if( $old_total > $total )
+		{
+			foreach( $field['sub_fields'] as $sub_field )
+			{
+				for ( $j = $total; $j < $old_total; $j++ )
+				{ 
+					parent::delete_value( $post_id, $field['name'] . '_' . $j . '_' . $sub_field['name'] );
+				}
+			}
+		}
+		
+		
+		// update repeater count
 		parent::update_value($post_id, $field, $total);
 		
 	}
@@ -693,13 +712,10 @@ class acf_Repeater extends acf_Field
 				// loop through sub fields
 				foreach($field['sub_fields'] as $sub_field)
 				{
-					// store name
-					$field_name = $sub_field['name'];
-					
 					// update full name
-					$sub_field['name'] = $field['name'] . '_' . $i . '_' . $field_name;
+					$sub_field['name'] = $field['name'] . '_' . $i . '_' . $sub_field['name'];
 					
-					$values[$i][$field_name] = $this->parent->get_value($post_id, $sub_field);
+					$values[$i][ $sub_field['key'] ] = $this->parent->get_value($post_id, $sub_field);
 				}
 			}
 			

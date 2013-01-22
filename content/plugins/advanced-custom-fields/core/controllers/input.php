@@ -177,12 +177,7 @@ class acf_input
 		
 		
 		// vars
-		$post_id = 0;
-		
-		if( $post )
-		{
-			$post_id = $post->ID;
-		}
+		$post_id = $post ? $post->ID : 0;
 		
 			
 		// get field groups
@@ -207,16 +202,13 @@ class acf_input
 		echo '<style type="text/css">.acf_postbox, .postbox[id*="acf_"] { display: none; }</style>';
 		
 		
-		// Javascript
-		echo '<script type="text/javascript">acf.post_id = ' . $post_id . '; acf.nonce = "' . wp_create_nonce( 'acf_nonce' ) . '";</script>';
-		
-		
 		// add user js + css
 		do_action('acf_head-input');
 		
 		
 		// get acf's
-		$acfs = $this->parent->get_field_groups();
+		$acfs = apply_filters('acf/get_field_groups', false);
+		
 		
 		if($acfs)
 		{
@@ -260,7 +252,7 @@ class acf_input
 	function get_input_style($acf_id = false)
 	{
 		// vars
-		$acfs = $this->parent->get_field_groups();
+		$acfs = apply_filters('acf/get_field_groups', false);
 		$html = "";
 		
 		// find acf
@@ -426,7 +418,7 @@ class acf_input
 		}
 		
 		// get acfs
-		$acfs = $this->parent->get_field_groups();
+		$acfs = apply_filters('acf/get_field_groups', false);
 		if( $acfs )
 		{
 			foreach( $acfs as $acf )
@@ -545,25 +537,66 @@ class acf_input
 	
 	function acf_head_input()
 	{
+		// global
+		global $wp_version, $post;
+		
+				
+		// vars
+		$toolbars = apply_filters( 'acf/fields/wysiwyg/toolbars', array() );
+		$post_id = 0;
+		if( $post )
+		{
+			$post_id = $post->ID;
+		}
 		
 		?>
 <script type="text/javascript">
 
-// admin url
+// vars
+acf.post_id = <?php echo $post_id; ?>;
+acf.nonce = "<?php echo wp_create_nonce( 'acf_nonce' ); ?>";
 acf.admin_url = "<?php echo admin_url(); ?>";
+acf.wp_version = "<?php echo $wp_version; ?>";
 	
-// messages
-acf.text.validation_error = "<?php _e("Validation Failed. One or more fields below are required.",'acf'); ?>";
-acf.text.file_tb_title_add = "<?php _e("Add File to Field",'acf'); ?>";
-acf.text.file_tb_title_edit = "<?php _e("Edit File",'acf'); ?>";
-acf.text.image_tb_title_add = "<?php _e("Add Image to Field",'acf'); ?>";
-acf.text.image_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
-acf.text.relationship_max_alert = "<?php _e("Maximum values reached ( {max} values )",'acf'); ?>";
-acf.text.gallery_tb_title_add = "<?php _e("Add Image to Gallery",'acf'); ?>";
-acf.text.gallery_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
+	
+// text
+acf.validation.text.error = "<?php _e("Validation Failed. One or more fields below are required.",'acf'); ?>";
 
+acf.fields.relationship.max = "<?php _e("Maximum values reached ( {max} values )",'acf'); ?>";
+
+acf.fields.image.text.title_add = "Select Image";
+acf.fields.image.text.title_edit = "Edit Image";
+acf.fields.image.text.button_add = "Select Image";
+
+acf.fields.file.text.title_add = "Select File";
+acf.fields.file.text.title_edit = "Edit File";
+acf.fields.file.text.button_add = "Select File";
+
+acf.fields.gallery.title_add = "<?php _e("Add Image to Gallery",'acf'); ?>";
+acf.fields.gallery.title_edit = "<?php _e("Edit Image",'acf'); ?>";
+
+
+// WYSIWYG
+<?php 
+
+if( is_array($toolbars) ):
+	foreach( $toolbars as $label => $rows ):
+		$name = sanitize_title( $label );
+		$name = str_replace('-', '_', $name);
+	?>
+acf.fields.wysiwyg.toolbars.<?php echo $name; ?> = {};
+		<?php if( is_array($rows) ): 
+			foreach( $rows as $k => $v ): ?>
+acf.fields.wysiwyg.toolbars.<?php echo $name; ?>.theme_advanced_buttons<?php echo $k; ?> = '<?php echo implode(',', $v); ?>';
+			<?php endforeach; 
+		endif;
+	endforeach;
+endif;
+
+?>
 </script>
 		<?php
+		
 		
 		foreach($this->parent->fields as $field)
 		{
@@ -591,7 +624,7 @@ acf.text.gallery_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
 			'farbtastic',
 			'thickbox',
 			'media-upload',
-			'acf-input-actions',
+			'acf-input',
 			'acf-datepicker',	
 		));
 
@@ -599,6 +632,13 @@ acf.text.gallery_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
 		foreach($this->parent->fields as $field)
 		{
 			$field->admin_print_scripts();
+		}
+		
+		
+		// 3.5 media gallery
+		if( function_exists('wp_enqueue_media') && !did_action( 'wp_enqueue_media' ))
+		{
+			wp_enqueue_media();
 		}
 	}
 	
@@ -661,17 +701,12 @@ acf.text.gallery_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
 		?>
 <script type="text/javascript">
 
-	// reset global
-	self.parent.acf_edit_attachment = null;
-	
 	// remove tb
 	self.parent.tb_remove();
 	
 </script>
 </head>
 <body>
-	
-	<div class="updated" id="message"><p><?php _e("Attachment updated",'acf'); ?>.</div>
 	
 </body>
 </html
@@ -713,6 +748,7 @@ acf.text.gallery_tb_title_edit = "<?php _e("Edit Image",'acf'); ?>";
 #adminmenuback,
 #adminmenuwrap,
 #footer,
+#wpfooter,
 #media-single-form > .submit:first-child,
 #media-single-form td.savesend,
 .add-new-h2 {
