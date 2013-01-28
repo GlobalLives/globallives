@@ -22,7 +22,8 @@
 			<a class="btn" href="<?php the_permalink(); ?>">&#9658; <?php _e('Full Story','glp'); ?></a>
 		</div>
 		<div class="span8">
-			<iframe src="http://www.youtube.com/embed/<?php the_field('summary_video'); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0" height="405" width="720" allowfullscreen="" frameborder="0"></iframe>
+			<?php $summary_videos = get_field('summary_video'); ?>
+			<iframe src="http://www.youtube.com/embed/<?php the_field('youtube_id', $summary_videos[0]->ID); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0" height="405" width="720" allowfullscreen="" frameborder="0"></iframe>
 			[SHARE] [QUEUE] [DOWNLOAD]
 		</div>
 	    </div>
