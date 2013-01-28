@@ -16,7 +16,9 @@
 	<div class="posts-inner row">
 
 		<div class="span3">
+			<div class="sidebar-blog">
 			<?php dynamic_sidebar('sidebar-blog'); ?>
+			</div>
 		</div>
 
 		<div class="span9">

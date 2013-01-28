@@ -826,7 +826,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #banner #nav-utility .container{position:relative;}
 #banner #nav-utility .nav-tabs{position:absolute;bottom:0;right:0;margin:0;padding:0;float:right;}#banner #nav-utility .nav-tabs a{padding:1em 2em 0.5em;background:#dddddd;font:13.6px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}#banner #nav-utility .nav-tabs a i{position:relative;margin:-2px 0 0 -2px;}
 #banner #nav-utility .nav-tabs li.active a{background:#ffffff;}
-.local-navigation-menu{margin:0;padding:0;list-style:none;}.local-navigation-menu li{border-bottom:1px dotted #999999;}.local-navigation-menu li:last-child{border:none;}
+.local-navigation-menu{margin:0 1em;padding:0;list-style:none;}.local-navigation-menu li{border-bottom:1px dotted #999999;}.local-navigation-menu li:last-child{border:none;}
 .local-navigation-menu a{display:block;padding:1em 0;color:#999999;}.local-navigation-menu a:hover{color:#555555;text-decoration:none;}
 .local-navigation-menu li.current_page_item a{color:#555555;}
 .page-excerpt{max-width:35em;min-height:160px;margin:1em auto;background:transparent url('../img/logo-subtle.png') center no-repeat;text-align:center;font:normal 20px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;color:#ffffff;text-shadow:0 0 10px rgba(0, 0, 0, 0.75);}.page-excerpt p{padding-top:1.5em;}
@@ -898,6 +898,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .page-profile .profile-edit-form .checkbox,.author .profile-edit-form .checkbox{margin:0;padding:0;clear:left;}.page-profile .profile-edit-form .checkbox input,.author .profile-edit-form .checkbox input{display:inline;margin-right:1em;}
 .blog #wrap,.single-post #wrap{background-repeat:no-repeat;background-size:cover;}
 .blog-title{margin:1em 0;padding-left:36px;color:#ffffff;background:transparent url('../img/logo-blog.png') center left no-repeat;font:20px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
+.sidebar-blog{margin:0 1em;}
 .entry-date{display:inline-block;padding:10px;color:#444444;background:#ffffff;font:13.6px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
 .entry-header{padding:10px;color:#ffffff;background:#f89406;}.entry-header .entry-category{font:20px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}
 .entry-header a{color:#ffffff;}
@@ -905,7 +906,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .entry-content{padding:10px;background:#ffffff;}
 .entry-share{display:inline-block;width:auto;padding:10px;background:#999999;}
 .top-post .post{clear:both;margin:15em 0 3em;}
-.blog .past-posts-container{margin:0 0 5em;padding:2em 2em 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.blog .past-posts-container .post{margin:0 0 2em;padding:2em;background:#cccccc center no-repeat;background-size:cover;}.blog .past-posts-container .post .entry-date{margin:10em 0 0;}
+.blog .past-posts-container{margin:0 0 5em;padding:2em 0 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.blog .past-posts-container .post{margin:0 0 2em;padding:2em;background:#cccccc center no-repeat;background-size:cover;}.blog .past-posts-container .post .entry-date{margin:10em 0 0;}
 .blog .past-posts-container .post .entry-header{display:block;}
 .blog .past-posts-container .post .entry-category{margin:0;font-size:16px;}
 .blog .past-posts-container .post .entry-title{margin:0;font-size:20px;}
@@ -918,7 +919,8 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .single-post .entry-about-author .author-thumbnail{float:left;height:50px;width:50px;border-radius:50%;overflow:hidden;}.single-post .entry-about-author .author-thumbnail img{height:100%;width:auto;}
 .single-post .entry-about-author .author-meta{margin-left:60px;}
 .single-post .entry-about-author .author-description{clear:both;margin:1em 0;padding:0 0 1em;border-bottom:1px dotted #555555;}
-.single-post-container{clear:both;margin:0 0 5em;padding:2em 2em 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
+.single-post-sidebar{margin:0 1em;}
+.single-post-container{clear:both;margin:0 0 5em;padding:2em 0 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
 #nav-modules{border-top:1px solid #ffffff;background-color:#c2c2c2;background-image:-moz-linear-gradient(top, #dddddd, #999999);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#999999));background-image:-webkit-linear-gradient(top, #dddddd, #999999);background-image:-o-linear-gradient(top, #dddddd, #999999);background-image:linear-gradient(to bottom, #dddddd, #999999);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdddddd', endColorstr='#ff999999', GradientType=0);}#nav-modules .widget{margin-top:2em;margin-bottom:2em;min-height:150px;background:#ffffff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}#nav-modules .widget .widget-inner{padding:1em;}
 #nav-modules .widget h4{margin:0 0 1em;padding-bottom:0.5em;color:#999999;border-bottom:1px dotted #999999;font-size:16px;font-weight:normal;}
 #content-info{padding:5em 0;min-height:360px;background:#000000 url('../img/edges.jpg') no-repeat;-webkit-box-shadow:0 0 25px #000000;-moz-box-shadow:0 0 25px #000000;box-shadow:0 0 25px #000000;font-size:12px;}#content-info a{color:white;}

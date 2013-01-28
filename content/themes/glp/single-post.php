@@ -1,6 +1,7 @@
 <h1 class="blog-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
 
 <?php while (have_posts()) : the_post(); ?>
+<div class="row">
 <header class="single-post-header span9 offset3">
 	<?php posts_nav_link(); ?>
 	<div class="entry-date"><?php echo get_the_date(); ?></div>
@@ -9,22 +10,25 @@
 	    	<h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>		
 	</div>
 </header>
+</div>
 
 <div class="single-post-container container">
 	<div class="post-inner row">
 
-	<div class="single-post-sidebar span3">
+	<div class="span3">
+		<div class="single-post-sidebar">
 		<div class="entry-about-author">
 			<h4><?php echo __('About the Author','glp'); ?></h4>
 			<div class="author-thumbnail"><?php echo get_avatar(get_the_author_meta('ID')); ?></div>
 			<div class="author-meta">
-				<b><?php the_author(); ?></b><br>[AUTHOR TAGLINE]
+				<b><?php the_author_meta('nickname'); ?></b><br>
 			</div>
 			<div class="author-description">
 				<?php echo get_the_author_meta('description'); ?>
 			</div>
 		</div>
 		<?php dynamic_sidebar('sidebar-blog'); ?>
+		</div>
 	</div>
 	<div class="single-post-content span9">
 		<?php if (has_post_thumbnail()) : ?>
