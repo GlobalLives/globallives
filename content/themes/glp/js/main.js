@@ -47,7 +47,7 @@ $(function() {
 	
 	if ( $('.front-page').length ) { // Make sure we're on the front page
 		var src = $('.front-page').data('bg');
-		set_background( src, {from: '#fff'} );
+		set_background( src );
 	}
 
 /* Explore the Collection */

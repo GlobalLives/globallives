@@ -30,6 +30,18 @@
 		background-size: cover;
 	}
 
+	.btn {
+		#gradient > .vertical(@grayDark,@black);
+		color: @grayLighter;
+		text-shadow: 0 1px 1px @black;
+		font-family: @headingsFontFamily;
+		&:hover {
+			color: @white;
+			#gradient > .vertical(@grayDarker,@black);
+			.transition(none);
+		}
+	}
+		
 /*	==========================================================================
 	Header
 	========================================================================== */
@@ -47,6 +59,11 @@
 				text-indent: -9999px;
 				overflow: hidden;
 			}
+		}
+		.btn {
+			color: @white;
+			background: @grayLight;
+			border: 1px solid @grayLight;
 		}
 		#nav-main {
 			#gradient > .vertical(@grayDark, @black);
@@ -268,12 +285,12 @@
 	.front-page {
 		margin: 0 auto;
 		text-align: center;
+		color: @white;
+		text-shadow: 0 2px 2px @black;
 		.page-content {
 			border-bottom: 1px dotted @white;
 			p {
 				font: @fontSizeLarge @headingsFontFamily;
-				color: @white;
-				text-shadow: 0 2px 2px @black;
 			}
 		}
 	}
@@ -385,17 +402,6 @@
 		}
 		#stage {
 			padding-bottom: 0;
-		}
-		.btn {
-			#gradient > .vertical(@grayDark,@black);
-			color: @white;
-			text-shadow: 0 1px 1px @black;
-			font-family: @headingsFontFamily;
-			transition: none;
-			&:hover {
-				background: inherit;
-/* 				#gradient > .vertical(@black,@grayDarker); */
-			}
 		}
 		.participant-video-embed {
 			min-height: 640px;
