@@ -26,13 +26,13 @@ $(function() {
 	}
 
 	function set_stage( post_id ) {
-		$('#stage').load('/wp/wp-admin/admin-ajax.php',
+		$('#stage').fadeOut().load('/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_summary', post_id: post_id },
 			function() {
 				var src = $('#stage .participant-summary').first().data('bg');
-				set_background( src, {from: 'rgba(0,0,0,0.5)', to: 'rgba(0,0,0,0.5)'} );
+/* 				set_background( src, {from: 'rgba(0,0,0,0.5)', to: 'rgba(0,0,0,0.5)'} ); */
 			}
-		);
+		).fadeIn();
 	}
 
 /* Front Page */
