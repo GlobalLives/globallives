@@ -220,7 +220,7 @@
 		background-size: cover;
 	}
 	#nav-featured {
-		margin: 0; padding: 0 0 2em;
+		margin: 0; padding: 0 0 1em;
 		#gradient > .vertical(@grayDarker,@black);
 		h2 {
 			margin: 10px 0;
@@ -229,12 +229,13 @@
 			color: @white;
 		}
 		ul {
-			margin: 0; padding: 0;
+			margin: 1em 0 0; padding: 0;
 			list-style: none;
 		}
 		.featured-thumbnail {
+			box-sizing: border-box;
 			height: 105px; width: 155px;
-			border: 10px solid @white;
+			border: 5px solid @white;
 			overflow: hidden;
 			background: @white;
 			text-align: center;
