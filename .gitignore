@@ -3,10 +3,10 @@ local-config.php
 content/uploads/
 content/upgrade/
 content/backup-db/
-content/backup-db/
 content/advanced-cache.php
 content/wp-cache-config.php
 content/cache/
 content/backups/
+content/plugins/regenerate-thumbnails
 sitemap.xml
 sitemap.xml.gz
