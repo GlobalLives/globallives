@@ -5,6 +5,7 @@
 	========================================================================== */
 
 	add_theme_support( 'post-thumbnails' );
+	add_image_size( 'small', 300, 200, true );
 
 /*	==========================================================================
 	Pages
@@ -43,14 +44,14 @@
 			)
 		));
 	}
-	function get_participant_thumbnail_url( $participant_id ) {
+	function get_participant_thumbnail_url( $participant_id, $thumbnail_size = 'thumbnail' ) {
 		$participant = get_post( $participant_id );
-		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($participant->ID, 'thumbnail'));
+		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($participant->ID), $thumbnail_size );
 		return $thumbnail[0];
 	}
-	function the_participant_thumbnail_url( $participant_id ) {
-		echo get_participant_thumbnail_url( $participant_id );
-	}
+	function the_participant_thumbnail_url( $participant_id, $thumbnail_size ) {
+		echo get_participant_thumbnail_url( $participant_id, $thumbnail_size );
+	}	
 	
 	function get_participant_clip_tags( $participant_id ) {
 		$clip_tags = array();
