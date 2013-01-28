@@ -39,7 +39,7 @@
 	    		    		<?php foreach( get_field('clips') as $clip ) : ?>
 	    		    			<article class="participant-clip">
 		    		    			<div class="row">
-		    		    				<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>"><?php echo get_the_post_thumbnail( $clip->ID ); ?></div>
+		    		    				<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>"><img src="http://img.youtube.com/vi/<?php the_field('youtube_id', $clip->ID); ?>/0.jpg"></div>
 		    		    				<div class="span2">
 	    		    						<h5 class="clip-title"><?php echo $clip->post_title; ?></h5>
 	    		    						<p class="clip-duration"><?php the_field('duration',$clip->ID); ?></p>
