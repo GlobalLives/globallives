@@ -192,7 +192,7 @@
 	.page-excerpt {
 		max-width: 35em;
 		min-height: 160px;
-		margin: 2em auto;
+		margin: 1em auto;
 		background: transparent url('../img/logo-subtle.png') center no-repeat;
 		text-align: center;
 		font: normal 1.75em/1.2 @headingsFontFamily;
@@ -203,8 +203,8 @@
 		}
 	}
 	.static-page-container {
-		margin: 5em 0;
-		padding: 2em 2em 5em;
+		margin: 2em 0;
+		padding: 2em 0 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
 		.border-radius(@borderRadiusLarge);
 		
@@ -238,11 +238,11 @@
 			cursor: pointer;
 			img {
 				position: absolute;
+				display: block;
 				top: 0; bottom: 0; left: 0; right: 0;
 				margin: auto;
-				box-sizing: border-box;
-				display: block;
-				width: 100%; height: auto;
+				height: 100%; width: auto;
+/* 				width: auto;  */
 				-webkit-filter: ~"saturate(0%) contrast(40%)";
 				filter: ~"saturate(0%) contrast(40%)";
 			}
@@ -640,7 +640,7 @@
 	
 	.top-post .post {
 		clear: both;
-		margin: 22em 0 3em;
+		margin: 15em 0 3em;
 	}
 	.blog .past-posts-container {
 		margin: 0 0 5em;
@@ -808,8 +808,15 @@
 	========================================================================== */
 
 @media (max-width: 979px) {
-  /* Fix top padding when using the responsive grid with the fixed topbar */
-  body.top-navbar {
-    padding-top: 0;
-  }
+	/* Fix top padding when using the responsive grid with the fixed topbar */
+	body.top-navbar {
+		padding-top: 0;
+	}
+
+	#nav-featured {
+		.featured-thumbnail {
+			height: 75px;
+		}
+	}
+  
 }
