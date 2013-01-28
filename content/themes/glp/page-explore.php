@@ -11,6 +11,9 @@
 	</div>
 	<button type="button" class="close">&times;</button>
 </div>
+<div id="tooltip">
+	<div class="span1"><img class="tooltip-thumbnail" src=""></div>
+</div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
@@ -53,6 +56,17 @@ var data,
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover').show();
 	}
+	function set_tooltip( d, el ) {
+		var dy = $(el).position().top - 46,
+			dx = $(el).position().left - 42;
+		$('#tooltip').attr('class',d.continent);
+		$('#tooltip').css('top', dy).css('left', dx);
+		$('#tooltip .tooltip-thumbnail').attr('src', d.thumbnail);
+		$('#tooltip').show();
+	}
+	function hide_tooltip() {
+		$('#tooltip').hide();
+	}
 	 
 $(function() {
 	d3.json('<?php bloginfo('stylesheet_directory'); ?>/js/vendor/countries.json', function( json ) {
@@ -71,6 +85,8 @@ $(function() {
 				.attr('class', function(d) { return 'marker ' + d.continent; })
 				.attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
 				.on('click', function(d) { set_popover(d,this); })
+				.on('mouseover', function(d) { set_tooltip(d,this); })
+				.on('mouseout', function(d) { hide_tooltip(d,this); })
 			.append('svg:path') // Add the pins
 				.attr('class', function(d) { return 'pin'; })
 				.attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')

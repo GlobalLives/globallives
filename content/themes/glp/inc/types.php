@@ -49,7 +49,7 @@
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($participant->ID), $thumbnail_size );
 		return $thumbnail[0];
 	}
-	function the_participant_thumbnail_url( $participant_id, $thumbnail_size ) {
+	function the_participant_thumbnail_url( $participant_id, $thumbnail_size = 'thumbnail' ) {
 		echo get_participant_thumbnail_url( $participant_id, $thumbnail_size );
 	}	
 	

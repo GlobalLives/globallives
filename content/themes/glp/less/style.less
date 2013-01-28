@@ -260,7 +260,6 @@
 				top: 0; bottom: 0; left: 0; right: 0;
 				margin: auto;
 				height: 100%; width: auto;
-/* 				width: auto;  */
 				-webkit-filter: ~"saturate(0%) contrast(40%)";
 				filter: ~"saturate(0%) contrast(40%)";
 			}
@@ -269,7 +268,6 @@
 				filter: ~"saturate(100%) contrast(100%)";
 			}
 		}
-
 		.carousel-control {
 			&.left {
 				left: -1em;
@@ -279,7 +277,7 @@
 			}
 		}
 	}
-	#stage {
+	.home #stage {
 		padding: 2em 0;
 	}
 	.front-page {
@@ -362,6 +360,22 @@
 				line-height: 25px;
 			}
 		}
+		#tooltip {
+			display: none;
+			position: absolute;
+			.tooltip-thumbnail {
+				border: 5px solid;
+				.border-radius(50%);
+			}
+			&.africa		.tooltip-thumbnail { border-color: @orange; }
+			&.antarctica	.tooltip-thumbnail { border-color: @white; }
+			&.australia		.tooltip-thumbnail { border-color: @purple; }
+			&.asia			.tooltip-thumbnail { border-color: @blue; }
+			&.europe		.tooltip-thumbnail { border-color: @yellow; }
+			&.north-america	.tooltip-thumbnail { border-color: @green; }
+			&.south-america	.tooltip-thumbnail { border-color: @pink; }
+
+		}
 	}
 	#mapview {
 		position: relative;
@@ -404,7 +418,7 @@
 			padding-bottom: 0;
 		}
 		.participant-video-embed {
-			min-height: 640px;
+			min-height: 528px; // 940px container at 16:9 ratio
 			max-width: 100%;
 		}
 		.participant-video-buttons {
