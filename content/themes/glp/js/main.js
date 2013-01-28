@@ -35,6 +35,8 @@ $(function() {
 
 /* Front Page */
 
+	$('.carousel').carousel('pause');
+	
 	$('#nav-featured .participant-thumbnail').click(function() {
 		$(this).siblings().removeClass('active');
 		$(this).addClass('active');

@@ -220,28 +220,26 @@
 		background-size: cover;
 	}
 	#nav-featured {
-		margin: 0; padding: 0 0 1em;
+		margin: 0; padding: 0;
 		#gradient > .vertical(@grayDarker,@black);
-		h2 {
-			margin: 10px 0;
-			font-size: 1.25em;
-			font-weight: normal;
-			color: @white;
-		}
+		.box-shadow(0 0 5px rgba(0,0,0,0.5));
 		ul {
 			margin: 1em 0 0; padding: 0;
 			list-style: none;
 		}
 		.featured-thumbnail {
+			position: relative;
 			box-sizing: border-box;
-			height: 105px; width: 155px;
+			height: 100px;
+			background: @gray;
 			border: 5px solid @white;
-			overflow: hidden;
-			background: @white;
-			text-align: center;
 			.box-shadow(0 0 5px rgba(0,0,0,0.5));
+			overflow: hidden;
 			cursor: pointer;
 			img {
+				position: absolute;
+				top: 0; bottom: 0; left: 0; right: 0;
+				margin: auto;
 				box-sizing: border-box;
 				display: block;
 				width: 100%; height: auto;
@@ -251,6 +249,15 @@
 			&.active img, img:hover {
 				-webkit-filter: ~"saturate(100%) contrast(100%)";
 				filter: ~"saturate(100%) contrast(100%)";
+			}
+		}
+
+		.carousel-control {
+			&.left {
+				left: -1em;
+			}
+			&.right {
+				right: -1em;
 			}
 		}
 	}
