@@ -407,6 +407,9 @@
 
 	.single-participant {
 		color: @white;
+		h3 {
+			font-size: @baseFontSize;
+		}
 		#wrap {
 			background: @black;
 		}
@@ -450,12 +453,18 @@
 		}
 		.participant-clips {
 			h3 {
-				line-height: 48px;
+				line-height: 50px;
 				border-bottom: 1px dotted @gray;
 			}
 			.participant-clip {
 				padding: 1em 0;
 				border-bottom: 1px dotted @gray;
+				font-size: @fontSizeMini;
+				cursor: pointer;
+				a {
+					color: @white;
+					text-decoration: none;
+				}
 				.clip-thumbnail {
 					position: relative;
 					img {
@@ -472,10 +481,13 @@
 			}
 		}
 		.participant-filter-clips {
-			padding: 1em;
+			padding: 0.75em;
 			background: @grayDarker;
 			.border-radius(@borderRadiusLarge);
 			.box-shadow(0 2px 2px @black inset);
+			h4 {
+				font-size: @baseFontSize;
+			}
 			h5 {
 				color: @gray;
 			}

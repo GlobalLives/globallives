@@ -55,11 +55,14 @@
 	
 	function get_participant_clip_tags( $participant_id ) {
 		$clip_tags = array();
-		$clips = get_field('clips',$participant_id);
-		foreach( $clips as $clip ) {
-			$clip_tags += get_the_terms($clip->ID, 'post_tag');
+		if ( $clips = get_field('clips',$participant_id) ) {
+			foreach( $clips as $clip ) {
+				$clip_tags += get_the_terms( $clip->ID, 'post_tag' );
+			}
+			return $clip_tags;
+		} else {
+			return false;
 		}
-		return $clip_tags;
 	}
 
 /*	==========================================================================

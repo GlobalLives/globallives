@@ -27,11 +27,7 @@ $(function() {
 
 	function set_stage( post_id ) {
 		$('#stage').fadeOut().load('/wp/wp-admin/admin-ajax.php',
-			{ action: 'get_participant_summary', post_id: post_id },
-			function() {
-				var src = $('#stage .participant-summary').first().data('bg');
-/* 				set_background( src, {from: 'rgba(0,0,0,0.5)', to: 'rgba(0,0,0,0.5)'} ); */
-			}
+			{ action: 'get_participant_summary', post_id: post_id }
 		).fadeIn();
 	}
 
@@ -69,10 +65,9 @@ $(function() {
 				$(this).addClass('active');
 			}
 		);
-		
 	});
 		
-/* Blog* */
+/* Blog */
 	
 	if ($('.blog').length) { // Make sure we're on the blog page
 		var bg = $('.blog .post').first().data('bg');

@@ -21,7 +21,7 @@ function get_participant_clip() {
 	$clip_id = $_POST['clip_id'];
 
 	query_posts(array( 'post_type' => 'clip', 'p' => $clip_id ));
-	$response = get_template_part('templates/content', 'participant-clip');
+	$response = get_template_part('templates/clip', 'stage');
 	
 /* 	header( "Content-Type: application/html" ); */
 	echo $response; 
