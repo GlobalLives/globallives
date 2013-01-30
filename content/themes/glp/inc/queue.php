@@ -17,6 +17,11 @@ function glp_queue() {
 	if (is_single() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
+	
+	wp_register_script('glp_d3', 'http://d3js.org/d3.v3.min.js', false, null, false);
+	if (is_page('explore')) {
+		wp_enqueue_script('glp_d3');
+	}
 
 	wp_register_script('glp_main', get_template_directory_uri() . '/js/main.min.js', false, null, false);
 	wp_enqueue_script('glp_main');

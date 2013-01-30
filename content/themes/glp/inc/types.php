@@ -64,6 +64,17 @@
 			return false;
 		}
 	}
+	
+	function get_participant_crew_members( $participant_id ) {
+		$crew_members = get_users(array(
+			'meta_query' => array(array(
+					'key' => 'shoots',
+					'value' => '"' . $participant_id . '"',
+					'compare' => 'LIKE'
+			))
+		));
+		return $crew_members;
+	}
 
 /*	==========================================================================
 	Clips

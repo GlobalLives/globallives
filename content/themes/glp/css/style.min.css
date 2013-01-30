@@ -876,6 +876,9 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .single-participant .participant-detail-content .participant-name{font-weight:bold;}
 .single-participant .participant-detail-content .participant-content{margin:1em 0;}
 .single-participant .participant-detail-content .participant-location{font-weight:light;}
+.single-participant .participant-crew a{font-size:12px;color:#ffffff;text-decoration:none;text-align:center;}
+.single-participant .participant-crew .profile-thumbnail{margin:0 auto;width:100%;height:auto;overflow:hidden;}.single-participant .participant-crew .profile-thumbnail img{height:auto;width:auto;}
+.single-participant .participant-crew .profile-thumbnail h4{clear:both;}
 .single-participant .participant-clips h3{line-height:50px;border-bottom:1px dotted #555555;}
 .single-participant .participant-clips .participant-clip{padding:1em 0;border-bottom:1px dotted #555555;font-size:12px;cursor:pointer;}.single-participant .participant-clips .participant-clip a{color:#ffffff;text-decoration:none;}
 .single-participant .participant-clips .participant-clip .clip-thumbnail{position:relative;}.single-participant .participant-clips .participant-clip .clip-thumbnail img{border:5px solid #ffffff;}

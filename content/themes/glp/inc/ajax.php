@@ -7,9 +7,8 @@ function get_participant_summary() {
 	$post_id = $_POST['post_id'];
 
 	query_posts(array( 'post_type' => 'participant', 'p' => $post_id ));
-	$response = get_template_part('templates/content', 'participant-summary');
+	$response = get_template_part('templates/participant', 'summary');
 	
-/* 	header( "Content-Type: application/html" ); */
 	echo $response; 
 	exit;
 }
@@ -23,7 +22,6 @@ function get_participant_clip() {
 	query_posts(array( 'post_type' => 'clip', 'p' => $clip_id ));
 	$response = get_template_part('templates/clip', 'stage');
 	
-/* 	header( "Content-Type: application/html" ); */
 	echo $response; 
 	exit;
 }

@@ -15,7 +15,6 @@
 	<div class="span1"><img class="tooltip-thumbnail" src=""></div>
 </div>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 var data,
 	// D3 Functions
