@@ -14,7 +14,7 @@
 	<div class="profile-container row">
 		<div class="profile-sidebar span3">
 			<div class="profile-siderbar-inner">
-				<div class="profile-thumbnail"><?php echo get_avatar( $profile->ID, 300 ); ?></div>
+				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
 				<hr>
 				<p><b><?php _e('Interested in','glp'); ?>:</b><br>
 				<?php $interests = get_field_object('interests','user_'.$profile->ID); $values = get_field('interests','user_'.$profile->ID); foreach ($interests['choices'] as $interest) : ?>
