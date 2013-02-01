@@ -34,7 +34,7 @@
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
 				<h4><?php _e('About','glp'); ?></h4>
-				<textarea name="bio" class="profile-bio"><?php echo $profile->description; ?></textarea>
+				<textarea name="bio" class="profile-bio"><?php the_field('bio','user_'.$profile->ID); ?></textarea>
 				<p><b><?php _e("Your website",'glp'); ?>:</b><br><input name="user_url" class="profile-website" value="<?php echo $profile->user_url; ?>"></p>
 			</div>
 		</div>

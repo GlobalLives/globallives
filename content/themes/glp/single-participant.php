@@ -2,10 +2,11 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('participant-detail'); ?>>
 	<div id="stage" class="participant-detail-video container">
 		<?php
-			$summary_video = get_field('summary_video');
-			query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
-			get_template_part('templates/clip','stage');
-			wp_reset_query();
+			if ( $summary_video = get_field('summary_video') ) {
+				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
+				get_template_part('templates/clip','stage');
+				wp_reset_query();
+			}
 		?>
 	</div>
 	

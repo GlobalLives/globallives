@@ -3,7 +3,7 @@
 	<header class="row">
 		<div class="profile-header span9 offset3">
 			<div class="profile-header-inner">
-				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile btn" href="<?php the_permalink(); ?>?profile-edit=1"><i class="icon icon-white icon-pencil"></i> <?php _e('Edit profile','glp'); ?></a><?php endif; ?>
+				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile btn" href="/profile?profile-edit=1"><i class="icon icon-white icon-pencil"></i> <?php _e('Edit profile','glp'); ?></a><?php endif; ?>
 				<h2 class="profile-location"><?php the_field('location','user_'.$profile->ID); ?></h2>
 				<h1 class="profile-name"><?php echo $profile->nickname; ?></h1>
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
@@ -33,7 +33,7 @@
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
 				<h4><?php _e('About','glp'); ?></h4>
-				<p class="profile-bio"><?php echo $profile->description; ?></p>
+				<p class="profile-bio"><?php the_field('bio','user_'.$profile->ID); ?></p>
 				<?php if ($profile->user_url) : ?><p class="profile-website"><b><?php echo $profile->nickname; ?><?php _e("'s website",'glp'); ?>:</b><br><?php echo $profile->user_url; ?></p><?php endif; ?>
 				<hr>
 				<p class="profile-activity-buttons">
