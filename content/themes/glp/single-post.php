@@ -19,7 +19,7 @@
 		<div class="single-post-sidebar">
 		<div class="entry-about-author">
 			<h4><?php echo __('About the Author','glp'); ?></h4>
-			<div class="author-thumbnail"><?php echo get_avatar(get_the_author_meta('ID')); ?></div>
+			<div class="author-thumbnail"><img src="<?php the_profile_thumbnail_url(get_the_author_meta('ID')); ?>"></div>
 			<div class="author-meta">
 				<b><?php the_author_meta('nickname'); ?></b><br>
 			</div>

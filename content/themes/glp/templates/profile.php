@@ -14,7 +14,7 @@
 	<div class="profile-container row">
 		<div class="profile-sidebar span3">
 			<div class="profile-siderbar-inner">
-				<div class="profile-thumbnail"><?php echo get_avatar( $profile->ID, 300 ); ?></div>
+				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
 				<p><b><?php _e('Member since','glp'); ?>:</b> <?php echo date("F Y", strtotime($profile->user_registered)); ?></p>
 				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo '?'; ?></p>
 				<hr>
@@ -53,13 +53,13 @@
 				<ul class="profile-activity">
 				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
 					<li class="activity <?php echo $activity['activity_type']; ?> row">
-						<div class="activity-thumbnail span2"><?php echo get_avatar($activity['activity_user']); ?></div>
-						<div class="activity-meta">
+						<div class="activity-thumbnail span2"><img src="<?php the_profile_thumbnail_url($activity['activity_user']); ?>"></div>
+						<div class="activity-meta span6">
 							<span class="activity-username">@<?php echo $activity_user->user_login; ?></span> 
 							<?php echo $activity['activity_description']; ?> 
 							<?php echo human_time_diff( $activity['activity_timestamp'], current_time('timestamp') ); ?> ago.
 						</div>
-						<div class="activity-content"><?php echo $activity['activity_content']; ?></div>
+						<div class="activity-content span6"><?php echo $activity['activity_content']; ?></div>
 					</li>
 				<?php endforeach; ?>
 				</ul>

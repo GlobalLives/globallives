@@ -106,6 +106,14 @@
 		$wp_rewrite->author_base = 'profile';
 	}
 
+	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
+		$thumbnail = wp_get_attachment_image_src( get_field('avatar','user_'.$profile_id), $thumbnail_size );
+		return $thumbnail[0];
+	}
+	function the_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
+		echo get_profile_thumbnail_url( $profile_id, $thumbnail_size );
+	}	
+
 	function get_profile_activities( $user_id ) {
 		$activities = array();
 		$user = get_userdata( $user_id );
