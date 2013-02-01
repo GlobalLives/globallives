@@ -575,6 +575,30 @@
 			.border-radius(@borderRadiusLarge 0 @borderRadiusLarge @borderRadiusLarge);
 			.profile-siderbar-inner {
 				margin: 0; padding: 2em 0;
+				ul {
+					margin: 0; padding: 0;
+				}
+				li {
+					list-style: none;
+					clear: left;
+				}
+				.participant-thumbnail {
+					float: left; clear: left;
+					margin: 0 1em 1em 0;
+					height: 50px; width: 50px;
+					.border-radius(50%);
+					overflow: hidden;
+					img {
+						height: 100%; width: 100%;
+						
+					}
+				}
+				.participant-title {
+					margin: 0;
+				}
+				.participant-location {
+					font-size: @fontSizeMini;
+				}
 			}
 			.profile-thumbnail {
 				margin: 0 0 1em 0;

@@ -26,7 +26,13 @@
 				<p><b><?php _e('Expertise','glp'); ?>:</b><br><?php foreach( $expertises as $expertise ) : ?><li><?php echo $expertise; ?></li><?php endforeach; ?></p>
 				<hr>
 				<?php endif; ?>	
-				<p><b><?php _e('Previous shoots','glp'); ?>:</b><br></p>
+				<?php if ($shoots = get_field('shoots','user_'.$profile->ID)) : ?>
+				<p><b><?php _e('Previous shoots','glp'); ?>:</b><br><?php foreach( $shoots as $shoot ) : ?><li>
+					<div class="participant-thumbnail"><img src="<?php the_participant_thumbnail_url( $shoot->ID, 'thumbnail' ); ?>"></div>
+					<h5 class="participant-title"><?php echo get_the_title($shoot->ID); ?></h5>
+					<span class="participant-location"><?php the_field('location',$shoot->ID); ?></span>
+				</li><?php endforeach; ?></p>
+				<?php endif; ?>
 			</div>
 		</div>
 
