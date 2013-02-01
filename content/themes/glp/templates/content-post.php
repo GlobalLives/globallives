@@ -5,7 +5,8 @@
 	    	<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 	    </header>
 	    <div class="entry-content">
-		    <?php the_content('&#9658; Full Story'); ?>
+		    <?php the_excerpt(); ?>
+		    <a class="btn" href="<?php the_permalink(); ?>">&#9658; Full Story</a>
 		</div>
 	    <footer>
 	    	<div class="entry-share">[SHARE LINKS]</div>
