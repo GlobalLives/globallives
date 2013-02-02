@@ -31,6 +31,23 @@ $(function() {
 		).fadeIn();
 	}
 
+	function set_popover( d, el ) {
+		var dy = $(el).position().top - 50,
+			dx = $(el).position().left + 25;
+		$('#popover').css('top', dy).css('left', dx);
+		$('#popover .popover-name').text(d.name);
+		$('#popover .popover-location').text(d.location);
+		$('#popover .popover-occupation').text(d.occupation);
+		$('#popover .popover-dob').text(d.dob);
+		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
+		$('#popover .popover-permalink').attr('href', d.permalink);
+		$('#popover').show();
+	}
+	function show_mapthumb( i ) {
+		$('.mapthumb').hide();
+		$('#mapthumb-'+i).show();
+	}
+	
 /* Front Page */
 
 	$('.carousel').carousel('pause');
@@ -47,8 +64,83 @@ $(function() {
 	}
 
 /* Explore the Collection */
+	
+	if ($('#mapview').length) { // Make sure we're in Explore : Map View
+	
+		// D3 Functions
+		var	xy = d3.geo.mercator().scale( $('#mapview').width() ).translate([$('#mapview').width() / 2, $('#mapview').height() / 1.75]),
+		path = d3.geo.path().projection(xy),
+	
+		// SVG groups
+		map = d3.select('#mapview').append('svg:svg').attr('height','100%').attr('width','100%'),
+		defs = map.append('svg:defs'),
+		countries = map.append('svg:g').attr('id', 'countries'),
+		cells = map.append('svg:g').attr('id','cells'),
+		locations = map.append('svg:g').attr('id', 'locations'),
+		positions = [];
 
-	/* Most of the JS is in the page-explore.php template because it needs PHP. */
+		participants = participants.filter(function(participant) {
+			if (true) { // Use this in the future to filter by theme, etc.
+				var location = [+participant.longitude, +participant.latitude];
+				positions.push(xy(location));
+				return true;
+			}
+		});
+		
+		var thumbnails = defs.selectAll('thumbnails')
+			.data(participants)
+			.enter().append('svg:pattern')
+				.attr('id', function(d,i) { return 'image-'+i; })
+			.attr('patternUnits', 'objectBoundingBox')
+			.attr('width', 50)
+			.attr('height', 50)
+			.append('svg:image')
+				.attr('xlink:href', function(d) { return d.thumbnail; })
+				.attr('x', 0)
+				.attr('y', 0)
+				.attr('width', 50)
+				.attr('height', 50);
+				
+		var polygons = d3.geom.voronoi(positions);
+
+		var g = cells.selectAll('g')
+			.data(participants)
+			.enter().append('svg:g')
+			.attr('opacity',0);
+		g.append('svg:path')
+			.attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; })
+			.on('mouseover',function(d,i){ show_mapthumb(i); });
+
+		// Add Participant markers
+		
+		var markers = locations.selectAll('marker')
+			.data(participants)
+			.enter().append('svg:g')
+				.attr('class', function(d) { return 'marker ' + d.continent; })
+				.attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
+				.on('click', function(d) { set_popover(d,this); });
+		markers.append('svg:path') // Add the pins
+			.attr('class', 'pin')
+			.attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')
+			.attr('transform','translate(-30,-50), scale(0.125)');
+		markers.append('svg:circle')
+			.attr('id',function(d,i){ return 'mapthumb-'+i; })
+			.attr('class', 'mapthumb')
+			.attr('cy',-40)
+			.attr('r',25)
+			.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
+	
+		// Load the low-res country outlines
+		d3.json('/content/themes/glp/js/vendor/countries.json', function( json ) {
+			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
+		});
+		
+		// Simultaneously load the hi-res country outlines, which will replace the low-res ones once they're done loading
+		d3.json('/content/themes/glp/js/vendor/countries-hires.json', function( json ) {
+			countries.selectAll('path').remove();
+			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);		
+		});
+	}
 	
 	$('#popover').hide();
 	$('#popover .close').click( function() {

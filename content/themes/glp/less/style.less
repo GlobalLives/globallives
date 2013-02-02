@@ -360,22 +360,6 @@
 				line-height: 25px;
 			}
 		}
-		#tooltip {
-			display: none;
-			position: absolute;
-			.tooltip-thumbnail {
-				border: 5px solid;
-				.border-radius(50%);
-			}
-			&.africa		.tooltip-thumbnail { border-color: @orange; }
-			&.antarctica	.tooltip-thumbnail { border-color: @white; }
-			&.australia		.tooltip-thumbnail { border-color: @purple; }
-			&.asia			.tooltip-thumbnail { border-color: @blue; }
-			&.europe		.tooltip-thumbnail { border-color: @yellow; }
-			&.north-america	.tooltip-thumbnail { border-color: @green; }
-			&.south-america	.tooltip-thumbnail { border-color: @pink; }
-
-		}
 	}
 	#mapview {
 		position: relative;
@@ -390,14 +374,14 @@
 		.marker {
 			fill: @gray;
 			cursor: pointer;
-			&.africa { fill: @orange; }
-			&.antarctica { fill: @white; }
-			&.australia { fill: @purple; }
-			&.asia { fill: @blue; }
-			&.europe { fill: @yellow; }
-			&.north-america { fill: @green; }
-			&.south-america { fill: @pink; }
-			
+			.mapthumb { stroke-width: 3px; }
+			&.africa		{ fill: @orange;	.mapthumb { stroke: @orange; } }
+			&.antarctica	{ fill: @white;		.mapthumb { stroke: @white; } }
+			&.australia		{ fill: @purple;	.mapthumb { stroke: @purple; } }
+			&.asia			{ fill: @blue;		.mapthumb { stroke: @blue; } }
+			&.europe		{ fill: @yellow;	.mapthumb { stroke: @yellow; } }
+			&.north-america { fill: @green;		.mapthumb { stroke: @green; } }
+			&.south-america { fill: @pink;		.mapthumb { stroke: @pink; } }
 		}
 	}
 
