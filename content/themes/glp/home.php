@@ -1,4 +1,4 @@
-<h1 class="blog-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
+<h1 class="blog-title section-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
 
 <?php get_template_part('templates/no-results'); ?>
 
