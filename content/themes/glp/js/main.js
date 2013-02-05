@@ -4,7 +4,9 @@ $(function() {
 	$('#nav-main').affix({ offset: $('#nav-main').position() });
 
 	// Jump the main navigation to the top of the page, on pages other than Home
-	$('body:not(.home)').scrollTop( $('#nav-main').offset().top );
+	if( $('body:not(.home)').length ) {
+		$('body,html').scrollTop( $('#nav-main').offset().top ); // Firefox needs the 'html' selector
+	}
 
 /* Functions */
 
