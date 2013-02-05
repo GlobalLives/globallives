@@ -1,12 +1,12 @@
 <ul class="local-navigation-menu span3">
 <?php
-	$has_children = count( get_pages('child_of='.$post->ID)) != 0;
-	if ( $has_children ) {
-	    # Children
-	    wp_list_pages('depth=1&title_li=&child_of='.$post->ID);
+	$ancestors = get_post_ancestors( $post->ID );
+	if ( $ancestors ) {
+	    # Page is a sub-page, return all pages under its top level ancestor
+	    wp_list_pages('depth=0&title_li=&child_of='.$ancestors[0]);
 	} else {
-	    # Siblings
-	    wp_list_pages('depth=1&title_li=&child_of='.$post->post_parent);
+	    # Page is top level, return all of its descendants
+	    wp_list_pages('depth=0&title_li=&child_of='.$post->ID);
 	}
 ?>
 </ul>

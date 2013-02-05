@@ -826,8 +826,10 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #banner #nav-utility .container{position:relative;}
 #banner #nav-utility .nav-tabs{position:absolute;bottom:0;right:0;margin:0;padding:0;float:right;}#banner #nav-utility .nav-tabs a{padding:1em 2em 0.5em;background:#dddddd;font:13.6px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}#banner #nav-utility .nav-tabs a i{position:relative;margin:-2px 0 0 -2px;}
 #banner #nav-utility .nav-tabs li.active a{background:#ffffff;}
-.local-navigation-menu{margin:0 1em;padding:0;list-style:none;}.local-navigation-menu li{border-bottom:1px dotted #999999;}.local-navigation-menu li:last-child{border:none;}
-.local-navigation-menu a{display:block;padding:1em 0;color:#999999;}.local-navigation-menu a:hover{color:#555555;text-decoration:none;}
+.local-navigation-menu{margin:0 1em;padding:0;list-style:none;}.local-navigation-menu li{padding:1em 0;border-bottom:1px dotted #999999;}.local-navigation-menu li:last-child{border:none;}
+.local-navigation-menu li .children{display:none;margin:0 0 0 1em;padding:0;list-style:none;font-size:13.6px;}.local-navigation-menu li .children li{border:none;padding-bottom:0;}.local-navigation-menu li .children li li{font-size:12px;}
+.local-navigation-menu li.current_page_item .children,.local-navigation-menu li.current_page_ancestor .children{display:block;}
+.local-navigation-menu a{display:block;color:#999999;}.local-navigation-menu a:hover{color:#555555;text-decoration:none;}
 .local-navigation-menu li.current_page_item a{color:#555555;}
 .page-excerpt{position:relative;max-width:35em;min-height:160px;margin:2em auto 0;background:transparent url('../img/logo-subtle.png') center no-repeat;text-align:center;font:normal 20px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;color:#ffffff;text-shadow:0 0 10px rgba(0, 0, 0, 0.75);}.page-excerpt p{position:absolute;top:50%;height:4em;margin-top:-2em;}
 .static-page-container{margin:2em 0;padding:2em 0 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
