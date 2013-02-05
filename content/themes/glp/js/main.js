@@ -57,7 +57,11 @@ $(function() {
 	$('#nav-featured .participant-thumbnail').click(function() {
 		$(this).siblings().removeClass('active');
 		$(this).addClass('active');
+		$('#home').fadeOut();
 		set_stage( $(this).data('id') );
+	});
+	$('#nav-featured .home-thumbnail').click(function() {
+		$('#stage').fadeOut('',function() {	$('#home').fadeIn() });
 	});
 	
 	if ( $('.front-page').length ) { // Make sure we're on the front page
@@ -140,7 +144,7 @@ $(function() {
 		// Simultaneously load the hi-res country outlines, which will replace the low-res ones once they're done loading
 		d3.json('/content/themes/glp/js/vendor/countries-hires.json', function( json ) {
 			countries.selectAll('path').remove();
-			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);		
+			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
 		});
 	}
 	

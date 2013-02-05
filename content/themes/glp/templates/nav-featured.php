@@ -3,7 +3,7 @@
 		<div id="featured-carousel" class="carousel slide">
 			<ul class="carousel-inner">
 				<div class="item active row">
-					<li class="featured-thumbnail span2 active"><a href="<?php home_url(); ?>"><img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo-featured.png"></a></li>
+					<li class="featured-thumbnail home-thumbnail span2 active"><img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo-featured.png"></li>
 					<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 5 )); // First row only grabs 5, because of the "Home" thumbnail ?>
 					<?php foreach ($participants as $participant) : ?>
 					<li class="featured-thumbnail participant-thumbnail span2" data-id="<?php echo $participant->ID; ?>"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>"></li>
