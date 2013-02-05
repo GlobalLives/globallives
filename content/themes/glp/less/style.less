@@ -208,16 +208,20 @@
 	========================================================================== */
 
 	.page-excerpt {
+		position: relative;
 		max-width: 35em;
 		min-height: 160px;
-		margin: 1em auto;
+		margin: 2em auto 0;
 		background: transparent url('../img/logo-subtle.png') center no-repeat;
 		text-align: center;
 		font: normal @fontSizeLarge @headingsFontFamily;
 		color: @white;
 		text-shadow: 0 0 10px rgba(0,0,0,0.75);
 		p {
-			padding-top: 1.5em;
+			position: absolute;
+			top: 50%;
+			height: 4em;
+			margin-top: -2em;
 		}
 	}
 	.static-page-container {
