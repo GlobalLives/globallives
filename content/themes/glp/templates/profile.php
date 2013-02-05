@@ -16,7 +16,7 @@
 			<div class="profile-siderbar-inner">
 				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
 				<p><b><?php _e('Member since','glp'); ?>:</b> <?php echo date("F Y", strtotime($profile->user_registered)); ?></p>
-				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo '?'; ?></p>
+				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo human_time_diff( get_profile_last_active( $profile->ID ), current_time('timestamp') ); ?> ago.</p>
 				<hr>
 				<?php if ($interests = get_field('interests','user_'.$profile->ID)) : ?>
 				<p><b><?php _e('Interested in','glp'); ?>:</b><br><?php foreach( $interests as $interest ) : ?><li><?php echo $interest; ?></li><?php endforeach; ?></p>

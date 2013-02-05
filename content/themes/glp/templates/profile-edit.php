@@ -4,8 +4,8 @@
 		<div class="profile-header span9 offset3">
 			<div class="profile-header-inner">
 				<button class="edit-profile btn" type="submit"><i class="icon icon-white icon-ok"></i> <?php _e('Save edits','glp'); ?></button>
-				<input class="profile-location" name="location" value="<?php the_field('location','user_'.$profile->ID); ?>" >
-				<input class="profile-name" name="nickname" value="<?php echo $profile->nickname; ?>">
+				<input class="profile-location" name="location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field('location','user_'.$profile->ID); ?>" >
+				<input class="profile-name" name="nickname" placeholder="<?php _e('Name','glp'); ?>" value="<?php echo $profile->nickname; ?>">
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
 				<h4><?php _e('About','glp'); ?></h4>
-				<textarea name="bio" class="profile-bio"><?php the_field('bio','user_'.$profile->ID); ?></textarea>
+				<textarea name="bio" placeholder="<?php _e('Bio','glp'); ?>" class="profile-bio"><?php the_field('bio','user_'.$profile->ID); ?></textarea>
 				<p><b><?php _e("Your website",'glp'); ?>:</b><br><input name="user_url" class="profile-website" value="<?php echo $profile->user_url; ?>"></p>
 			</div>
 		</div>

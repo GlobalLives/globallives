@@ -129,7 +129,6 @@
 			);
 			$activities[] = $activity;
 		}
-		
 		// Add mentions
 		$mentions = get_comments(array( 'status' => 'approve' ));
 		foreach ($mentions as $mention) {
@@ -144,5 +143,16 @@
 				$activities[] = $activity;
 			}
 		}
+		// Sort activities by timestamp before returning
+		usort($activities, 'profile_activity_compare');
 		return $activities;
+	}
+	function profile_activity_compare($a, $b) {
+		return $b['activity_timestamp'] - $a['activity_timestamp'];
+	}
+	
+	function get_profile_last_active( $user_id ) {
+		$activities = get_profile_activities( $user_id );
+		$last_activity = $activities[0];
+		return $last_activity['activity_timestamp'];
 	}
