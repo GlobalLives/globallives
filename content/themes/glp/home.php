@@ -12,7 +12,7 @@
 
 <?php query_posts( $query_string . '&offset=1' ); // Then get the rest ?>
 
-<div class="past-posts-container container">
+<div class="past-posts-container page-container container">
 	<div class="posts-inner row">
 
 		<div class="span3">
