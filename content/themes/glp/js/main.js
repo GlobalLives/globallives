@@ -61,7 +61,7 @@ $(function() {
 		set_stage( $(this).data('id') );
 	});
 	$('#nav-featured .home-thumbnail').click(function() {
-		$('#stage').fadeOut('',function() {	$('#home').fadeIn() });
+		$('#stage').fadeOut('',function() {	$('#home').fadeIn(); });
 	});
 	
 	if ( $('.front-page').length ) { // Make sure we're on the front page
@@ -157,10 +157,11 @@ $(function() {
 
 	$('.participant-clip .clip-thumbnail').click(function() {
 		var clip_id = $(this).data('clip-id');
-		$('#stage').load('/wp/wp-admin/admin-ajax.php',
+		$('#stage').fadeOut().load('/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_clip', clip_id: clip_id },
 			function() {
 				$(this).addClass('active');
+				$('#stage').fadeIn();
 			}
 		);
 	});
