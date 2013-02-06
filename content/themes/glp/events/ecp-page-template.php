@@ -1,7 +1,7 @@
 <h1 class="events-title section-title"><?php echo __('Community & Events','glp'); ?></h1>
 <?php tribe_events_before_html(); ?>
 
-<div class="events-container static-page-container container">
+<div class="events-container page-container container">
 	<div class="events-inner row">
 
 		<div class="span3">
