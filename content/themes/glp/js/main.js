@@ -145,6 +145,7 @@ $(function() {
 		});
 	}
 	
+	$('.mapthumb').hide();
 	$('#popover').hide();
 	$('#popover .close').click( function() {
 		$(this).parent().hide();
