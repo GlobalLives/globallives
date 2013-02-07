@@ -6,10 +6,10 @@
 				<li class="active"><a href="#searchtab" data-toggle="tab"><i class="icon-search"></i> Search</a></li>
 				<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
 				<li><a href="#profiletab" data-toggle="tab"><?php echo __('Hi,','glp') . " " . $current_user->display_name; ?></a></li>
-				<li><a href="<?php echo wp_logout_url( get_permalink() ); ?>"><?php echo __('Log-out','glp'); ?></a></li>
+				<li><a href="<?php echo wp_logout_url( get_permalink() ); ?>"><?php echo __('Log out','glp'); ?></a></li>
 				<?php else : ?>
 				<li><a href="#jointab" data-toggle="tab"><?php echo __('Join Global Lives','glp'); ?></a></li>
-				<li><a href="#logintab" data-toggle="tab">Log-in</a></li>
+				<li><a href="#logintab" data-toggle="tab">Log in</a></li>
 				<?php endif; ?>
 			</ul>
 		</div>
