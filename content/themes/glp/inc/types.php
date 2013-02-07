@@ -104,6 +104,7 @@
 	function set_profile_base() {
 		global $wp_rewrite;
 		$wp_rewrite->author_base = 'profile';
+		$wp_rewrite->flush_rules();
 	}
 
 	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
