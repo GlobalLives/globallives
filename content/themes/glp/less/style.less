@@ -104,24 +104,28 @@
 				width: 150px;
 				ul {
 					margin: 0; padding: 0;
+					text-align: right;
 				}
 				li {
 					display: inline-block;
+						&:hover {
+							background: @grayDark;
+						}
 					a {
 						display: inline-block;
-						margin: 5px 0;
+						margin: 5px 0 0;
 						height: 32px; width: 32px;
-						text-indent: -9999px;
+						text-indent: 9999px;
 						overflow: auto;
 					}
 					&.social-tw a {
-						background: transparent url('../img/icon-tw.png') no-repeat;
+						background: transparent url('../img/icon-tw.png') center no-repeat;
 					}
 					&.social-fb a {
-						background: transparent url('../img/icon-fb.png') no-repeat;
+						background: transparent url('../img/icon-fb.png') center no-repeat;
 					}
 					&.social-yt a {
-						background: transparent url('../img/icon-yt.png') no-repeat;
+						background: transparent url('../img/icon-yt.png') center no-repeat;
 					}
 				}
 			}

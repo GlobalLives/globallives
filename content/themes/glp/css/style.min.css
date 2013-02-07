@@ -814,11 +814,12 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #banner #nav-main .menu-primary-header-navigation-container{float:left;}#banner #nav-main .menu-primary-header-navigation-container ul{margin:0;padding:0;list-style:none;}
 #banner #nav-main .menu-primary-header-navigation-container li{display:inline-block;}#banner #nav-main .menu-primary-header-navigation-container li a{margin-right:25px;padding:5px 25px 5px 0;border-right:1px dotted #999999;line-height:40px;font-family:"Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;color:#dddddd;text-shadow:0 0 1px #000000;}
 #banner #nav-main .menu-primary-header-navigation-container li:last-child a{margin-right:0;padding-right:0;border-right:none;}
-#banner #nav-main .menu-social-media-icons-container{float:right;width:150px;}#banner #nav-main .menu-social-media-icons-container ul{margin:0;padding:0;}
-#banner #nav-main .menu-social-media-icons-container li{display:inline-block;}#banner #nav-main .menu-social-media-icons-container li a{display:inline-block;margin:5px 0;height:32px;width:32px;text-indent:-9999px;overflow:auto;}
-#banner #nav-main .menu-social-media-icons-container li.social-tw a{background:transparent url('../img/icon-tw.png') no-repeat;}
-#banner #nav-main .menu-social-media-icons-container li.social-fb a{background:transparent url('../img/icon-fb.png') no-repeat;}
-#banner #nav-main .menu-social-media-icons-container li.social-yt a{background:transparent url('../img/icon-yt.png') no-repeat;}
+#banner #nav-main .menu-social-media-icons-container{float:right;width:150px;}#banner #nav-main .menu-social-media-icons-container ul{margin:0;padding:0;text-align:right;}
+#banner #nav-main .menu-social-media-icons-container li{display:inline-block;}#banner #nav-main .menu-social-media-icons-container li:hover{background:#444444;}
+#banner #nav-main .menu-social-media-icons-container li a{display:inline-block;margin:5px 0 0;height:32px;width:32px;text-indent:9999px;overflow:auto;}
+#banner #nav-main .menu-social-media-icons-container li.social-tw a{background:transparent url('../img/icon-tw.png') center no-repeat;}
+#banner #nav-main .menu-social-media-icons-container li.social-fb a{background:transparent url('../img/icon-fb.png') center no-repeat;}
+#banner #nav-main .menu-social-media-icons-container li.social-yt a{background:transparent url('../img/icon-yt.png') center no-repeat;}
 #banner #masthead #searchtab,#banner #masthead #jointab,#banner #masthead #logintab{margin:10px;}
 #banner #masthead #nav-user{float:right;}#banner #masthead #nav-user li{margin:2em 1em 0;text-align:center;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;font:13.6px "Montreal Serial","Helvetica Neue",Helvetica,Arial,sans-serif;}#banner #masthead #nav-user li i{margin-bottom:0.5em;}
 #banner #nav-utility{background:url('../img/edges-color.png') center no-repeat;}#banner #nav-utility .lang-btn{float:left;margin:10px 0;}
