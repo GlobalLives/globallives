@@ -9,7 +9,7 @@
 			<div class="participant-meta row">
 	    		<div class="span2">
 	    			<b><?php _e('Occupation','glp'); ?>:</b> <?php the_field('occupation'); ?><br>
-	    			<b><?php _e('Date of Birth','glp'); ?>:</b> <?php the_field('dob'); ?>
+	    			<?php if ($dob = get_field('dob')) : ?><b><?php _e('Date of Birth','glp'); ?>:</b> <?php echo $dob; ?><?php endif; ?>
 	    		</div>
 	    		<div class="span2">
 	    			<b><?php _e('Religion','glp'); ?>:</b> <?php the_field('religion'); ?><br>
