@@ -169,7 +169,7 @@ $(function() {
 	if ($('.blog').length) { // Make sure we're on the blog page
 		var bg = $('.blog .post').first().data('bg');
 		if (bg) { set_background( bg, {to: '#262626'} ); }
-		$('.past-posts-container .post').each(function() {
+		$('.past-posts .post').each(function() {
 			var bg = $(this).data('bg');
 			if (bg) { $(this).css('background-image', 'url('+bg+')'); }
 		});

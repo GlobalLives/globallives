@@ -74,7 +74,7 @@
 			#gradient > .vertical(@grayDark, @black);
 			.box-shadow(0 10px 15px rgba(0,0,0,0.5));
 			position: relative; z-index: 9999;
-			font-size: @fontSizeSmall;
+			font-size: @baseFontSize * 1.167;
 			&.affix {
 				position: fixed;
 				top: 0; left: 0;
@@ -159,6 +159,7 @@
 			}
 			.container {
 				position: relative;
+				min-height: 50px;
 			}
 			.nav-tabs {
 				position: absolute;
@@ -168,7 +169,7 @@
 				a {
 					padding: 1em 2em 0.5em;
 					background: @grayLighter;
-					font: @fontSizeSmall @headingsFontFamily;
+					font: @baseFontSize @headingsFontFamily;
 					i {
 						position: relative;
 						margin: -2px 0 0 -2px;
@@ -190,10 +191,10 @@
 	}
 
 	.local-navigation-menu {
-		margin: 0 1em; padding: 0;
+		margin: 2em 0 0 2em; padding: 0;
 		list-style: none;
 		li {
-			padding: 1em 0;
+			margin: 1em 0 0; padding: 0 0 1em;
 			border-bottom: 1px dotted @grayLight;
 			&:last-child {
 				border: none;
@@ -260,12 +261,15 @@
 	}
 	.page-container {
 		margin: 0 0 2em;
-		padding: 2em 0 5em;
+		padding: 0 0 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
 		.border-radius(@borderRadiusLarge);
 	}
 	.static-page-container {
 		margin-top: 2em;
+		.type-page {
+			margin: 2em 2em 0 0;
+		}
 	}
 
 
@@ -305,10 +309,22 @@
 				-webkit-filter: ~"saturate(0%) contrast(40%)";
 				filter: ~"saturate(0%) contrast(40%)";
 			}
-			&.active img, img:hover {
-				-webkit-filter: ~"saturate(100%) contrast(100%)";
-				filter: ~"saturate(100%) contrast(100%)";
+			&.active {
+				img, img:hover {
+					-webkit-filter: ~"saturate(100%) contrast(100%)";
+					filter: ~"saturate(100%) contrast(100%)";
+				}
 			}
+				&:after {
+/*
+					position: absolute;
+					bottom: 0; left: 50%;
+*/
+					height: 0; width: 0;
+					background: pink;
+					border: @grayLight solid 200px;
+					border-color: transparent @grayLight transparent transparent;
+				}
 		}
 		.carousel-control {
 			&.left {
@@ -711,9 +727,6 @@
 	.blog-title {
 		background-image: url('../img/logo-blog.png');
 	}
-	.sidebar-blog {
-		margin: 0 1em;
-	}
 	/* Every post */
 	
 	.entry-date {
@@ -755,11 +768,14 @@
 		clear: both;
 		margin: 10em 0 3em;
 	}
-	.blog .past-posts-container {
-		margin: 0 0 5em;
-		padding: 2em 0 5em;
-		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(@borderRadiusLarge);
+	.blog .page-container {
+		.sidebar-blog {
+			margin: 2em 0 0 2em;
+		}
+		.past-posts {
+			margin: 2em 2em 0 0;
+		}
+
 		.post {
 			margin: 0 0 2em;
 			padding: 2em;
@@ -816,6 +832,7 @@
 		.entry-about-author {
 			.author-thumbnail {
 				float: left;
+				margin: 0 5px 2em 0;
 				height: 50px; width: 50px;
 				border-radius: 50%;
 				overflow: hidden;
@@ -836,15 +853,10 @@
 		}
 	}
 	.single-post-sidebar {
-		margin: 0 1em;
+		margin: 2em 0 2em 2em;
 	}
 	.single-post-container {
 		clear: both;
-		margin: 0 0 5em;
-		padding: 2em 0 5em;
-		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(@borderRadiusLarge);
-		
 	}
 
 /*	==========================================================================
@@ -891,19 +903,16 @@
 				padding-bottom: 0.5em;
 				color: @grayLight;
 				border-bottom: 1px dotted @grayLight;	
-				font-size: @baseFontSize;
+				font-size: @fontSizeLarge;
 				font-weight: normal;
 				
 			}
 		}
 	}
 	#content-info {
-		padding: 5em 0;
-		min-height: 360px;
+		padding: 2em 0 5em;
 		background: black url('../img/edges.jpg') no-repeat;
 		background-size: cover;
-		.box-shadow(0 0 25px rgba(0,0,0,1));
-		font-size: @fontSizeMini;
 		a {
 			color: white;
 		}
@@ -912,7 +921,7 @@
 		color: @white;
 		h4 {
 			margin-top: 0;
-			font-size: @baseFontSize;
+			font-size: @fontSizeLarge;
 		}
 		ul {
 			margin: 0; padding: 0;

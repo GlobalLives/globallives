@@ -7,7 +7,7 @@
 <?php endif; ?>
 
 <?php while (have_posts()) : the_post(); ?>
-  <article id="post-<?php the_ID(); ?>" <?php post_class('span8'); ?>>
+  <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <header>
       <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
       <?php get_template_part('templates/entry-meta'); ?>
@@ -20,20 +20,3 @@
     </footer>
   </article>
 <?php endwhile; ?>
-
-<?php if ($wp_query->max_num_pages > 1) : ?>
-  <nav id="post-nav">
-    <ul class="pager">
-      <?php if (get_next_posts_link()) : ?>
-        <li class="previous"><?php next_posts_link(__('&larr; Older posts', 'glp')); ?></li>
-      <?php else: ?>
-        <li class="previous disabled"><a><?php _e('&larr; Older posts', 'glp'); ?></a></li>
-      <?php endif; ?>
-      <?php if (get_previous_posts_link()) : ?>
-        <li class="next"><?php previous_posts_link(__('Newer posts &rarr;', 'glp')); ?></li>
-      <?php else: ?>
-        <li class="next disabled"><a><?php _e('Newer posts &rarr;', 'glp'); ?></a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-<?php endif; ?>

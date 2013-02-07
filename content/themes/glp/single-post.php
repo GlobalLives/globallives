@@ -1,4 +1,4 @@
-<h1 class="blog-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
+<h1 class="blog-title section-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
 
 <?php while (have_posts()) : the_post(); ?>
 <div class="row">
@@ -12,7 +12,7 @@
 </header>
 </div>
 
-<div class="single-post-container container">
+<div class="single-post-container page-container container">
 	<div class="post-inner row">
 
 	<div class="span3">

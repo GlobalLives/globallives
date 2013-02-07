@@ -1,7 +1,7 @@
 <header id="banner" role="banner">
 	<div id="nav-utility">
 		<div class="container">
-			<!-- <div class="lang-btn"><?php do_action('icl_language_selector'); ?></div> -->
+			<div class="lang-btn"><?php #do_action('icl_language_selector'); ?></div>
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#searchtab" data-toggle="tab"><i class="icon-search"></i> Search</a></li>
 				<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
