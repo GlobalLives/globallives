@@ -16,6 +16,11 @@
 		#gradient > .vertical(@grayLighter,@grayLight);
 
 		text-rendering: optimizeLegibility;
+
+		background: @grayLight url('../img/bg.jpg') center top no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+
 	}
 	
 	hr {
@@ -25,9 +30,6 @@
 	}
 	
 	#wrap {
-		background: @grayLight url('../img/bg.jpg') center top no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
 	}
 
 	.btn {
@@ -263,9 +265,11 @@
 	Home
 	========================================================================== */
 
+	.home {
+		background: transparent url('../img/bg-home.jpg') center no-repeat fixed;
+	}
 	.home #wrap {
-		background: @white center no-repeat fixed;
-		background-size: cover;
+		#gradient > .vertical(rgba(0,0,0,0),rgba(0,0,0,0.75));
 	}
 	#nav-featured {
 		margin: 0; padding: 0;
@@ -675,9 +679,12 @@
 	Blog
 	========================================================================== */
 
+	.blog {
+		background: @gray;
+	}
 	.blog #wrap, .single-post #wrap {
-		background-repeat: no-repeat;
-		background-size: cover;
+		background: transparent center top no-repeat scroll;
+		background-size: auto;
 	}
 	.blog-title {
 		background-image: url('../img/logo-blog.png');

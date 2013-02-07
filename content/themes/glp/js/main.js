@@ -11,17 +11,19 @@ $(function() {
 /* Functions */
 
 	function set_background( src, arg ) {
-		var fade_from = 'rgba(0,0,0,0)';
-		var fade_to = 'rgba(0,0,0,0)';
+		var fade_from = 'rgba(0,0,0,0)',
+			fade_to = 'rgba(0,0,0,0)',
+			bg = new Image();
+			
 		if (arg) {
-				fade_from = arg.from ? arg.from : fade_from;
-				fade_to = arg.to ? arg.to : fade_to;
+			fade_from = arg.from ? arg.from : fade_from;
+			fade_to = arg.to ? arg.to : fade_to;
 		}
-		
-		var bg = new Image();
+
 		bg.src = src;
 		bg.onload = function() {
-			var gradient = '-webkit-linear-gradient('+fade_from+' 0, '+fade_to+' '+this.height+'px)';
+/* 			var gradient = '-webkit-linear-gradient('+fade_from+' 0, '+fade_to+' '+this.height+'px)'; */
+			var gradient = '-webkit-linear-gradient('+fade_from+' 0, '+fade_to+' 640px)';
 			var bg_url = 'url('+this.src+')';
 			if (bg.src) { $('#wrap').css('background-image', gradient + ', ' + bg_url); }
 		};
@@ -64,11 +66,6 @@ $(function() {
 		$('#stage').fadeOut('',function() {	$('#home').fadeIn(); });
 	});
 	
-	if ( $('.front-page').length ) { // Make sure we're on the front page
-		var src = $('.front-page').data('bg');
-		set_background( src );
-	}
-
 /* Explore the Collection */
 	
 	if ($('#mapview').length) { // Make sure we're in Explore : Map View
@@ -112,7 +109,7 @@ $(function() {
 		var g = cells.selectAll('g')
 			.data(participants)
 			.enter().append('svg:g')
-			.attr('opacity',0);
+			.attr('opacity',0)
 		g.append('svg:path')
 			.attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; })
 			.on('mouseover',function(d,i){ show_mapthumb(i); });
