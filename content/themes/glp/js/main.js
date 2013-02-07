@@ -173,5 +173,14 @@ $(function() {
 			if (bg) { $(this).css('background-image', 'url('+bg+')'); }
 		});
 	}
+
+/* Search */
+
+	$('.search-sidebar :checkbox').change(function(){
+		var post_type = $(this).val();
+		$('.search-result.'+post_type).slideToggle('',function() {
+			$('.results-found').html( $('.search-result:visible').length );		
+		});
+	});
 	
 });
