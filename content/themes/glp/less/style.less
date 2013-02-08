@@ -136,6 +136,16 @@
 		#masthead {
 			#searchtab, #jointab, #logintab {
 				margin: 10px;
+				.btn {
+					color: @gray;
+					text-shadow: none;
+					#gradient > .vertical(@white,@grayLighter);
+					border: none;
+					.box-shadow(0 1px 1px @gray);
+					&:hover {
+						.box-shadow(0 0 0 @grayLighter);
+					}
+				}
 			}
 			#nav-user {
 				float: right;
