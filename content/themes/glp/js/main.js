@@ -22,10 +22,13 @@ $(function() {
 
 		bg.src = src;
 		bg.onload = function() {
-/* 			var gradient = '-webkit-linear-gradient('+fade_from+' 0, '+fade_to+' '+this.height+'px)'; */
-			var gradient = '-webkit-linear-gradient('+fade_from+' 0, '+fade_to+' 640px)';
+			var gradient = '('+fade_from+' 0, '+fade_to+' '+this.height+'px)';
 			var bg_url = 'url('+this.src+')';
-			if (bg.src) { $('#wrap').css('background-image', gradient + ', ' + bg_url); }
+			if (bg.src) {
+				$('#wrap').css('background-image', '-webkit-linear-gradient' + gradient + ', ' + bg_url);
+				$('#wrap').css('background-image', '-moz-linear-gradient' + gradient + ', ' + bg_url);
+				$('#wrap').css('background-image', 'linear-gradient' + gradient + ', ' + bg_url);
+			};
 		};
 	}
 
