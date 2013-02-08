@@ -119,7 +119,7 @@
 						margin: 5px 0 0;
 						height: 32px; width: 32px;
 						text-indent: 9999px;
-						overflow: auto;
+						overflow: hidden;
 					}
 					&.social-tw a {
 						background: transparent url('../img/icon-tw.png') center no-repeat;
@@ -312,16 +312,16 @@
 				top: 0; bottom: 0; left: 0; right: 0;
 				margin: auto;
 				height: 100%; width: auto;
-				-webkit-filter: ~"saturate(0%) contrast(40%)";
-				filter: ~"saturate(0%) contrast(40%)";
+				-webkit-filter: ~"saturate(0%)";
+				filter: ~"saturate(0%)";
+				opacity: 0.333;
 			}
-			&.active {
-				img, img:hover {
-					-webkit-filter: ~"saturate(100%) contrast(100%)";
-					filter: ~"saturate(100%) contrast(100%)";
-				}
+			&.active img, img:hover {
+				-webkit-filter: ~"saturate(100%)";
+				filter: ~"saturate(100%)";
+				opacity: 1.0;
 			}
-				&:after {
+			&.active:after {
 /*
 					position: absolute;
 					bottom: 0; left: 50%;
