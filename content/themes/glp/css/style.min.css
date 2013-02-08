@@ -825,7 +825,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #banner #masthead #nav-user{float:right;}#banner #masthead #nav-user li{margin:2em 1em 0;text-align:center;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;font:9.995999999999999px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;}#banner #masthead #nav-user li i{margin-bottom:0.5em;}
 #banner #nav-utility{background:url('../img/edges-color.png') center no-repeat;background-size:cover;}#banner #nav-utility .lang-btn{float:left;margin:10px 0;}
 #banner #nav-utility .container{position:relative;min-height:50px;}
-#banner #nav-utility .nav-tabs{position:absolute;bottom:0;right:0;margin:0;padding:0;float:right;}#banner #nav-utility .nav-tabs a{padding:1em 2em 0.5em;background:#dddddd;font:12px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;}#banner #nav-utility .nav-tabs a i{position:relative;margin:-2px 0 0 -2px;}
+#banner #nav-utility .nav-tabs{position:absolute;bottom:0;right:0;margin:0;padding:0;float:right;}#banner #nav-utility .nav-tabs a{padding:0.5em 1em 0.5em;background:#dddddd;font:12px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;}
 #banner #nav-utility .nav-tabs li.active a{background:#ffffff;}
 .local-navigation-menu{margin:2em 0 0 2em;padding:0;list-style:none;}.local-navigation-menu li{margin:1em 0 0;padding:0 0 1em;border-bottom:1px dotted #999999;}.local-navigation-menu li:last-child{border:none;}
 .local-navigation-menu li .children{display:none;margin:0 0 0 1em;padding:0;list-style:none;font-size:9.995999999999999px;}.local-navigation-menu li .children li{border:none;padding-bottom:0;}.local-navigation-menu li .children li li{font-size:8.004000000000001px;}
