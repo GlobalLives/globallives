@@ -59,10 +59,12 @@
 			margin: 0; padding: 0;
 			a {
 				display: block;
-				height: 100px; width: 130px;
-				background: transparent url('../img/logo.jpg') center no-repeat;
-				text-indent: -9999px;
+				padding: 5px 0 0 60px;
+				line-height: 60px;
+				background: transparent url('../img/logo-sm.jpg') left center no-repeat;
+				color: @black;
 				overflow: hidden;
+				text-decoration: none;
 			}
 		}
 		.btn {
@@ -165,19 +167,20 @@
 			background-size: cover;
 			.lang-btn {
 				float: left;
-				margin: 10px 0;
+/* 				margin: 10px 0; */
 			}
 			.container {
 				position: relative;
-				min-height: 50px;
+				min-height: 10px;
 			}
 			.nav-tabs {
+				display: none;
 				position: absolute;
 				bottom: 0; right: 0;
 				margin: 0; padding: 0;
 				float: right;
 				a {
-					padding: 0.5em 1em 0.5em;
+/* 					padding: 0.5em 1em 0.5em; */
 					background: @grayLighter;
 					font: @baseFontSize @headingsFontFamily;
 				}

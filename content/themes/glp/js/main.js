@@ -3,10 +3,12 @@ $(function() {
 	// Affix main navigation menu to top of page, once you scroll past it
 	$('#nav-main').affix({ offset: $('#nav-main').position() });
 
-	// Jump the main navigation to the top of the page, on pages other than Home
+	// Jump the main navigation to the top of the page, on pages other than Home (removed 2/11/13 with introduction of shorter header)
+/*
 	if( $('body:not(.home)').length ) {
 		$('body,html').scrollTop( $('#nav-main').offset().top ); // Firefox needs the 'html' selector
 	}
+*/
 
 /* Functions */
 
