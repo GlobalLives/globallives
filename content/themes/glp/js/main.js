@@ -41,16 +41,22 @@ $(function() {
 	}
 
 	function set_popover( d, el ) {
-		var dy = $(el).position().top - 50,
-			dx = $(el).position().left + 25;
-		$('#popover').css('top', dy).css('left', dx);
+		var width = $('#mapview').width(),
+			dy = $(el).position().top,
+			dx = $(el).position().left;
+		if ( dx < width/2 ) {
+			dx_offset = 30;
+		} else {
+			dx_offset = -340;
+		}
+		$('#popover').css('top', dy).css('left', dx + dx_offset);
 		$('#popover .popover-name').text(d.name);
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
 		$('#popover .popover-dob').text(d.dob);
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
-		$('#popover').show();
+		$('#popover, .overlay').show();
 	}
 	function show_mapthumb( i ) {
 		$('.mapthumb').hide();
@@ -116,8 +122,8 @@ $(function() {
 			.enter().append('svg:g')
 			.attr('opacity',0)
 		g.append('svg:path')
-			.attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; })
-			.on('mouseover',function(d,i){ show_mapthumb(i); });
+			.attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; });
+/* 			.on('mouseover',function(d,i){ show_mapthumb(i); }); */
 
 		// Add Participant markers
 		
@@ -127,14 +133,16 @@ $(function() {
 				.attr('class', function(d) { return 'marker ' + d.continent; })
 				.attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
 				.on('click', function(d) { set_popover(d,this); });
+/*
 		markers.append('svg:path') // Add the pins
 			.attr('class', 'pin')
 			.attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')
 			.attr('transform','translate(-30,-50), scale(0.125)');
+*/
 		markers.append('svg:circle')
 			.attr('id',function(d,i){ return 'mapthumb-'+i; })
 			.attr('class', 'mapthumb')
-			.attr('cy',-40)
+/* 			.attr('cy',-40) */
 			.attr('r',25)
 			.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
 	
@@ -150,10 +158,13 @@ $(function() {
 		});
 	}
 	
-	$('.mapthumb').hide();
+	$('.overlay').hide();
 	$('#popover').hide();
 	$('#popover .close').click( function() {
 		$(this).parent().hide();
+	});
+	$('.overlay').click( function() {
+		$('#popover, .overlay').hide();
 	});
 
 /* Participant Detail */

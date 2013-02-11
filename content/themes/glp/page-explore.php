@@ -1,4 +1,5 @@
 <div id="mapview"></div>
+<div class="overlay"></div>
 <div id="popover" class="span4">
 	<h3><span class="popover-name"></span> &mdash; <span class="popover-location"></h3>
 	<div class="row">
