@@ -5,7 +5,7 @@
 	    </header>
 	    <div class="row">
 		<div class="span4">
-			<img class="participant-map" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php echo urlencode(get_field('location')); ?>&zoom=6&size=570x250&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100">
+			<img class="participant-map" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&zoom=6&size=570x250&markers=color:red|<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100">
 			<div class="participant-meta row">
 	    		<div class="span2">
 	    			<b><?php _e('Occupation','glp'); ?>:</b> <?php the_field('occupation'); ?><br>
