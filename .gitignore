@@ -2,7 +2,7 @@
 local-config.php
 content/uploads/
 content/upgrade/
-content/backup-db/
+content/backup*
 content/advanced-cache.php
 content/wp-cache-config.php
 content/cache/
