@@ -312,7 +312,7 @@
 			background: @gray;
 			border: 5px solid @white;
 			.box-shadow(0 0 5px rgba(0,0,0,0.5));
-			overflow: hidden;
+			overflow: visible;
 			cursor: pointer;
 			img {
 				position: absolute;
@@ -330,15 +330,18 @@
 				opacity: 1.0;
 			}
 			&.active:after {
-/*
-					position: absolute;
-					bottom: 0; left: 50%;
-*/
-					height: 0; width: 0;
-					background: pink;
-					border: @grayLight solid 200px;
-					border-color: transparent @grayLight transparent transparent;
-				}
+				content: "";
+				position: absolute;
+				top: 125%; left: 50%;
+				margin-left: -10px;
+				height: 0; width: 0;
+				background: transparent;
+				border: @grayLight solid 15px;
+				border-color: @black transparent transparent transparent;
+			}
+		}
+		.carousel-inner {
+			overflow: visible;
 		}
 		.carousel-control {
 			&.left {

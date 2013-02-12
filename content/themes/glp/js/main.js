@@ -74,7 +74,7 @@ $(function() {
 		set_stage( $(this).data('id') );
 	});
 	$('#nav-featured .home-thumbnail').click(function() {
-		$('#stage').fadeOut('',function() {	$('#home').fadeIn(); });
+		$('#stage').fadeOut('',function() {	$('.home-thumbnail').addClass('active'); $('#home').fadeIn(); });
 	});
 	
 /* Explore the Collection */
