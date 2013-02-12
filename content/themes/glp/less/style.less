@@ -212,6 +212,9 @@
 	.local-navigation-menu {
 		margin: 2em 0 0 2em; padding: 0;
 		list-style: none;
+		&.affix {
+			position: fixed;
+		}
 		li {
 			margin: 1em 0 0; padding: 0 0 1em;
 			border-bottom: 1px dotted @grayLight;
@@ -284,10 +287,12 @@
 		}
 	}
 	.page-container {
+		position: relative;
 		margin: 0 0 2em;
 		padding: 0 0 5em;
 		background: @white url('../img/logo-coda.png') bottom center no-repeat;
 		.border-radius(@borderRadiusLarge);
+		overflow: hidden;
 	}
 	.static-page-container {
 		margin-top: 2em;
@@ -510,13 +515,13 @@
 			fill: @gray;
 			cursor: pointer;
 			.mapthumb { stroke-width: 3px; }
-			&.africa		{ fill: @orange;	.mapthumb { stroke: @orange; } }
-			&.antarctica	{ fill: @white;		.mapthumb { stroke: @white; } }
-			&.australia		{ fill: @purple;	.mapthumb { stroke: @purple; } }
-			&.asia			{ fill: @blue;		.mapthumb { stroke: @blue; } }
-			&.europe		{ fill: @yellow;	.mapthumb { stroke: @yellow; } }
-			&.north-america { fill: @green;		.mapthumb { stroke: @green; } }
-			&.south-america { fill: @pink;		.mapthumb { stroke: @pink; } }
+			&.africa		{ fill: #ff0;	.mapthumb { stroke: #ff0; } }
+			&.antarctica	{ fill: #fff;	.mapthumb { stroke: #fff; } }
+			&.australia		{ fill: #17d;	.mapthumb { stroke: #17d; } }
+			&.asia			{ fill: #f80;	.mapthumb { stroke: #f80; } }
+			&.europe		{ fill: #f00;	.mapthumb { stroke: #f00; } }
+			&.north-america { fill: #0e2;	.mapthumb { stroke: #0e2; } }
+			&.south-america { fill: #0ce;	.mapthumb { stroke: #0ce; } }
 			
 		}
 	}
