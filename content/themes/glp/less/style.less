@@ -91,17 +91,24 @@
 					list-style: none;
 				}
 				li {
-					display: inline-block;
+					display: block;
+					float: left;
+					margin: 0;
 					a {
-					    margin-right: 25px; padding: 5px 25px 5px 0;
+						display: block;
+					    margin: 5px 0; padding: 0 1em;
+					    text-align: center;
 					    border-right: 1px dotted @grayLight;
 					    line-height: 40px;
 					    font-family: @headingsFontFamily;
 					    color: @grayLighter;
 					    text-shadow: 0 0 1px @black;
+					    text-decoration: none;
+					}
+					&:hover, &.current_page_item, &.current_page_ancestor, &.current-menu-item {
+						background: @grayDark;
 					}
 					&:last-child a {
-					    margin-right: 0; padding-right: 0;
 					    border-right: none;
 					}
 				}
@@ -356,7 +363,7 @@
 		}
 		.carousel-inner {
 			overflow: visible;
-			overflow-x: hidden;
+/* 			overflow-x: hidden;  */
 		}
 		.carousel-control {
 			&.left {
