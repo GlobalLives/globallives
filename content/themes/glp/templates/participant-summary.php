@@ -19,7 +19,7 @@
 	    	<div class="participant-content">
 			    <?php the_content(); ?>
 			</div>
-			<a class="btn" href="<?php the_permalink(); ?>">&#9658; <?php _e('Full Story','glp'); ?></a>
+			<a class="btn" href="<?php the_permalink(); ?>">&#9658;&nbsp;<?php _e('Full Story','glp'); ?></a>
 		</div>
 		<div class="span8">
 		<?php
