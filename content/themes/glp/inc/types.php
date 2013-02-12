@@ -89,6 +89,7 @@
 			    'singular_name'	=> __( 'Clip' )
 			),
 			'public' => true,
+			'exclude_from_search' => true,
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
 			'has_archive' => false,

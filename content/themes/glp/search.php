@@ -13,7 +13,6 @@
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="page" />Pages</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="post" />Articles</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="participant" />Participants</label>
-				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="clip" />Videos</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="tribe-event" />Events</label>
 
 <!--
@@ -27,7 +26,7 @@
 		
 		<div class="span9">
 			<div class="search-entries">
-				<h3><span class="results-found"><?php global $wp_query; $total_results = $wp_query->found_posts; echo $total_results; ?></span> <?php _e('results found.','glp'); ?></h3> 
+				<h3><span class="results-found"><?php global $wp_query; $total_results = $wp_query->found_posts; echo $total_results; ?></span> <?php _e('results with','glp'); ?> '<?php the_search_query(); ?>'</h3> 
 				<?php get_template_part('templates/result', get_post_type()); ?>
 			</div>
 		</div>
