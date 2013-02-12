@@ -61,7 +61,7 @@
 				display: block;
 				padding: 5px 0 0 60px;
 				line-height: 60px;
-				font-size: @baseFontSize * 2;
+				font-size: @fontSizeXLarge;
 				background: transparent url('../img/logo-sm.jpg') left center no-repeat;
 				color: @black;
 				overflow: hidden;
@@ -78,7 +78,7 @@
 			#gradient > .vertical(@grayDark, @black);
 			.box-shadow(0 10px 15px rgba(0,0,0,0.5));
 			position: relative; z-index: 9999;
-			font-size: @baseFontSize * 1.167;
+			font-size: @fontSizeLarge;
 			&.affix {
 				position: fixed;
 				top: 0; left: 0;
@@ -223,8 +223,9 @@
 					}
 				}
 			}
-			&.current_page_item .children, &.current_page_ancestor .children {
+			&.current_page_item, &.current_page_item .children, &.current_page_ancestor .children {
 				display: block;
+				font-weight: bold;
 			}
 		}
 		a {
@@ -250,11 +251,13 @@
 		padding: 0 0 0 50px;
 		color: @white;
 		background: transparent url('../img/logo-blog.png') center left no-repeat;
-		font-size: @baseFontSize * 2;
+		font-size: @fontSizeXLarge;
 		font-family: @headingsFontFamily;
 		font-weight: normal;
 	}
-
+	.page-title {
+		font-size: @fontSizeXLarge;
+	}
 	.page-excerpt {
 		position: relative;
 		max-width: 35em;
@@ -262,7 +265,7 @@
 		margin: 2em auto 0;
 		background: transparent url('../img/logo-subtle.png') center no-repeat;
 		text-align: center;
-		font: normal @fontSizeLarge @headingsFontFamily;
+		font: normal @fontSizeXLarge @headingsFontFamily;
 		color: @white;
 		text-shadow: 0 0 10px rgba(0,0,0,0.75);
 		p {
@@ -284,6 +287,9 @@
 			margin: 2em 2em 0 0;
 			a {
 				font-weight: bold;
+			}
+			p {
+				margin-bottom: @baseLineHeight;
 			}
 		}
 	}
@@ -540,7 +546,7 @@
 			text-shadow: 0 0 1px #000;
 			.participant-title {
 				font-weight: normal;
-				font-size: @baseFontSize * 2;
+				font-size: @fontSizeXLarge;
 				line-height: 48px;
 				border-bottom: 1px dotted @gray;
 			}
