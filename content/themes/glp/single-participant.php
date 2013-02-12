@@ -42,7 +42,7 @@
 	    		<div class="span6">
 	    		    <div class="row">
 	    		
-	    		    	<div class="participant-clips span4">
+	    		    	<div class="participant-clips span6">
 	    		    		<h3><?php _e('Footage','glp'); ?> (<?php echo count(get_field('clips')); ?>)</h3>
 	    		    		<?php if (get_field('clips')) : foreach( get_field('clips') as $clip ) : ?>
 	    		    			<?php get_template_part('templates/clip','listing'); ?>
@@ -51,7 +51,7 @@
 	    		    		<?php endif; ?>
 	    		    	</div>
 	    		
-	    		    	<div class="span2">
+	    		    	<?php /*<div class="span2">
 	    		    		<div class="participant-filter-clips">
 	    		    		<h4><?php _e('Filter Clips','glp'); ?></h4>
 	    		    		<h5><?php _e('By Popular Tags','glp'); ?></h5>
@@ -59,7 +59,7 @@
 	    		    			<a><?php echo $clip_tag->name; ?></a>
 	    		    		<?php endforeach; endif; ?>
 	    		    		</div>	    		    		
-	    		    	</div>
+	    		    	</div>*/?>
 	    		    </div>
 	    		</div>
 	    
