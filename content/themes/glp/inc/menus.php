@@ -62,7 +62,7 @@ function create_custom_sidebars() {
 	register_sidebar(array(
 		'name' => __( 'Events Sidebar', 'glp' ),
 		'id' => 'sidebar-events',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s span4"><div class="widget-inner">',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s"><div class="widget-inner">',
 		'after_widget' => '</div></aside>',
 		'before_title' => '<h4 class="widget-title">',
 		'after_title' => '</h4>'

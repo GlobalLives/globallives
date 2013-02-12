@@ -280,6 +280,10 @@
 			margin: 2em 2em 0 0;
 		}
 	}
+	.page-sidebar {
+		margin: 2em 0 0 2em;
+	}
+
 
 
 /*	==========================================================================
@@ -832,15 +836,17 @@
 			}
 		}
 	}
-	.single-post {
+	.single-post, .single-event-container {
 		.entry-author {
 			float: left;
 			width: 50%;
+			padding: 0.5em 0;
 		}
 		.entry-tags {
 			float: right;
 			width: 50%;
 			text-align: right;
+			padding: 0.5em 0;
 		}
 		.entry-content {
 			margin-top: 2em;
@@ -874,6 +880,62 @@
 	}
 	.single-post-container {
 		clear: both;
+	}
+
+/*	==========================================================================
+	Events
+	========================================================================== */
+
+	.tribe-events-events {
+		margin: 2em 2em 0 0;
+	}
+		.tribe-events-event {
+			margin: 0 0 2em;
+			padding: 2em;
+			background: #ccc center no-repeat;
+			background-size: cover;
+			.entry-date {
+				margin: 10em 0 0;
+			}
+			.entry-header {
+				display: block;
+			}
+			.entry-category {
+				margin: 0;
+				font-size: @baseFontSize;
+			}
+			.entry-title {
+				margin: 0;
+				font-size: @fontSizeLarge;
+			}
+			.entry-content {
+				margin: 0;
+				width: auto;
+			}
+			.entry-share {
+				display: inline-block;
+			}
+		}
+	.entry-tags {
+		dt, dd {
+			margin: 0; padding: 0;
+			display: inline;
+		}
+	}
+	.widget .upcoming {
+		margin: 0 0 1em; padding: 0;
+		list-style: none;
+		border-bottom: 1px dotted @grayLight;
+		li {
+			margin: 1em 0;
+			.when {
+				font-size: @fontSizeSmall;
+				color: @gray;
+			}
+			.event {
+				font-weight: bold;
+			}
+		}
 	}
 
 /*	==========================================================================

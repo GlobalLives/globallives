@@ -5,7 +5,9 @@
 	<div class="events-inner row">
 
 		<div class="span3">
+			<div class="sidebar-events page-sidebar">
 			<?php dynamic_sidebar('sidebar-events'); ?>
+			</div>
 		</div>
 
 		<div class="span9">

@@ -12,38 +12,35 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <div id="tribe-events-content" class="upcoming">
 
-	<?php if(!tribe_is_day()): // day view doesn't have a grid ?>
-		<div id='tribe-events-calendar-header' class="clearfix">
-		<span class='tribe-events-calendar-buttons'> 
-			<a class='tribe-events-button-on' href='<?php echo tribe_get_listview_link(); ?>'><?php _e('Event List', 'tribe-events-calendar'); ?></a>
-			<a class='tribe-events-button-off' href='<?php echo tribe_get_gridview_link(); ?>'><?php _e('Calendar', 'tribe-events-calendar'); ?></a>
-		</span>
-
-		</div><!--tribe-events-calendar-header-->
-	<?php endif; ?>
 	<div id="tribe-events-loop" class="tribe-events-events post-list clearfix">
 	
 	<?php if (have_posts()) : ?>
 	<?php $hasPosts = true; $first = true; ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>
-		<div id="post-<?php the_ID(); ?>" <?php post_class('tribe-events-event clearfix'); ?> itemscope itemtype="http://schema.org/Event">
+		<article id="post-<?php the_ID(); ?>" <?php post_class('tribe-events-event clearfix'); ?><?php if (has_post_thumbnail()) : ?> data-bg="<?php echo wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ); ?>"<?php endif; ?> itemscope itemtype="http://schema.org/Event">
+		
 			<?php if ( tribe_is_new_event_day() && !tribe_is_day() && !tribe_is_multiday() ) : ?>
-				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?></h4>
+				<div class="entry-date"><?php echo tribe_get_start_date( null, false ); ?></div>
 			<?php endif; ?>
 			<?php if( !tribe_is_day() && tribe_is_multiday() ) : ?>
-				<h4 class="event-day"><?php echo tribe_get_start_date( null, false ); ?> – <?php echo tribe_get_end_date( null, false ); ?></h4>
+				<div class="entry-date"><?php echo tribe_get_start_date( null, false ); ?> – <?php echo tribe_get_end_date( null, false ); ?></div>
 			<?php endif; ?>
 			<?php if ( tribe_is_day() && $first ) : $first = false; ?>
-				<h4 class="event-day"><?php echo tribe_event_format_date(strtotime(get_query_var('eventDate')), false); ?></h4>
+				<div class="entry-date"><?php echo tribe_event_format_date(strtotime(get_query_var('eventDate')), false); ?></div>
 			<?php endif; ?>
-			<?php the_title('<h2 class="entry-title" itemprop="name"><a href="' . tribe_get_event_link() . '" title="' . the_title_attribute('echo=0') . '" rel="bookmark">', '</a></h2>'); ?>
+			<header class="entry-header">
+				<h3 class="entry-category"><?php _e('Event','glp'); ?></h3>
+				<h2 class="entry-title" itemprop="name"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+			</header>
+
 			<div class="entry-content tribe-events-event-entry" itemprop="description">
 				<?php if (has_excerpt ()): ?>
 					<?php the_excerpt(); ?>
 				<?php else: ?>
 					<?php the_content(); ?>
 				<?php endif; ?>
+				<a class="btn" href="<?php the_permalink(); ?>">&#9658; Learn More</a>
 			</div> <!-- End tribe-events-event-entry -->
 
 			<div class="tribe-events-event-list-meta" itemprop="location" itemscope itemtype="http://schema.org/Place">
@@ -108,7 +105,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 					<?php endif; ?>
 				</table>
 			</div>
-		</div> <!-- End post -->
+		</article> <!-- End post -->
 	<?php endwhile;// posts ?>
 	<?php else :?>
 		<div class="tribe-events-no-entry">

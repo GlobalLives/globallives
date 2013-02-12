@@ -191,6 +191,16 @@ $(function() {
 		});
 	}
 
+/* Events */
+
+	if ($('.events-list').length) { // Make sure we're on the events page
+		$('.tribe-events-event').each(function() {
+			var bg = $(this).data('bg');
+			if (bg) { $(this).css('background-image', 'url('+bg+')'); }
+		});
+
+	}
+
 /* Search */
 
 	$('.search-sidebar :checkbox').change(function(){

@@ -41,7 +41,6 @@
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div>
-		[SHARE] [COMMENT] [BOOKMARK] [REPOST]
 	</div>
 	
 	</div>
