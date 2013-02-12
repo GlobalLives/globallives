@@ -510,7 +510,7 @@
 	.single-participant {
 		color: @white;
 		h3 {
-			font-size: @baseFontSize;
+			font-weight: normal;
 		}
 		#wrap {
 			background: @black;
@@ -537,7 +537,7 @@
 			text-shadow: 0 0 1px #000;
 			.participant-title {
 				font-weight: normal;
-				font-size: @fontSizeLarge;
+				font-size: @baseFontSize * 2;
 				line-height: 48px;
 				border-bottom: 1px dotted @gray;
 			}
@@ -579,13 +579,26 @@
 				border-bottom: 1px dotted @gray;
 			}
 			.participant-clip-listing {
-				padding: 1em 0;
+				margin: 0;
+				padding: 2em 0;
 				border-bottom: 1px dotted @gray;
 				font-size: @fontSizeMini;
 				cursor: pointer;
+				&.active .row {
+					margin: 0;
+					padding: 2em 0;
+					background: @grayDark;
+					.border-radius(@borderRadiusSmall);
+				}
 				a {
 					color: @white;
 					text-decoration: none;
+				}
+				.clip-title {
+					margin: 0;
+				}
+				.clip-duration {
+					margin: 0;
 				}
 				.clip-thumbnail {
 					position: relative;

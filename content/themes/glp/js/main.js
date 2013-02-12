@@ -175,14 +175,13 @@ $(function() {
 
 /* Participant Detail */
 
-	$('.participant-clip .clip-thumbnail').click(function() {
+	$('.participant-clip-listing .clip-thumbnail').click(function() {
+	console.log('clicked');
 		var clip_id = $(this).data('clip-id');
+		$(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
 		$('#stage').fadeOut().load('/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_clip', clip_id: clip_id },
-			function() {
-				$(this).addClass('active');
-				$('#stage').fadeIn();
-			}
+			function() { $('#stage').fadeIn(); }
 		);
 	});
 		

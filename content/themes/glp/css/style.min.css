@@ -874,13 +874,13 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #mapview .marker.europe{fill:#ffc40d;}#mapview .marker.europe .mapthumb{stroke:#ffc40d;}
 #mapview .marker.north-america{fill:#46a546;}#mapview .marker.north-america .mapthumb{stroke:#46a546;}
 #mapview .marker.south-america{fill:#c3325f;}#mapview .marker.south-america .mapthumb{stroke:#c3325f;}
-.single-participant{color:#ffffff;}.single-participant h3{font-size:12px;}
+.single-participant{color:#ffffff;}.single-participant h3{font-weight:normal;}
 .single-participant #wrap{background:#000000;}
 .single-participant #content{position:relative;width:100%;}
 .single-participant #stage{padding-bottom:0;}
 .single-participant .participant-video-embed{min-height:528px;max-width:100%;}
 .single-participant .participant-video-buttons{padding:1em 0;}
-.single-participant .participant-detail-content{margin:0 0;padding:1em 0;background-color:#303030;background-image:-moz-linear-gradient(top, #222222, #444444);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#444444));background-image:-webkit-linear-gradient(top, #222222, #444444);background-image:-o-linear-gradient(top, #222222, #444444);background-image:linear-gradient(to bottom, #222222, #444444);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff444444', GradientType=0);border-top:1px solid #555555;text-shadow:0 0 1px #000;}.single-participant .participant-detail-content .participant-title{font-weight:normal;font-size:15.995999999999999px;line-height:48px;border-bottom:1px dotted #555555;}
+.single-participant .participant-detail-content{margin:0 0;padding:1em 0;background-color:#303030;background-image:-moz-linear-gradient(top, #222222, #444444);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#444444));background-image:-webkit-linear-gradient(top, #222222, #444444);background-image:-o-linear-gradient(top, #222222, #444444);background-image:linear-gradient(to bottom, #222222, #444444);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff444444', GradientType=0);border-top:1px solid #555555;text-shadow:0 0 1px #000;}.single-participant .participant-detail-content .participant-title{font-weight:normal;font-size:24px;line-height:48px;border-bottom:1px dotted #555555;}
 .single-participant .participant-detail-content .participant-name{font-weight:bold;}
 .single-participant .participant-detail-content .participant-content{margin:1em 0;}
 .single-participant .participant-detail-content .participant-location{font-weight:light;}
@@ -888,7 +888,10 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .single-participant .participant-crew .profile-thumbnail{margin:0 auto;width:100%;height:auto;overflow:hidden;}.single-participant .participant-crew .profile-thumbnail img{height:auto;width:auto;}
 .single-participant .participant-crew .profile-thumbnail h4{clear:both;}
 .single-participant .participant-clips h3{line-height:50px;border-bottom:1px dotted #555555;}
-.single-participant .participant-clips .participant-clip-listing{padding:1em 0;border-bottom:1px dotted #555555;font-size:8.004000000000001px;cursor:pointer;}.single-participant .participant-clips .participant-clip-listing a{color:#ffffff;text-decoration:none;}
+.single-participant .participant-clips .participant-clip-listing{margin:0;padding:2em 0;border-bottom:1px dotted #555555;font-size:8.004000000000001px;cursor:pointer;}.single-participant .participant-clips .participant-clip-listing.active .row{margin:0;padding:2em 0;background:#444444;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.single-participant .participant-clips .participant-clip-listing a{color:#ffffff;text-decoration:none;}
+.single-participant .participant-clips .participant-clip-listing .clip-title{margin:0;}
+.single-participant .participant-clips .participant-clip-listing .clip-duration{margin:0;}
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail{position:relative;}.single-participant .participant-clips .participant-clip-listing .clip-thumbnail img{border:5px solid #ffffff;}
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail:after{position:absolute;top:40%;left:45%;color:#ffffff;font-size:36px;content:'►';}
 .single-participant .participant-filter-clips{padding:0.75em;background:#222222;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;-webkit-box-shadow:0 2px 2px #000000 inset;-moz-box-shadow:0 2px 2px #000000 inset;box-shadow:0 2px 2px #000000 inset;}.single-participant .participant-filter-clips h4{font-size:12px;}
