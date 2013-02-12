@@ -1,5 +1,5 @@
 <?php global $clip; ?>
-<article class="participant-clip">
+<article class="participant-clip-listing">
     <div class="row">
     	<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>"><img src="http://img.youtube.com/vi/<?php the_field('youtube_id', $clip->ID); ?>/0.jpg"></div>
     	<div class="span2">
