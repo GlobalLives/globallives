@@ -843,7 +843,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #nav-featured .featured-thumbnail{position:relative;-moz-box-sizing:border-box;box-sizing:border-box;height:100px;background:#555555;border:5px solid #ffffff;-webkit-box-shadow:0 0 5px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 0 5px rgba(0, 0, 0, 0.5);box-shadow:0 0 5px rgba(0, 0, 0, 0.5);overflow:visible;cursor:pointer;}#nav-featured .featured-thumbnail img{position:absolute;display:block;top:0;bottom:0;left:0;right:0;margin:auto;height:100%;width:auto;-webkit-filter:saturate(0%);filter:saturate(0%);opacity:0.333;}
 #nav-featured .featured-thumbnail.active img,#nav-featured .featured-thumbnail img:hover{-webkit-filter:saturate(100%);filter:saturate(100%);opacity:1.0;}
 #nav-featured .featured-thumbnail.active:after{content:"";position:absolute;top:125%;left:50%;margin-left:-10px;height:0;width:0;background:transparent;border:#999999 solid 15px;border-color:#000000 transparent transparent transparent;}
-#nav-featured .carousel-inner{overflow:visible;}
+#nav-featured .carousel-inner{overflow:visible;overflow-x:hidden;}
 #nav-featured .carousel-control.left{left:-1em;}
 #nav-featured .carousel-control.right{right:-1em;}
 .home #stage{padding:2em 0;}
