@@ -35,9 +35,11 @@ $(function() {
 	}
 
 	function set_stage( post_id ) {
-		$('#stage').fadeOut().load('/wp/wp-admin/admin-ajax.php',
-			{ action: 'get_participant_summary', post_id: post_id }
-		).fadeIn();
+		$('#stage').fadeOut('slow').load(
+			'/wp/wp-admin/admin-ajax.php',
+			{ action: 'get_participant_summary', post_id: post_id },
+			function() { $('#stage').fadeIn('slow'); }
+		);
 	}
 
 	function set_popover( d, el ) {
@@ -70,14 +72,14 @@ $(function() {
 	$('#nav-featured .participant-thumbnail').click(function() {
 		$(this).siblings().removeClass('active');
 		$(this).addClass('active');
-		$('#home').fadeOut();
+		$('#home').fadeOut('slow');
 		set_stage( $(this).data('id') );
 	});
 	$('#nav-featured .home-thumbnail').click(function() {
-		$('#stage').fadeOut('',function() {
+		$('#stage').fadeOut('slow',function() {
 			$('.participant-thumbnail').removeClass('active');
 			$('.home-thumbnail').addClass('active');
-			$('#home').fadeIn();
+			$('#home').fadeIn('slow');
 		});
 	});
 	

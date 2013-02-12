@@ -9,6 +9,6 @@
 		    <a class="btn" href="<?php the_permalink(); ?>">&#9658; Full Story</a>
 		</div>
 	    <footer>
-	    	<div class="entry-share">[SHARE LINKS]</div>
+	    	<!-- <div class="entry-share">[SHARE LINKS]</div> -->
 		</footer>
 	</article>
