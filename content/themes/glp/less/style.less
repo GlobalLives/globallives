@@ -892,7 +892,7 @@
 				}
 			}
 		}
-		.FeaturedArticlesWidget {
+		.featured-articles {
 			a {
 				display: block;
 				margin: 0 0 2em; padding: 0 0 1em;
@@ -1094,7 +1094,7 @@
 		#gradient > .vertical(@grayLighter,@grayLight);
 		.widget {
 			margin-top: 2em; margin-bottom: 2em;
-			height: 180px;
+			height: 220px;
 			color: @grayDarker;
 			background: @white;
 			.border-radius(@borderRadiusLarge);
@@ -1109,6 +1109,23 @@
 				font-size: @fontSizeLarge;
 				font-weight: normal;
 				
+			}
+		}
+		.widget_recent_entries {
+			ul {
+				margin: 0; padding: 0;
+				list-style: none;
+				li {
+					margin: 0 0 @baseLineHeight;
+					a {
+						color: @black;
+					}
+					.post-date {
+						display: block;
+						color: @grayLight;
+						font-size: @fontSizeSmall;
+					}
+				}
 			}
 		}
 	}

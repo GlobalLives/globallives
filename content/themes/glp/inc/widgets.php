@@ -4,7 +4,7 @@ class FeaturedArticlesWidget extends WP_Widget
 {
   function FeaturedArticlesWidget()
   {
-    $widget_ops = array('classname' => 'FeaturedArticlesWidget', 'description' => 'Displays latest sticky posts' );
+    $widget_ops = array('classname' => 'featured-articles', 'description' => 'Displays latest sticky posts' );
     $this->WP_Widget('FeaturedArticlesWidget', 'Featured Articles', $widget_ops);
   }
  
