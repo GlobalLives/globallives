@@ -840,6 +840,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .page-container{position:relative;margin:0 0 2em;padding:0 0 5em;background:#ffffff url('../img/logo-coda.png') bottom center no-repeat;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;overflow:hidden;}
 .static-page-container{margin-top:2em;}.static-page-container .type-page{margin:2em 2em 0 0;}.static-page-container .type-page a{font-weight:bold;color:#000000;}
 .static-page-container .type-page p{margin-bottom:18px;}
+.static-page-container .type-page .btn{color:#dddddd;}.static-page-container .type-page .btn:hover{color:#ffffff;}
 .page-sidebar{margin:2em 0 0 2em;}
 .home{background:transparent url('../img/bg-home.jpg') center no-repeat fixed;}
 .home #wrap{background-color:rgba(0, 0, 0, 0.30000000000000004);background-image:-moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.75)));background-image:-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:-o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#bf000000', GradientType=0);min-height:600px;}
