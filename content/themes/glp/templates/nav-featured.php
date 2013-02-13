@@ -21,3 +21,11 @@
 		</div>
 	</div>
 </nav>
+<script type='text/javascript'>
+   $('#featured-carousel').bind('slide',function(){
+            $('#featured-carousel').css('overflow','hidden');
+    });
+   $('#featured-carousel').bind('slid',function(){
+            $('#featured-carousel').css('overflow','visible');
+    });
+</script>
