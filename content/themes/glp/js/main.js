@@ -76,7 +76,7 @@ $(function() {
 	});
 	
 	$('#nav-featured .participant-thumbnail').click(function() {
-		$('.participant-thumbnail').removeClass('active');
+		$('.home-thumbnail, .participant-thumbnail').removeClass('active');
 		$(this).addClass('active');
 		$('#home').fadeOut('slow');
 		set_stage( $(this).data('id') );
