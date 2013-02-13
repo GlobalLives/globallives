@@ -68,9 +68,15 @@ $(function() {
 /* Front Page */
 
 	$('.carousel').carousel('pause');
+	$('#featured-carousel').bind('slide',function(){
+		$('#featured-carousel').css('overflow','hidden');
+	});
+	$('#featured-carousel').bind('slid',function(){
+		$('#featured-carousel').css('overflow','visible');
+	});
 	
 	$('#nav-featured .participant-thumbnail').click(function() {
-		$(this).siblings().removeClass('active');
+		$('.participant-thumbnail').removeClass('active');
 		$(this).addClass('active');
 		$('#home').fadeOut('slow');
 		set_stage( $(this).data('id') );
