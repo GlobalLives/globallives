@@ -852,9 +852,9 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 #nav-featured .carousel-control.left{left:-1em;}
 #nav-featured .carousel-control.right{right:-1em;}
 .home #stage{padding:2em 0;}
-.front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:2em 0;padding:2em 0;border-bottom:1px dotted #ffffff;}.front-page .page-content p{margin:1em 0;font:16.003px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;}
+.front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:0;padding:0;border-bottom:1px dotted #ffffff;}.front-page .page-content p{margin:2em 0;font:16.003px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;}
 .front-page iframe{max-width:100%;}
-.front-page h4{margin:3em 0 1em;}
+.front-page h4{margin:2em 0 1em;}
 .front-page .btn{color:#444444;background:#ffffff;border:1px solid #999999;text-shadow:none;}
 .participant-summary{color:#ffffff;}.participant-summary .participant-map{margin:0 0 1em;}
 .participant-summary .participant-meta{font-size:10.998px;}
