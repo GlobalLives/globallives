@@ -803,6 +803,17 @@
 
 	.blog {
 		background: @gray;
+		#searchsubmit, .btn {
+			color: @gray;
+			text-shadow: none;
+			#gradient > .vertical(@white,@grayLighter);
+			border: none;
+			.box-shadow(0 1px 1px @gray);
+			&:hover {
+				.box-shadow(0 0 0 @grayLighter);
+			}
+		}
+
 	}
 	.blog #wrap, .single-post #wrap {
 		background: transparent center top no-repeat scroll;
@@ -818,14 +829,18 @@
 		padding: 10px;
 		color: @grayDark;
 		background: @white;
-		font: @fontSizeSmall @headingsFontFamily;
+		font: @baseFontSize @headingsFontFamily;
 	}
 	.entry-header {
-		padding: 10px;
+		padding: 2em;
 		color: @white;
 		background: @orange;
 		.entry-category {
+			margin: 0;
 			font: @fontSizeLarge @headingsFontFamily;
+		}
+		.entry-title {
+			margin: 0;
 		}
 		a {
 			color: @white;
@@ -836,8 +851,11 @@
 		}
 	}
 	.entry-content {
-		padding: 10px;
+		padding: 2em;
 		background: @white;
+		p {
+			margin: 0 0 @baseLineHeight;
+		}
 	}
 	.entry-share {
 		display: inline-block;
@@ -852,10 +870,34 @@
 		clear: both;
 		margin: 10em 0 3em;
 	}
-	.blog .page-container {
-		.sidebar-blog {
-			margin: 2em 0 0 2em;
+	.sidebar-blog {
+		margin: 2em 0 0 2em;
+		label { display: none; }
+		input {
+			max-width: 92%;
 		}
+		.tagcloud {
+			a {
+				display: block;
+				margin-left: 1em;
+				&:before {
+					content: "– ";
+					margin-right: 0.5em;
+				}
+			}
+		}
+		.FeaturedArticlesWidget {
+			a {
+				display: block;
+				margin: 0 0 2em; padding: 0 0 1em;
+				border-bottom: 1px dotted @gray;
+				h4 {
+					font-size: @baseFontSize;
+				}
+			}
+		}
+	.blog .page-container {
+				}
 		.past-posts {
 			margin: 2em 2em 0 0;
 		}
@@ -877,7 +919,7 @@
 			}
 			.entry-title {
 				margin: 0;
-				font-size: @fontSizeLarge;
+				font-size: @fontSizeXLarge;
 			}
 			.entry-content {
 				margin: 0;
@@ -911,9 +953,13 @@
 			text-align: right;
 			padding: 0.5em 0;
 		}
+		.entry-meta {
+			padding: 1em;
+			color: @grayLight;
+		}
 		.entry-content {
-			margin-top: 2em;
-			padding: 0;
+			margin: 2em 0 0 0;
+			padding: 1em;
 		}
 		.entry-about-author {
 			.author-thumbnail {
@@ -943,6 +989,7 @@
 	}
 	.single-post-container {
 		clear: both;
+		.border-radius(@borderRadiusLarge 0 @borderRadiusLarge @borderRadiusLarge);
 	}
 
 /*	==========================================================================

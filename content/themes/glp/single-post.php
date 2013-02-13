@@ -16,7 +16,7 @@
 	<div class="post-inner row">
 
 	<div class="span3">
-		<div class="single-post-sidebar">
+		<div class="single-post-sidebar sidebar-blog">
 		<div class="entry-about-author">
 			<h4><?php echo __('About the Author','glp'); ?></h4>
 			<div class="author-thumbnail"><img src="<?php the_profile_thumbnail_url(get_the_author_meta('ID')); ?>"></div>
