@@ -29,6 +29,10 @@
 		border-top: 1px dotted @grayLight;
 	}
 	
+	h1,h2,h3,h4,h5,h6 {
+		letter-spacing: 1px;
+	}
+	
 	#wrap {
 	}
 
@@ -105,6 +109,7 @@
 					    color: @grayLighter;
 					    text-shadow: 0 0 1px @black;
 					    text-decoration: none;
+					    letter-spacing: 1px;
 					}
 					&:hover, &.current_page_item, &.current_page_ancestor, &.current-menu-item {
 						background: @grayDark;
@@ -279,6 +284,7 @@
 		font: normal @fontSizeXLarge @headingsFontFamily;
 		color: @white;
 		text-shadow: 0 0 10px rgba(0,0,0,0.75);
+		letter-spacing: 1px;
 		p {
 			position: absolute;
 			top: 50%;
@@ -385,11 +391,18 @@
 /* 			overflow-x: hidden;  */
 		}
 		.carousel-control {
+			height: 50px;
+			line-height: 50px;
+			font-family: @headingsFontFamily;
+			color: white;
+			background: @gray;
+			border: none;
+			.border-radius(@borderRadiusSmall);
 			&.left {
-				left: -1em;
+				left: -0.825em;
 			}
 			&.right {
-				right: -1em;
+				right: -0.825em;
 			}
 		}
 	}
@@ -407,6 +420,7 @@
 			p {
 				margin: 2em 0;
 				font: @fontSizeLarge @headingsFontFamily;
+				letter-spacing: 1px;
 			}
 		}
 		iframe {
