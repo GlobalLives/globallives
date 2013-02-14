@@ -854,7 +854,7 @@ h1,h2,h3,h4,h5,h6{letter-spacing:1px;}
 #nav-featured .carousel-control{height:50px;line-height:50px;font-family:"Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;color:white;background:#555555;border:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}#nav-featured .carousel-control.left{left:-0.825em;}
 #nav-featured .carousel-control.right{right:-0.825em;}
 .home #stage{padding:2em 0;}
-.front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:0;padding:0;border-bottom:1px dotted #ffffff;}.front-page .page-content p{margin:2em 0;font:16.003px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;letter-spacing:1px;}
+.front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:0;padding:0;}.front-page .page-content p{margin:2em 0;font:16.003px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;letter-spacing:1px;}
 .front-page iframe{max-width:100%;}
 .front-page h4{margin:2em 0 1em;}
 .front-page .btn{color:#444444;background:#ffffff;border:1px solid #999999;text-shadow:none;}
