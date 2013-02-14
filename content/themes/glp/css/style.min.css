@@ -895,6 +895,7 @@ h1,h2,h3,h4,h5,h6{letter-spacing:1px;}
 .single-participant .participant-crew .profile-thumbnail{margin:0 auto;width:100%;height:auto;overflow:hidden;}.single-participant .participant-crew .profile-thumbnail img{height:auto;width:auto;}
 .single-participant .participant-crew .profile-thumbnail h4{clear:both;}
 .single-participant .participant-clips h3{line-height:50px;border-bottom:1px dotted #555555;}
+.single-participant .participant-clips .participant-clips-scrollbox{height:320px;overflow-y:scroll;}
 .single-participant .participant-clips .participant-clip-listing{margin:0;padding:2em 0;border-bottom:1px dotted #555555;font-size:10.998px;cursor:pointer;}.single-participant .participant-clips .participant-clip-listing.active .row{margin:0;padding:2em 0;background:#444444;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 .single-participant .participant-clips .participant-clip-listing a{color:#ffffff;text-decoration:none;}
 .single-participant .participant-clips .participant-clip-listing .clip-title{margin:0;}
