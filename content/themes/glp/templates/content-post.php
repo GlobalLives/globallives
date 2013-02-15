@@ -6,7 +6,7 @@
 	    </header>
 	    <div class="entry-content">
 		    <?php the_excerpt(); ?>
-		    <a class="btn" href="<?php the_permalink(); ?>">&#9658; Full Story</a>
+		    <a class="btn" href="<?php the_permalink(); ?>">&#9658;&nbsp;<?php _e('Full Story','glp'); ?></a>
 		</div>
 	    <footer>
 	    	<!-- <div class="entry-share">[SHARE LINKS]</div> -->
