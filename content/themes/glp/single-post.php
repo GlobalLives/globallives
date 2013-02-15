@@ -1,4 +1,4 @@
-<h1 class="blog-title section-title"><?php echo __('The Global Lives Blog','glp'); ?></h1>
+<h1 class="blog-title section-title"><a href="/blog"><?php echo __('Blog','glp'); ?></a></h1>
 
 <?php while (have_posts()) : the_post(); ?>
 <div class="row">
@@ -21,7 +21,7 @@
 			<h4><?php echo __('About the Author','glp'); ?></h4>
 			<div class="author-thumbnail"><img src="<?php the_profile_thumbnail_url(get_the_author_meta('ID')); ?>"></div>
 			<div class="author-meta">
-				<b><?php the_author_meta('nickname'); ?></b><br>
+				<b><?php the_author_meta('display_name'); ?></b><br>
 			</div>
 			<div class="author-description">
 				<?php echo get_the_author_meta('description'); ?>

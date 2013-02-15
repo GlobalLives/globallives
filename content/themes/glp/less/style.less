@@ -107,7 +107,7 @@
 					    text-decoration: none;
 					    letter-spacing: 1px;
 					}
-					&:hover, &.current_page_item, &.current_page_ancestor, &.current-menu-item {
+					&:hover, &.current_page_item, &.current_page_parent, &.current_page_ancestor, &.current-menu-item {
 						background: @grayDark;
 					}
 					&:last-child a {
@@ -266,6 +266,10 @@
 		font-size: @fontSizeXLarge;
 		font-family: "Montreal Serial", @headingsFontFamily;
 		font-weight: normal;
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
 	}
 	.page-title {
 		font-size: @fontSizeXLarge;
@@ -922,26 +926,26 @@
 		}
 		.tagcloud {
 			a {
-				display: block;
-				margin-left: 1em;
-				&:before {
-					content: "– ";
-					margin-right: 0.5em;
-				}
+				display: list-item;
+				margin-left: 2em;
+				list-style: disc;
+				font-size: @baseFontSize !important;
 			}
 		}
 		.featured-articles {
+			padding-top: 1em;
 			a {
 				display: block;
-				margin: 0 0 2em; padding: 0 0 1em;
+				margin: 0 0 2em; padding: 0 0 2em;
 				border-bottom: 1px dotted @gray;
 				h4 {
 					font-size: @baseFontSize;
 				}
 			}
 		}
+	}
 	.blog .page-container {
-				}
+
 		.past-posts {
 			margin: 2em 2em 0 0;
 		}
@@ -1008,7 +1012,7 @@
 		.entry-about-author {
 			.author-thumbnail {
 				float: left;
-				margin: 0 5px 2em 0;
+				margin: 1em 5px 1em 0;
 				height: 50px; width: 50px;
 				border-radius: 50%;
 				overflow: hidden;
@@ -1018,12 +1022,12 @@
 				}
 			}
 			.author-meta {
-				margin-left: 60px;
+				margin: 3em 0 1em 60px;
 			}
 			.author-description {
 				clear: both;
 				margin: 1em 0;
-				padding: 0 0 1em;
+				padding: 0 0 2em;
 				border-bottom: 1px dotted @gray;
 			}
 		}
@@ -1042,7 +1046,7 @@
 
 	.tribe-events-events {
 		margin: 2em 2em 0 0;
-	}
+	
 		.tribe-events-event {
 			margin: 0 0 2em;
 			padding: 2em;
@@ -1070,10 +1074,11 @@
 				display: inline-block;
 			}
 		}
-	.entry-tags {
-		dt, dd {
-			margin: 0; padding: 0;
-			display: inline;
+		.entry-tags {
+			dt, dd {
+				margin: 0; padding: 0;
+				display: inline;
+			}
 		}
 	}
 	.widget .upcoming {
