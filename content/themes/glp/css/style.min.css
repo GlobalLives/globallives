@@ -849,7 +849,7 @@ h1,h2,h3,h4,h5,h6{}
 #nav-featured .featured-thumbnail.active img,#nav-featured .featured-thumbnail img:hover{-webkit-filter:saturate(100%);filter:saturate(100%);opacity:1.0;}
 #nav-featured .featured-thumbnail.active:after{content:"";position:absolute;top:125%;left:50%;margin-left:-10px;height:0;width:0;background:transparent;border:#999999 solid 15px;border-color:#000000 transparent transparent transparent;}
 #nav-featured .carousel-inner{overflow:visible;}
-#nav-featured .carousel-control{height:50px;line-height:50px;font-family:"Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;color:white;background:#555555;border:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}#nav-featured .carousel-control.left{left:-0.825em;}
+#nav-featured .carousel-control{height:50px;line-height:40px;font-family:"Montreal Serial Light","Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:lighter;color:white;background:#555555;border:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}#nav-featured .carousel-control.left{left:-0.825em;}
 #nav-featured .carousel-control.right{right:-0.825em;}
 .home #stage{padding:2em 0;}
 .front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:0;padding:0;}.front-page .page-content p{margin:2em 0;font:16.003px "Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;letter-spacing:1px;}
