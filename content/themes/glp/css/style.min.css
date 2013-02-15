@@ -833,7 +833,7 @@ h1,h2,h3,h4,h5,h6{letter-spacing:1px;}
 .local-navigation-menu li.current_page_item{font-weight:bold;}
 .local-navigation-menu li.current_page_item .children,.local-navigation-menu li.current_page_ancestor .children{display:block;font-weight:normal;}
 .local-navigation-menu a{display:block;color:#999999;}.local-navigation-menu a:hover{color:#555555;text-decoration:none;}
-.local-navigation-menu li.current_page_item a{color:#555555;}
+.local-navigation-menu li.current_page_item>a{color:#555555;}
 .section-title{margin:1em 0;padding:0 0 0 50px;color:#ffffff;background:transparent url('../img/logo-blog.png') center left no-repeat;font-size:23.998px;font-family:"Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:normal;}
 .page-title{font-size:23.998px;}
 .page-excerpt{position:relative;max-width:35em;min-height:160px;margin:2em auto 0;background:transparent url('../img/logo-subtle.png') center no-repeat;text-align:center;font:normal 23.998px "Montreal Serial",Arial,"Helvetica Neue",Helvetica,sans-serif;color:#ffffff;text-shadow:0 0 10px rgba(0, 0, 0, 0.75);letter-spacing:1px;}.page-excerpt p{position:absolute;top:50%;height:4em;margin-top:-2em;}
