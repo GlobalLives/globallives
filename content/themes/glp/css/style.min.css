@@ -956,6 +956,7 @@ h1,h2,h3,h4,h5,h6{}
 .single-post .entry-about-author .author-description,.single-event-container .entry-about-author .author-description{clear:both;margin:1em 0;padding:0 0 2em;border-bottom:1px dotted #555555;}
 .single-post-sidebar{margin:2em 0 2em 2em;}
 .single-post-container{clear:both;-webkit-border-radius:10px 0 10px 10px;-moz-border-radius:10px 0 10px 10px;border-radius:10px 0 10px 10px;}
+.events-list #banner #nav-main .menu-primary-header-navigation-container .current_page_parent{background:transparent;}
 .tribe-events-events{margin:2em 2em 0 0;}.tribe-events-events .tribe-events-event{margin:0 0 2em;padding:2em;background:#cccccc center no-repeat;background-size:cover;}.tribe-events-events .tribe-events-event .entry-date{margin:10em 0 0;}
 .tribe-events-events .tribe-events-event .entry-header{display:block;}
 .tribe-events-events .tribe-events-event .entry-category{margin:0;font-size:13px;}

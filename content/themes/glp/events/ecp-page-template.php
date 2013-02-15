@@ -1,4 +1,4 @@
-<h1 class="events-title section-title"><?php echo __('Events','glp'); ?></h1>
+<h1 class="events-title section-title"><a href="/events"><?php _e('Events','glp'); ?></a></h1>
 <?php tribe_events_before_html(); ?>
 
 <div class="events-container page-container container">
