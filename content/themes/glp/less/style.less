@@ -301,13 +301,12 @@
 		.type-page {
 			margin: 2em 4em 0 2em;
 			a {
-				font-weight: bold;
 				color: @black;
 				border-bottom: 1px solid @orange;
 				text-decoration: none;
-			}
-			.page-title a {
-				border: none;
+				&:hover {
+					color: @orange;
+				}
 			}
 			p {
 				margin-bottom: @baseLineHeight;
@@ -384,7 +383,6 @@
 		}
 		.carousel-inner {
 			overflow: visible;
-/* 			overflow-x: hidden;  */
 		}
 		.carousel-control {
 			height: 50px;
@@ -441,6 +439,14 @@
 		}
 		.participant-content {
 			margin: 1em 0;
+			a {
+				color: @white;
+				border-bottom: 1px solid @orange;
+				text-decoration: none;
+				&:hover {
+					color: @orange;
+				}
+			}
 		}
 		.participant-location {
 			font-weight: normal;
@@ -578,6 +584,14 @@
 			#gradient > .vertical(@grayDarker,@grayDark);
 			border-top: 1px solid @gray;
 			text-shadow: 0 0 1px #000;
+			a {
+				color: @white;
+				border-bottom: 1px solid @orange;
+				text-decoration: none;
+				&:hover {
+					color: @orange;
+				}
+			}
 			.participant-title {
 				font-weight: normal;
 				font-size: @fontSizeXLarge;
