@@ -5,7 +5,7 @@
 	    </header>
 	    <div class="row">
 		<div class="span4">
-			<a href="https://maps.google.com/maps?q=loc:<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&hl=en&ll=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&z=6"><img class="participant-map" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&zoom=6&size=570x250&markers=color:red|<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100"></a>
+			<a href="https://maps.google.com/maps?q=loc:<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&hl=en&ll=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&z=6" target="new"><img class="participant-map" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&zoom=6&size=570x250&markers=color:red|<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100"></a>
 			
 			https://maps.google.com/maps?q=sao+paulo&hl=en&ie=UTF8&sll=-23.905927,-46.647949&sspn=14.072985,20.720215&hnear=S%C3%A3o+Paulo,+Brazil&t=m&z=9
 			
