@@ -1,15 +1,5 @@
 $(function() {
 
-	// Affix main navigation menu to top of page, once you scroll past it
-	$('#nav-main').affix({ offset: $('#nav-main').position() });
-	
-	// Jump the main navigation to the top of the page, on pages other than Home (removed 2/11/13 with introduction of shorter header)
-/*
-	if( $('body:not(.home)').length ) {
-		$('body,html').scrollTop( $('#nav-main').offset().top ); // Firefox needs the 'html' selector
-	}
-*/
-
 /* Functions */
 
 	function set_background( src, arg ) {
@@ -194,6 +184,7 @@ $(function() {
 /* Blog */
 	
 	if ($('.blog').length) { // Make sure we're on the blog page
+		
 		var bg = $('.blog .post').first().data('bg');
 		if (bg) { set_background( bg, {to: '#262626'} ); }
 		$('.past-posts .post').each(function() {
@@ -201,7 +192,7 @@ $(function() {
 			if (bg) { $(this).css('background-image', 'url('+bg+')'); }
 		});
 	}
-
+	
 /* Events */
 
 	if ($('.events-list').length) { // Make sure we're on the events page

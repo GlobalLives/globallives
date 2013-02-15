@@ -30,7 +30,7 @@
 	}
 	
 	h1,h2,h3,h4,h5,h6 {
-		letter-spacing: 1px;
+/* 		letter-spacing: 1px; */
 	}
 	
 	#wrap {
@@ -84,11 +84,6 @@
 			.box-shadow(0 10px 15px rgba(0,0,0,0.5));
 			position: relative; z-index: 9999;
 			font-size: @fontSizeLarge;
-			&.affix {
-				position: fixed;
-				top: 0; left: 0;
-				width: 100%;
-			}
 			.menu-primary-header-navigation-container {
 				float: left;
 				ul {
@@ -105,14 +100,14 @@
 					    text-align: center;
 					    border-left: 1px solid @grayDark;
 					    line-height: 42px;
-					    font-family: @headingsFontFamily;
+					    font-family: "Montreal Serial", @headingsFontFamily;
 					    font-size: 14px;
 					    color: @grayLighter;
 					    text-shadow: 0 0 1px @black;
 					    text-decoration: none;
 					    letter-spacing: 1px;
 					}
-					&:hover, &.current_page_item, &.current_page_ancestor, &.current-menu-item {
+					&:hover, &.current_page_item, &.current_page_parent, &.current_page_ancestor, &.current-menu-item {
 						background: @grayDark;
 					}
 					&:last-child a {
@@ -218,9 +213,6 @@
 	.local-navigation-menu {
 		margin: 2em 0 0 2em; padding: 0;
 		list-style: none;
-		&.affix {
-			position: fixed;
-		}
 		li {
 			margin: 1em 0 0; padding: 0 0 1em;
 			border-bottom: 1px dotted @grayLight;
@@ -256,7 +248,7 @@
 				text-decoration: none;
 			}
 		}
-		li.current_page_item a {
+		li.current_page_item > a {
 			color: @gray;
 		}
 	}
@@ -272,8 +264,12 @@
 		color: @white;
 		background: transparent url('../img/logo-blog.png') center left no-repeat;
 		font-size: @fontSizeXLarge;
-		font-family: @headingsFontFamily;
+		font-family: "Montreal Serial", @headingsFontFamily;
 		font-weight: normal;
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
 	}
 	.page-title {
 		font-size: @fontSizeXLarge;
@@ -285,7 +281,7 @@
 		margin: 2em auto 0;
 		background: transparent url('../img/logo-subtle.png') center no-repeat;
 		text-align: center;
-		font: normal @fontSizeXLarge @headingsFontFamily;
+		font: normal @fontSizeXLarge "Montreal Serial", @headingsFontFamily;
 		color: @white;
 		text-shadow: 0 0 10px rgba(0,0,0,0.75);
 		letter-spacing: 1px;
@@ -309,13 +305,12 @@
 		.type-page {
 			margin: 2em 4em 0 2em;
 			a {
-				font-weight: bold;
 				color: @black;
 				border-bottom: 1px solid @orange;
 				text-decoration: none;
-			}
-			.page-title a {
-				border: none;
+				&:hover {
+					color: @orange;
+				}
 			}
 			p {
 				margin-bottom: @baseLineHeight;
@@ -392,12 +387,12 @@
 		}
 		.carousel-inner {
 			overflow: visible;
-/* 			overflow-x: hidden;  */
 		}
 		.carousel-control {
 			height: 50px;
-			line-height: 50px;
-			font-family: @headingsFontFamily;
+			line-height: 40px;
+			font-family: "Montreal Serial Light", @headingsFontFamily;
+			font-weight: lighter;
 			color: white;
 			background: @gray;
 			border: none;
@@ -449,10 +444,18 @@
 		}
 		.participant-content {
 			margin: 1em 0;
-			font-size: @fontSizeSmall;
+			a {
+				color: @white;
+				border-bottom: 1px solid @orange;
+				text-decoration: none;
+				&:hover {
+					color: @orange;
+				}
+			}
 		}
 		.participant-location {
-			font-weight: normal;
+			font-family: "Montreal Serial Light", @headingsFontFamily;		
+			font-weight: lighter;
 		}
 	}
 		.participant-clip {
@@ -492,6 +495,7 @@
 			h3 {
 				margin: 0.5em 0; padding: 0;
 				font-size: @baseFontSize;
+				font-family: "Montreal Serial", @headingsFontFamily;
 				font-weight: normal;
 				line-height: 1em;
 			}
@@ -500,7 +504,8 @@
 				font-weight: bold;
 			}
 			.popover-location {
-				font-weight: normal;
+				font-family: "Montreal Serial Light", @headingsFontFamily;
+				font-weight: lighter;
 			}
 			.popover-thumbnail {
 				margin-bottom: 1em;
@@ -562,6 +567,7 @@
 	.single-participant {
 		color: @white;
 		h3 {
+			font-family: "Montreal Serial", @headingsFontFamily;
 			font-weight: normal;
 		}
 		#wrap {
@@ -587,7 +593,16 @@
 			#gradient > .vertical(@grayDarker,@grayDark);
 			border-top: 1px solid @gray;
 			text-shadow: 0 0 1px #000;
+			a {
+				color: @white;
+				border-bottom: 1px solid @orange;
+				text-decoration: none;
+				&:hover {
+					color: @orange;
+				}
+			}
 			.participant-title {
+				font-family: "Montreal Serial", @headingsFontFamily;
 				font-weight: normal;
 				font-size: @fontSizeXLarge;
 				line-height: 48px;
@@ -602,7 +617,7 @@
 			    margin: 1em 0;
 			}
 			.participant-location {
-				font-weight: light;
+				font-weight: lighter;
 			}
 		}
 		.participant-crew {
@@ -722,6 +737,7 @@
 			}
 			.profile-name {
 				margin: 0; padding: 0 200px 0 0;
+				font-family: "Montreal Serial", @headingsFontFamily;
 				font-weight: normal;
 				font-size: @fontSizeLarge*2;
 			}
@@ -878,6 +894,7 @@
 		}
 		h2 {
 			margin: 0;
+			font-family: "Montreal Serial", @headingsFontFamily;
 			font-weight: normal;
 		}
 	}
@@ -909,26 +926,26 @@
 		}
 		.tagcloud {
 			a {
-				display: block;
-				margin-left: 1em;
-				&:before {
-					content: "– ";
-					margin-right: 0.5em;
-				}
+				display: list-item;
+				margin-left: 2em;
+				list-style: disc;
+				font-size: @baseFontSize !important;
 			}
 		}
 		.featured-articles {
+			padding-top: 1em;
 			a {
 				display: block;
-				margin: 0 0 2em; padding: 0 0 1em;
+				margin: 0 0 2em; padding: 0 0 2em;
 				border-bottom: 1px dotted @gray;
 				h4 {
 					font-size: @baseFontSize;
 				}
 			}
 		}
+	}
 	.blog .page-container {
-				}
+
 		.past-posts {
 			margin: 2em 2em 0 0;
 		}
@@ -995,7 +1012,7 @@
 		.entry-about-author {
 			.author-thumbnail {
 				float: left;
-				margin: 0 5px 2em 0;
+				margin: 1em 5px 1em 0;
 				height: 50px; width: 50px;
 				border-radius: 50%;
 				overflow: hidden;
@@ -1005,12 +1022,12 @@
 				}
 			}
 			.author-meta {
-				margin-left: 60px;
+				margin: 3em 0 1em 60px;
 			}
 			.author-description {
 				clear: both;
 				margin: 1em 0;
-				padding: 0 0 1em;
+				padding: 0 0 2em;
 				border-bottom: 1px dotted @gray;
 			}
 		}
@@ -1027,9 +1044,12 @@
 	Events
 	========================================================================== */
 
+	.events-list #banner #nav-main .menu-primary-header-navigation-container .current_page_parent {
+		background: transparent;
+	}
 	.tribe-events-events {
 		margin: 2em 2em 0 0;
-	}
+	
 		.tribe-events-event {
 			margin: 0 0 2em;
 			padding: 2em;
@@ -1057,10 +1077,11 @@
 				display: inline-block;
 			}
 		}
-	.entry-tags {
-		dt, dd {
-			margin: 0; padding: 0;
-			display: inline;
+		.entry-tags {
+			dt, dd {
+				margin: 0; padding: 0;
+				display: inline;
+			}
 		}
 	}
 	.widget .upcoming {
