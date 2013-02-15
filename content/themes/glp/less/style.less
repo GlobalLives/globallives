@@ -29,6 +29,10 @@
 		border-top: 1px dotted @grayLight;
 	}
 	
+	h1,h2,h3,h4,h5,h6 {
+		letter-spacing: 1px;
+	}
+	
 	#wrap {
 	}
 
@@ -59,13 +63,14 @@
 			margin-top: 0; margin-bottom: 0;
 			a {
 				display: block;
-				padding: 5px 0 0 60px;
+				padding: 5px 0 0 0;
 				line-height: 60px;
 				font-size: @fontSizeXLarge;
-				background: transparent url('../img/logo-sm.jpg') left center no-repeat;
+				background: transparent url('../img/site-title.png') left center no-repeat;
 				color: @black;
 				overflow: hidden;
 				text-decoration: none;
+				text-indent: -9999px;
 			}
 		}
 		.btn {
@@ -105,6 +110,7 @@
 					    color: @grayLighter;
 					    text-shadow: 0 0 1px @black;
 					    text-decoration: none;
+					    letter-spacing: 1px;
 					}
 					&:hover, &.current_page_item, &.current_page_ancestor, &.current-menu-item {
 						background: @grayDark;
@@ -234,9 +240,12 @@
 					}
 				}
 			}
-			&.current_page_item, &.current_page_item .children, &.current_page_ancestor .children {
-				display: block;
+			&.current_page_item {
 				font-weight: bold;
+			}
+			&.current_page_item .children, &.current_page_ancestor .children {
+				display: block;
+				font-weight: normal;
 			}
 		}
 		a {
@@ -279,6 +288,7 @@
 		font: normal @fontSizeXLarge @headingsFontFamily;
 		color: @white;
 		text-shadow: 0 0 10px rgba(0,0,0,0.75);
+		letter-spacing: 1px;
 		p {
 			position: absolute;
 			top: 50%;
@@ -297,10 +307,15 @@
 	.static-page-container {
 		margin-top: 2em;
 		.type-page {
-			margin: 2em 2em 0 0;
+			margin: 2em 4em 0 2em;
 			a {
 				font-weight: bold;
 				color: @black;
+				border-bottom: 1px solid @orange;
+				text-decoration: none;
+			}
+			.page-title a {
+				border: none;
 			}
 			p {
 				margin-bottom: @baseLineHeight;
@@ -380,11 +395,18 @@
 /* 			overflow-x: hidden;  */
 		}
 		.carousel-control {
+			height: 50px;
+			line-height: 50px;
+			font-family: @headingsFontFamily;
+			color: white;
+			background: @gray;
+			border: none;
+			.border-radius(@borderRadiusSmall);
 			&.left {
-				left: -1em;
+				left: -0.825em;
 			}
 			&.right {
-				right: -1em;
+				right: -0.825em;
 			}
 		}
 	}
@@ -398,10 +420,10 @@
 		text-shadow: 0 2px 2px @black;
 		.page-content {
 			margin: 0; padding: 0;
-			border-bottom: 1px dotted @white;
 			p {
 				margin: 2em 0;
 				font: @fontSizeLarge @headingsFontFamily;
+				letter-spacing: 1px;
 			}
 		}
 		iframe {
@@ -607,6 +629,10 @@
 			h3 {
 				line-height: 50px;
 				border-bottom: 1px dotted @gray;
+			}
+			.participant-clips-scrollbox {
+				height: 320px;
+				overflow-y: scroll;
 			}
 			.participant-clip-listing {
 				margin: 0;
@@ -1106,7 +1132,7 @@
 				color: @grayLight;
 				border-bottom: 1px dotted @grayLight;	
 				font-size: @fontSizeLarge;
-				font-weight: normal;
+				font-weight: bold;
 				
 			}
 		}
@@ -1177,6 +1203,11 @@
 			margin: 0;
 			.gform_title {
 				margin: 0;
+			}
+			.gform_fields {
+				input {
+					margin-bottom: 0;
+				}
 			}
 		}
 		.gform_button {

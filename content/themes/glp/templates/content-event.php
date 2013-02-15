@@ -21,7 +21,7 @@
 	<?php else: ?>
 		<?php the_content(); ?>
 	<?php endif; ?>
-		<a class="btn" href="<?php the_permalink(); ?>">&#9658; Learn More</a>
+		<a class="btn" href="<?php the_permalink(); ?>">&#9658;&nbsp;<?php _e('Learn More','glp'); ?></a>
 	</div> <!-- End tribe-events-event-entry -->
 
 </article> <!-- End post -->

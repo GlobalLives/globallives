@@ -44,11 +44,13 @@
 	    		
 	    		    	<div class="participant-clips span6">
 	    		    		<h3><?php _e('Footage','glp'); ?> (<?php echo count(get_field('clips')); ?>)</h3>
+	    		    		<div class="participant-clips-scrollbox">
 	    		    		<?php if (get_field('clips')) : foreach( get_field('clips') as $clip ) : ?>
 	    		    			<?php get_template_part('templates/clip','listing'); ?>
 	    		    		<?php endforeach; else : ?>
 	    		    			<p class="alert alert-error"><?php _e('No clips for this participant.','glp'); ?></p>
 	    		    		<?php endif; ?>
+	    		    		</div>
 	    		    	</div>
 	    		
 	    		    	<?php /*<div class="span2">
