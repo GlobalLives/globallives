@@ -107,7 +107,7 @@
 					    text-decoration: none;
 					    letter-spacing: 1px;
 					}
-					&:hover, &.current_page_item, &.current_page_parent, &.current_page_ancestor, &.current-menu-item {
+					&:hover { //, &.current_page_item, &.current_page_parent, &.current_page_ancestor, &.current-menu-item {
 						background: @grayDark;
 					}
 					&:last-child a {
@@ -651,13 +651,14 @@
 			}
 			.participant-clip-listing {
 				margin: 0;
-				padding: 2em 0;
+				padding: 1em 0;
 				border-bottom: 1px dotted @gray;
 				font-size: @fontSizeMini;
-				cursor: pointer;
-				&.active .row {
+				.row {
 					margin: 0;
-					padding: 2em 0;
+					padding: 1em 0;					
+				}
+				&.active .row {
 					background: @grayDark;
 					.border-radius(@borderRadiusSmall);
 				}
@@ -673,6 +674,7 @@
 				}
 				.clip-thumbnail {
 					position: relative;
+					cursor: pointer;
 					img {
 						border: 5px solid @white;
 					}
@@ -1044,9 +1046,11 @@
 	Events
 	========================================================================== */
 
+/*
 	.events-list #banner #nav-main .menu-primary-header-navigation-container .current_page_parent {
 		background: transparent;
 	}
+*/
 	.tribe-events-events {
 		margin: 2em 2em 0 0;
 	
