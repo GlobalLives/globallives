@@ -1,5 +1,7 @@
 $(function() {
 
+	$('a:has(img)').addClass('image-link');
+
 /* Functions */
 
 	function set_background( src, arg ) {
@@ -45,7 +47,6 @@ $(function() {
 		$('#popover .popover-name').text(d.name);
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
-		$('#popover .popover-dob').text(d.dob);
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover, .overlay').show();
@@ -163,6 +164,7 @@ $(function() {
 	$('.overlay').hide();
 	$('#popover').hide();
 	$('#popover .close').click( function() {
+		$('#popover, .overlay').hide();
 		$(this).parent().hide();
 	});
 	$('.overlay').click( function() {
