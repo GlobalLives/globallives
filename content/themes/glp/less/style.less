@@ -1310,11 +1310,16 @@
 	}
 	#banner #nav-featured {
 		display: block;
+		margin: 0;
+		.carousel, .carousel-inner {
+			margin: 0;
+		}
 		.featured-thumbnail {
-			display: inline-block;
-			width: 16%;
+			display: block;
+			float: left;
+			width: 16.66%;
 			height: 44px;
-			border-width: 2px;
+			border-color: @black;
 			overflow: hidden;
 			img {
 				width: 100%;
