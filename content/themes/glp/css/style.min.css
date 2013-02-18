@@ -976,7 +976,7 @@ h1,h2,h3,h4,h5,h6{}
 #nav-modules .widget h4{margin:0 0 1em;padding-bottom:0.5em;color:#999999;border-bottom:1px dotted #999999;font-size:16.003px;font-weight:bold;}
 #nav-modules .widget_recent_entries ul{margin:0;padding:0;list-style:none;}#nav-modules .widget_recent_entries ul li{margin:0 0 18px;}#nav-modules .widget_recent_entries ul li a{color:#000000;}
 #nav-modules .widget_recent_entries ul li .post-date{display:block;color:#999999;font-size:10.998px;}
-#content-info{padding:2em 0 5em;background:#000000 url('../img/edges.jpg') no-repeat;background-size:cover;}#content-info a{color:white;}
+#content-info{padding:2em 0 5em;background:#000000 url('../img/edges.jpg') no-repeat;background-size:cover;-webkit-box-shadow:0 0 25px #000000;-moz-box-shadow:0 0 25px #000000;box-shadow:0 0 25px #000000;border-top:1px solid #222222;}#content-info a{color:white;}
 .footer-navigation-menus{color:#ffffff;}.footer-navigation-menus h4{margin-top:0;font-size:16.003px;}
 .footer-navigation-menus ul{margin:0;padding:0;list-style:none;}
 .aligncenter{display:block;margin:0 auto;}
