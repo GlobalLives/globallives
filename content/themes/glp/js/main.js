@@ -1,5 +1,7 @@
 $(function() {
 
+	$('a:has(img)').addClass('image-link');
+
 /* Functions */
 
 	function set_background( src, arg ) {
