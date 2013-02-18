@@ -966,6 +966,7 @@ h1,h2,h3,h4,h5,h6{}
 .tribe-events-events .tribe-events-event .entry-content{margin:0;width:auto;}.tribe-events-events .tribe-events-event .entry-content a{color:#000000;border-bottom:1px solid #f89406;text-decoration:none;}.tribe-events-events .tribe-events-event .entry-content a:hover{color:#f89406;}
 .tribe-events-events .tribe-events-event .entry-share{display:inline-block;}
 .tribe-events-events .entry-tags dt,.tribe-events-events .entry-tags dd{margin:0;padding:0;display:inline;}
+.dig-in{display:none;}
 .widget .upcoming{margin:0 0 1em;padding:0;list-style:none;border-bottom:1px dotted #999999;}.widget .upcoming li{margin:1em 0;}.widget .upcoming li .when{font-size:10.998px;color:#555555;}
 .widget .upcoming li .event{font-weight:bold;}
 .search-title{background-image:url('../img/logo-search.png');}
