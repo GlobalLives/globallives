@@ -980,8 +980,8 @@ h1,h2,h3,h4,h5,h6{}
 .footer-navigation-menus{color:#ffffff;}.footer-navigation-menus h4{margin-top:0;font-size:16.003px;}
 .footer-navigation-menus ul{margin:0;padding:0;list-style:none;}
 .aligncenter{display:block;margin:0 auto;}
-.alignleft{float:left;}
-.alignright{float:right;}
+.alignleft{float:left;margin:0 10px 10px 0;}
+.alignright{float:right;margin:0 0 10px 10px;}
 figure.alignnone{margin-left:0;margin-right:0;}
 .more-link{display:block;width:8em;margin:1em 0 0;padding:5px;color:#555555;background-color:#a7a7a7;background-image:-moz-linear-gradient(top, #dddddd, #555555);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#555555));background-image:-webkit-linear-gradient(top, #dddddd, #555555);background-image:-o-linear-gradient(top, #dddddd, #555555);background-image:linear-gradient(to bottom, #dddddd, #555555);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdddddd', endColorstr='#ff555555', GradientType=0);text-align:center;}
 .gform_wrapper{margin:0;padding:1em 1.5em;}.gform_wrapper form{margin:0;}.gform_wrapper form .gform_title{margin:0;}
