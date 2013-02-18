@@ -83,6 +83,11 @@
 	add_action( 'init', 'create_clip_post_type' );
 	function create_clip_post_type() {
    
+		register_taxonomy( 'clip_tags', 'clip', array(
+			'label' => __( 'Clip Tags' ),
+			'rewrite' => array( 'slug' => 'clip-tag' )
+		));
+   
 		register_post_type( 'clip', array(
 			'labels' => array(
 			    'name'			=> __( 'Clips' ),
@@ -93,7 +98,7 @@
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
 			'has_archive' => false,
-			'taxonomies' => array('post_tag')
+			'taxonomies' => array('clip_tag')
 		));
 	}
 	
