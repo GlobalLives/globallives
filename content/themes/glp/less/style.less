@@ -1013,6 +1013,14 @@
 		.entry-content {
 			margin: 2em 0 0 0;
 			padding: 1em;
+				a {
+					color: @black;
+					border-bottom: 1px solid @orange;
+					text-decoration: none;
+					&:hover {
+						color: @orange;
+					}
+				}
 		}
 		.entry-about-author {
 			.author-thumbnail {
@@ -1057,6 +1065,17 @@
 	.tribe-events-events {
 		margin: 2em 2em 0 0;
 	
+		.btn {
+			color: @gray;
+			text-shadow: none;
+			#gradient > .vertical(@white,@grayLighter);
+			border: none !important;
+			.box-shadow(0 1px 1px @gray);
+			&:hover {
+				color: @black;
+				.box-shadow(0 0 0 @grayLighter);
+			}
+		}
 		.tribe-events-event {
 			margin: 0 0 2em;
 			padding: 2em;
@@ -1079,6 +1098,15 @@
 			.entry-content {
 				margin: 0;
 				width: auto;
+				a {
+					color: @black;
+					border-bottom: 1px solid @orange;
+					text-decoration: none;
+					&:hover {
+						color: @orange;
+					}
+				}
+
 			}
 			.entry-share {
 				display: inline-block;
