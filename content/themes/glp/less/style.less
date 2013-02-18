@@ -1286,29 +1286,65 @@
 	Media Queries
 	========================================================================== */
 
+@media (max-width: 768px) {
+	#wrap {
+		padding: 0 10px;
+	}
+	.page-explore #wrap {
+		padding: 0;
+	}
+	.page-excerpt {
+		font-size: @fontSizeLarge;
+		p { top: 33%; }
+	}
+	.local-navigation-menu {
+		margin: 1em;
+	}
+	.static-page-container {
+		.type-page {
+			margin: 1em; padding: 0 0 0;
+		}
+	}
+	#content-info {
+		padding: 0 10px;
+	}
+	#banner #nav-featured {
+		display: block;
+		.featured-thumbnail {
+			display: inline-block;
+			width: 16%;
+			height: 44px;
+			border-width: 2px;
+			overflow: hidden;
+			img {
+				width: 100%;
+				height: auto;
+				max-width: none;
+			}
+		}
+	}
+}
 @media (max-width: 979px) {
 
 	body {
 		padding: 0;
 	}
-	.container {
-		padding: 0 20px;
-	}
-	/* Fix top padding when using the responsive grid with the fixed topbar */
-	body.top-navbar {
-		padding-top: 0;
+	.page-explore {
+		#mapview { height: 320px; }
 	}
 
 	#nav-featured {
-		.featured-thumbnail {
-			height: 75px;
-		}
+		.featured-thumbnail { height: 75px; }
 	}
 	.menu-social-media-icons-container {
 		display: none;	
 	}
 	
-	
+	#content-info {
+		.span3 {
+			margin-top: 2em;
+		}
+	}
   
 }
 
@@ -1317,7 +1353,9 @@
 	#banner #nav-main, #banner #nav-featured {
 		display: block;
 	}
-	
+	.page-explore #mapview {
+		height: 420px;
+	}
 	
   
 }
