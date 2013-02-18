@@ -9,7 +9,7 @@
 		</div><!-- /#content -->
 	</div><!-- /#wrap -->
 
-	<?php get_template_part('templates/nav','modules'); ?>
+	<?php #get_template_part('templates/nav','modules'); ?>
 	<?php get_template_part('templates/footer'); ?>
 
 </body>
