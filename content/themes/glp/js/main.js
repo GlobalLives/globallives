@@ -47,7 +47,6 @@ $(function() {
 		$('#popover .popover-name').text(d.name);
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
-		$('#popover .popover-dob').text(d.dob);
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover, .overlay').show();

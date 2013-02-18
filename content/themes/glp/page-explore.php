@@ -6,7 +6,6 @@
 		<div class="span1"><img class="popover-thumbnail" src=""></div>
 		<div class="span3">
 			<b><?php _e('Occupation'); ?>:</b> <span class="popover-occupation"></span><br>
-			<b><?php _e('Date of Birth'); ?>:</b> <span class="popover-dob"></span>
 			<p><a class="btn popover-permalink" href="">&#9658;&nbsp;<?php _e('Full Story','glp'); ?></a></p>
 		</div>
 	</div>
