@@ -164,6 +164,7 @@ $(function() {
 	$('.overlay').hide();
 	$('#popover').hide();
 	$('#popover .close').click( function() {
+		$('#popover, .overlay').hide();
 		$(this).parent().hide();
 	});
 	$('.overlay').click( function() {
