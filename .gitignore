@@ -10,3 +10,5 @@ content/backups/
 content/plugins/regenerate-thumbnails
 sitemap.xml
 sitemap.xml.gz
+/nbproject/
+wp-cli.yml
