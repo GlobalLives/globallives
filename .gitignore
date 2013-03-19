@@ -8,6 +8,7 @@ content/wp-cache-config.php
 content/cache/
 content/backups/
 content/plugins/regenerate-thumbnails
+content/plugins/wp_firephp
 sitemap.xml
 sitemap.xml.gz
 /nbproject/
