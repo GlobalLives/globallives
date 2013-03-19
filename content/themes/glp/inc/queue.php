@@ -29,6 +29,23 @@ function glp_queue() {
 	wp_enqueue_script('glp_bootstrap');
 	wp_register_script('glp_addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, false);
 	wp_enqueue_script('glp_addthis');
+        
+        if ( is_single() && 'participant' == get_post_type() ) {
+            // Use Google hosted swfobject for flash availability detection
+            wp_deregister_script('swfobject');
+            wp_register_script('swfobject', '//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js', false, '2.2', true);
+            wp_enqueue_script('swfobject');
+
+            // Individual jquery ui components are not available via cdn. 
+            // This one queue will load the component dependencies (ui-core, ui-widget, ui-mouse).
+            wp_enqueue_script('jquery-ui-slider', false, false, false, true);
+            
+            // Popcornjs from CDN
+            wp_enqueue_script('popcorn-ie8-min', 'http://cdn.popcornjs.org/code/dist/popcorn-ie8.min.js', false, false, true);
+            
+            // The CDN themes are packaged for all ui components and are not minimised, therefore we'll load the small version locally.
+            wp_enqueue_style('jquery-ui-custom', get_template_directory_uri() . '/css/jquery-ui/jquery-ui-1.9.2.custom.min.css');
+        }
 }
 
 add_action('wp_enqueue_scripts', 'glp_queue', 100);
