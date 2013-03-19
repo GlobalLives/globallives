@@ -213,5 +213,139 @@ $(function() {
 			$('.results-found').html( $('.search-result:visible').length );		
 		});
 	});
-	
+        
+        
+        function videoUpdatePosition(event) {
+            var slider = $('.control-slider');
+            $(slider).slider('value', (this.currentTime() / this.duration() ) * 1000);
+        }
+        function videoUpdateTimer(event) {
+            var m = parseInt( this.roundTime() / 60 ) % 60;
+            var s = parseInt( this.roundTime() % 60, 10);
+            $('.control-time-current .time-m').text(m);
+            $('.control-time-current .time-s').text(s);
+        }
+        function videoSetTimer(event) {
+            var m = parseInt( this.duration() / 60 ) % 60;
+            var s = parseInt( this.duration() % 60, 10);
+            $('.control-time-total .time-m').text(m);
+            $('.control-time-total .time-s').text(s);
+        }
+        
+        if ($('.participant-video-controls').length) { // Ensure we're on a participant clip page
+            
+//            if(false) { // Test what happens if flash is not available
+            if(swfobject.hasFlashPlayerVersion("1")) { // If flash is enabled, let's use popcornjs for some awesomeness
+            
+                // Construct our video(s) and bind some events
+                $(".participant-video-embed").each(function() {
+                    players[this.id] = Popcorn.youtube(this.id, $(this).attr('data-src') );
+                    players[this.id].preload( "auto" );
+                    players[this.id].on('loadedmetadata', videoSetTimer );
+                    players[this.id].on('loadedmetadata', videoUpdateTimer );
+                    players[this.id].on('seeked', videoUpdateTimer );
+
+                    // Bind events for play
+                    players[this.id].on('play', function() {
+                        this.on('timeupdate', videoUpdatePosition );
+                        this.on('timeupdate', videoUpdateTimer );
+                    });
+
+                    // Bind events for pause (unbind play events)
+                    players[this.id].on('pause', function() {
+                        this.off('timeupdate', videoUpdatePosition );
+                        this.off('timeupdate', videoUpdateTimer );
+                    });
+                });
+
+                // 0 to 1000 for greater precision
+                $('.control-slider').slider({
+                    range: "min",
+                    min: 0,
+                    max: 1000
+                });
+
+                $( ".control-slider" ).on( "slidestop", function( event, ui ) {
+                    var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+                    players[id].currentTime( Math.round((players[id].duration() * (ui.value / 1000)) * 100) / 100 );
+                } );
+                
+                $( ".control-slider" ).on( "slidestart", function( event, ui ) {
+                    // Unbind the slider position auto update to prevent it bouncing around whilst still being dragged
+                    var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+                    players[id].off('timeupdate', videoUpdatePosition );
+                } );
+
+                $(".controls").on('click', function() {
+                    var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+                    var control = $(this).attr('data-control');
+
+                    switch(control) {
+                        case 'play':
+                            players[id].play();
+                        break;
+                        case 'pause':
+                            players[id].pause();
+                        break;
+                    }
+                });
+
+                $('.taggable-area').click(function(e) {
+
+                    var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+                    var xpos = e.pageX - $(this).offset().left;
+                    var percent = (xpos / $(this).width());
+                    var spos = Math.round((players[id].duration() * percent) * 100) / 100 ;
+
+                    var m = parseInt( spos / 60 ) % 60;
+                    var s = parseInt( spos % 60, 10);
+
+                    alert('An event at ' + m + ' minutes and ' + s + ' seconds');
+
+    //                console.log(xpos);
+    //                console.log(percent);
+    //                console.log(spos);
+    //                console.log(m);
+    //                console.log(s);
+                });
+            }
+            else { // Otherwise fallback to the standard youtube embed
+                var tag = document.createElement('script');
+                tag.src = "//www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);                
+            }
+        }
+        
 });
+var players = {};
+
+// As the popcorn player loads the youtube player_api of it's own accord, this function is called whether our flash detect returns true or false.
+// Therefore we employ a crude test to detect if our popcorn videos have been created to prevent them being overwritten by a standard youtube embed.
+function onYouTubeIframeAPIReady() {
+    if ($.isEmptyObject(players)) {
+        $(".participant-video-embed").each(function() {
+            players[this.id] = new YT.Player(this.id, {
+                videoId: $(this).attr('data-youtube'),
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        });
+    }
+}
+function onPlayerReady(event){
+    $(".controls").on('click', function() {
+        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+        var control = $(this).attr('data-control');
+
+        switch(control) {
+            case 'play':
+                players[id].playVideo();
+            break;
+            case 'pause':
+                players[id].pauseVideo();
+            break;
+        }
+    });
+}
