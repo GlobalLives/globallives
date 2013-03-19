@@ -463,12 +463,12 @@
 	}
 		.participant-clip {
 			position: relative;
-			padding-bottom: 65.25%;
+			padding-bottom: 72.25%;
 			padding-top: 0; height: 0; overflow: hidden;
-			iframe, object, embed {
-				position: absolute;
+			iframe, object, embed, .participant-video-embed {
+				position: relative;
 				top: 0; left: 0;
-				width: 100%; height: 88%;
+				width: 100%; height: 528px;
 			}
 			.participant-video-buttons {
 				position: absolute;
@@ -513,7 +513,7 @@
 			.popover-thumbnail {
 				margin-bottom: 1em;
 				border: 5px solid @white;
-				.box-shadow(0 2px 2px rgba(0,0,0,0.5););
+				.box-shadow(0 2px 2px rgba(0,0,0,0.5));
 			}
 			.btn {
 				margin-top: 1em;
@@ -1233,6 +1233,97 @@
 		}
 	}
 
+/*	==========================================================================
+	Video Controls
+	========================================================================== */
+
+	.participant-video-controls {
+		width: 100%;
+		position: relative;
+		top: -61px;
+
+		.control-slider-area-cntnr {
+			height: 13px;
+			background: @black;
+			padding: 20px;
+			.opacity(60);
+		}
+
+		.taggable-area {
+			float: left;
+			clear: both;
+			
+			width: 100%;
+			height: 20px;
+			line-height: 20px;
+			position: relative;
+			top: -20px;
+			text-align: center;
+			cursor: pointer;
+
+			span {
+				.hide;
+				color: @white;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			&:hover {
+				text-decoration: none;
+				span {
+					.show;
+				}
+			}
+			
+		}
+		.control-slider-cntnr,
+		.control-time {
+			float: left;
+			line-height: 13px;
+			height: 13px;
+		}
+		.control-slider-cntnr {
+			width: 90%;
+		}
+		.control-time {
+			width: 10%;
+			text-align: center;
+			color: @grayLighter;
+			text-shadow: 0 1px 1px @black;
+			font-family: @headingsFontFamily;
+
+			span {
+				font-size: 12px;
+				line-height: 13px;
+			}
+		}
+
+		.control-buttons-cntnr {
+			height: 34px;
+			#gradient > .vertical(@grayDark,@black);
+			// background: blue;
+
+			.controls {
+				display: inline-block;
+				.pull-left;
+				height: 15px;
+				width: 38px;
+				text-align: center;
+				padding: 8px 0 12px;
+				border-right: 1px dotted @grayLight;
+
+				.span {
+
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+
+	}
+
 
 /*	==========================================================================
 	WordPress Generated Classes
@@ -1361,6 +1452,6 @@
 	.page-explore #mapview {
 		height: 420px;
 	}
-	
+
   
 }
