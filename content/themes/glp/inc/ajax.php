@@ -1,4 +1,4 @@
-<?
+<?php
 
 add_action( 'wp_ajax_nopriv_get_participant_summary', 'get_participant_summary' );
 add_action( 'wp_ajax_get_participant_summary', 'get_participant_summary' );
