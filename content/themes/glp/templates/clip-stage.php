@@ -1,6 +1,6 @@
 <?php while(have_posts()) : the_post(); ?>
-		<article class="participant-clip">
-                    <div id="participant-video-embed-<?php the_ID(); ?>" class="participant-video-embed" data-youtube="<?php the_field('youtube_id'); ?>" data-src="http://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?showinfo=0&amp;modestbranding=1&amp;rel=0&amp;controls=0&amp"></div>
+		<article class="participant-clip" id="participant-clip">
+                        <iframe class="participant-video-embed" id="participant-video-embed-<?php the_ID(); ?>" src="http://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?showinfo=0&modestbranding=1&rel=0&enablejsapi=1origin=<?php home_url(); ?>&controls=0" allowfullscreen="" frameborder="0"></iframe>
                         <div class="participant-video-controls">
                             <div class="control-slider-area-cntnr">
                                 <div class="control-slider-cntnr">
