@@ -28,11 +28,10 @@
                     $time = (int) ( $time_meta['m'] * 60 ) + (int) $time_meta['s'];
                     $markers[$time_meta['p']]['comments'][] = $comment;
                 }
-                fb($markers,'$markers');
                 ?>
-
                 <?php foreach ($markers as $time => $items): ?>
                     <a id="marker-<?php echo $time; ?>" class="marker" style="left: <?php printf('%spx', $time); ?>">
+                        <div class="arrow"></div>
                         <div class="hide content">
                             <?php foreach ($items['comments'] as $comment): ?>
                                 <?php include(locate_template('templates/marker-comment.php')); //Keeps variable scope where get_template_part does not ?>

@@ -289,7 +289,8 @@ $(function() {
             
             $(this).data('m',m).data('s',s).data('p',xpos);
             $(popover).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
-            $(popover).css('left', offset).css('top', ( 0 - $(this).next().height() - 13 ) ).find('.time').text( m + ':' +s);
+            $(popover).css('left', offset).find('.time').text( m + ':' +s);
+            popover_fix_height(popover);
         });
         
         $(document).on("click", ".popover .close", function(){ 
@@ -297,6 +298,7 @@ $(function() {
         });
         
         $(document).on("submit", ".popover form", function() {
+            $(this).find('.error').fadeOut('slow', function() { $(this).remove(); });
             $.post(glpAjax.ajaxurl, {   
                 action: 'clip_submit_comment',
                 comment: $(this).find('input[name="comment"]').val(),
@@ -306,10 +308,28 @@ $(function() {
                 post_id:  $('.participant-video-embed').attr('id').replace('participant-video-embed-', '')
             }, 
             function(response) {
-                alert($.parseJSON(response).message);
+                r = $.parseJSON(response);
+                $('.comment-box').prepend(r.message).closest('form').find('input').val('');
+                if (r.success) {
+                    add_comment_to_marker_box(r.success, r.message);
+                }
+                popover_fix_height($('.popover'));
             });
             return false;
-        })        
+        });
+        
+        function popover_fix_height(popover) {
+            $(popover).css('top', ( 0 - $(popover).height() - 20 ) )
+        }
+        function add_comment_to_marker_box(position, comment_html) {
+            var marker_box = $('#marker-'+position);
+            if (marker_box.length) {
+                $(marker_box).find('.content').prepend(comment_html);
+            } 
+            else {
+                $('.clip-markers').append('<a class="marker" id="marker-'+position+'" style="left: '+position+'px"><div class="arrow"></div><div class="hide content">'+comment_html+'</div></div>')
+            }
+        }
 });
 
 var players = {};

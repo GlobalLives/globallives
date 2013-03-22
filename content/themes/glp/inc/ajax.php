@@ -40,13 +40,13 @@ function clip_submit_comment() {
     $position = (int) $_POST['position'];
     
     if ( !$clip_id )
-        $r['message'] = __("There was an error", 'glp');
+        $r['message'] = sprintf('<p class="error">%s</p>' ,__("There was an error", 'glp') );
     if ( !$user->ID )
-        $r['message'] = __("You need to be logged in to comment", 'glp');
+        $r['message'] = sprintf('<p class="error">%s</p>' ,__("You need to be logged in to comment", 'glp') );
     if ( !$comment )
-        $r['message'] = __("A comment is required", 'glp');
+        $r['message'] = sprintf('<p class="error">%s</p>' ,__("A comment is required", 'glp') );
     if ( ! ($minutes || $seconds) )
-        $r['message'] = __("A time is required", 'glp');
+        $r['message'] = sprintf('<p class="error">%s</p>' ,__("A time is required", 'glp') );
     
     // Bail if we have an error
     if ($r['message']) {
@@ -70,8 +70,11 @@ function clip_submit_comment() {
     $comment_id = wp_insert_comment($data);
     $comment_meta = update_comment_meta( $comment_id, 'clip_time', array('m' => $minutes, 's' => $seconds, 'p' => $position ) );
     if ($comment_id && $comment_meta) {
-        $r['message'] = __("Comment added", 'glp');
-        $r['success'] = 1;
+        $comment = get_comment($comment_id);
+        ob_start();
+        include(locate_template('templates/marker-comment.php'));
+        $r['message'] = ob_get_clean(); 
+        $r['success'] = $position;
     }
 	
     echo json_encode($r); 
