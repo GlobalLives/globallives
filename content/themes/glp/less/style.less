@@ -1244,9 +1244,9 @@
 
 		.control-slider-area-cntnr {
 			height: 13px;
-			background: @black;
+			background: rgb(0,0,0);
+			background: rgba(0,0,0,0.6);
 			padding: 20px;
-			.opacity(60);
 		}
 
 		.taggable-area {
@@ -1274,8 +1274,78 @@
 					.show;
 				}
 			}
+
+			#tag-popup {
+				height: 100px;
+				width: 100px;
+				background: red;
+				position: absolute;
+				bottom: 0;
+			}
 			
 		}
+		.popover {
+			border-radius: 0;
+			background: @grayDarker;
+			border: none;
+			padding: 0;
+
+			&.top {
+				.arrow:after {
+					border-top-color: @grayDarker;
+				}
+			}
+			.arrow {
+				
+			}
+
+			.popover-title {
+				background: none;
+				border-radius: 0;
+				border: none;
+				padding: 3px 8px;
+				font-family: 'Montreal Serial Medium';
+				font-size: 12px;
+				color: @grayLight;
+
+				.close {
+					float: right;
+					cursor: pointer;
+				}
+
+				.inner {
+					border-bottom: 1px dotted @grayLight;
+					padding-bottom: 3px;
+				}
+			}
+			.popover-content {
+				padding: 0;
+
+				.inner {
+					padding: 3px 8px;
+				}
+			}
+			.tags-box {
+				border-top: 1px solid @gray;
+				line-height: 1.7em;
+				.clearfix();
+				& > div {
+					float: left;
+				}
+				.tags {
+					width: 71%;
+					padding: 3px 8px;
+				}
+				.add-tag {
+					float: right;
+					width: 15%;
+					padding: 3px 8px;
+					background: @grayDark;
+					text-align: center;
+				}
+			}
+		}
+
 		.control-slider-cntnr,
 		.control-time {
 			float: left;

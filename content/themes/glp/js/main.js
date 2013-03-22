@@ -213,6 +213,8 @@ $(function() {
 			$('.results-found').html( $('.search-result:visible').length );		
 		});
 	});
+        
+/* Participant Video */
                 
         $('.participant-video-controls').each(function(){ 
             var id = $(this).siblings('.participant-video-embed').attr('id');
@@ -249,7 +251,7 @@ $(function() {
             
         });
         
-        $(".controls").on('click', function() {
+        $(".controls").live('click', function() {
             var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
             var player = players[id];
             var control = $(this).attr('data-control');
@@ -263,25 +265,37 @@ $(function() {
                 break;
             }
         });
-
-        $('.taggable-area').click(function(e) {
+        
+        $(".taggable-area").each(function() {
+            var content = $(this).next().find('.content').html();
+            var title = $(this).next().find('.title').html();
+            
+            $(this).popover({ 
+                html: true,
+                animation: false,
+                content: content,
+                title: title
+            });
+        } ).click(function(e) {
             var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
             var player = players[id];
             var xpos = e.pageX - $(this).offset().left;
             var percent = (xpos / $(this).width());
             var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
-
+            
             var m = parseInt( spos / 60 ) % 60;
             var s = parseInt( spos % 60, 10);
-
-            alert('An event at ' + m + ' minutes and ' + s + ' seconds');
-
-//            console.log(xpos);
-//            console.log(percent);
-//            console.log(spos);
-//            console.log(m);
-//            console.log(s);
+            
+            var offset = xpos - ( $(this).next().width() /2 ) + 20;
+            $(this).next().css('left', offset).find('.time').text( m + ':' +s);
+//            console.log('An event at ' + time['m'] + ' minutes and ' + time['s'] + ' seconds');
         });
+        
+        
+        $(document).on("click", ".popover .close", function(){ 
+            $(this).closest('.popover').prev().popover('hide');
+        });
+        
 });
 
 var players = {};
@@ -383,7 +397,6 @@ function onStateChange(frameID, identifier) {
 function onReady(frameID, identifier) {
     return function (event) {
         var player = players[frameID];
-        console.log('player ready');
         $('#'+frameID).trigger("player_ready");
     }
 }

@@ -4,7 +4,23 @@
                         <div class="participant-video-controls">
                             <div class="control-slider-area-cntnr">
                                 <div class="control-slider-cntnr">
-                                    <a class="taggable-area"><span><?php _e('(Click to tag or comment)', 'glp'); ?></span></a>
+                                    <a class="taggable-area" data-toggle="popover" data-placement="top">
+                                        <span><?php _e('(Click to tag or comment)', 'glp'); ?></span>
+                                    </a>
+                                    <div class="popover-data hide">
+                                        <div class="title"><div class="inner">Comments/Tags (<span class="time"></span>)<a class="icon-remove-circle icon-white close"></a></div></div>
+                                        <div class="content">
+                                            <div class="inner">
+                                                <div class="comment-box">
+                                                    <input type="text" name="comment" placeholder="Comment" />
+                                                </div>
+                                            </div>
+                                            <div class="tags-box">
+                                                <div class="tags">Tags: <span>open field</span> <span>night</span></div>
+                                                <div class="add-tag">&#43; Tag</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="control-slider"></div>
                                 </div>
                                 <div class="control-time">
