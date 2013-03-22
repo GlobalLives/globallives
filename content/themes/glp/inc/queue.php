@@ -24,6 +24,7 @@ function glp_queue() {
 	}
 
 	wp_register_script('glp_main', get_template_directory_uri() . '/js/main.min.js', false, null, false);
+        wp_localize_script('glp_main', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 	wp_enqueue_script('glp_main');
 	wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/vendor/bootstrap-2.2.2.min.js', false, null, false);
 	wp_enqueue_script('glp_bootstrap');
