@@ -259,9 +259,22 @@ $(function() {
             switch(control) {
                 case 'play':
                     players[id].playVideo();
+                    $(this).attr("data-control", 'pause').find('span').toggleClass('icon-pause', 'icon-play');
                 break;
                 case 'pause':
                     players[id].pauseVideo();
+                    $(this).attr("data-control", 'play').find('span').toggleClass('icon-pause', 'icon-play');
+                break;
+                    
+                case 'fullscreen':
+                    var el = document.getElementById(id);
+                    if (el.requestFullScreen) {
+                        el.requestFullScreen();
+                    } else if (el.mozRequestFullScreen) {
+                        el.mozRequestFullScreen();
+                    } else if (el.webkitRequestFullScreen) {
+                        el.webkitRequestFullScreen();
+                    }
                 break;
             }
         });
@@ -413,6 +426,7 @@ function onStateChange(frameID, identifier) {
             case 3:
                 // Video has begun playing/buffering
                 console.log('playing/buffering');
+                $('#'+frameID).trigger("player_start_play_buffer");
                 t = setInterval(function () {
                     playerTimeUpdate(frameID);
                 }, 1000);
@@ -422,6 +436,7 @@ function onStateChange(frameID, identifier) {
             case 0:
                 // Video has been paused/ended
                 console.log('paused/ended');
+                $('#'+frameID).trigger("player_pause_end");
                 clearTimeout(t)
             break;
         }

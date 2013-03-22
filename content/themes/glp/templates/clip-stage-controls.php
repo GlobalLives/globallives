@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="control-buttons-cntnr">
-        <a data-control="play" class="controls-play controls"><span class="icon-play icon-white"></span></a>
-        <a data-control="pause" class="controls-pause controls"><span class="icon-pause icon-white"></span></a>
+        <a data-control="play" class="controls btn btn-inverse"><span class="icon-play icon-white"></span></a>
+        <a data-control="fullscreen" class="controls btn btn-inverse"><span class="icon-fullscreen icon-white"></span></a>
     </div>
 </div>
