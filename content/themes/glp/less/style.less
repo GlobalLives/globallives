@@ -1254,10 +1254,11 @@
 			clear: both;
 			
 			width: 100%;
-			height: 20px;
-			line-height: 20px;
+			height: 13px;
+			line-height: 7px;
 			position: relative;
-			top: -20px;
+			z-index: 100;
+			top: -13px;
 			text-align: center;
 			cursor: pointer;
 
@@ -1281,8 +1282,7 @@
 				background: red;
 				position: absolute;
 				bottom: 0;
-			}
-			
+			}			
 		}
 		.popover {
 			border-radius: 0;
@@ -1295,8 +1295,8 @@
 					border-top-color: @grayDarker;
 				}
 			}
-			.arrow {
-				
+			form {
+				margin: 0;
 			}
 
 			.popover-title {
@@ -1323,6 +1323,27 @@
 
 				.inner {
 					padding: 3px 8px;
+				}
+
+				.comment {
+					width: 100%;
+					.clearfix();
+					font-size: 12px;
+					margin-bottom: 5px;
+					div {
+						float: left;
+					}
+					img {
+						margin-right: 12px;
+						border: 2px solid @white;
+					}
+					p {
+						margin-bottom: 3px;
+						line-height: 1.3em;
+						&.user {
+							font-weight: bold;
+						}
+					}
 				}
 			}
 			.tags-box {
@@ -1354,6 +1375,7 @@
 		}
 		.control-slider-cntnr {
 			width: 90%;
+			position: relative;
 		}
 		.control-time {
 			width: 10%;
@@ -1390,6 +1412,16 @@
 					cursor: pointer;
 				}
 			}
+		}
+		.marker {
+			display: inline-block;
+			position: absolute;
+			bottom: 0;
+			height: 20px;
+			width: 1px;
+			background: @white;
+			z-index: 99;
+			margin-left: -1px;
 		}
 
 	}

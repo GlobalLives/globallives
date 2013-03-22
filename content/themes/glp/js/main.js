@@ -279,23 +279,37 @@ $(function() {
         } ).click(function(e) {
             var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
             var player = players[id];
-            var xpos = e.pageX - $(this).offset().left;
+            var xpos = parseInt(e.pageX - $(this).offset().left);
             var percent = (xpos / $(this).width());
             var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
-            
             var m = parseInt( spos / 60 ) % 60;
             var s = parseInt( spos % 60, 10);
+            var offset = xpos - ( $(this).next().width() /2 );
+            var popover = $(this).next();
             
-            var offset = xpos - ( $(this).next().width() /2 ) + 20;
-            $(this).next().css('left', offset).find('.time').text( m + ':' +s);
-//            console.log('An event at ' + time['m'] + ' minutes and ' + time['s'] + ' seconds');
+            $(this).data('m',m).data('s',s).data('p',xpos);
+            $(popover).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
+            $(popover).css('left', offset).css('top', ( 0 - $(this).next().height() - 13 ) ).find('.time').text( m + ':' +s);
         });
-        
         
         $(document).on("click", ".popover .close", function(){ 
             $(this).closest('.popover').prev().popover('hide');
         });
         
+        $(document).on("submit", ".popover form", function() {
+            $.post(glpAjax.ajaxurl, {   
+                action: 'clip_submit_comment',
+                comment: $(this).find('input[name="comment"]').val(),
+                minutes: $('.taggable-area' ).data('m'),
+                seconds: $('.taggable-area' ).data('s'),
+                position: $('.taggable-area' ).data('p'),
+                post_id:  $('.participant-video-embed').attr('id').replace('participant-video-embed-', '')
+            }, 
+            function(response) {
+                alert($.parseJSON(response).message);
+            });
+            return false;
+        })        
 });
 
 var players = {};
@@ -397,6 +411,14 @@ function onStateChange(frameID, identifier) {
 function onReady(frameID, identifier) {
     return function (event) {
         var player = players[frameID];
+        
+        // Special case for handling browser opted in at http://www.youtube.com/html5. 
+        // getDuration doesn't work on html5 embeds until the video has been initialised, which only happens on play.
+        // Need to find a solution/workaround to this.
+        var isHtml5Player = !player.cueVideoByFlashvars;
+        if (isHtml5Player && ! player.getDuration() ) {
+            alert("Youtube html5 detected. Tagging/commenting on this clip won't work until you hit play");
+        }
         $('#'+frameID).trigger("player_ready");
     }
 }
