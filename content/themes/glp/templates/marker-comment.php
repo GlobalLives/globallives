@@ -1,7 +1,4 @@
-<?php 
-fb($comment,'$comment'); 
-$user = get_userdata($comment->user_id);
-?>
+<?php $user = get_userdata($comment->user_id); ?>
 <div class="comment">
     <div class="avatar"><?php echo get_avatar( $comment->user_id, 26, false, $user->data->display_name ); ?></div>
     <div class="comment-content">

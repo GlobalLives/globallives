@@ -425,7 +425,6 @@ function onStateChange(frameID, identifier) {
             case 1:
             case 3:
                 // Video has begun playing/buffering
-                console.log('playing/buffering');
                 $('#'+frameID).trigger("player_start_play_buffer");
                 t = setInterval(function () {
                     playerTimeUpdate(frameID);
@@ -435,7 +434,6 @@ function onStateChange(frameID, identifier) {
             case 2:
             case 0:
                 // Video has been paused/ended
-                console.log('paused/ended');
                 $('#'+frameID).trigger("player_pause_end");
                 clearTimeout(t)
             break;
