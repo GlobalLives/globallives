@@ -559,7 +559,14 @@
 			&.europe		{ fill: #f00;	.mapthumb { stroke: #f00; } }
 			&.north-america { fill: #0e2;	.mapthumb { stroke: #0e2; } }
 			&.south-america { fill: #0ce;	.mapthumb { stroke: #0ce; } }
-			
+
+			.name {
+				font-weight: bold;
+			}
+			.location, .occupation {
+				fill: @white;
+			}
+
 		}
 	}
 
@@ -1176,7 +1183,6 @@
 		#gradient > .vertical(@grayLighter,@grayLight);
 		.widget {
 			margin-top: 2em; margin-bottom: 2em;
-			height: 220px;
 			color: @grayDarker;
 			background: @white;
 			.border-radius(@borderRadiusLarge);

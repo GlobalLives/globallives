@@ -1,6 +1,7 @@
 $(function() {
 
 	$('a:has(img)').addClass('image-link');
+	same_height( $('#nav-modules .widget') );
 
 /* Functions */
 
@@ -54,6 +55,17 @@ $(function() {
 	function show_mapthumb( i ) {
 		$('.mapthumb').hide();
 		$('#mapthumb-'+i).show();
+	}
+	
+	function same_height( group ) {
+		var tallest = 0;
+		group.each(function() {
+			var thisHeight = $(this).height();
+			if(thisHeight > tallest) {
+				tallest = thisHeight;
+			}
+		});
+		group.height(tallest);
 	}
 	
 /* Front Page */
@@ -136,6 +148,7 @@ $(function() {
 				.attr('class', function(d) { return 'marker ' + d.continent; })
 				.attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
 				.on('click', function(d) { set_popover(d,this); });
+			
 /*
 		markers.append('svg:path') // Add the pins
 			.attr('class', 'pin')
@@ -145,10 +158,27 @@ $(function() {
 		markers.append('svg:circle')
 			.attr('id',function(d,i){ return 'mapthumb-'+i; })
 			.attr('class', 'mapthumb')
-/* 			.attr('cy',-40) */
 			.attr('r',25)
 			.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
-	
+		
+		var label = markers.append('svg:text')
+			.attr('class','label')
+			.attr('dx',-25)
+			.attr('dy',40);
+		label.append('svg:tspan')
+			.attr('class','name')
+			.text(function(d) { return d.name });
+		label.append('svg:tspan')
+			.attr('class','location')
+			.text(function(d) { return d.location })
+			.attr('x',-25)
+			.attr('dy',18);
+		label.append('svg:tspan')
+			.attr('class','occupation')
+			.text(function(d) { return d.occupation })
+			.attr('x',-25)
+			.attr('dy',18);
+				
 		// Load the low-res country outlines
 		d3.json('/content/themes/glp/js/vendor/countries.json', function( json ) {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
@@ -163,8 +193,11 @@ $(function() {
 */
 	}
 	
-	$('.overlay').hide();
-	$('#popover').hide();
+	$('.overlay, .label, #popover').hide();
+	$('.marker').mouseover( function() {
+		$('.label').hide();
+		$(this).find('.label').show();
+	})
 	$('#popover .close').click( function() {
 		$('#popover, .overlay').hide();
 		$(this).parent().hide();

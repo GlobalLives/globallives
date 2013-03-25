@@ -880,6 +880,8 @@ h1,h2,h3,h4,h5,h6{}
 #mapview .marker.europe{fill:#f00;}#mapview .marker.europe .mapthumb{stroke:#f00;}
 #mapview .marker.north-america{fill:#0e2;}#mapview .marker.north-america .mapthumb{stroke:#0e2;}
 #mapview .marker.south-america{fill:#0ce;}#mapview .marker.south-america .mapthumb{stroke:#0ce;}
+#mapview .marker .name{font-weight:bold;}
+#mapview .marker .location,#mapview .marker .occupation{fill:#ffffff;}
 .single-participant{color:#ffffff;}.single-participant h3{font-family:"Montreal Serial","Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:normal;}
 .single-participant #wrap{background:#000000;}
 .single-participant #content{position:relative;width:100%;}
@@ -975,7 +977,7 @@ h1,h2,h3,h4,h5,h6{}
 .search-result{margin-left:0;padding:2em 0;border-bottom:1px dotted #999999;}.search-result .search-result-thumbnail{margin-left:0;}
 .search-result h4{margin-top:0;}
 .search-result p{margin-bottom:0;}
-#nav-modules{border-top:1px solid #ffffff;background-color:#c2c2c2;background-image:-moz-linear-gradient(top, #dddddd, #999999);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#999999));background-image:-webkit-linear-gradient(top, #dddddd, #999999);background-image:-o-linear-gradient(top, #dddddd, #999999);background-image:linear-gradient(to bottom, #dddddd, #999999);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdddddd', endColorstr='#ff999999', GradientType=0);}#nav-modules .widget{margin-top:2em;margin-bottom:2em;height:220px;color:#222222;background:#ffffff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}#nav-modules .widget .widget-inner{padding:1em;}
+#nav-modules{border-top:1px solid #ffffff;background-color:#c2c2c2;background-image:-moz-linear-gradient(top, #dddddd, #999999);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#999999));background-image:-webkit-linear-gradient(top, #dddddd, #999999);background-image:-o-linear-gradient(top, #dddddd, #999999);background-image:linear-gradient(to bottom, #dddddd, #999999);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdddddd', endColorstr='#ff999999', GradientType=0);}#nav-modules .widget{margin-top:2em;margin-bottom:2em;color:#222222;background:#ffffff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}#nav-modules .widget .widget-inner{padding:1em;}
 #nav-modules .widget h4{margin:0 0 1em;padding-bottom:0.5em;color:#999999;border-bottom:1px dotted #999999;font-size:16.003px;font-weight:bold;}
 #nav-modules .widget_recent_entries ul{margin:0;padding:0;list-style:none;}#nav-modules .widget_recent_entries ul li{margin:0 0 18px;}#nav-modules .widget_recent_entries ul li a{color:#000000;}
 #nav-modules .widget_recent_entries ul li .post-date{display:block;color:#999999;font-size:10.998px;}
