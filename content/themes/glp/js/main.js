@@ -85,7 +85,7 @@ $(function() {
 	if ($('#mapview').length) { // Make sure we're in Explore : Map View
 	
 		// D3 Functions
-		var	xy = d3.geo.mercator().scale( $('#mapview').width() ).translate([$('#mapview').width() / 2, $('#mapview').height() / 1.75]),
+		var	xy = d3.geo.mercator().scale( $('#mapview').width() * 0.15 ).translate([$('#mapview').width() / 2, $('#mapview').height() / 1.75]),
 		path = d3.geo.path().projection(xy),
 	
 		// SVG groups
@@ -155,10 +155,12 @@ $(function() {
 		});
 		
 		// Simultaneously load the hi-res country outlines, which will replace the low-res ones once they're done loading
+/*
 		d3.json('/content/themes/glp/js/vendor/countries-hires.json', function( json ) {
 			countries.selectAll('path').remove();
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
 		});
+*/
 	}
 	
 	$('.overlay').hide();
