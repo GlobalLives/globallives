@@ -48,6 +48,7 @@ $(function() {
 		$('#popover .popover-name').text(d.name);
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
+		$('#popover .popover-series').html(d.series);
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover, .overlay').show();
@@ -94,94 +95,106 @@ $(function() {
 	
 /* Explore the Collection */
 	
+	$('#mapview').hide();
+	$('.btn-mapview').click(function() {
+		$(this).addClass('active').siblings().removeClass('active');
+		$('.view').slideUp(500,function() {
+			$('#mapview').delay(700).slideDown(500);	
+		});
+	});
+	$('.btn-gridview').click(function() {
+		$(this).addClass('active').siblings().removeClass('active');
+		$('.view').slideUp(500,function() {
+			$('#gridview').delay(700).slideDown(500);
+		});
+	});
+	
 	if ($('#mapview').length) { // Make sure we're in Explore : Map View
 	
+		var height = $('#mapview').height(),
+			width = $('#mapview').width();
+			
 		// D3 Functions
-		var	xy = d3.geo.mercator().scale( $('#mapview').width() * 0.15 ).translate([$('#mapview').width() / 2, $('#mapview').height() / 1.75]),
-		path = d3.geo.path().projection(xy),
+		var	projection = d3.geo.mercator()
+			.scale( width * 0.15 )
+			.translate([width / 2, height / 1.75]);
+		var path = d3.geo.path()
+			.projection(projection);
+		var zoom = d3.behavior.zoom()
+			.translate(projection.translate())
+			.scale(projection.scale())
+			.scaleExtent([width * 0.15, 8 * height]);
+/* 			.on('zoom',zoom); */
 	
 		// SVG groups
-		map = d3.select('#mapview').append('svg:svg').attr('height','100%').attr('width','100%'),
-		defs = map.append('svg:defs'),
-		countries = map.append('svg:g').attr('id', 'countries'),
-		cells = map.append('svg:g').attr('id','cells'),
-		locations = map.append('svg:g').attr('id', 'locations'),
-		positions = [];
+		var map = d3.select('#mapview').append('svg:svg')
+			.attr('height',height).attr('width',width);
+		var countries = map.append('svg:g').attr('id', 'countries');
+/* 			.call(zoom); */
+		countries.append('rect')
+			.attr('class', 'background')
+			.attr('width', width).attr('height', height);
+		
+		var locations = map.append('svg:g').attr('id', 'locations'),
+			positions = [];
 
 		participants = participants.filter(function(participant) {
 			if (true) { // Use this in the future to filter by theme, etc.
 				var location = [+participant.longitude, +participant.latitude];
-				positions.push(xy(location));
+				positions.push(projection(location));
 				return true;
 			}
 		});
 		
-		var thumbnails = defs.selectAll('thumbnails')
+		// Set up Participant thumbnails as SVG patterns
+		
+		var thumbnails = map.append('svg:defs').selectAll('thumbnails')
 			.data(participants)
 			.enter().append('svg:pattern')
 				.attr('id', function(d,i) { return 'image-'+i; })
 			.attr('patternUnits', 'objectBoundingBox')
-			.attr('width', 50)
-			.attr('height', 50)
+			.attr('width', 50).attr('height', 50)
 			.append('svg:image')
 				.attr('xlink:href', function(d) { return d.thumbnail; })
-				.attr('x', 0)
-				.attr('y', 0)
-				.attr('width', 50)
-				.attr('height', 50);
+				.attr('x', 0).attr('y', 0)
+				.attr('width', 50).attr('height', 50);
 				
-		var polygons = d3.geom.voronoi(positions);
-
-		var g = cells.selectAll('g')
-			.data(participants)
-			.enter().append('svg:g')
-			.attr('opacity',0)
-		g.append('svg:path')
-			.attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; });
-/* 			.on('mouseover',function(d,i){ show_mapthumb(i); }); */
-
 		// Add Participant markers
 		
 		var markers = locations.selectAll('marker')
 			.data(participants)
 			.enter().append('svg:g')
 				.attr('class', function(d) { return 'marker ' + d.continent; })
-				.attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
-				.on('click', function(d) { set_popover(d,this); });
-			
+				.attr('transform', function(d) { return 'translate(' + projection([+d.longitude, +d.latitude]) + ')'; })
+				.on('click', function(d) { set_popover( d, this ); });
+
 /*
 		markers.append('svg:path') // Add the pins
 			.attr('class', 'pin')
 			.attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')
 			.attr('transform','translate(-30,-50), scale(0.125)');
 */
-		markers.append('svg:circle')
+
+		markers.append('svg:circle').attr('class', 'mapthumb')
 			.attr('id',function(d,i){ return 'mapthumb-'+i; })
-			.attr('class', 'mapthumb')
 			.attr('r',25)
 			.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
 		
-		var label = markers.append('svg:text')
-			.attr('class','label')
-			.attr('dx',-25)
-			.attr('dy',40);
-		label.append('svg:tspan')
-			.attr('class','name')
+		var label = markers.append('svg:text').attr('class','label')
+			.attr('dx',-25).attr('dy',40);
+		label.append('svg:tspan').attr('class','name')
 			.text(function(d) { return d.name });
-		label.append('svg:tspan')
-			.attr('class','location')
+		label.append('svg:tspan').attr('class','location')
 			.text(function(d) { return d.location })
-			.attr('x',-25)
-			.attr('dy',18);
-		label.append('svg:tspan')
-			.attr('class','occupation')
+			.attr('x',-25).attr('dy',18);
+		label.append('svg:tspan').attr('class','occupation')
 			.text(function(d) { return d.occupation })
-			.attr('x',-25)
-			.attr('dy',18);
+			.attr('x',-25).attr('dy',18);
 				
 		// Load the low-res country outlines
 		d3.json('/content/themes/glp/js/vendor/countries.json', function( json ) {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
+/* 			.on('click',click); */
 		});
 		
 		// Simultaneously load the hi-res country outlines, which will replace the low-res ones once they're done loading
@@ -191,20 +204,34 @@ $(function() {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
 		});
 */
+	        
+		function click(d) {
+			var centroid = path.centroid(d),
+				translate = projection.translate();
+			projection.translate([
+				translate[0] - centroid[0] + width / 2,
+				translate[1] - centroid[1] + height / 2
+			]);
+			zoom.translate(projection.translate());
+			countries.selectAll('path').transition()
+				.duration(1000)
+				.attr('d', path);
+		}
+		
+		function zoom() {
+			projection.translate(d3.event.translate).scale(d3.event.scale);
+			countries.selectAll('path').attr('d',path);
+		}
+		
+		$('.overlay, .label, #popover').hide();
+		$('.marker').mouseover( function() {
+			$('.label').hide();
+			$(this).find('.label').show();
+		})
+		$('.overlay, #popover .close').click( function() {
+			$('#popover, .overlay').hide();
+		});
 	}
-	
-	$('.overlay, .label, #popover').hide();
-	$('.marker').mouseover( function() {
-		$('.label').hide();
-		$(this).find('.label').show();
-	})
-	$('#popover .close').click( function() {
-		$('#popover, .overlay').hide();
-		$(this).parent().hide();
-	});
-	$('.overlay').click( function() {
-		$('#popover, .overlay').hide();
-	});
 
 /* Participant Detail */
 

@@ -22,6 +22,7 @@
 			<div class="author-thumbnail"><img src="<?php the_profile_thumbnail_url(get_the_author_meta('ID')); ?>"></div>
 			<div class="author-meta">
 				<b><?php the_author_meta('display_name'); ?></b><br>
+				<?php the_field('position','user_'.get_the_author_ID()); ?>
 			</div>
 			<div class="author-description">
 				<?php echo get_the_author_meta('description'); ?>

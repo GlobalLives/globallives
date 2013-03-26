@@ -201,7 +201,44 @@
 			}
 		}
 	}
-	
+	#nav-explore {
+		margin: 0; padding: 0.5em 0;
+		background: @gray;
+		#gradient > .vertical(@grayLight, @gray);
+		border-bottom: 1px solid @grayDark;
+		li {
+			float: left;
+			width: auto; min-width: 50px;
+			margin: 0; padding: 0 1em; 
+			line-height: 36px;
+			color: @white;
+			text-shadow: 0 2px 2px @grayDark;
+			border-right: 1px solid @gray;
+			&:last-child {
+				border: none;
+			}
+			.btn {
+				display: inline-block;
+				width: auto;
+				padding: 5px;
+				#gradient > .vertical(@grayLight,@grayDark);
+				&:hover, &.active {
+					#gradient > .vertical(@white,@grayLight);
+					background-position: center;
+					i {
+						background-image: url('../img/glyphicons-halflings.png');
+					}
+				}
+			}
+			select {
+				margin: 0 0 2px 5px;
+				width: 100px;
+			}
+			input[type=checkbox] {
+				margin: 0 0 2px 0;
+			}
+		}
+	}
 
 /*	==========================================================================
 	Content
@@ -343,7 +380,7 @@
 		#gradient > .vertical(rgba(0,0,0,0),rgba(0,0,0,0.75));
 		min-height: 600px;
 	}
-	#nav-featured {
+	#nav-featured, #nav-series {
 		display: none;
 		margin: 0; padding: 0;
 		#gradient > .vertical(@grayDarker,@black);
@@ -537,6 +574,42 @@
 			background: fade(@black, 50%);
 		}
 	}
+	#gridview {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		background: fade(@black, 75%);
+		.participant-grid {
+			position: relative;
+			float: left;
+			width: 16.66%;
+			padding-bottom: 16.66%;
+			background: fade(@black,50%);
+			overflow: hidden;
+			.participant-meta {
+				position: absolute;
+				box-sizing: border-box;
+				height: 100%; width: 100%;
+				padding: 0 1em;
+				border: 5px solid @white;
+				z-index: 2;
+				color: @white;
+				background: @red;
+				opacity: 0;
+				transition: opacity 1s;
+			}
+			&:hover .participant-meta {
+				opacity: 0.75;
+			}
+			img {
+				position: absolute;
+				top: 0; bottom: 0; left: 0; right: 0;
+				margin: 0 auto;
+				height: 100%;
+				width: auto;
+			}
+		}
+	}
 	#mapview {
 		position: relative;
 		width: 100%;
@@ -547,6 +620,10 @@
 			fill: @grayDarker;
 			stroke: @gray;
 			stroke-width: 1;
+		}
+		.background {
+			fill: none;
+			pointer-events: all;
 		}
 		.marker {
 			fill: @gray;
@@ -1142,6 +1219,18 @@
 			}
 		}
 	}
+	.widget.recently-active {
+		.profile-thumbnail {
+			float: left;
+			margin: 0 1em 1em 0;
+			height: 50px; width: 50px;
+			overflow: hidden;
+			img {					
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
 
 /*	==========================================================================
 	Search
@@ -1199,19 +1288,21 @@
 				
 			}
 		}
-		.widget_recent_entries {
+		.widget_reallysimpletwitterwidget, .widget_recent_entries {
 			ul {
 				margin: 0; padding: 0;
 				list-style: none;
 				li {
 					margin: 0 0 @baseLineHeight;
+					color: @grayLight;
 					a {
 						color: @black;
 					}
-					.post-date {
+					.post-date, .twitter-timestamp {
 						display: block;
 						color: @grayLight;
 						font-size: @fontSizeSmall;
+						text-decoration: none;
 					}
 				}
 			}
@@ -1334,6 +1425,12 @@
 			}
 		}
 	}
+	#gridview {
+		.participant-grid {
+			width: 33%;
+			padding-bottom: 33%;
+		}
+	}
 }
 @media (max-width: 979px) {
 
@@ -1356,17 +1453,25 @@
 			margin-top: 2em;
 		}
 	}
-  
+
 }
 
 @media (min-width: 768px) {
+	#banner #nav-main, #banner #nav-featured, #nav-series {
+		display: block;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
 
 	#banner #nav-main, #banner #nav-featured {
 		display: block;
 	}
-	.page-explore #mapview {
-/* 		height: 420px; */
-	}
 	
-  
+   	#gridview {
+		.participant-grid {
+			width: 25%;
+			padding-bottom: 25%;
+		}
+	}
 }
