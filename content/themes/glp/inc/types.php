@@ -29,6 +29,14 @@
 	add_action( 'init', 'create_participant_post_type' );
 	function create_participant_post_type() {
    
+   		register_taxonomy( 'series', 'participant', array(
+			'label' => __( 'Series' ),
+			'rewrite' => array(
+				'slug' => 'series',
+				'with_front' => false 
+			)
+		));
+		
 		register_post_type( 'participant', array(
 			'labels' => array(
 			    'name'			=> __( 'Participants' ),
@@ -115,7 +123,11 @@
 
 	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
 		$thumbnail = wp_get_attachment_image_src( get_field('avatar','user_'.$profile_id), $thumbnail_size );
-		return $thumbnail[0];
+		if ($thumbnail) {
+			return $thumbnail[0];		
+		} else {
+			return get_bloginfo('template_directory') . '/img/logo-coda.png';
+		}
 	}
 	function the_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
 		echo get_profile_thumbnail_url( $profile_id, $thumbnail_size );
@@ -157,9 +169,15 @@
 	function profile_activity_compare($a, $b) {
 		return $b['activity_timestamp'] - $a['activity_timestamp'];
 	}
+	function active_profile_compare($a, $b) {
+		return get_profile_last_active($b->ID) - get_profile_last_active($a->ID);
+	}
 	
 	function get_profile_last_active( $user_id ) {
 		$activities = get_profile_activities( $user_id );
-		$last_activity = $activities[0];
-		return $last_activity['activity_timestamp'];
+		if ($activities) {
+			return $activities[0]['activity_timestamp'];
+		} else {
+			return strtotime(' ');
+		}
 	}
