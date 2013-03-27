@@ -1,11 +1,10 @@
 /*	==========================================================================
-	Imports
+	Setup
 	========================================================================== */
 
 	@import "fonts";
 	@import "variables";
-	@import "bootstrap";
-
+	@import "bootstrap"; // Custom Bootstrap loader that uses our variables
 
 /*	==========================================================================
 	Base
@@ -14,13 +13,11 @@
 	body {
 		height: 100%;
 		#gradient > .vertical(@gray,@black);
-
 		text-rendering: optimizeLegibility;
 
 		background: @grayLight url('../img/bg.jpg') center top no-repeat;
 		background-attachment: fixed;
 		background-size: cover;
-
 	}
 	
 	hr {
@@ -28,11 +25,7 @@
 		border: 0;
 		border-top: 1px dotted @grayLight;
 	}
-	
-	h1,h2,h3,h4,h5,h6 {
-/* 		letter-spacing: 1px; */
-	}
-	
+		
 	#wrap {
 	}
 
@@ -52,8 +45,21 @@
 	}
 		
 /*	==========================================================================
-	Header
+	Header & Nav Menus
 	========================================================================== */
+	
+	/* Header */
+	@import "nav-main";
+	@import "nav-utility";
+	@import "nav-user";
+	
+	/* Pages */
+	@import "nav-local";
+	@import "nav-featured";
+	@import "nav-explore";
+	
+	/* Footer */
+	@import "nav-modules";
 
 	#banner {
 		position: relative;
@@ -65,11 +71,8 @@
 				display: block;
 				padding: 5px 0 0 0;
 				line-height: 60px;
-				font-size: @fontSizeXLarge;
 				background: transparent url('../img/site-title.png') left center no-repeat;
-				color: @black;
 				overflow: hidden;
-				text-decoration: none;
 				text-indent: -9999px;
 			}
 		}
@@ -78,221 +81,23 @@
 			background: @grayLight;
 			border: 1px solid @grayLight;
 		}
-		#nav-main {
-			display: none;
-			#gradient > .vertical(@grayDark, @black);
-			.box-shadow(0 10px 15px rgba(0,0,0,0.5));
-			position: relative; z-index: 9999;
-			font-size: @fontSizeLarge;
-			.menu-primary-header-navigation-container {
-				float: left;
-				ul {
-					margin: 0; padding: 0;
-					list-style: none;
-				}
-				li {
-					display: block;
-					float: left;
-					margin: 0;
-					a {
-						display: block;
-					    margin: 0; padding: 0 1em;
-					    text-align: center;
-					    border-left: 1px solid @grayDark;
-					    line-height: 42px;
-					    font-family: "Montreal Serial", @headingsFontFamily;
-					    font-size: 14px;
-					    color: @grayLighter;
-					    text-shadow: 0 0 1px @black;
-					    text-decoration: none;
-					    letter-spacing: 1px;
-					}
-					&:hover { //, &.current_page_item, &.current_page_parent, &.current_page_ancestor, &.current-menu-item {
-						background: @grayDark;
-					}
-					&:last-child a {
-					    border-right: 1px solid @grayDark;
-					}
-				}
-			}
-			.menu-social-media-icons-container {
-				float: right;
-				width: auto;
-				ul {
-					margin: 0; padding: 0;
-					text-align: right;
-				}
-				li {
-					display: inline-block;
-						&:hover {
-							background: @grayDark;
-						}
-					a {
-						display: inline-block;
-						margin: 5px 0 5px;
-						height: 32px; width: 32px;
-						text-indent: 9999px;
-						overflow: hidden;
-					}
-					&.social-tw a {
-						background: transparent url('../img/icon-tw.png') center no-repeat;
-					}
-					&.social-fb a {
-						background: transparent url('../img/icon-fb.png') center no-repeat;
-					}
-					&.social-yt a {
-						background: transparent url('../img/icon-yt.png') center no-repeat;
-					}
-				}
-			}
-		}
-		#masthead {
-			#searchtab, #jointab, #logintab {
-				margin: 20px 0 0;
-				.btn {
-					color: @gray;
-					text-shadow: none;
-					#gradient > .vertical(@white,@grayLighter);
-					border: none;
-					.box-shadow(0 1px 1px @gray);
-					&:hover {
-						.box-shadow(0 0 0 @grayLighter);
-					}
-				}
-			}
-			#nav-user {
-				float: right;
-				li {
-					margin: 2em 1em 0;
-					text-align: center;
-					.border-radius(@borderRadiusLarge);
-					font: @fontSizeSmall @headingsFontFamily;
-					i {
-						margin-bottom: 0.5em;
-					}
-				}
-			}
-		}
-		#nav-utility {
-			background: url('../img/edges-color.png') center no-repeat;
-			background-size: cover;
-			.lang-btn {
-				float: left;
-/* 				margin: 10px 0; */
-			}
-			.container {
-				position: relative;
-				min-height: 10px;
-			}
-			.nav-tabs {
-				display: none;
-				position: absolute;
-				bottom: 0; right: 0;
-				margin: 0; padding: 0;
-				float: right;
-				a {
-/* 					padding: 0.5em 1em 0.5em; */
-					background: @grayLighter;
-					font: @baseFontSize @headingsFontFamily;
-				}
-				li.active a {
-					background: @white;
-				}
-			}
-		}
-	}
-	#nav-explore {
-		margin: 0; padding: 0.5em 0;
-		background: @gray;
-		#gradient > .vertical(@grayLight, @gray);
-		border-bottom: 1px solid @grayDark;
-		li {
-			float: left;
-			width: auto; min-width: 50px;
-			margin: 0; padding: 0 1em; 
-			line-height: 36px;
-			color: @white;
-			text-shadow: 0 2px 2px @grayDark;
-			border-right: 1px solid @gray;
-			&:last-child {
-				border: none;
-			}
+		#searchtab, #jointab, #logintab {
+			margin: 20px 0 0;
 			.btn {
-				display: inline-block;
-				width: auto;
-				padding: 5px;
-				#gradient > .vertical(@grayLight,@grayDark);
-				&:hover, &.active {
-					#gradient > .vertical(@white,@grayLight);
-					background-position: center;
-					i {
-						background-image: url('../img/glyphicons-halflings.png');
-					}
-				}
-			}
-			select {
-				margin: 0 0 2px 5px;
-				width: 100px;
-			}
-			input[type=checkbox] {
-				margin: 0 0 2px 0;
-			}
-		}
-	}
-
-/*	==========================================================================
-	Content
-	========================================================================== */
-
-	#content {
-	}
-
-	.local-navigation-menu {
-		margin: 2em 0 0 2em; padding: 0;
-		list-style: none;
-		li {
-			margin: 1em 0 0; padding: 0 0 1em;
-			border-bottom: 1px dotted @grayLight;
-			&:last-child {
-				border: none;
-			}
-			.children {
-				display: none;
-				margin: 0 0 0 1em; padding: 0;
-				list-style: none;
-				font-size: @fontSizeSmall;
-				li {
-					border: none;
-					padding-bottom: 0;
-					li {
-						font-size: @fontSizeSmall;
-					}
-				}
-			}
-			&.current_page_item {
-				font-weight: bold;
-			}
-			&.current_page_item .children, &.current_page_ancestor .children {
-				display: block;
-				font-weight: normal;
-			}
-		}
-		a {
-			display: block;
-			color: @grayLight;
-			&:hover {
 				color: @gray;
-				text-decoration: none;
+				text-shadow: none;
+				#gradient > .vertical(@white,@grayLighter);
+				border: none;
+				.box-shadow(0 1px 1px @gray);
+				&:hover {
+					.box-shadow(0 0 0 @grayLighter);
+				}
 			}
-		}
-		li.current_page_item > a {
-			color: @gray;
 		}
 	}
 
-
 /*	==========================================================================
-	Primary Content
+	Content & Common Elements
 	========================================================================== */
 
 	.section-title {
@@ -375,78 +180,13 @@
 
 	.home {
 		background: transparent url('../img/bg-home.jpg') center no-repeat fixed;
-	}
-	.home #wrap {
-		#gradient > .vertical(rgba(0,0,0,0),rgba(0,0,0,0.75));
-		min-height: 600px;
-	}
-	#nav-featured {
-		display: none;
-		margin: 0; padding: 0;
-		#gradient > .vertical(@grayDarker,@black);
-		.box-shadow(0 0 5px rgba(0,0,0,0.5));
-		ul {
-			margin: 1em 0 0; padding: 0;
-			list-style: none;
+		#wrap {
+			#gradient > .vertical(rgba(0,0,0,0),rgba(0,0,0,0.75));
+			min-height: 600px;
 		}
-		.featured-thumbnail {
-			position: relative;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-			height: 100px;
-			background: @gray;
-			border: 5px solid @white;
-			.box-shadow(0 0 5px rgba(0,0,0,0.5));
-			overflow: visible;
-			cursor: pointer;
-			img {
-				position: absolute;
-				display: block;
-				top: 0; bottom: 0; left: 0; right: 0;
-				margin: auto;
-				height: 100%; width: auto;
-				-webkit-filter: ~"saturate(0%)";
-				filter: ~"saturate(0%)";
-				opacity: 0.333;
-			}
-			&.active img, img:hover {
-				-webkit-filter: ~"saturate(100%)";
-				filter: ~"saturate(100%)";
-				opacity: 1.0;
-			}
-			&.active:after {
-				content: "";
-				position: absolute;
-				top: 125%; left: 50%;
-				margin-left: -10px;
-				height: 0; width: 0;
-				background: transparent;
-				border: @grayLight solid 15px;
-				border-color: @black transparent transparent transparent;
-			}
+		#stage {
+			padding: 2em 0;
 		}
-		.carousel-inner {
-			overflow: visible;
-		}
-		.carousel-control {
-			height: 50px;
-			line-height: 40px;
-			font-family: "Montreal Serial Light", @headingsFontFamily;
-			font-weight: lighter;
-			color: white;
-			background: @gray;
-			border: none;
-			.border-radius(@borderRadiusSmall);
-			&.left {
-				left: -0.825em;
-			}
-			&.right {
-				right: -0.825em;
-			}
-		}
-	}
-	.home #stage {
-		padding: 2em 0;
 	}
 	.front-page {
 		margin: 0 auto;
@@ -498,152 +238,32 @@
 			font-weight: lighter;
 		}
 	}
-		.participant-clip {
-			position: relative;
-			padding-bottom: 65.25%;
-			padding-top: 0; height: 0; overflow: hidden;
-			iframe, object, embed {
-				position: absolute;
-				top: 0; left: 0;
-				width: 100%; height: 88%;
-			}
-			.participant-video-buttons {
-				position: absolute;
-				bottom: 0; left: 0;
-			}
+	.participant-clip {
+		position: relative;
+		padding-bottom: 65.25%;
+		padding-top: 0; height: 0; overflow: hidden;
+		iframe, object, embed {
+			position: absolute;
+			top: 0; left: 0;
+			width: 100%; height: 88%;
 		}
+		.participant-video-buttons {
+			position: absolute;
+			bottom: 0; left: 0;
+		}
+	}
 
 /*	==========================================================================
 	Explore the Collection
 	========================================================================== */
 
+	@import "view-grid";
+	@import "view-map";
+	
 	.page-explore {
 		#content {
 			position: relative;
 			width: 100%;
-		}
-	}
-		#popover {
-			display: none;
-			position: absolute;
-			top: 50%; left: 50%;
-			padding: 0 1em;
-			background: @grayLighter;
-			border: 1px solid @white;
-			.border-radius(@borderRadiusSmall);
-			.box-shadow(0 25px 25px rgba(0,0,0,0.25));
-			font-size: @fontSizeSmall;
-			h3 {
-				margin: 0.5em 0; padding: 0;
-				font-size: @baseFontSize;
-				font-family: "Montreal Serial", @headingsFontFamily;
-				font-weight: normal;
-				line-height: 1em;
-			}
-			.popover-name {
-				color: @black;
-				font-weight: bold;
-			}
-			.popover-location {
-				font-family: "Montreal Serial Light", @headingsFontFamily;
-				font-weight: lighter;
-			}
-			.popover-thumbnail {
-				margin-bottom: 1em;
-				border: 5px solid @white;
-				.box-shadow(0 2px 2px rgba(0,0,0,0.5););
-			}
-			.btn {
-				margin-top: 1em;
-			}
-			.close {
-				margin: 0; padding: 0;
-				height: 25px; width: 25px;
-				position: absolute;
-				top: 5px; right: 5px;
-				color: @gray;
-				background: @white;
-				border: none;
-				.border-radius(50%);
-				line-height: 25px;
-			}
-		}
-		.overlay {
-			position: absolute;
-			top: 0; left: 0;
-			width: 100%; height: 100%;
-			background: fade(@black, 50%);
-		}
-	#gridview {
-		position: relative;
-		width: 100%;
-		overflow: hidden;
-		background: fade(@black, 75%);
-		.participant-grid {
-			position: relative;
-			float: left;
-			width: 16.66%;
-			padding-bottom: 16.66%;
-			background: fade(@black,50%);
-			overflow: hidden;
-			.participant-meta {
-				position: absolute;
-				box-sizing: border-box;
-				height: 100%; width: 100%;
-				padding: 0 1em;
-				border: 5px solid @white;
-				z-index: 2;
-				color: @white;
-				background: @red;
-				opacity: 0;
-				transition: opacity 1s;
-			}
-			&:hover .participant-meta {
-				opacity: 0.75;
-			}
-			img {
-				position: absolute;
-				top: 0; bottom: 0; left: 0; right: 0;
-				margin: 0 auto;
-				height: 100%;
-				width: auto;
-			}
-		}
-	}
-	#mapview {
-		position: relative;
-		width: 100%;
-		height: 640px;
-		background: @gray;
-		overflow: hidden;
-		#countries {
-			fill: @grayDarker;
-			stroke: @gray;
-			stroke-width: 1;
-		}
-		.background {
-			fill: none;
-			pointer-events: all;
-		}
-		.marker {
-			fill: @gray;
-			cursor: pointer;
-			.mapthumb { stroke-width: 3px; }
-			&.africa		{ fill: #ff0;	.mapthumb { stroke: #ff0; } }
-			&.antarctica	{ fill: #fff;	.mapthumb { stroke: #fff; } }
-			&.australia		{ fill: #17d;	.mapthumb { stroke: #17d; } }
-			&.asia			{ fill: #f80;	.mapthumb { stroke: #f80; } }
-			&.europe		{ fill: #f00;	.mapthumb { stroke: #f00; } }
-			&.north-america { fill: #0e2;	.mapthumb { stroke: #0e2; } }
-			&.south-america { fill: #0ce;	.mapthumb { stroke: #0ce; } }
-
-			.name {
-				font-weight: bold;
-			}
-			.location, .occupation {
-				fill: @white;
-			}
-
 		}
 	}
 
@@ -651,288 +271,14 @@
 	Participant Detail
 	========================================================================== */
 
-	.single-participant {
-		color: @white;
-		h3 {
-			font-family: "Montreal Serial", @headingsFontFamily;
-			font-weight: normal;
-		}
-		#wrap {
-			background: @black;
-		}
-		#content {
-			position: relative;
-			width: 100%;
-		}
-		#stage {
-			padding-bottom: 0;
-		}
-		.participant-video-embed {
-			min-height: 528px; // 940px container at 16:9 ratio
-			max-width: 100%;
-		}
-		.participant-video-buttons {
-			padding: 1em 0;
-		}
-		.participant-detail-content {
-			margin: 0 0;
-			padding: 1em 0;
-			#gradient > .vertical(@grayDarker,@grayDark);
-			border-top: 1px solid @gray;
-			text-shadow: 0 0 1px #000;
-			a {
-				color: @white;
-				border-bottom: 1px solid @orange;
-				text-decoration: none;
-				&:hover {
-					color: @orange;
-				}
-			}
-			.participant-title {
-				font-family: "Montreal Serial", @headingsFontFamily;
-				font-weight: normal;
-				font-size: @fontSizeXLarge;
-				line-height: 48px;
-				border-bottom: 1px dotted @gray;
-			}
-			.participant-name {
-				font-weight: bold;
-			}
-			.participant-meta {
-			}
-			.participant-content {
-			    margin: 1em 0;
-			}
-			.participant-location {
-				font-weight: lighter;
-			}
-		}
-		.participant-crew {
-			a {
-				font-size: @fontSizeMini;
-				color: @white;
-				text-decoration: none;
-				text-align: center;
-			}
-			.profile-thumbnail {
-				margin: 0 auto;
-				width: 100%; height: auto;
-				overflow: hidden;
-				img {
-					height: auto;
-					width: auto;
-				}
-				h4 {
-					clear: both;
-				}
-			}
-		}
-		.participant-clips {
-			h3 {
-				line-height: 50px;
-				border-bottom: 1px dotted @gray;
-			}
-			.participant-clips-scrollbox {
-				height: 320px;
-				overflow-y: scroll;
-			}
-			.participant-clip-listing {
-				margin: 0;
-				padding: 1em 0;
-				border-bottom: 1px dotted @gray;
-				font-size: @fontSizeMini;
-				.row {
-					margin: 0;
-					padding: 1em 0;					
-				}
-				&.active .row {
-					background: @grayDark;
-					.border-radius(@borderRadiusSmall);
-				}
-				a {
-					color: @white;
-					text-decoration: none;
-				}
-				.clip-title {
-					margin: 0;
-				}
-				.clip-duration {
-					margin: 0;
-				}
-				.clip-thumbnail {
-					position: relative;
-					cursor: pointer;
-					img {
-						border: 5px solid @white;
-					}
-					&:after {
-						position: absolute;
-						top: 40%; left: 45%;
-						color: @white;
-						font-size: 36px;
-						content: '►';
-					}
-				}
-			}
-		}
-		.participant-filter-clips {
-			padding: 0.75em;
-			background: @grayDarker;
-			.border-radius(@borderRadiusLarge);
-			.box-shadow(0 2px 2px @black inset);
-			h4 {
-				font-size: @baseFontSize;
-			}
-			h5 {
-				color: @gray;
-			}
-			a {
-				display: inline-block;
-				margin: 0 1em 1em 0;
-				clear: both;
-				line-height: 1em;
-				padding: 0.5em 1em;
-				color: @white;
-				#gradient > .vertical(@grayLight,@gray);
-				.border-radius(1em);
-				.box-shadow(0 2px 2px rgba(0,0,0,0.5));
-				font-size: @fontSizeMini;
-				cursor: pointer;
-				&:hover {
-					text-decoration: none;
-					#gradient > .vertical(@grayLighter,@gray);
-				}
-			}
-		}
-	}
-
+	@import "single-participant";
 
 /*	==========================================================================
 	Member Profile
 	========================================================================== */
 
-	.page-profile, .author {
-		
-		.profile-header {
-			position: relative;
-			color: @white;
-			background: @orange;
-			.border-radius(@borderRadiusLarge @borderRadiusLarge 0 0);
-			.profile-header-inner {
-				padding: 10px;
-			}
-			.profile-location {
-				font: @fontSizeLarge @headingsFontFamily;
-			}
-			.profile-name {
-				margin: 0; padding: 0 200px 0 0;
-				font-family: "Montreal Serial", @headingsFontFamily;
-				font-weight: normal;
-				font-size: @fontSizeLarge*2;
-			}
-			.profile-username {
-				position: absolute;
-				bottom: 10px; right: 10px;
-				color: darken(@orange,15%);
-				font-size: @fontSizeLarge;
-			}
-			.edit-profile {
-				position: absolute;
-				top: 10px; right: 10px;
-				color: @white;
-				background: transparent;
-				text-shadow: none;
-			}
-
-		}
-		.profile-container {
-			margin-bottom: 5em;
-			background: @white url('../img/logo-coda.png') bottom center no-repeat;
-			.border-radius(@borderRadiusLarge 0 @borderRadiusLarge @borderRadiusLarge);
-			.profile-siderbar-inner {
-				margin: 0; padding: 2em 0;
-				ul {
-					margin: 0; padding: 0;
-				}
-				li {
-					list-style: none;
-					clear: left;
-				}
-				.participant-thumbnail {
-					float: left; clear: left;
-					margin: 0 1em 1em 0;
-					height: 50px; width: 50px;
-					.border-radius(50%);
-					overflow: hidden;
-					img {
-						height: 100%; width: 100%;
-						
-					}
-				}
-				.participant-title {
-					margin: 0;
-				}
-				.participant-location {
-					font-size: @fontSizeMini;
-				}
-			}
-			.profile-thumbnail {
-				margin: 0 0 1em 0;
-				height: 200px; width: 100%;
-				overflow: hidden;
-				img {					
-					width: 100%;
-					height: auto;
-				}
-			}
-			.profile-body-inner {
-				padding: 2em 1em 2em 0;
-			}
-			.profile-activity {
-				margin: 0; padding: 0;
-				list-style: none;
-				.activity-thumbnail {
-					margin-bottom: 1em;
-					img { .border-radius(50%); }
-				}
-				.activity-meta {
-					color: @grayLight;
-					font-size: @fontSizeMini;
-				}
-				.activity-username, .activity-post {
-					font-weight: bold;
-				}
-			}
-		}
-		
-		.profile-edit-form {
-			input,textarea {
-				display: block;
-				margin: 5px 0; padding: 5px !important;
-				background: rgba(128,128,128,0.25);
-				border: none;
-			}
-			.profile-name, .profile-location {
-				width: 80%;
-			}
-			.profile-bio {
-				width: 80%;
-				height: 200px;
-			}
-			.profile-website {
-				width: 80%%;
-			}
-			.checkbox {
-				margin: 0; padding: 0;
-				clear: left;
-				input {
-					display: inline;
-					margin-right: 1em;
-				}
-			}
-		}
-	}
-
+	@import "profile";
+	
 /*	==========================================================================
 	Blog
 	========================================================================== */
@@ -1141,97 +487,8 @@
 	Events
 	========================================================================== */
 
-/*
-	.events-list #banner #nav-main .menu-primary-header-navigation-container .current_page_parent {
-		background: transparent;
-	}
-*/
-	.tribe-events-events {
-		margin: 2em 2em 0 0;
+	@import "events";
 	
-		.btn {
-			color: @gray;
-			text-shadow: none;
-			#gradient > .vertical(@white,@grayLighter);
-			border: none !important;
-			.box-shadow(0 1px 1px @gray);
-			&:hover {
-				color: @black;
-				.box-shadow(0 0 0 @grayLighter);
-			}
-		}
-		.tribe-events-event {
-			margin: 0 0 2em;
-			padding: 2em;
-			background: #ccc center no-repeat;
-			background-size: cover;
-			.entry-date {
-				margin: 10em 0 0;
-			}
-			.entry-header {
-				display: block;
-			}
-			.entry-category {
-				margin: 0;
-				font-size: @baseFontSize;
-			}
-			.entry-title {
-				margin: 0;
-				font-size: @fontSizeLarge;
-			}
-			.entry-content {
-				margin: 0;
-				width: auto;
-				a {
-					color: @black;
-					border-bottom: 1px solid @orange;
-					text-decoration: none;
-					&:hover {
-						color: @orange;
-					}
-				}
-
-			}
-			.entry-share {
-				display: inline-block;
-			}
-		}
-		.entry-tags {
-			dt, dd {
-				margin: 0; padding: 0;
-				display: inline;
-			}
-		}
-	}
-	.dig-in { display: none; }
-	.widget .upcoming {
-		margin: 0 0 1em; padding: 0;
-		list-style: none;
-		border-bottom: 1px dotted @grayLight;
-		li {
-			margin: 1em 0;
-			.when {
-				font-size: @fontSizeSmall;
-				color: @gray;
-			}
-			.event {
-				font-weight: bold;
-			}
-		}
-	}
-	.widget.recently-active {
-		.profile-thumbnail {
-			float: left;
-			margin: 0 1em 1em 0;
-			height: 50px; width: 50px;
-			overflow: hidden;
-			img {					
-				width: 100%;
-				height: auto;
-			}
-		}
-	}
-
 /*	==========================================================================
 	Search
 	========================================================================== */
@@ -1267,101 +524,12 @@
 	Series
 	========================================================================== */
 	
-	.tax-series {
-		
-		#wrap {
-			color: @white;
-			background: fade(@black, 75%);
-		}
-		#content {
-			position: relative;
-			width: 100%;
-		}
-		#maptoggle {
-			margin: 0 0 1em; padding: 5px 0;
-			height: 30px;
-			background: @grayDarker;
-			border-bottom: 1px solid @black;
-			text-align: right;
-		}
-		
-		#nav-series {
-			margin: 0 0 18px; padding: 18px 0 0;
-			background: @black;
-			
-			li {
-				list-style: none;
-			}
-			.series-thumbnail {
-				position: relative;
-				-moz-box-sizing: border-box;
-				box-sizing: border-box;
-				height: 100px;
-				background: @gray;
-				.box-shadow(0 0 5px rgba(0,0,0,0.5));
-				overflow: visible;
-				cursor: pointer;
-				img {
-				    position: absolute;
-				    display: block;
-				    top: 0; bottom: 0; left: 0; right: 0;
-				    margin: auto;
-				    height: 100%; width: auto;
-				}
-			}
-			.home-thumbnail {
-				padding: 0 5px;
-				background: @orange;
-			}
-		}
-		
-	}
-
+	@import "tax-series";
+	
 /*	==========================================================================
 	Footer
 	========================================================================== */
-
-	#nav-modules {
-		border-top: 1px solid @white;
-		#gradient > .vertical(@grayLighter,@grayLight);
-		.widget {
-			margin-top: 2em; margin-bottom: 2em;
-			color: @grayDarker;
-			background: @white;
-			.border-radius(@borderRadiusLarge);
-			.widget-inner {
-				padding: 1em;
-			}
-			h4 {
-				margin: 0 0 1em;
-				padding-bottom: 0.5em;
-				color: @grayLight;
-				border-bottom: 1px dotted @grayLight;	
-				font-size: @fontSizeLarge;
-				font-weight: bold;
-				
-			}
-		}
-		.widget_reallysimpletwitterwidget, .widget_recent_entries {
-			ul {
-				margin: 0; padding: 0;
-				list-style: none;
-				li {
-					margin: 0 0 @baseLineHeight;
-					color: @grayLight;
-					a {
-						color: @black;
-					}
-					.post-date, .twitter-timestamp {
-						display: block;
-						color: @grayLight;
-						font-size: @fontSizeSmall;
-						text-decoration: none;
-					}
-				}
-			}
-		}
-	}
+	
 	#content-info {
 		padding: 2em 0 5em;
 		background: black url('../img/edges.jpg') no-repeat;
