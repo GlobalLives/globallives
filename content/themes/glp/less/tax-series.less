@@ -7,6 +7,7 @@
 		#content {
 			position: relative;
 			width: 100%;
+			padding-bottom: 2em;
 		}
 		#maptoggle {
 			margin: 0 0 1em; padding: 5px 0;
@@ -17,12 +18,14 @@
 		}
 		
 		#nav-series {
-			margin: 0 0 18px; padding: 18px 0 0;
-			background: @black;
-			
-			li {
-				list-style: none;
-			}
+		    margin: 0 0 1em; padding: 0;
+		    #gradient > .vertical(@grayDark,@grayLight);
+		    .box-shadow(0 0 5px rgba(0,0,0,0.5));
+		    border-top: 1px solid @gray;
+		    ul {
+		        margin: 1em 0 0; padding: 0;
+		        list-style: none;
+		    }
 			.series-thumbnail {
 				position: relative;
 				-moz-box-sizing: border-box;
@@ -41,7 +44,7 @@
 				}
 			}
 			.home-thumbnail {
-				padding: 0 5px;
+				padding: 0 1em;
 				background: @orange;
 			}
 		}

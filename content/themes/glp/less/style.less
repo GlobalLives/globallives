@@ -95,6 +95,27 @@
 			}
 		}
 	}
+	.carousel {
+		.carousel-inner {
+    		overflow: visible;
+    	}
+    	.carousel-control {
+    		height: 50px;
+    		line-height: 40px;
+    		font-family: "Montreal Serial Light", @headingsFontFamily;
+    		font-weight: lighter;
+    		color: white;
+    		background: @gray;
+    		border: none;
+    		.border-radius(@borderRadiusSmall);
+    		&.left {
+    			left: -0.825em;
+    		}
+    		&.right {
+    			right: -0.825em;
+    		}
+    	}
+    }
 
 /*	==========================================================================
 	Content & Common Elements
