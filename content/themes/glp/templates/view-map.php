@@ -18,16 +18,23 @@
 <script>
 var participants = [
 <?php foreach ($participants as $participant) : ?>
-	{ name: '<?php echo $participant->post_title; ?>', 
-	permalink: '<?php echo get_permalink($participant->ID); ?>', 
-	series: '<?php echo get_the_term_list($participant->ID,'series'); ?>', 
-	thumbnail: '<?php the_participant_thumbnail_url( $participant->ID ); ?>', 
-	occupation: '<?php the_field('occupation', $participant->ID); ?>', 
-	dob: '<?php the_field('dob', $participant->ID); ?>', 
-	location: '<?php the_field('location', $participant->ID); ?>', 
-	continent: '<?php the_field('continent', $participant->ID); ?>', 
-	latitude: <?php the_field('latitude', $participant->ID); ?>, 
-	longitude: <?php the_field('longitude', $participant->ID); ?> },
+	{
+		id: <?php echo $participant->ID; ?>, 
+		name: '<?php echo $participant->post_title; ?>', 
+		location: '<?php the_field('location', $participant->ID); ?>', 
+		continent: '<?php the_field('continent', $participant->ID); ?>', 
+		latitude: <?php the_field('latitude', $participant->ID); ?>, longitude: <?php the_field('longitude', $participant->ID); ?>,
+		series: '<?php echo get_the_term_list($participant->ID,'series'); ?>',
+		gender: '<?php the_field('gender', $participant->ID); ?>', 
+		income: '<?php the_field('income_group', $participant->ID); ?>', 
+		age: '<?php the_field('age_group', $participant->ID); ?>', 
+		thumbnail: '<?php the_participant_thumbnail_url( $participant->ID ); ?>',
+		occupation: '<?php the_field('occupation', $participant->ID); ?>', 
+		dob: '<?php the_field('dob', $participant->ID); ?>', 
+		proposed: '<?php the_field('proposed', $participant->ID); ?>', 
+		permalink: '<?php echo get_permalink($participant->ID); ?>', 
+
+	},
 <?php endforeach; ?>
 ];
 </script>

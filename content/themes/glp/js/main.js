@@ -114,6 +114,22 @@ $(function() {
 			});
 		});
 		
+		$('#nav-explore input, #nav-explore select').change(function() {
+			$(participants).each(function() {
+				var participant = $('#participant-' + this.id);
+				participant.removeClass('filtered');
+
+				if ($('select[name=series]').val() !== "All" && this.series !== $('select[name=series]').val() ) { participant.addClass('filtered'); }				
+				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { participant.addClass('filtered'); }				
+				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { participant.addClass('filtered'); }				
+				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { participant.addClass('filtered'); }				
+				if (!$('input[name=proposed]:checked').val() && this.proposed ) { participant.addClass('filtered'); }
+			});
+			$('.participant-grid').hide();
+			$('.participant-grid:not(.filtered)').fadeIn();
+			return false;
+		});
+		
 	}
 	
 	if ($('#mapview').length) { // For all pages that have a Map View
@@ -173,7 +189,7 @@ $(function() {
 		var markers = locations.selectAll('marker')
 			.data(participants)
 			.enter().append('svg:g')
-				.attr('class', function(d) { return 'marker ' + d.continent; })
+				.attr('class', function(d) { return 'marker ' + d.continent + (d.proposed ? ' proposed' : ''); })
 				.attr('transform', function(d) { return 'translate(' + projection([+d.longitude, +d.latitude]) + ')'; })
 				.on('click', function(d) { set_popover( d, this ); });
 
@@ -300,15 +316,11 @@ $(function() {
 		});
 		
 		$('#nav-series .participant-thumbnail').click(function() {
-			$('.home-thumbnail, .participant-thumbnail').removeClass('active');
-			$(this).addClass('active');
 			$('#home').fadeOut('slow');
 			set_stage( $(this).data('id') );
 		});
 		$('#nav-series .home-thumbnail').click(function() {
 			$('#stage').fadeOut('slow',function() {
-				$('.participant-thumbnail').removeClass('active');
-				$('.home-thumbnail').addClass('active');
 				$('#home').fadeIn('slow');
 			});
 		});

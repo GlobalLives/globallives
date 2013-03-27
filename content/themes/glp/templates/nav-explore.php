@@ -6,39 +6,38 @@
 				<a class="btn btn-mapview"><i class="icon icon-globe icon-white"></i></a>
 			</li>
 			<li>Series
-				<select>
+				<select name="series">
 					<option>All</option>
-					<option>The First Ten</option>
+<?php $serieses = get_terms('series'); foreach( $serieses as $series ) : ?>
+					<option value="<?php echo $series->slug; ?>"><?php echo $series->name; ?></option>
+<?php endforeach; ?>
 				</select>
 			</li>
 			<li>Gender 
-				<select>
+				<select name="gender">
 					<option>All</option>
-					<option>Male</option>
-					<option>Female</option>
+<?php $genders = get_field_object('field_127'); foreach( $genders['choices'] as $k => $v ) : ?>
+					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+<?php endforeach; ?>
 				</select>
 			</li>
 			<li>Income
-				<select>
+				<select name="income">
 					<option>All</option>
-					<option>&lt;$1/day</option>
-					<option>$1&ndash;5/day</option>
-					<option>$5&ndash;10/day</option>
-					<option>$10&ndash;20/day</option>
-					<option>$20+/day</option>
+<?php $incomes = get_field_object('field_128'); foreach( $incomes['choices'] as $k => $v ) : ?>
+					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+<?php endforeach; ?>
 				</select>
 			</li>
 			<li>Age
-				<select>
+				<select name="age">
 					<option>All</option>
-					<option>0&ndash;10</option>
-					<option>10&ndash;25</option>
-					<option>25&ndash;40</option>
-					<option>40&ndash;65</option>
-					<option>65+</option>
+<?php $ages = get_field_object('field_129'); foreach( $ages['choices'] as $k => $v ) : ?>
+					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+<?php endforeach; ?>
 				</select>
 			</li>
-			<li><input type="checkbox" /> Show Proposed</li>
+			<li><input name="proposed" type="checkbox" value="1" /> Show Proposed</li>
 		</ul>
 	</div>
 </nav>
