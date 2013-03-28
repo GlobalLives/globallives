@@ -33,7 +33,7 @@ var participants = [
 		dob: '<?php the_field('dob', $participant->ID); ?>', 
 		proposed: '<?php the_field('proposed', $participant->ID); ?>', 
 		permalink: '<?php echo get_permalink($participant->ID); ?>', 
-
+		filtered: false
 	},
 <?php endforeach; ?>
 ];

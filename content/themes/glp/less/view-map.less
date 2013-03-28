@@ -12,11 +12,13 @@
     .background {
     	fill: none;
     	pointer-events: all;
+    	cursor: move;
     }
     .marker {
     	fill: @gray;
     	cursor: pointer;
     	.mapthumb { stroke-width: 3px; }
+    	
     	&.africa		{ fill: #ff0;	.mapthumb { stroke: #ff0; } }
     	&.antarctica	{ fill: #fff;	.mapthumb { stroke: #fff; } }
     	&.australia		{ fill: #17d;	.mapthumb { stroke: #17d; } }
@@ -25,6 +27,7 @@
     	&.north-america { fill: #0e2;	.mapthumb { stroke: #0e2; } }
     	&.south-america { fill: #0ce;	.mapthumb { stroke: #0ce; } }
 
+    	&.filtered { opacity: 0.25; }
     	.name {
     		font-weight: bold;
     	}
