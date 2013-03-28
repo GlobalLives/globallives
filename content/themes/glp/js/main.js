@@ -242,8 +242,9 @@ $(function() {
 		$(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
 		$('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_clip', clip_id: clip_id },
-			function() { $('#stage').delay(250).slideDown(); }
+			function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
 		);
+                
 	});
 		
 /* Blog */

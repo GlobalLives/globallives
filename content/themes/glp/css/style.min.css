@@ -1012,7 +1012,8 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .footer-navigation-menus{color:#ffffff;}.footer-navigation-menus h4{margin-top:0;font-size:16.003px;}
 .footer-navigation-menus ul{margin:0;padding:0;list-style:none;}
 .participant-video-controls{width:100%;position:relative;}.participant-video-controls .control-slider-area-cntnr{height:13px;background:#000000;background:rgba(0, 0, 0, 0.6);padding:20px;}
-.participant-video-controls .taggable-area{float:left;clear:both;display:none;width:100%;height:20px;line-height:20px;position:relative;z-index:100;top:-20px;text-align:center;cursor:pointer;}.participant-video-controls .taggable-area span{display:none;color:#ffffff;text-decoration:none;cursor:pointer;}
+.participant-video-controls .taggable-area,.participant-video-controls .clip-markers{display:none;}
+.participant-video-controls .taggable-area{float:left;clear:both;width:100%;height:20px;line-height:20px;position:relative;z-index:100;top:-20px;text-align:center;cursor:pointer;}.participant-video-controls .taggable-area span{display:none;color:#ffffff;text-decoration:none;cursor:pointer;}
 .participant-video-controls .taggable-area:hover{text-decoration:none;}.participant-video-controls .taggable-area:hover span{display:block;}
 .participant-video-controls .taggable-area #tag-popup{height:100px;width:100px;background:red;position:absolute;bottom:0;}
 .participant-video-controls .popover{border-radius:0;background:#222222;border:none;padding:0;}.participant-video-controls .popover.top .arrow:after{border-top-color:#222222;}

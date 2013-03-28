@@ -1,48 +1,6 @@
 $(function() {
     
-    $('.participant-video-controls').each(function(){ 
-        var id = $(this).siblings('.participant-video-embed').attr('id');
-        var player = players[id];
-
-        // Bind ready events
-        $('#'+id).bind("player_ready", videoSetTimer);
-        $('#'+id).bind("player_ready", videoUpdateTimer);
-        
-        // Bind play events
-        $('#'+id).bind("player_start_play_buffer", videoSetTimer);
-        $('#'+id).bind("player_start_play_buffer", enable_taggable_area);
-        $('#'+id).bind("player_start_play_buffer", display_taggable_area);
-        $('#'+id).bind("player_start_play_buffer", toggle_play_pause_button);
-        
-        // Bind Pause
-        $('#'+id).bind("player_pause_end", toggle_play_pause_button);
-
-        //Bind ontimeupdate events
-        $('#'+id).bind("player_time_update", videoUpdateTimer);
-        $('#'+id).bind("player_time_update", videoUpdatePosition);
-
-        // Setup the slider. 0 to 1000 for precision
-        var slider = $('#'+id).siblings('.participant-video-controls').find('.control-slider').slider({
-            range: "min",
-            min: 0,
-            max: 1000
-        });
-
-        $( slider ).on( "slidestop", function( event, ui ) {
-            var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
-            players[id].seekTo( Math.round((players[id].getDuration() * (ui.value / 1000)) * 100) / 100, true );
-
-            //Rebind the slider position now that it has been dropped
-            $('#'+id).bind("player_time_update", videoUpdatePosition);
-        } );
-
-        $( slider ).on( "slidestart", function( event, ui ) {
-            // Unbind the slider position auto update to prevent it bouncing around whilst still being dragged
-            var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
-            $('#'+id).unbind("player_time_update", videoUpdatePosition);
-        } );
-
-    });
+    $(window).bind("setup_players", setup_players);
 
     $(".controls").live('click', function() {
         var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
@@ -155,7 +113,9 @@ var YT_ready = (function() {
 })();
 
 // Add function to execute when the API is ready
-YT_ready(function(){
+YT_ready(function(){ $(window).trigger("setup_players"); });
+
+function setup_players() {
     $(".participant-video-embed").each(function() {
         var identifier = this.id;
         var frameID = getFrameID(identifier);
@@ -166,9 +126,26 @@ YT_ready(function(){
                     "onReady": onReady(frameID, identifier)
                 }
             });
+            
+            // Bind ready events
+            $('#'+frameID).bind("player_ready", videoSetTimer);
+            $('#'+frameID).bind("player_ready", setup_slider);
+
+            // Bind play events
+            $('#'+frameID).bind("player_start_play_buffer", videoSetTimer);
+            $('#'+frameID).bind("player_start_play_buffer", enable_taggable_area);
+            $('#'+frameID).bind("player_start_play_buffer", display_taggable_area);
+            $('#'+frameID).bind("player_start_play_buffer", toggle_play_pause_button);
+
+            // Bind Pause
+            $('#'+frameID).bind("player_pause_end", toggle_play_pause_button);
+
+            //Bind ontimeupdate events
+            $('#'+frameID).bind("player_time_update", videoUpdateTimer);
+            $('#'+frameID).bind("player_time_update", videoUpdatePosition);
         }
     });
-});
+}
 
 function onStateChange(frameID, identifier) {
     return function (event) {
@@ -203,7 +180,7 @@ function onReady(frameID, identifier) {
         // Need to find a solution/workaround to this.
         var isHtml5Player = !player.cueVideoByFlashvars;
         if (isHtml5Player && ! player.getDuration() ) {
-            alert("Youtube html5 detected. Tagging/commenting on this clip won't work until you hit play");
+//            alert("Youtube html5 detected. Tagging/commenting on this clip won't work until you hit play");
         }
         $('#'+frameID).trigger("player_ready");
     }
@@ -278,17 +255,14 @@ function add_comment_to_marker_box(position, comment_html) {
 
 // Flash the taggable area at the start of play
 function display_taggable_area(event) {
-    var player = players[event.currentTarget.id];
-    // Only do it when we're at the start of the video
-    if ( player.getCurrentTime() < 2 ) {
-        $(".taggable-area").each(function() {
-            $(this).show().find('span').each(function(){
-                $(this).show().delay(1000).fadeOut('slow', function(){
-                    $(this).css('display', '');
-                });
+    $(".taggable-area").each(function() {
+        $(this).show().find('span').each(function(){
+            $(this).show().delay(1000).fadeOut('slow', function(){
+                $(this).css('display', '');
             });
-        } );
-    }
+        });
+    } );
+    $('.clip-markers').show();
 }
 
 function toggle_play_pause_button(event) {
@@ -302,4 +276,27 @@ function toggle_play_pause_button(event) {
             $('.play-pause').attr("data-control", 'play').find('span').toggleClass('icon-pause', 'icon-play');
         break;
     }
+}
+
+function setup_slider(event) {
+    // Setup the slider. 0 to 1000 for precision
+    var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider').slider({
+        range: "min",
+        min: 0,
+        max: 1000
+    });
+
+    $( slider ).on( "slidestart", function( event, ui ) {
+        // Unbind the slider position auto update to prevent it bouncing around whilst still being dragged
+        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+        $('#'+id).unbind("player_time_update", videoUpdatePosition);
+    } );
+    
+    $( slider ).on( "slidestop", function( event, ui ) {
+        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+        players[id].seekTo( Math.round((players[id].getDuration() * (ui.value / 1000)) * 100) / 100, true );
+
+        //Rebind the slider position now that it has been dropped
+        $('#'+id).bind("player_time_update", videoUpdatePosition);
+    } );
 }
