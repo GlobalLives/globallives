@@ -1029,7 +1029,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .participant-video-controls .popover .popover-content .comment img{margin-right:12px;border:2px solid #ffffff;}
 .participant-video-controls .popover .popover-content .comment p{margin-bottom:3px;line-height:1.3em;}.participant-video-controls .popover .popover-content .comment p.user{font-weight:bold;}
 .participant-video-controls .popover .popover-content .error{color:#9d261d;margin-bottom:5px;}
-.participant-video-controls .popover .tags-box{border-top:1px solid #555555;line-height:1.7em;*zoom:1;*zoom:1;}.participant-video-controls .popover .tags-box:before,.participant-video-controls .popover .tags-box:after{display:table;content:"";line-height:0;}
+.participant-video-controls .popover .tags-box{display:none;border-top:1px solid #555555;line-height:1.7em;*zoom:1;*zoom:1;}.participant-video-controls .popover .tags-box:before,.participant-video-controls .popover .tags-box:after{display:table;content:"";line-height:0;}
 .participant-video-controls .popover .tags-box:after{clear:both;}
 .participant-video-controls .popover .tags-box:before,.participant-video-controls .popover .tags-box:after{display:table;content:"";line-height:0;}
 .participant-video-controls .popover .tags-box:after{clear:both;}
