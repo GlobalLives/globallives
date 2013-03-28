@@ -163,7 +163,6 @@
         .control-buttons-cntnr {
                 height: 34px;
                 #gradient > .vertical(@grayDark,@black);
-                // background: blue;
 
                 .controls {
                         display: inline-block;
@@ -176,16 +175,31 @@
                         border-radius: 0;
                         border-top: none;
                         border-bottom: none;
+                        position: relative;
                         .box-shadow(none);
-
-                        .span {
-
-                        }
 
                         &:hover {
                                 cursor: pointer;
                         }
+
+                        &.volume {
+                        	&:hover, &:active, &:focus {
+                        		.volume-slider-cntnr {
+                        			display: block;
+                        		}
+                        	}
+                        }
                 }
+
+                .volume-slider-cntnr {
+		        	position: absolute;
+		        	bottom: 35px;
+		        	width: 13px;
+		        	padding: 20px 13px;
+		        	background: @grayDarker;
+		        	display: none;
+		        	z-index: 101;
+		        }
         }
         .marker {
                 display: inline-block;

@@ -26,9 +26,10 @@ $(function() {
                 }
             break;
             
-            case 'tags':
+            case 'comments':
                 $('.clip-markers').toggle();
             break;
+            
         }
     });
     
@@ -133,7 +134,8 @@ function setup_players() {
             
             // Bind ready events
             $('#'+frameID).bind("player_ready", videoSetTimer);
-            $('#'+frameID).bind("player_ready", setup_slider);
+            $('#'+frameID).bind("player_ready", setup_control_slider);
+            $('#'+frameID).bind("player_ready", setup_volume_slider);
 
             // Bind play events
             $('#'+frameID).bind("player_start_play_buffer", videoSetTimer);
@@ -282,7 +284,7 @@ function toggle_play_pause_button(event) {
     }
 }
 
-function setup_slider(event) {
+function setup_control_slider(event) {
     // Setup the slider. 0 to 1000 for precision
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider').slider({
         range: "min",
@@ -302,5 +304,21 @@ function setup_slider(event) {
 
         //Rebind the slider position now that it has been dropped
         $('#'+id).bind("player_time_update", videoUpdatePosition);
+    } );
+}
+
+function setup_volume_slider(event) {
+    var player = players[event.currentTarget.id];
+    
+    var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.volume-slider').slider({
+        orientation: "vertical",
+        range: "min",
+        min: 0,
+        max: 100,
+        value: player.getVolume()
+    });
+    
+    $( slider ).on( "slide", function( event, ui ) {
+        player.setVolume(ui.value);
     } );
 }
