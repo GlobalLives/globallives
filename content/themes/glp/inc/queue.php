@@ -33,6 +33,7 @@ function glp_queue() {
         
         if ( is_single() && 'participant' == get_post_type() ) {
 
+            wp_enqueue_script('glp_video', get_template_directory_uri() . '/js/video.min.js', array('jquery','jquery-ui-slider', 'jquery-ui-touch'), null, true);
             // Individual jquery ui components are not available via cdn. 
             // This one queue will load the component dependencies (ui-core, ui-widget, ui-mouse).
             wp_enqueue_script('jquery-ui-slider', false, false, false, true);
