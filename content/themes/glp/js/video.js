@@ -25,6 +25,10 @@ $(function() {
                     el.webkitRequestFullScreen();
                 }
             break;
+            
+            case 'tags':
+                $('.clip-markers').toggle();
+            break;
         }
     });
     

@@ -52,5 +52,6 @@
     <div class="control-buttons-cntnr">
         <a data-control="play" class="controls btn btn-inverse play-pause"><span class="icon-play icon-white"></span></a>
         <a data-control="fullscreen" class="controls btn btn-inverse"><span class="icon-fullscreen icon-white"></span></a>
+        <a data-control="tags" class="controls btn btn-inverse"><span class="icon-tags icon-white"></span></a>
     </div>
 </div>
