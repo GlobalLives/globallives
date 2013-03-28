@@ -1,0 +1,41 @@
+#nav-modules {
+		border-top: 1px solid @white;
+		#gradient > .vertical(@grayLighter,@grayLight);
+		.widget {
+			margin-top: 2em; margin-bottom: 2em;
+			color: @grayDarker;
+			background: @white;
+			.border-radius(@borderRadiusLarge);
+			.widget-inner {
+				padding: 1em;
+			}
+			h4 {
+				margin: 0 0 1em;
+				padding-bottom: 0.5em;
+				color: @grayLight;
+				border-bottom: 1px dotted @grayLight;	
+				font-size: @fontSizeLarge;
+				font-weight: bold;
+				
+			}
+		}
+		.widget_reallysimpletwitterwidget, .widget_recent_entries {
+			ul {
+				margin: 0; padding: 0;
+				list-style: none;
+				li {
+					margin: 0 0 @baseLineHeight;
+					color: @grayLight;
+					a {
+						color: @black;
+					}
+					.post-date, .twitter-timestamp {
+						display: block;
+						color: @grayLight;
+						font-size: @fontSizeSmall;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}

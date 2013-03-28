@@ -18,8 +18,9 @@ function glp_queue() {
 		wp_enqueue_script('comment-reply');
 	}
 	
-	wp_register_script('glp_d3', 'http://d3js.org/d3.v3.min.js', false, null, false);
-	if (is_page('explore')) {
+	wp_register_script('glp_d3', get_template_directory_uri() . '/js/vendor/d3.v3.min.js', false, null, false);
+	//wp_register_script('glp_d3', 'http://d3js.org/d3.v3.min.js', false, null, false);
+	if (is_page('explore') || is_tax('series')) {
 		wp_enqueue_script('glp_d3');
 	}
 

@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: RellySimpleTwitterFeedWidget\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-05 15:53+0100\n"
+"PO-Revision-Date: 2011-10-05 16:02+0100\n"
+"Last-Translator: Frank Gregor <phranck@programmschmie.de>\n"
+"Language-Team: [programmschmie.de] <software@programmschmie.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /Users/dps/Sites/programmschmie.de/current/wp-content/plugins/really-simple-twitter-feed-widget\n"
+
+#: really_simple_twitter_widget.php:30
+msgid "RSS not configured"
+msgstr "RSS ist nicht konfiguriert"
+
+#: really_simple_twitter_widget.php:34
+msgid "Number of tweets not valid"
+msgstr "Ungültige Anzahl von Tweets"
+
+#: really_simple_twitter_widget.php:55
+msgid "WP Error: Feed not created correctly"
+msgstr "WP Fehler: Der Feed wurde nicht korrekt erstellt"
+
+#: really_simple_twitter_widget.php:61
+msgid "No public Twitter messages"
+msgstr "Es gibt keine Twitter-Nachrichten"
+
+#: really_simple_twitter_widget.php:117
+#, php-format
+msgid "%s ago"
+msgstr "vor %s"
+
+#: really_simple_twitter_widget.php:117
+msgid "Y/m/d"
+msgstr ""
+
+#: really_simple_twitter_widget.php:118
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: really_simple_twitter_widget.php:118
+msgid "Y/m/d H:i:s"
+msgstr ""
+
+#: really_simple_twitter_widget.php:144
+msgid "Title"
+msgstr "Titel"
+
+#: really_simple_twitter_widget.php:149
+msgid "Twitter Username"
+msgstr "Twitter Benutzername"
+
+#: really_simple_twitter_widget.php:154
+msgid "Show # of Tweets"
+msgstr "Zeige # Anzahl Tweets"
+
+#: really_simple_twitter_widget.php:159
+msgid "Show this linked text for each Tweet"
+msgstr "Zeige verlinkten Text für jeden Tweet"
+
+#: really_simple_twitter_widget.php:164
+msgid "Skip tweets containing this text"
+msgstr "Überspringe Tweets mit diesem Text"
+
+#: really_simple_twitter_widget.php:169
+msgid "Link above Title with Twitter user"
+msgstr "Verlinke den Titel mit Twitter-Benutzer"
+
+#: really_simple_twitter_widget.php:174
+msgid "Show timestamps"
+msgstr "Zeige Tweet-Zeiten"
+
+#: really_simple_twitter_widget.php:179
+msgid "Find and show hyperlinks"
+msgstr "Finde und zeige URLs in Tweets"
+
+#: really_simple_twitter_widget.php:184
+msgid "Find Replies in Tweets"
+msgstr "Finde Antworten auf Tweets"
+
+#: really_simple_twitter_widget.php:189
+msgid "UTF8 Encode"
+msgstr "UTF8 Encode"
+
+#: really_simple_twitter_widget.php:229
+msgid "Last Tweets"
+msgstr "Letzte Tweets"
+

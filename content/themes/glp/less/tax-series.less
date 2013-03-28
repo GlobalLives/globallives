@@ -1,0 +1,52 @@
+.tax-series {
+		
+		#wrap {
+			color: @white;
+			background: fade(@black, 75%);
+		}
+		#content {
+			position: relative;
+			width: 100%;
+			padding-bottom: 2em;
+		}
+		#maptoggle {
+			margin: 0 0 1em; padding: 5px 0;
+			height: 30px;
+			background: @grayDarker;
+			border-bottom: 1px solid @black;
+			text-align: right;
+		}
+		
+		#nav-series {
+		    margin: 0 0 1em; padding: 0;
+		    #gradient > .vertical(@grayDark,@grayLight);
+		    .box-shadow(0 0 5px rgba(0,0,0,0.5));
+		    border-top: 1px solid @gray;
+		    ul {
+		        margin: 1em 0 0; padding: 0;
+		        list-style: none;
+		    }
+			.series-thumbnail {
+				position: relative;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				height: 100px;
+				background: @gray;
+				.box-shadow(0 0 5px rgba(0,0,0,0.5));
+				overflow: visible;
+				cursor: pointer;
+				img {
+				    position: absolute;
+				    display: block;
+				    top: 0; bottom: 0; left: 0; right: 0;
+				    margin: auto;
+				    height: 100%; width: auto;
+				}
+			}
+			.home-thumbnail {
+				padding: 0 1em;
+				background: @orange;
+			}
+		}
+		
+	}

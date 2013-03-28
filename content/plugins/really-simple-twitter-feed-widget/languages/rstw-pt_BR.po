@@ -1,0 +1,210 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Really Simple Twitter Feed Widget 2.1\n"
+"POT-Creation-Date: 2013-03-11 19:05-0300\n"
+"PO-Revision-Date: 2013-03-11 19:21-0300\n"
+"Last-Translator: Alexandre R. Janini <ajanini@asterisko.com.br>\n"
+"Language-Team: Alexandre R. Janini <ajanini@asterisko.com.br>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: C:\\temp\\\n"
+"Language: Brazilian Portuguese\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: languages\\.\n"
+
+#: really_simple_twitter_widget.php:34
+msgid "Twitter Authentication options"
+msgstr "Opções de autenticação do Twitter"
+
+#: really_simple_twitter_widget.php:35
+msgid "Get them creating your Twitter Application"
+msgstr "Obtenha-as criando seu Aplicativo do Twitter"
+
+#: really_simple_twitter_widget.php:35
+msgid "here"
+msgstr "aqui"
+
+#: really_simple_twitter_widget.php:49
+msgid "Twitter data options"
+msgstr "Opções de dados do Twitter"
+
+#: really_simple_twitter_widget.php:52
+msgid "Twitter Username"
+msgstr "Nome de usuário do Twitter"
+
+#: really_simple_twitter_widget.php:55
+msgid "Show # of Tweets"
+msgstr "Exibir Nro. de Tweets"
+
+#: really_simple_twitter_widget.php:58
+msgid "Skip tweets containing this text"
+msgstr "Pular tweets contendo este texto"
+
+#: really_simple_twitter_widget.php:61
+msgid "Skip replies"
+msgstr "Pular respostas"
+
+#: really_simple_twitter_widget.php:64
+msgid "Widget title options"
+msgstr "Opções de título da Widget"
+
+#: really_simple_twitter_widget.php:67
+msgid "Title"
+msgstr "Título"
+
+#: really_simple_twitter_widget.php:68
+msgid "Last Tweets"
+msgstr "Últimos Tweets"
+
+#: really_simple_twitter_widget.php:70
+msgid "Show Twitter icon on title"
+msgstr "Exibir ícone do Twitter no título"
+
+#: really_simple_twitter_widget.php:73
+msgid "Link above Title with Twitter user"
+msgstr "Link acima do título com usuário do Twitter"
+
+#: really_simple_twitter_widget.php:76
+msgid "Links and display options"
+msgstr "Opções de links e de exibição"
+
+#: really_simple_twitter_widget.php:79
+msgid "Show this linked text for each Tweet"
+msgstr "Exibir este texto com link em cada tweet"
+
+#: really_simple_twitter_widget.php:82
+msgid "Show timestamps"
+msgstr "Exibir data e hora"
+
+#: really_simple_twitter_widget.php:85
+msgid "Include thumbnail before tweets"
+msgstr "Incluir visualização antes dos tweets"
+
+#: really_simple_twitter_widget.php:88
+msgid "Find and show hyperlinks"
+msgstr "Encontrar e exibir links"
+
+#: really_simple_twitter_widget.php:91
+msgid "Find Replies in Tweets"
+msgstr "Encontrar respostas nos tweets"
+
+#: really_simple_twitter_widget.php:94
+msgid "Create links on new window / tab"
+msgstr "Criar links em uma nova janela/link"
+
+#: really_simple_twitter_widget.php:97
+msgid "Widget footer options"
+msgstr "Opções do rodapé do widget"
+
+#: really_simple_twitter_widget.php:100
+msgid "Show a footer link to the Twitter user profile"
+msgstr "Exibir um link no rodapé para o perfil do usuário no Twitter"
+
+#: really_simple_twitter_widget.php:103
+msgid "Text for footer link"
+msgstr "Texto para o link no rodapé"
+
+#: really_simple_twitter_widget.php:106
+msgid "Debug options"
+msgstr "Opções de Depuração"
+
+#: really_simple_twitter_widget.php:109
+msgid "Show debug info"
+msgstr "Exibir informações de depuração"
+
+#: really_simple_twitter_widget.php:112
+msgid "Erase cached data (use it only for a few minutes, when having issues)"
+msgstr ""
+"Limpar dados em cache (use somente por poucos minutos, quando houver "
+"problemas)"
+
+#: really_simple_twitter_widget.php:115
+msgid "Force UTF8 Encode (use it only if having issues)"
+msgstr "Forçar codificação UTF8 (usar somente se houver problemas)"
+
+#: really_simple_twitter_widget.php:170
+msgid "CURL extension not found. You need enable it to use this Widget"
+msgstr ""
+"Extensão CURL não encontrada. Você precisa ativa-la para usar este widget"
+
+#: really_simple_twitter_widget.php:209
+msgid "Twitter username is not configured"
+msgstr "Nome de usuário do Twitter não está configurado"
+
+#: really_simple_twitter_widget.php:212
+msgid "Number of tweets is not valid"
+msgstr "Número de tweets não é válido"
+
+#: really_simple_twitter_widget.php:215
+msgid "Twitter Authentication data is incomplete"
+msgstr "Dados de autenticação do Twitter estão incompletos"
+
+#: really_simple_twitter_widget.php:241 really_simple_twitter_widget.php:285
+msgid "Fetching data from Twitter"
+msgstr "Obtendo dados do Twitter"
+
+#: really_simple_twitter_widget.php:242
+msgid "Erase cached data option enabled"
+msgstr "Opção de limpeza do cache ativada"
+
+#: really_simple_twitter_widget.php:253 really_simple_twitter_widget.php:301
+msgid "Error retrieving tweets"
+msgstr "Erro ao obter os tweets"
+
+#: really_simple_twitter_widget.php:256 really_simple_twitter_widget.php:309
+msgid "Twitter data error:"
+msgstr "Erro de dados do Twitter:"
+
+#: really_simple_twitter_widget.php:274
+msgid "Error retrieving twitter rate limit"
+msgstr "Erro ao obter limite de frequência do Twitter"
+
+#: really_simple_twitter_widget.php:286
+msgid "Requested items"
+msgstr "Itens requisitados"
+
+#: really_simple_twitter_widget.php:287
+msgid "API calls left"
+msgstr "Chamadas à API restantes"
+
+#: really_simple_twitter_widget.php:288
+msgid "Seconds until reset"
+msgstr "Segundos até reiniciar"
+
+#: really_simple_twitter_widget.php:313
+msgid "Using cached Twitter data"
+msgstr "Utilizando dados do Twitter em cache"
+
+#: really_simple_twitter_widget.php:316
+msgid "Twitter cache error:"
+msgstr "Erro de cache do Twitter:"
+
+#: really_simple_twitter_widget.php:321 really_simple_twitter_widget.php:336
+msgid "No public tweets"
+msgstr "Sem tweets públicos"
+
+#: really_simple_twitter_widget.php:329
+msgid "Unable to get tweets"
+msgstr "Impossível obter tweets"
+
+#: really_simple_twitter_widget.php:392
+#, php-format
+msgid "%s ago"
+msgstr "%s atrás"
+
+#: really_simple_twitter_widget.php:392
+msgid "Y/m/d"
+msgstr "d/m/Y"
+
+#: really_simple_twitter_widget.php:393
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: really_simple_twitter_widget.php:393
+msgid "Y/m/d H:i:s"
+msgstr "d/m/Y \\a\\s H:i:s"

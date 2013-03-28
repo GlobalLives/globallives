@@ -1,4 +1,4 @@
-<ul class="local-navigation-menu">
+<ul id="nav-local" class="local-navigation-menu">
 <?php
 	$ancestors = get_post_ancestors( $post->ID );
 	if ( $ancestors ) {
