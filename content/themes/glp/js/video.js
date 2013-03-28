@@ -7,6 +7,15 @@ $(function() {
         // Bind ready events
         $('#'+id).bind("player_ready", videoSetTimer);
         $('#'+id).bind("player_ready", videoUpdateTimer);
+        
+        // Bind play events
+        $('#'+id).bind("player_start_play_buffer", videoSetTimer);
+        $('#'+id).bind("player_start_play_buffer", enable_taggable_area);
+        $('#'+id).bind("player_start_play_buffer", display_taggable_area);
+        $('#'+id).bind("player_start_play_buffer", toggle_play_pause_button);
+        
+        // Bind Pause
+        $('#'+id).bind("player_pause_end", toggle_play_pause_button);
 
         //Bind ontimeupdate events
         $('#'+id).bind("player_time_update", videoUpdateTimer);
@@ -43,11 +52,9 @@ $(function() {
         switch(control) {
             case 'play':
                 players[id].playVideo();
-                $(this).attr("data-control", 'pause').find('span').toggleClass('icon-pause', 'icon-play');
             break;
             case 'pause':
                 players[id].pauseVideo();
-                $(this).attr("data-control", 'play').find('span').toggleClass('icon-pause', 'icon-play');
             break;
 
             case 'fullscreen':
@@ -62,40 +69,13 @@ $(function() {
             break;
         }
     });
-
-    $(".taggable-area").each(function() {
-        var content = $(this).next().find('.content').html();
-        var title = $(this).next().find('.title').html();
-
-        $(this).popover({ 
-            html: true,
-            animation: false,
-            content: content,
-            title: title
-        });
-    } ).click(function(e) {
-        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
-        var player = players[id];
-        var xpos = parseInt(e.pageX - $(this).offset().left);
-        var percent = (xpos / $(this).width());
-        var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
-        var m = parseInt( spos / 60 ) % 60;
-        var s = parseInt( spos % 60, 10);
-        var offset = xpos - ( $(this).next().width() /2 );
-        var popover = $(this).next();
-
-        $(this).data('m',m).data('s',s).data('p',xpos);
-        $(popover).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
-        $(popover).css('left', offset).find('.time').text( m + ':' +s);
-        popover_fix_height(popover);
-    });
-
+    
     $(document).on("click", ".popover .close", function(){ 
         $(this).closest('.popover').prev().popover('hide');
     });
 
     $(document).on("submit", ".popover form", function() {
-        $(this).find('.error').fadeOut('slow', function() { $(this).remove(); });
+        $(this).find('.error').fadeOut('slow', function() {$(this).remove();});
         $.post(glpAjax.ajaxurl, {   
             action: 'clip_submit_comment',
             comment: $(this).find('input[name="comment"]').val(),
@@ -115,18 +95,6 @@ $(function() {
         return false;
     });
 
-    function popover_fix_height(popover) {
-        $(popover).css('top', ( 0 - $(popover).height() - 20 ) )
-    }
-    function add_comment_to_marker_box(position, comment_html) {
-        var marker_box = $('#marker-'+position);
-        if (marker_box.length) {
-            $(marker_box).find('.content').prepend(comment_html);
-        } 
-        else {
-            $('.clip-markers').append('<a class="marker" id="marker-'+position+'" style="left: '+position+'px"><div class="arrow"></div><div class="hide content">'+comment_html+'</div></div>')
-        }
-    }
 });
 
 
@@ -139,9 +107,9 @@ var t;
     var before = document.getElementsByTagName("script")[0];
     before.parentNode.insertBefore(s, before);
 })();
+
 // This function will be called when the API is fully loaded
 function onYouTubePlayerAPIReady() {YT_ready(true)}
-
 function getFrameID(id){
     var elem = document.getElementById(id);
     if (elem) {
@@ -263,4 +231,75 @@ function videoSetTimer(event) {
     var s = parseInt( player.getDuration() % 60, 10);
     $('.control-time-total .time-m').text(m);
     $('.control-time-total .time-s').text(s);
+}
+
+function enable_taggable_area() {
+    $(".taggable-area").each(function() {
+        var content = $(this).next().find('.content').html();
+        var title = $(this).next().find('.title').html();
+
+        $(this).popover({ 
+            html: true,
+            animation: false,
+            content: content,
+            title: title
+        });
+    } ).click(function(e) {
+        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
+        var player = players[id];
+        var xpos = parseInt(e.pageX - $(this).offset().left);
+        var percent = (xpos / $(this).width());
+        var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
+        var m = parseInt( spos / 60 ) % 60;
+        var s = parseInt( spos % 60, 10);
+        var offset = xpos - ( $(this).next().width() /2 );
+        var popover = $(this).next();
+
+        $(this).data('m',m).data('s',s).data('p',xpos);
+        $(popover).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
+        $(popover).css('left', offset).find('.time').text( m + ':' +s);
+        popover_fix_height(popover);
+    });
+}
+
+function popover_fix_height(popover) {
+    $(popover).css('top', ( 0 - $(popover).height() - 20 ) )
+}
+
+function add_comment_to_marker_box(position, comment_html) {
+    var marker_box = $('#marker-'+position);
+    if (marker_box.length) {
+        $(marker_box).find('.content').prepend(comment_html);
+    } 
+    else {
+        $('.clip-markers').append('<a class="marker" id="marker-'+position+'" style="left: '+position+'px"><div class="arrow"></div><div class="hide content">'+comment_html+'</div></div>')
+    }
+}
+
+// Flash the taggable area at the start of play
+function display_taggable_area(event) {
+    var player = players[event.currentTarget.id];
+    // Only do it when we're at the start of the video
+    if ( player.getCurrentTime() < 2 ) {
+        $(".taggable-area").each(function() {
+            $(this).show().find('span').each(function(){
+                $(this).show().delay(1000).fadeOut('slow', function(){
+                    $(this).css('display', '');
+                });
+            });
+        } );
+    }
+}
+
+function toggle_play_pause_button(event) {
+    var player = players[event.currentTarget.id];
+    switch(player.getPlayerState()) {
+        case 1: // Play
+            $('.play-pause').attr("data-control", 'pause').find('span').toggleClass('icon-pause', 'icon-play');
+        break;
+
+        case 2: // Pause
+            $('.play-pause').attr("data-control", 'play').find('span').toggleClass('icon-pause', 'icon-play');
+        break;
+    }
 }
