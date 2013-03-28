@@ -134,7 +134,7 @@ function setup_players() {
             
             // Bind ready events
             $('#'+frameID).bind("player_ready", videoSetTimer);
-            $('#'+frameID).bind("player_ready", setup_control_slider);
+            $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
 
             // Bind play events
@@ -275,16 +275,16 @@ function toggle_play_pause_button(event) {
     var player = players[event.currentTarget.id];
     switch(player.getPlayerState()) {
         case 1: // Play
-            $('.play-pause').attr("data-control", 'pause').find('span').toggleClass('icon-pause', 'icon-play');
+            $('.play-pause').attr("data-control", 'pause').find('span').removeClass('icon-play').addClass('icon-pause');
         break;
 
         case 2: // Pause
-            $('.play-pause').attr("data-control", 'play').find('span').toggleClass('icon-pause', 'icon-play');
+            $('.play-pause').attr("data-control", 'play').find('span').removeClass('icon-pause').addClass('icon-play');
         break;
     }
 }
 
-function setup_control_slider(event) {
+function setup_position_slider(event) {
     // Setup the slider. 0 to 1000 for precision
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider').slider({
         range: "min",
