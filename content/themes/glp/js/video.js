@@ -30,6 +30,10 @@ $(function() {
                 $('.clip-markers').toggle();
             break;
             
+            case 'dimmer':
+                turn_out_the_lights();
+            break;
+            
         }
     });
     
@@ -57,9 +61,12 @@ $(function() {
         });
         return false;
     });
-
+    
+    $(document).on('click', '#shadow', function() {
+        turn_out_the_lights();
+    });
+    
 });
-
 
 var players = {};
 var t;
@@ -321,4 +328,14 @@ function setup_volume_slider(event) {
     $( slider ).on( "slide", function( event, ui ) {
         player.setVolume(ui.value);
     } );
+}
+
+function turn_out_the_lights() {
+    if ( $('#shadow').length ) {
+        $('#shadow').remove();
+    }
+    else {
+        $('body').append('<div id="shadow"></div>');
+    }
+    
 }

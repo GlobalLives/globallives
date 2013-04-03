@@ -57,5 +57,6 @@
         </a>
         <a data-control="fullscreen" class="controls btn btn-inverse"><span class="icon-fullscreen icon-white"></span></a>
         <a data-control="comments" class="controls btn btn-inverse"><span class="icon-comment icon-white"></span></a>
+        <a data-control="dimmer" class="controls btn btn-inverse"><span class="icon-certificate icon-white"></span></a>
     </div>
 </div>
