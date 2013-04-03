@@ -244,7 +244,14 @@ $(function() {
 			{ action: 'get_participant_clip', clip_id: clip_id },
 			function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
 		);
-                
+	});
+	$('.btn-queue').click(function() {
+		var user_id = $(this).data('user-id');
+		var clip_id = $(this).data('clip-id');
+		$(this).load(
+			'/wp/wp-admin/admin-ajax.php',
+			{ action: 'toggle_queue', user_id: user_id, clip_id: clip_id }
+		);
 	});
 		
 /* Blog */

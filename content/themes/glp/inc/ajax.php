@@ -26,6 +26,31 @@ function get_participant_clip() {
 	exit;
 }
 
+add_action( 'wp_ajax_nopriv_toggle_queue', 'toggle_queue' );
+add_action( 'wp_ajax_toggle_queue', 'toggle_queue' );
+ 
+function toggle_queue() {
+	$user_id = $_POST['user_id'];
+	$clip_id = $_POST['clip_id'];
+
+	$queue_key = 'field_125';
+	$queue = get_field($queue_key,'user_'.$user_id);
+		
+	$response = "";
+	
+	if ( $queue && ($queued = array_search($clip_id,$queue)) === false) {
+		unset($queue[$queued]);
+		$response = "+ Add to Queue";
+	} else {
+		$queue[] = $clip_id;
+		$response = "- Remove from Queue";
+	}
+	update_field($queue_key,$queue,'user_'.$user_id);
+	
+	echo $response;
+	exit;
+}
+
 add_action( 'wp_ajax_nopriv_clip_submit_comment', 'clip_submit_comment' );
 add_action( 'wp_ajax_clip_submit_comment', 'clip_submit_comment' );
  

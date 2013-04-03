@@ -50,6 +50,7 @@
 				</p>
 				<hr>
 				<h4><?php _e('All Recent Activity','glp'); ?></h4>
+								
 				<ul class="profile-activity">
 				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
 					<li class="activity <?php echo $activity['activity_type']; ?> row">
