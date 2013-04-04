@@ -136,6 +136,7 @@
 	function get_profile_activities( $user_id ) {
 		$activities = array();
 		$user = get_userdata( $user_id );
+
 		// First get comments made by the user
 		$comments = get_comments(array( 'user_id' => $user_id, 'status' => 'approve' ));
 		foreach ($comments as $comment) {
@@ -148,6 +149,7 @@
 			);
 			$activities[] = $activity;
 		}
+
 		// Add mentions
 		$mentions = get_comments(array( 'status' => 'approve' ));
 		foreach ($mentions as $mention) {
@@ -162,6 +164,9 @@
 				$activities[] = $activity;
 			}
 		}
+
+		// Add queue, favorites, bookmarks
+
 		// Sort activities by timestamp before returning
 		usort($activities, 'profile_activity_compare');
 		return $activities;
