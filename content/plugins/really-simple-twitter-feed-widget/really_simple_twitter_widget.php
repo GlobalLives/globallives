@@ -4,7 +4,7 @@ Plugin Name: Really Simple Twitter Feed Widget
 Plugin URI: http://www.whiletrue.it/
 Description: Displays your public Twitter messages in the sidbar of your blog. Simply add your username and all your visitors can see your tweets!
 Author: WhileTrue
-Version: 2.2
+Version: 2.3
 Author URI: http://www.whiletrue.it/
 */
 /*
@@ -370,7 +370,6 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 					$message = $message['retweeted_status'];
 				}
 			}
-
 		
 			if ($msg=='') {
 				continue;
@@ -419,8 +418,8 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 		
 			if($options['update']) {				
 				$time = strtotime($message['created_at']);
-				$h_time = ( ( abs( time() - $time) ) < 86400 ) ? sprintf( __('%s ago', 'rstw'), human_time_diff( $time )) : date(__('Y/m/d'), $time);
-				$out .= '<span class="rstw_comma">,</span> '.sprintf( __('%s', 'rstw'),' <span class="twitter-timestamp"><abbr title="' . date(__('Y/m/d H:i:s', 'rstw'), $time) . '">' . $h_time . '</abbr></span>' );
+				$h_time = ( ( abs( time() - $time) ) < 86400 ) ? sprintf( __('%s ago', 'rstw'), human_time_diff( $time )) : date(__('M d', 'rstw'), $time);
+				$out .= '<span class="rstw_comma">,</span> <span class="twitter-timestamp" title="' . date(__('Y/m/d H:i', 'rstw'), $time) . '">' . $h_time . '</span>';
 			}          
                   
 			$out .= '</li>';

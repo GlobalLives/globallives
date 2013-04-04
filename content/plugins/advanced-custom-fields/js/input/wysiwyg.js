@@ -42,6 +42,7 @@
 	
 	$(document).live('acf/wysiwyg_activate', function(e, div){
 		
+		
 		// validate tinymce
 		if( ! _wysiwyg.has_tinymce() )
 		{
@@ -137,6 +138,7 @@
 			$(document).trigger('acf/wysiwyg/blur', id);
 		});
 		
+		
 	};
 	
 	
@@ -162,17 +164,14 @@
 			// vars
 			var textarea = $(this),
 				id = textarea.attr('id'),
-				wysiwyg = tinyMCE.get( id );
+				editor = tinyMCE.get( id );
 			
 			
 			// if wysiwyg was found (should be always...), remove its functionality and set the value (to keep line breaks)
-			if( wysiwyg )
+			if( editor )
 			{
-				var val = wysiwyg.getContent();
-				
+				editor.save();
 				tinyMCE.execCommand("mceRemoveControl", false, id);
-			
-				textarea.val( val );
 			}
 			
 		});
@@ -227,6 +226,10 @@
 	$(document).live('acf/wysiwyg/blur', function(e, id){
 		
 		wpActiveEditor = null;
+		
+		// update the hidden textarea
+		// - This fixes a but when adding a taxonomy term as the form is not posted and the hidden tetarea is never populated!
+		tinyMCE.get( id ).save();
 		
 	});
 	
@@ -330,6 +333,28 @@
 			
 			
 		}, 11);
+		
+	});
+	
+	
+	/*
+	*  Full screen
+	*
+	*  @description: this hack will hide the 'image upload' button in the wysiwyg full screen mode if the field has disabled image uploads!
+	*  @since: 3.6
+	*  @created: 26/02/13
+	*/
+	
+	$('.acf_wysiwyg a.mce_fullscreen').live('click', function(){
+		
+		// vars
+		var wysiwyg = $(this).closest('.acf_wysiwyg'),
+			upload = wysiwyg.attr('data-upload');
+		
+		if( upload == 'no' )
+		{
+			$('#mce_fullscreen_container td.mceToolbar .mce_add_media').hide();
+		}
 		
 	});
 	
