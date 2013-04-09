@@ -1,7 +1,7 @@
 <div class="participant-video-controls">
     <div class="control-slider-area-cntnr">
         <div class="control-slider-cntnr">
-            <a class="taggable-area" data-toggle="popover" data-placement="top">
+            <a id="taggable-area" data-toggle="popover" data-placement="top">
                 <span><?php _e('(Click to tag or comment)', 'glp'); ?></span>
             </a>
             <div class="popover-data hide">
@@ -12,10 +12,6 @@
                             <div class="comment-box">
                                 <input type="text" name="comment" placeholder="Comment" />
                             </div>
-                        </div>
-                        <div class="tags-box">
-                            <div class="tags">Tags: <span>open field</span> <span>night</span></div>
-                            <div class="add-tag">&#43; Tag</div>
                         </div>
                     </form>
                 </div>

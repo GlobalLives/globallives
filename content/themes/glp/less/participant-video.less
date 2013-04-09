@@ -9,12 +9,12 @@
 		background: rgba(0,0,0,0.6);
 		padding: 20px;
 	}
-	.taggable-area,
+	#taggable-area,
 	.clip-markers {
 		display: none; // Toggled on by js as the player starts
 	}
 
-	.taggable-area {
+	#taggable-area {
 		float: left;
 		clear: both;
 		width: 100%;
@@ -230,7 +230,7 @@
 		height: 17px;
 		width: 2px;
 		background: @white;
-		z-index: 99;
+		z-index: 101;
 		margin-left: -1px;
 		.arrow {
 			width: 0; 
@@ -240,7 +240,8 @@
 			border-right: 4px solid transparent;
 			border-top: 4px solid @white;
 			margin-left: -3px;
-			margin-top: -4px;
+			margin-top: -2px;
+			cursor: pointer;
 		}
 	}
 }

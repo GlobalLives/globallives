@@ -236,7 +236,7 @@ $(function() {
 
 /* Participant Detail */
 
-	$('.participant-clip-listing .clip-thumbnail').click(function() {
+        $(document).on('click', '.participant-clip-listing .clip-thumbnail', function() {
 		$('html, body').scrollTop(0);
 		var clip_id = $(this).data('clip-id');
 		$(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
