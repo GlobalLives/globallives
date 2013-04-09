@@ -69,7 +69,7 @@ function clip_submit_comment() {
     if ( !$user->ID )
         $r['message'] = sprintf('<p class="error">%s</p>' ,__("You need to be logged in to comment", 'glp') );
     if ( !$comment )
-        $r['message'] = sprintf('<p class="error">%s</p>' ,__("A comment is required", 'glp') );
+        $r['message'] = sprintf('<p class="error">%s</p>' ,__("A comment or tag (#tag) is required", 'glp') );
     if ( ! ($minutes || $seconds) )
         $r['message'] = sprintf('<p class="error">%s</p>' ,__("A time is required", 'glp') );
     
@@ -92,7 +92,9 @@ function clip_submit_comment() {
         'comment_author_IP' => $_SERVER['REMOTE_ADDR']
     );
 
+    remove_filter('get_comment', 'style_hashtags');
     $comment_id = wp_insert_comment($data);
+    add_filter('get_comment', 'style_hashtags');
     $comment_meta = update_comment_meta( $comment_id, 'clip_time', array('m' => $minutes, 's' => $seconds, 'p' => $position ) );
     if ($comment_id && $comment_meta) {
         $comment = get_comment($comment_id);

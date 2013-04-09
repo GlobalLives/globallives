@@ -26,14 +26,14 @@
                 }
                 ?>
                 <?php foreach ($markers as $time => $items): ?>
-                    <a id="marker-<?php echo $time; ?>" class="marker" style="left: <?php printf('%spx', $time); ?>">
+                    <div id="marker-<?php echo $time; ?>" class="marker" style="left: <?php printf('%spx', $time); ?>">
                         <div class="arrow"></div>
                         <div class="hide content">
                             <?php foreach ($items['comments'] as $comment): ?>
                                 <?php include(locate_template('templates/marker-comment.php')); //Keeps variable scope where get_template_part does not ?>
                             <?php endforeach; ?>
                         </div>
-                    </a>
+                    </div>
                 <?php endforeach; ?>
             </div>
             
