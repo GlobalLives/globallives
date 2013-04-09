@@ -234,3 +234,15 @@
                 }
             }
         }
+        
+        function comment_has_hastag($comment) {
+            global $hashtag_regex;
+            preg_match_all($hashtag_regex, $comment->comment_content, $hashtags);
+            if ( !empty($hashtags[0]) )
+                return true;
+            else return false;
+        }
+        
+        function comment_tagged_class($comment) {
+            if ( comment_has_hastag($comment) ) echo "tagged";
+        }

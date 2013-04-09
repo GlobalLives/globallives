@@ -85,17 +85,25 @@
 		.popover-content {
 			padding: 0;
 
-			.inner {
-				padding: 3px 8px;
+			.comment-box {
+				text-align: center;
+
+				input {
+					margin-top: 5px;
+				}
 			}
 
 			.comment {
-				width: 100%;
 				.clearfix();
 				font-size: 12px;
-				margin-bottom: 5px;
+				padding: 2px 8px 2px;
+				text-align: left;
+
 				div {
 					float: left;
+				}
+				.comment-content {
+					max-width: 80.9%;
 				}
 				img {
 					margin-right: 12px;
@@ -107,6 +115,14 @@
 					&.user {
 						font-weight: bold;
 					}
+				}
+
+				.tag {
+					color: @orange;
+				}
+
+				&.tagged {
+					background: @grayDark;
 				}
 			}
 

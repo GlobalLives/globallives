@@ -8,10 +8,8 @@
                 <div class="title"><div class="inner">Comments/Tags (<span class="time"></span>)<a class="icon-remove-circle icon-white close"></a></div></div>
                 <div class="content">
                     <form method="post">
-                        <div class="inner">
-                            <div class="comment-box">
-                                <input type="text" name="comment" placeholder="Comment" />
-                            </div>
+                        <div class="comment-box">
+                            <input type="text" name="comment" placeholder="Comment or #tag" />
                         </div>
                     </form>
                 </div>
