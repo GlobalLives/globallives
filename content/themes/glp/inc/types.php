@@ -193,14 +193,37 @@
 
             return $response;
         }
+        
+        add_filter('clip_toggle_response', 'clip_toggle_favorite_response', 1, 3);
+        function clip_toggle_favorite_response($response, $toggled_on, $toggle_type) {
+            if ( 'favorite' != $toggle_type ) return $response;
 
-        add_filter( 'clip_toggle_btn_status', 'clip_toggle_queue_status', 1, 3 );
+            if ($toggled_on)
+                $response = __('&#45; Remove from Favorites', 'glp');
+            else
+                $response = __('&#43; Add to Favorites', 'glp');
+
+            return $response;
+        }
+
+        add_filter( 'clip_toggle_queue_status', 'clip_toggle_queue_status', 1, 3 );
         function clip_toggle_queue_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'queue');
             if ( isset($queued) )
                 $response = apply_filters( 'clip_toggle_response', $response, true, 'queue' );
             else 
                 $response = apply_filters( 'clip_toggle_response', $response, false, 'queue' );
+
+            return $response;
+        }
+        
+        add_filter( 'clip_toggle_favorite_status', 'clip_toggle_favorite_status', 1, 3 );
+        function clip_toggle_favorite_status($response, $clip_id, $user_id) {
+            $queued = is_clip_queued($clip_id, $user_id, 'favorite');
+            if ( isset($queued) )
+                $response = apply_filters( 'clip_toggle_response', $response, true, 'favorite' );
+            else 
+                $response = apply_filters( 'clip_toggle_response', $response, false, 'favorite' );
 
             return $response;
         }
@@ -220,6 +243,9 @@
             switch ($toggle_type) {
                 case 'queue':
                     $queue_key = 'field_117';
+                    break;
+                case 'favorite':
+                    $queue_key = 'field_116';
                     break;
             }
             return $queue_key;
