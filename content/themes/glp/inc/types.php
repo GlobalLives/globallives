@@ -182,6 +182,49 @@
 		}
 	}
         
+        add_filter('clip_toggle_response', 'clip_toggle_queue_response', 1, 3);
+        function clip_toggle_queue_response($response, $toggled_on, $toggle_type) {
+            if ( 'queue' != $toggle_type ) return $response;
+
+            if ($toggled_on)
+                $response = __('&#45; Remove from Queue', 'glp');
+            else
+                $response = __('&#43; Add to Queue', 'glp');
+
+            return $response;
+        }
+
+        add_filter( 'clip_toggle_btn_status', 'clip_toggle_queue_status', 1, 3 );
+        function clip_toggle_queue_status($response, $clip_id, $user_id) {
+            $queued = is_clip_queued($clip_id, $user_id, 'queue');
+            if ( isset($queued) )
+                $response = apply_filters( 'clip_toggle_response', $response, true, 'queue' );
+            else 
+                $response = apply_filters( 'clip_toggle_response', $response, false, 'queue' );
+
+            return $response;
+        }
+
+        function is_clip_queued($clip_id, $user_id, $toggle_type) {
+            $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
+
+            // get_field returns array of post objects
+            foreach ($queue as $k => $clip) {
+                if ( $clip_id == $clip->ID )
+                    return $k;
+            }
+        }
+
+        add_filter('queue_key', 'get_queue_key', 1, 2);
+        function get_queue_key($queue_key, $toggle_type) {
+            switch ($toggle_type) {
+                case 'queue':
+                    $queue_key = 'field_117';
+                    break;
+            }
+            return $queue_key;
+        }
+        
 /*	==========================================================================
 	Comments / Tags
 	========================================================================== */

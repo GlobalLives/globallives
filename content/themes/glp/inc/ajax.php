@@ -30,22 +30,23 @@ add_action( 'wp_ajax_nopriv_toggle_queue', 'toggle_queue' );
 add_action( 'wp_ajax_toggle_queue', 'toggle_queue' );
  
 function toggle_queue() {
-	$user_id = $_POST['user_id'];
-	$clip_id = $_POST['clip_id'];
+	$user_id = (int) $_POST['user_id'];
+	$clip_id = (int) $_POST['clip_id'];
+        $toggle_type = $_POST['toggle_type'];
+        $response = "";
 
-	$queue_key = 'field_125';
-	$queue = get_field($queue_key,'user_'.$user_id);
-		
-	$response = "";
+        $queue_key = apply_filters('queue_key', $queue_key, $toggle_type);
+        $queue = get_field( $queue_key, 'user_'.$user_id );
+	$queued = is_clip_queued($clip_id, $user_id, $toggle_type);
 	
-	if ( $queue && ($queued = array_search($clip_id,$queue)) === false) {
-		unset($queue[$queued]);
-		$response = "+ Add to Queue";
+	if ( $queue && (isset($queued) ) ) {
+            unset($queue[$queued]);
+            $response = apply_filters( 'clip_toggle_response', $response, false, $toggle_type );
 	} else {
-		$queue[] = $clip_id;
-		$response = "- Remove from Queue";
+            $queue[] = $clip_id;
+            $response = apply_filters( 'clip_toggle_response', $response, true, $toggle_type );
 	}
-	update_field($queue_key,$queue,'user_'.$user_id);
+	update_field( $queue_key, $queue, 'user_'.$user_id );
 	
 	echo $response;
 	exit;

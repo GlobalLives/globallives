@@ -234,25 +234,6 @@ $(function() {
 		});
 	}
 
-/* Participant Detail */
-
-        $(document).on('click', '.participant-clip-listing .clip-thumbnail', function() {
-		$('html, body').scrollTop(0);
-		var clip_id = $(this).data('clip-id');
-		$(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
-		$('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
-			{ action: 'get_participant_clip', clip_id: clip_id },
-			function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
-		);
-	});
-	$('.btn-queue').click(function() {
-		var user_id = $(this).data('user-id');
-		var clip_id = $(this).data('clip-id');
-		$(this).load(
-			'/wp/wp-admin/admin-ajax.php',
-			{ action: 'toggle_queue', user_id: user_id, clip_id: clip_id }
-		);
-	});
 		
 /* Blog */
 	

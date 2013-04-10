@@ -5,8 +5,8 @@
 			<div class="participant-video-buttons">
 				<a class="btn addthis_button"><i class="icon icon-white icon-share"></i> Share</a>
 				<a class="btn" href="#embed-<?php the_field('youtube_id'); ?>" data-toggle="modal">&lt;&gt; Embed</a>
-				<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); $queue = get_field('field_125','user_'.$current_user->ID); ?>
-				<a class="btn btn-queue" data-user-id="<?php echo $current_user->ID; ?>" data-clip-id="<?php echo $post->ID; ?>"><?php if ($queue && in_array($post,$queue)) { ?>&minus; Remove from Queue <?php } else { ?>+ Add to Queue<?php } ?></a>
+				<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
+                                <a class="btn btn-toggle" data-toggle-type="queue" data-user-id="<?php echo $current_user->ID; ?>" data-clip-id="<?php echo $post->ID; ?>"><?php echo apply_filters('clip_toggle_btn_status', $text, $post->ID, $current_user->ID); ?></a>
 				<?php endif; ?>
 				<?php if ($download_url = get_field('download_url')) : ?><a href="<?php echo $download_url; ?>" class="btn"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
 			</div>
