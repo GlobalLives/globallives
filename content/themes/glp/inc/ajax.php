@@ -26,10 +26,10 @@ function get_participant_clip() {
 	exit;
 }
 
-add_action( 'wp_ajax_nopriv_toggle_queue', 'toggle_queue' );
-add_action( 'wp_ajax_toggle_queue', 'toggle_queue' );
+add_action( 'wp_ajax_nopriv_toggle_clip', 'toggle_clip' );
+add_action( 'wp_ajax_toggle_clip', 'toggle_clip' );
  
-function toggle_queue() {
+function toggle_clip() {
 	$user_id = (int) $_POST['user_id'];
 	$clip_id = (int) $_POST['clip_id'];
         $toggle_type = $_POST['toggle_type'];
@@ -50,6 +50,59 @@ function toggle_queue() {
 	
 	echo $response;
 	exit;
+}
+
+add_action( 'wp_ajax_nopriv_toggle_clip_list', 'toggle_clip_list' );
+add_action( 'wp_ajax_toggle_clip_list', 'toggle_clip_list' );
+ 
+function toggle_clip_list() {
+	$user_id = (int) $_POST['user_id'];
+        $post_id = (int) $_POST['post_id'];
+        
+        $clips = get_field('clips', $post_id);
+        $queue_key = apply_filters('queue_key', $queue_key, 'queue');
+        $queue = get_field( $queue_key, 'user_'.$user_id );
+        $all_queued = is_list_queued($clips, $user_id);
+	
+	if ( true === $all_queued )  { // If all items are queued, we must be removing them all
+            foreach ($clips as $clip) {
+                $queued = array_search($clip, $queue);
+                $toggled[] = $clip->ID;
+                unset($queue[$queued]);
+            }
+            $response = json_encode( array(
+                'text' => apply_filters( 'clip_toggle_list_response', $response, false, 'queue' ),
+                'toggled' => $toggled
+            ));
+	} 
+        else { //Otherwise we add the missing ones to the end of the queue
+            foreach ( $all_queued as $clip ) {
+                $queue[] = $clip;
+                $toggled[] = $clip->ID;
+            }            
+            $response = json_encode( array(
+                'text' => apply_filters( 'clip_toggle_list_response', $response, true, 'queue' ),
+                'toggled' => $toggled
+            ));
+	}        
+        
+	update_field( $queue_key, $queue, 'user_'.$user_id );
+	echo $response;
+	exit;
+}
+
+add_action( 'wp_ajax_nopriv_clip_status', 'clip_status' );
+add_action( 'wp_ajax_clip_status', 'clip_status' );
+ 
+function clip_status() {
+    $user_id = (int) $_POST['user_id'];
+    $clip_id = (int) $_POST['clip_id'];
+    
+    echo json_encode( array(
+        'clip_id' => $clip_id,
+        'status' => apply_filters( 'clip_toggle_queue_status', $text, $clip_id, $user_id )
+    ) );
+    exit;
 }
 
 add_action( 'wp_ajax_nopriv_clip_submit_comment', 'clip_submit_comment' );

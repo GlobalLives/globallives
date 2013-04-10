@@ -89,9 +89,30 @@ $(function() {
         var user_id = $(this).data('user-id');
         var clip_id = $(this).data('clip-id');
         var toggle_type = $(this).data('toggle-type');
-        $(this).load(glpAjax.ajaxurl, { action: 'toggle_queue', user_id: user_id, clip_id: clip_id, toggle_type: toggle_type }
+        $(this).load(glpAjax.ajaxurl, { action: 'toggle_clip', user_id: user_id, clip_id: clip_id, toggle_type: toggle_type }
             ,function(response) {
                 $("[data-clip-id='" + clip_id + "'][data-toggle-type='" + toggle_type + "']").html(response);
+            }
+        );
+        return false;
+    });
+    
+    $(document).on('click', '.btn-toggle-all', function() {
+        var user_id = $(this).data('user-id');
+        var post_id = $(this).data('list-id');
+        $.post(glpAjax.ajaxurl, { action: 'toggle_clip_list', user_id: user_id, post_id: post_id }
+            ,function(data) {
+                response = $.parseJSON(data);
+                $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
+                for (var i in response.toggled){
+                    clip_id = response.toggled[i]
+                    $.post(glpAjax.ajaxurl, { action: 'clip_status', user_id: user_id, clip_id: clip_id }
+                        ,function(status) {
+                            status = $.parseJSON(status);
+                            $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
+                        }
+                    );
+                }
             }
         );
         return false;

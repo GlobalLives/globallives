@@ -205,29 +205,40 @@
 
             return $response;
         }
+        
+        add_filter('clip_toggle_list_response', 'clip_toggle_list_response', 1, 3);
+        function clip_toggle_list_response($response, $all_queued, $toggle_type) {
+            if ( 'queue' != $toggle_type ) return $response;
+
+            if (true === $all_queued)
+                $response = __('&#45; Remove all from Queue', 'glp');
+            else
+                $response = __('&#43; Add all to Queue', 'glp');
+
+            return $response;
+        }
 
         add_filter( 'clip_toggle_queue_status', 'clip_toggle_queue_status', 1, 3 );
         function clip_toggle_queue_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'queue');
-            if ( isset($queued) )
-                $response = apply_filters( 'clip_toggle_response', $response, true, 'queue' );
-            else 
-                $response = apply_filters( 'clip_toggle_response', $response, false, 'queue' );
-
+            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'queue' );
             return $response;
         }
         
         add_filter( 'clip_toggle_favorite_status', 'clip_toggle_favorite_status', 1, 3 );
         function clip_toggle_favorite_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'favorite');
-            if ( isset($queued) )
-                $response = apply_filters( 'clip_toggle_response', $response, true, 'favorite' );
-            else 
-                $response = apply_filters( 'clip_toggle_response', $response, false, 'favorite' );
-
+            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'favorite' );
             return $response;
         }
-
+        
+        add_filter( 'clip_toggle_queue_list_status', 'clip_toggle_queue_list_status', 1, 3 );
+        function clip_toggle_queue_list_status($response, $user_id) {
+            $clips = get_field('clips');
+            $response = apply_filters( 'clip_toggle_list_response', $response, is_list_queued($clips, $user_id), 'queue' );
+            return $response;
+        }
+        
         function is_clip_queued($clip_id, $user_id, $toggle_type) {
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
 
@@ -236,6 +247,21 @@
                 if ( $clip_id == $clip->ID )
                     return $k;
             }
+        }
+        
+        function is_list_queued($clip_list, $user_id, $queue_key = 'queue') {
+            $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
+            foreach ($queue as $clip) {
+                $queued = array_search($clip, $clip_list);
+                if ( is_int( $queued ) )  {
+                    unset($clip_list[$queued]);
+                }
+            }
+            
+            if ( empty($clip_list) )
+                return true;
+            else 
+                return $clip_list;
         }
 
         add_filter('queue_key', 'get_queue_key', 1, 2);
