@@ -206,6 +206,18 @@
             return $response;
         }
         
+        add_filter('clip_toggle_response', 'clip_toggle_bookmark_response', 1, 3);
+        function clip_toggle_bookmark_response($response, $toggled_on, $toggle_type) {
+            if ( 'bookmark' != $toggle_type ) return $response;
+
+            if ($toggled_on)
+                $response = __('&#45; Remove from Bookmarks', 'glp');
+            else
+                $response = __('&#43; Add to Bookmarks', 'glp');
+
+            return $response;
+        }
+        
         add_filter('clip_toggle_list_response', 'clip_toggle_list_response', 1, 3);
         function clip_toggle_list_response($response, $all_queued, $toggle_type) {
             if ( 'queue' != $toggle_type ) return $response;
@@ -229,6 +241,13 @@
         function clip_toggle_favorite_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'favorite');
             $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'favorite' );
+            return $response;
+        }
+        
+        add_filter( 'clip_toggle_bookmark_status', 'clip_toggle_bookmark_status', 1, 3 );
+        function clip_toggle_bookmark_status($response, $clip_id, $user_id) {
+            $queued = is_clip_queued($clip_id, $user_id, 'bookmark');
+            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'bookmark' );
             return $response;
         }
         
@@ -272,6 +291,9 @@
                     break;
                 case 'favorite':
                     $queue_key = 'field_116';
+                    break;
+                case 'bookmark':
+                    $queue_key = 'field_118';
                     break;
             }
             return $queue_key;
