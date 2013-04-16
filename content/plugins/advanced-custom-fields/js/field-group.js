@@ -518,15 +518,44 @@ var acf = {
 
 	$('#acf_fields tr.field_label input.label').live('blur', function()
 	{
-		var label = $(this);
-		var name = $(this).closest('tr').siblings('tr.field_name').find('input.name');
+		var label = $(this),
+			name = label.closest('tr').siblings('tr.field_name').find('input.name');
 
-		if(name.val() == '')
+		if( name.val() == '' )
 		{
-			var val = label.val().toLowerCase().split(' ').join('_').split('\'').join('');
+			// thanks to https://gist.github.com/richardsweeney/5317392 for this code!
+			var val = label.val(),
+				replace = {
+					'ä': 'a',
+					'æ': 'a',
+					'å': 'a',
+					'ö': 'o',
+					'ø': 'o',
+					'é': 'e',
+					'ë': 'e',
+					'ü': 'u',
+					'ó': 'o',
+					'ő': 'o',
+					'ú': 'u',
+					'é': 'e',
+					'á': 'a',
+					'ű': 'u',
+					'í': 'i',
+					' ' : '_',
+					'\'' : ''
+				};
+			
+			$.each( replace, function(k, v){
+				var regex = new RegExp( k, 'g' );
+				val = val.replace( regex, v );
+			});
+			
+			
+			val = val.toLowerCase();
 			name.val(val);
 			name.trigger('keyup');
 		}
+		
 	});
 	
 	

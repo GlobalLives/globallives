@@ -39,9 +39,17 @@ class acf_upgrade
 	
 	function admin_menu()
 	{
+		// dont run on plugin activate!
+		if( isset($_GET['action']) && $_GET['action'] == 'activate-plugin' )
+		{
+			return;
+		}
+		
+		
 		// vars
 		$new_version = apply_filters('acf/get_info', 'version');
 		$old_version = get_option('acf_version', false);
+		
 		
 		if( $new_version != $old_version )
 		{

@@ -27,25 +27,20 @@ Advanced Custom Fields is the perfect solution for any wordpress website which n
 * Number (type number, api returns integer)
 * Email (type email, api returns text)
 * Password (type password, api returns text)
-
 * WYSIWYG (a wordpress wysiwyg editor, api returns html)
 * Image (upload an image, api returns the url)
 * File (upload a file, api returns the url)
-
 * Select (drop down list of choices, api returns chosen item)
 * Checkbox (tickbox list of choices, api returns array of choices)
 * Radio Buttons ( radio button list of choices, api returns chosen item)
 * True / False (tick box with message, api returns true or false)
-
 * Page Link (select 1 or more page, post or custom post types, api returns the selected url)
 * Post Object (select 1 or more page, post or custom post types, api returns the selected post objects)
 * Relationship (search, select and order post objects with a tidy interface, api returns the selected post objects)
 * Taxonomy (select taxonomy terms with options to load, display and save, api returns the selected term objects)
 * User (select 1 or more WP users, api returns the selected user objects)
-
 * Date Picker (jquery date picker, options for format, api returns string)
 * Color Picker (Farbtastic!)
-
 * Repeater (ability to create repeatable blocks of fields!)
 * Flexible Content (ability to create flexible blocks of fields!)
 * Gallery (Add, edit and order multiple images in 1 simple field)
@@ -105,6 +100,25 @@ http://support.advancedcustomfields.com/
 
 
 == Changelog ==
+
+= 4.0.3 =
+* [Fixed] Fix bug when appending taxonomy terms - http://support.advancedcustomfields.com/discussion/5522/append-taxonomies
+* [Fixed] Fix embed shortcode for WYSIWYG field - http://support.advancedcustomfields.com/discussion/5503/embed-video-wysiwyg-field-doesn039t-work-since-update
+* [Fixed] Fix issues with loading numbers - http://support.advancedcustomfields.com/discussion/5538/zero-first-number-problem-in-text-fields
+* [Fixed] Fix bug with user field and format_value_for_api - http://support.advancedcustomfields.com/discussion/5542/user-field-weirdness-after-update
+* [Fixed] Fix capitalization issue on field name - http://support.advancedcustomfields.com/discussion/5527/field-name-retains-capitalization-from-field-title
+* [Fixed] Fix tabs not hiding from conditional logic - http://support.advancedcustomfields.com/discussion/5506/conditional-logic-not-working-with-tabs
+* [Updated] Update dir / path to allow for SSL - http://support.advancedcustomfields.com/discussion/5518/in-admin-page-got-error-javascript-when-open-with-https
+* [Updated] Updated relationship JS - http://support.advancedcustomfields.com/discussion/5550/relationship-field-search-box
+
+= 4.0.2 =
+* [Added] Add auto video filter to WYSIWYG value - http://support.advancedcustomfields.com/discussion/5378/video-embed-in-wysiwyg-field
+* [Fixed] Fix Repeater + WYSIWYG loosing p tags on drag/drop - http://support.advancedcustomfields.com/discussion/5476/acf-4-0-0-wysiwyg-p-tag-disappearing-after-drag-drop-save
+* [Fixed] Fix upgrade message appearing in iframe
+* [Fixed] Fix value sanitation - http://support.advancedcustomfields.com/discussion/5499/post-relationship-field-value-storage-in-update-to-acf4
+* [Added] Add JS field name validation - http://support.advancedcustomfields.com/discussion/5500/replace-foreign-letters-when-creating-input-name-from-label-in-javascript
+* [Fixed] Fix error when duplicating field group in WPML - http://support.advancedcustomfields.com/discussion/5501/4-0-1-broke-wpml-functionality-
+* [Fixed] Fix pares_type issue. Maybe remove it? - http://support.advancedcustomfields.com/discussion/5502/zeros-get-removed-major-bug
 
 = 4.0.1 =
 * [Improved] Improving welcome message with download instructions
