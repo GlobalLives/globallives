@@ -4,7 +4,7 @@ Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
 Tested up to: 3.5.1
-Stable tag: 2.2
+Stable tag: 2.3
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -88,6 +88,10 @@ Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - ht
 2. Options available in the Settings menu 
 
 == Changelog ==
+
+= 2.3 =
+* Changed: updated timestamp function, following the current Twitter guidelines 
+* Changed: updated Italian translation
 
 = 2.2 =
 * Added: Skip retweets option
