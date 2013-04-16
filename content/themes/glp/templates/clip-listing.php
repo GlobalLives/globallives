@@ -7,8 +7,8 @@
     		<p class="clip-duration"><?php the_field('duration',$clip->ID); ?></p>
     		<?php if ($download_url = get_field('download_url',$clip->ID)) : ?><a class="" href="<?php echo $download_url; ?>"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
                 <?php $item_id = $clip->ID; include(locate_template('templates/link-queue.php')); ?>
-                <?php $item_id = $clip->ID; include(locate_template('templates/link-favorite.php')); ?>
-                <?php $item_id = $clip->ID; include(locate_template('templates/link-bookmark.php')); ?>
+                <?php #$item_id = $clip->ID; include(locate_template('templates/link-favorite.php')); ?>
+                <?php #$item_id = $clip->ID; include(locate_template('templates/link-bookmark.php')); ?>
     	</div>
     </div>
 </article>

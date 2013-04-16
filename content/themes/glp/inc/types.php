@@ -287,13 +287,13 @@
         function get_queue_key($queue_key, $toggle_type) {
             switch ($toggle_type) {
                 case 'queue':
-                    $queue_key = 'field_117';
+                    $queue_key = 'field_125';
                     break;
                 case 'favorite':
-                    $queue_key = 'field_116';
+                    $queue_key = 'field_124';
                     break;
                 case 'bookmark':
-                    $queue_key = 'field_118';
+                    $queue_key = 'field_126';
                     break;
             }
             return $queue_key;
