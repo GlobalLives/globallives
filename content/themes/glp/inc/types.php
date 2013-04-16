@@ -260,20 +260,23 @@
         
         function is_clip_queued($clip_id, $user_id, $toggle_type) {
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
-
             // get_field returns array of post objects
-            foreach ($queue as $k => $clip) {
-                if ( $clip_id == $clip->ID )
-                    return $k;
+            if ($queue) {
+                foreach ( $queue as $k => $clip) {
+                    if ( $clip_id == $clip->ID )
+                        return $k;
+                }
             }
         }
         
         function is_list_queued($clip_list, $user_id, $queue_key = 'queue') {
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
-            foreach ($queue as $clip) {
-                $queued = array_search($clip, $clip_list);
-                if ( is_int( $queued ) )  {
-                    unset($clip_list[$queued]);
+            if ($queue) {
+                foreach ($queue as $clip) {
+                    $queued = array_search($clip, $clip_list);
+                    if ( is_int( $queued ) )  {
+                        unset($clip_list[$queued]);
+                    }
                 }
             }
             
@@ -281,6 +284,16 @@
                 return true;
             else 
                 return $clip_list;
+        }
+        
+        // Need to save relationship type fields as an array of post_ids rather than post objects.
+        add_filter('clean_queue', 'clean_relationship_type_queue');
+        function clean_relationship_type_queue($queue) {
+            foreach ($queue as $k => $v) {
+                if ( is_object($v) && ('WP_Post' == get_class($v) ) )
+                    $queue[$k] = $v->ID;
+            }
+            return $queue;
         }
 
         add_filter('queue_key', 'get_queue_key', 1, 2);
