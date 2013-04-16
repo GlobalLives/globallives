@@ -9,12 +9,12 @@
 		background: rgba(0,0,0,0.6);
 		padding: 20px;
 	}
-	.taggable-area,
+	#taggable-area,
 	.clip-markers {
 		display: none; // Toggled on by js as the player starts
 	}
 
-	.taggable-area {
+	#taggable-area {
 		float: left;
 		clear: both;
 		width: 100%;
@@ -85,17 +85,25 @@
 		.popover-content {
 			padding: 0;
 
-			.inner {
-				padding: 3px 8px;
+			.comment-box {
+				text-align: center;
+
+				input {
+					margin-top: 5px;
+				}
 			}
 
 			.comment {
-				width: 100%;
 				.clearfix();
 				font-size: 12px;
-				margin-bottom: 5px;
+				padding: 2px 8px 2px;
+				text-align: left;
+
 				div {
 					float: left;
+				}
+				.comment-content {
+					max-width: 80.9%;
 				}
 				img {
 					margin-right: 12px;
@@ -107,6 +115,14 @@
 					&.user {
 						font-weight: bold;
 					}
+				}
+
+				.tag {
+					color: @orange;
+				}
+
+				&.tagged {
+					background: @grayDark;
 				}
 			}
 
@@ -230,7 +246,7 @@
 		height: 17px;
 		width: 2px;
 		background: @white;
-		z-index: 99;
+		z-index: 101;
 		margin-left: -1px;
 		.arrow {
 			width: 0; 
@@ -240,7 +256,22 @@
 			border-right: 4px solid transparent;
 			border-top: 4px solid @white;
 			margin-left: -3px;
-			margin-top: -4px;
+			margin-top: -2px;
+			cursor: pointer;
 		}
 	}
+}
+#shadow {
+	background: @black;
+	position: fixed; 
+	left: 0; 
+	top: 0; 
+	width: 100%;
+	height: 100%;
+	z-index: 1040;
+	.opacity(95);
+}
+.participant-detail-video {
+	position: relative;
+	z-index: 1050;
 }

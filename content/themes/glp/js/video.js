@@ -1,6 +1,7 @@
 $(function() {
     
     $(window).bind("setup_players", setup_players);
+    $(window).bind("setup_players", setup_popover);
 
     $(".controls").live('click', function() {
         var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
@@ -30,6 +31,10 @@ $(function() {
                 $('.clip-markers').toggle();
             break;
             
+            case 'dimmer':
+                turn_out_the_lights();
+            break;
+            
         }
     });
     
@@ -42,9 +47,9 @@ $(function() {
         $.post(glpAjax.ajaxurl, {   
             action: 'clip_submit_comment',
             comment: $(this).find('input[name="comment"]').val(),
-            minutes: $('.taggable-area' ).data('m'),
-            seconds: $('.taggable-area' ).data('s'),
-            position: $('.taggable-area' ).data('p'),
+            minutes: $('#taggable-area' ).data('m'),
+            seconds: $('#taggable-area' ).data('s'),
+            position: $('#taggable-area' ).data('p'),
             post_id:  $('.participant-video-embed').attr('id').replace('participant-video-embed-', '')
         }, 
         function(response) {
@@ -53,13 +58,67 @@ $(function() {
             if (r.success) {
                 add_comment_to_marker_box(r.success, r.message);
             }
-            popover_fix_height($('.popover'));
+            $(".popover").fixPopoverHeight();
         });
         return false;
     });
-
+    
+    $(document).on('click', '#shadow', function() {
+        turn_out_the_lights();
+    });
+    
+    $(document).on('mouseenter', '.marker', function(event) {
+        var xpos = parseInt($(this).attr('id').replace('marker-', ''));
+        $("#taggable-area").setupPopover().showPopover(xpos);
+    });
+    $(document).on('mouseleave', '.marker', function(event) {
+//        $("#taggable-area").popover('hide');
+    });
+    
+    $(document).on('click', '.participant-clip-listing .clip-thumbnail', function() {
+        $('html, body').scrollTop(0);
+        var clip_id = $(this).data('clip-id');
+        $(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
+        $('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
+                { action: 'get_participant_clip', clip_id: clip_id },
+                function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
+        );
+    });
+    
+    $(document).on('click', '.btn-toggle', function() {
+        var user_id = $(this).data('user-id');
+        var clip_id = $(this).data('clip-id');
+        var toggle_type = $(this).data('toggle-type');
+        $(this).load(glpAjax.ajaxurl, { action: 'toggle_clip', user_id: user_id, clip_id: clip_id, toggle_type: toggle_type }
+            ,function(response) {
+                $("[data-clip-id='" + clip_id + "'][data-toggle-type='" + toggle_type + "']").html(response);
+            }
+        );
+        return false;
+    });
+    
+    $(document).on('click', '.btn-toggle-all', function() {
+        var user_id = $(this).data('user-id');
+        var post_id = $(this).data('list-id');
+        $.post(glpAjax.ajaxurl, { action: 'toggle_clip_list', user_id: user_id, post_id: post_id }
+            ,function(data) {
+                response = $.parseJSON(data);
+                $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
+                for (var i in response.toggled){
+                    clip_id = response.toggled[i]
+                    $.post(glpAjax.ajaxurl, { action: 'clip_status', user_id: user_id, clip_id: clip_id }
+                        ,function(status) {
+                            status = $.parseJSON(status);
+                            $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
+                        }
+                    );
+                }
+            }
+        );
+        return false;
+    });
+    
 });
-
 
 var players = {};
 var t;
@@ -149,6 +208,7 @@ function setup_players() {
             //Bind ontimeupdate events
             $('#'+frameID).bind("player_time_update", videoUpdateTimer);
             $('#'+frameID).bind("player_time_update", videoUpdatePosition);
+            $('#'+frameID).bind("player_time_update", autoShowComment);
         }
     });
 }
@@ -164,7 +224,7 @@ function onStateChange(frameID, identifier) {
                 $('#'+frameID).trigger("player_start_play_buffer");
                 t = setInterval(function () {
                     playerTimeUpdate(frameID);
-                }, 1000);
+                }, 500);
             break;
             
             case 2:
@@ -201,6 +261,15 @@ function videoUpdatePosition(event) {
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider');
     $(slider).slider('value', (player.getCurrentTime() / player.getDuration() ) * 1000);
 }
+function autoShowComment(event) {
+    var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider');
+    var position = parseInt( $(slider).width() * ( ( slider.slider('value') + 1 ) / 1000 ) ); // We add in a small buffer to show the comment just before the time marker is reached
+//    console.log(position);
+    var marker_box = $('#marker-'+position);
+    if (marker_box.length) {
+        $("#taggable-area").setupPopover().showPopover(position);
+    } 
+}
 function videoUpdateTimer(event) {
     var player = players[event.currentTarget.id];
     var m = parseInt( player.getCurrentTime() / 60 ) % 60;
@@ -217,36 +286,60 @@ function videoSetTimer(event) {
 }
 
 function enable_taggable_area() {
-    $(".taggable-area").each(function() {
-        var content = $(this).next().find('.content').html();
-        var title = $(this).next().find('.title').html();
-
-        $(this).popover({ 
-            html: true,
-            animation: false,
-            content: content,
-            title: title
-        });
-    } ).click(function(e) {
-        var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
-        var player = players[id];
+    $("#taggable-area").click(function(e) {
         var xpos = parseInt(e.pageX - $(this).offset().left);
-        var percent = (xpos / $(this).width());
-        var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
-        var m = parseInt( spos / 60 ) % 60;
-        var s = parseInt( spos % 60, 10);
-        var offset = xpos - ( $(this).next().width() /2 );
-        var popover = $(this).next();
-
-        $(this).data('m',m).data('s',s).data('p',xpos);
-        $(popover).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
-        $(popover).css('left', offset).find('.time').text( m + ':' +s);
-        popover_fix_height(popover);
+        $(this).setupPopover().showPopover(xpos);
     });
 }
 
-function popover_fix_height(popover) {
-    $(popover).css('top', ( 0 - $(popover).height() - 20 ) )
+function setup_popover() {
+    $("#taggable-area").setupPopover();
+}
+
+$.fn.setupPopover = function() {
+    var content = this.next().find('.content').html();
+    var title = this.next().find('.title').html();
+    
+    this.popover({ 
+        html: true,
+        animation: false,
+        content: content,
+        title: title
+    });
+    return this;
+};
+
+$.fn.showPopover = function(xpos) {
+    var id = this.closest('.participant-clip').find('.participant-video-embed').attr('id');
+    var player = players[id];
+    var percent = (xpos / this.width());
+    var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
+    var m = parseInt( spos / 60 ) % 60;
+    var s = parseInt( spos % 60, 10);
+    this.data('m',m).data('s',s).data('p',xpos);
+    
+    this.popover('show');
+    var popover_box = this.next();
+    var offset = xpos - ( popover_box.width() /2 );
+    
+//    console.log(xpos);
+//    console.log(percent);
+//    console.log(spos);
+//    console.log(m);
+//    console.log(s);
+//    console.log(offset);
+//    console.log(popover);
+
+    $(popover_box).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
+    $(popover_box).css('left', offset).find('.time').text( m + ':' +s);
+    $(popover_box).fixPopoverHeight();
+    
+    return this;
+}
+
+$.fn.fixPopoverHeight = function() {
+    this.css('top', ( 0 - this.height() - 20 ) );
+    return this;
 }
 
 function add_comment_to_marker_box(position, comment_html) {
@@ -261,7 +354,7 @@ function add_comment_to_marker_box(position, comment_html) {
 
 // Flash the taggable area at the start of play
 function display_taggable_area(event) {
-    $(".taggable-area").each(function() {
+    $("#taggable-area").each(function() {
         $(this).show().find('span').each(function(){
             $(this).show().delay(1000).fadeOut('slow', function(){
                 $(this).css('display', '');
@@ -321,4 +414,13 @@ function setup_volume_slider(event) {
     $( slider ).on( "slide", function( event, ui ) {
         player.setVolume(ui.value);
     } );
+}
+
+function turn_out_the_lights() {
+    if ( $('#shadow').length ) {
+        $('#shadow').remove();
+    }
+    else {
+        $('body').append('<div id="shadow"></div>');
+    }
 }

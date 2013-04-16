@@ -1,21 +1,15 @@
 <div class="participant-video-controls">
     <div class="control-slider-area-cntnr">
         <div class="control-slider-cntnr">
-            <a class="taggable-area" data-toggle="popover" data-placement="top">
+            <a id="taggable-area" data-toggle="popover" data-placement="top">
                 <span><?php _e('(Click to tag or comment)', 'glp'); ?></span>
             </a>
             <div class="popover-data hide">
                 <div class="title"><div class="inner">Comments/Tags (<span class="time"></span>)<a class="icon-remove-circle icon-white close"></a></div></div>
                 <div class="content">
                     <form method="post">
-                        <div class="inner">
-                            <div class="comment-box">
-                                <input type="text" name="comment" placeholder="Comment" />
-                            </div>
-                        </div>
-                        <div class="tags-box">
-                            <div class="tags">Tags: <span>open field</span> <span>night</span></div>
-                            <div class="add-tag">&#43; Tag</div>
+                        <div class="comment-box">
+                            <input type="text" name="comment" placeholder="Comment or #tag" />
                         </div>
                     </form>
                 </div>
@@ -30,14 +24,14 @@
                 }
                 ?>
                 <?php foreach ($markers as $time => $items): ?>
-                    <a id="marker-<?php echo $time; ?>" class="marker" style="left: <?php printf('%spx', $time); ?>">
+                    <div id="marker-<?php echo $time; ?>" class="marker" style="left: <?php printf('%spx', $time); ?>">
                         <div class="arrow"></div>
                         <div class="hide content">
                             <?php foreach ($items['comments'] as $comment): ?>
                                 <?php include(locate_template('templates/marker-comment.php')); //Keeps variable scope where get_template_part does not ?>
                             <?php endforeach; ?>
                         </div>
-                    </a>
+                    </div>
                 <?php endforeach; ?>
             </div>
             
@@ -57,5 +51,6 @@
         </a>
         <a data-control="fullscreen" class="controls btn btn-inverse"><span class="icon-fullscreen icon-white"></span></a>
         <a data-control="comments" class="controls btn btn-inverse"><span class="icon-comment icon-white"></span></a>
+        <a data-control="dimmer" class="controls btn btn-inverse"><span class="icon-certificate icon-white"></span></a>
     </div>
 </div>
