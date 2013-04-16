@@ -1,34 +1,37 @@
 <?php
 
-class acf_Relationship extends acf_Field
+class acf_field_relationship extends acf_field
 {
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  __construct
 	*
-	*	Constructor
+	*  Set name / label needed for actions / filters
 	*
-	*	@author Elliot Condon
-	*	@since 1.0.0
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @since	3.6
+	*  @date	23/01/13
+	*/
 	
-	function __construct($parent)
+	function __construct()
 	{
-    	parent::__construct($parent);
+		// vars
+		$this->name = 'relationship';
+		$this->label = __("Relationship",'acf');
+		$this->category = __("Relational",'acf');
+		
+		
+		// do not delete!
+    	parent::__construct();
     	
-    	$this->name = 'relationship';
-		$this->title = __("Relationship",'acf');
-		
-		
-		// actions
-		add_action('wp_ajax_acf_get_relationship_results', array($this, 'acf_get_relationship_results'));
-		
-   	}
-   	
-   	
-   	/*
-   	*  my_posts_where
+    	
+    	// extra
+		add_action('wp_ajax_acf/fields/relationship/query_posts', array($this, 'query_posts'));
+		add_action('wp_ajax_nopriv_acf/fields/relationship/query_posts', array($this, 'query_posts'));
+	}
+	
+	
+	/*
+   	*  posts_where
    	*
    	*  @description: 
    	*  @created: 3/09/12
@@ -47,17 +50,15 @@ class acf_Relationship extends acf_Field
 	}
 	
 	
-   	/*--------------------------------------------------------------------------------------
+	/*
+	*  query_posts
 	*
-	*	acf_get_relationship_results
-	*
-	*	@author Elliot Condon
-	*   @description: Generates HTML for Left column relationship results
-	*   @created: 5/07/12
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @description: 
+	*  @since: 3.6
+	*  @created: 27/01/13
+	*/
 	
-   	function acf_get_relationship_results()
+	function query_posts()
    	{
    		// vars
 		$options = array(
@@ -73,15 +74,17 @@ class acf_Relationship extends acf_Field
 			'lang' => false,
 			'update_post_meta_cache' => false,
 			'field_name' => '',
-			'field_key' => ''
+			'field_key' => '',
+			'nonce' => ''
 		);
-		$ajax = isset( $_POST['action'] ) ? true : false;
+		
+		$options = array_merge( $options, $_POST );
 		
 		
-		// override options with posted values
-		if( $ajax )
+		// validate
+		if( !wp_verify_nonce($options['nonce'], 'acf_nonce') )
 		{
-			$options = array_merge($options, $_POST);
+			die(0);
 		}
 		
 		
@@ -102,7 +105,7 @@ class acf_Relationship extends acf_Field
 		// load all post types by default
 		if( !$options['post_type'] || !is_array($options['post_type']) || $options['post_type'][0] == "" )
 		{
-			$options['post_type'] = $this->parent->get_post_types();
+			$options['post_type'] = apply_filters('acf/get_post_types', array());
 		}
 		
 		
@@ -167,80 +170,73 @@ class acf_Relationship extends acf_Field
 		
 		
 		// filters
-		$options = apply_filters('acf_relationship_query', $options);
-		$options = apply_filters('acf_relationship_query-' . $options['field_name'] , $options);
-		$options = apply_filters('acf_relationship_query-' . $options['field_key'], $options);
+		$options = apply_filters('acf/fields/relationship/query', $options);
+		$options = apply_filters('acf/fields/relationship/query/name=' . $options['field_name'] , $options);
+		$options = apply_filters('acf/fields/relationship/query/key=' . $options['field_key'], $options);
 		
 		
-		$results = false;
-		$results = apply_filters('acf_relationship_results', $results, $options);
-		$results = apply_filters('acf_relationship_results-' . $options['field_name'] , $results, $options);
-		$results = apply_filters('acf_relationship_results-' . $options['field_key'], $results, $options);
+		$results = '';
 		
 		
-		if( ! $results )
+		// load the posts
+		$posts = get_posts( $options );
+		
+		if( $posts )
 		{
-			// load the posts
-			$posts = get_posts( $options );
-			
-			if( $posts )
+			foreach( $posts  as $post )
 			{
-				foreach( $posts  as $post )
-				{
-					// right aligned info
-					$title = '<span class="relationship-item-info">';
+				// right aligned info
+				$title = '<span class="relationship-item-info">';
+				
+					$title .= $post->post_type;
 					
-						$title .= $post->post_type;
-						
-						// WPML
-						if( $options['lang'] )
-						{
-							$title .= ' (' . $options['lang'] . ')';
-						}
-						
-					$title .= '</span>';
-					
-					// find title. Could use get_the_title, but that uses get_post(), so I think this uses less Memory
-					$title .= apply_filters( 'the_title', $post->post_title, $post->ID );
-	
-					// status
-					if($post->post_status != "publish")
+					// WPML
+					if( $options['lang'] )
 					{
-						$title .= " ($post->post_status)";
+						$title .= ' (' . $options['lang'] . ')';
 					}
 					
-					
-					$title = apply_filters('acf_relationship_result', $title);
-					$title = apply_filters('acf_relationship_result-' . $options['field_name'] , $title);
-					$title = apply_filters('acf_relationship_result-' . $options['field_key'], $title);
-					
-					
-					echo '<li><a href="' . get_permalink($post->ID) . '" data-post_id="' . $post->ID . '">' . $title .  '<span class="acf-button-add"></span></a></li>';
+				$title .= '</span>';
+				
+				// find title. Could use get_the_title, but that uses get_post(), so I think this uses less Memory
+				$title .= apply_filters( 'the_title', $post->post_title, $post->ID );
+
+				// status
+				if($post->post_status != "publish")
+				{
+					$title .= " ($post->post_status)";
 				}
+				
+				// filters
+				$title = apply_filters('acf/fields/relationship/result', $title, $post);
+				$title = apply_filters('acf/fields/relationship/result/name=' . $options['field_name'] , $title, $post);
+				$title = apply_filters('acf/fields/relationship/result/key=' . $options['field_key'], $title, $post);
+				
+				
+				$results .= '<li><a href="' . get_permalink($post->ID) . '" data-post_id="' . $post->ID . '">' . $title .  '<span class="acf-button-add"></span></a></li>';
 			}
 		}
 		
 		
-		// die?
-		if( $ajax )
-		{
-			die();
-		}
-		
+		echo $results;
+		die();
+			
 	}
-   		
 	
-	/*--------------------------------------------------------------------------------------
-	*
-	*	create_field
-	*
-	*	@author Elliot Condon
-	*	@since 2.0.5
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
 	
-	function create_field($field)
+	/*
+	*  create_field()
+	*
+	*  Create the HTML interface for your field
+	*
+	*  @param	$field - an array holding all the field's data
+	*
+	*  @type	action
+	*  @since	3.6
+	*  @date	23/01/13
+	*/
+	
+	function create_field( $field )
 	{
 		// vars
 		$defaults = array(
@@ -266,7 +262,7 @@ class acf_Relationship extends acf_Field
 		// load all post types by default
 		if( !$field['post_type'] || !is_array($field['post_type']) || $field['post_type'][0] == "" )
 		{
-			$field['post_type'] = $this->parent->get_post_types();
+			$field['post_type'] = apply_filters('acf/get_post_types', array());
 		}
 		
 		
@@ -315,13 +311,7 @@ class acf_Relationship extends acf_Field
 		{
 			foreach( $field['value'] as $post )
 			{
-				// check that post exists (my have been trashed)
-				if( !is_object($post) )
-				{
-					continue;
-				}
-				
-				
+
 				// right aligned info
 				$title = '<span class="relationship-item-info">';
 				
@@ -335,14 +325,23 @@ class acf_Relationship extends acf_Field
 					
 				$title .= '</span>';
 				
+				
 				// find title. Could use get_the_title, but that uses get_post(), so I think this uses less Memory
 				$title .= apply_filters( 'the_title', $post->post_title, $post->ID );
+
 
 				// status
 				if($post->post_status != "publish")
 				{
 					$title .= " ($post->post_status)";
 				}
+				
+				
+				// filters
+				$title = apply_filters('acf/fields/relationship/result', $title, $post);
+				$title = apply_filters('acf/fields/relationship/result/name=' . $field['name'] , $title, $post);
+				$title = apply_filters('acf/fields/relationship/result/key=' . $field['key'], $title, $post);
+				
 				
 				echo '<li>
 					<a href="' . get_permalink($post->ID) . '" class="" data-post_id="' . $post->ID . '">' . $title . '<span class="acf-button-remove"></span></a>
@@ -360,22 +359,23 @@ class acf_Relationship extends acf_Field
 	
 </div>
 		<?php
-
-	
 	}
 	
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  create_options()
 	*
-	*	create_options
+	*  Create extra options for your field. This is rendered when editing a field.
+	*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
 	*
-	*	@author Elliot Condon
-	*	@since 2.0.6
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @type	action
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$field	- an array holding all the field's data
+	*/
 	
-	function create_options($key, $field)
+	function create_options( $field )
 	{
 		// vars
 		$defaults = array(
@@ -385,6 +385,7 @@ class acf_Relationship extends acf_Field
 		);
 		
 		$field = array_merge($defaults, $field);
+		$key = $field['name'];
 		
 		
 		// validate taxonomy
@@ -395,91 +396,93 @@ class acf_Relationship extends acf_Field
 		
 		
 		?>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label for=""><?php _e("Post Type",'acf'); ?></label>
-			</td>
-			<td>
-				<?php 
-				
-				$choices = array(
-					''	=>	__("All",'acf')
-				);
-				
-				$post_types = $this->parent->get_post_types();
-				
-				foreach( $post_types as $post_type )
-				{
-					$choices[$post_type] = $post_type;
-				}
-				
-				do_action('acf/create_field', array(
-					'type'	=>	'select',
-					'name'	=>	'fields['.$key.'][post_type]',
-					'value'	=>	$field['post_type'],
-					'choices'	=>	$choices,
-					'multiple'	=>	1,
-				));
-				
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Filter from Taxonomy",'acf'); ?></label>
-			</td>
-			<td>
-				<?php 
-				$choices = array(
-					'' => array(
-						'all' => __("All",'acf')
-					)
-				);
-				$choices = array_merge($choices, $this->parent->get_taxonomies_for_select());
-				do_action('acf/create_field', array(
-					'type'	=>	'select',
-					'name'	=>	'fields['.$key.'][taxonomy]',
-					'value'	=>	$field['taxonomy'],
-					'choices' => $choices,
-					'optgroup' => true,
-					'multiple'	=>	1,
-				));
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Maximum posts",'acf'); ?></label>
-			</td>
-			<td>
-				<?php 
-				do_action('acf/create_field', array(
-					'type'	=>	'text',
-					'name'	=>	'fields['.$key.'][max]',
-					'value'	=>	$field['max'],
-				));
-				?>
-			</td>
-		</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label for=""><?php _e("Post Type",'acf'); ?></label>
+	</td>
+	<td>
+		<?php 
+		
+		$choices = array(
+			''	=>	__("All",'acf')
+		);
+		$choices = apply_filters('acf/get_post_types', $choices);
+		
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'select',
+			'name'	=>	'fields['.$key.'][post_type]',
+			'value'	=>	$field['post_type'],
+			'choices'	=>	$choices,
+			'multiple'	=>	1,
+		));
+		
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Filter from Taxonomy",'acf'); ?></label>
+	</td>
+	<td>
+		<?php 
+		$choices = array(
+			'' => array(
+				'all' => __("All",'acf')
+			)
+		);
+		$simple_value = false;
+		$choices = apply_filters('acf/get_taxonomies_for_select', $choices, $simple_value);
+		
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'select',
+			'name'	=>	'fields['.$key.'][taxonomy]',
+			'value'	=>	$field['taxonomy'],
+			'choices' => $choices,
+			'optgroup' => true,
+			'multiple'	=>	1,
+		));
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Maximum posts",'acf'); ?></label>
+	</td>
+	<td>
+		<?php 
+		do_action('acf/create_field', array(
+			'type'	=>	'text',
+			'name'	=>	'fields['.$key.'][max]',
+			'value'	=>	$field['max'],
+		));
+		?>
+	</td>
+</tr>
 		<?php
+		
 	}
 	
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  format_value()
 	*
-	*	get_value
+	*  This filter is appied to the $value after it is loaded from the db and before it is passed to the create_field action
 	*
-	*	@author Elliot Condon
-	*	@since 3.3.3
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @type	filter
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$value	- the value which was loaded from the database
+	*  @param	$post_id - the $post_id from which the value was loaded
+	*  @param	$field	- the field array holding all the field options
+	*
+	*  @return	$value	- the modified value
+	*/
 	
-	function get_value($post_id, $field)
+	function format_value( $value, $post_id, $field )
 	{
-		// get value
-		$value = parent::get_value($post_id, $field);
-		
-		
 		// empty?
 		if( !$value )
 		{
@@ -505,7 +508,7 @@ class acf_Relationship extends acf_Field
 		$posts = get_posts(array(
 			'numberposts' => -1,
 			'post__in' => $value,
-			'post_type'	=>	$this->parent->get_post_types(),
+			'post_type'	=>	apply_filters('acf/get_post_types', array()),
 			'post_status' => array('publish', 'private', 'draft', 'inherit', 'future'),
 		));
 
@@ -522,7 +525,11 @@ class acf_Relationship extends acf_Field
 		foreach( $value as $k => $v)
 		{
 			// check that post exists (my have been trashed)
-			if( isset($ordered_posts[ $v ]) )
+			if( !isset($ordered_posts[ $v ]) )
+			{
+				unset( $value[ $k ] );
+			}
+			else
 			{
 				$value[ $k ] = $ordered_posts[ $v ];
 			}
@@ -533,8 +540,30 @@ class acf_Relationship extends acf_Field
 		return $value;	
 	}
 	
-
+	
+	/*
+	*  format_value_for_api()
+	*
+	*  This filter is appied to the $value after it is loaded from the db and before it is passed back to the api functions such as the_field
+	*
+	*  @type	filter
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$value	- the value which was loaded from the database
+	*  @param	$post_id - the $post_id from which the value was loaded
+	*  @param	$field	- the field array holding all the field options
+	*
+	*  @return	$value	- the modified value
+	*/
+	
+	function format_value_for_api( $value, $post_id, $field )
+	{
+		return $this->format_value( $value, $post_id, $field );
+	}
 	
 }
+
+new acf_field_relationship();
 
 ?>

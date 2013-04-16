@@ -1,39 +1,44 @@
 <?php
 
-class acf_Post_object extends acf_Field
+class acf_field_post_object extends acf_field
 {
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  __construct
 	*
-	*	Constructor
+	*  Set name / label needed for actions / filters
 	*
-	*	@author Elliot Condon
-	*	@since 1.0.0
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @since	3.6
+	*  @date	23/01/13
+	*/
 	
-	function __construct($parent)
+	function __construct()
 	{
-    	parent::__construct($parent);
-    	
-    	$this->name = 'post_object';
-		$this->title = __("Post Object",'acf');
+		// vars
+		$this->name = 'post_object';
+		$this->label = __("Post Object",'acf');
+		$this->category = __("Relational",'acf');
 		
-   	}
-   	
-   	
-   	/*--------------------------------------------------------------------------------------
-	*
-	*	create_field
-	*
-	*	@author Elliot Condon
-	*	@since 2.0.5
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+		
+		// do not delete!
+    	parent::__construct();
+  
+	}
 	
-	function create_field($field)
+	
+	/*
+	*  create_field()
+	*
+	*  Create the HTML interface for your field
+	*
+	*  @param	$field - an array holding all the field's data
+	*
+	*  @type	action
+	*  @since	3.6
+	*  @date	23/01/13
+	*/
+	
+	function create_field( $field )
 	{
 		// vars
 		$args = array(
@@ -65,7 +70,7 @@ class acf_Post_object extends acf_Field
 		// load all post types by default
 		if( !$field['post_type'] || !is_array($field['post_type']) || $field['post_type'][0] == "" )
 		{
-			$field['post_type'] = $this->parent->get_post_types();
+			$field['post_type'] = apply_filters('acf/get_post_types', array());
 		}
 		
 		
@@ -190,24 +195,25 @@ class acf_Post_object extends acf_Field
 		
 		// create field
 		do_action('acf/create_field', $field );
-		
-		
 	}
 	
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  create_options()
 	*
-	*	create_options
+	*  Create extra options for your field. This is rendered when editing a field.
+	*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
 	*
-	*	@author Elliot Condon
-	*	@since 2.0.6
-	*	@updated 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @type	action
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$field	- an array holding all the field's data
+	*/
 	
-	function create_options($key, $field)
-	{	
-		// defaults
+	function create_options( $field )
+	{
+		// vars
 		$defaults = array(
 			'post_type' 	=>	'',
 			'multiple'		=>	0,
@@ -216,118 +222,124 @@ class acf_Post_object extends acf_Field
 		);
 		
 		$field = array_merge($defaults, $field);
-
+		$key = $field['name'];
+		
 		?>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label for=""><?php _e("Post Type",'acf'); ?></label>
-			</td>
-			<td>
-				<?php 
-				
-				$choices = array(
-					''	=>	__("All",'acf')
-				);
-				$choices = array_merge( $choices, $this->parent->get_post_types() );
-				
-				
-				do_action('acf/create_field', array(
-					'type'	=>	'select',
-					'name'	=>	'fields['.$key.'][post_type]',
-					'value'	=>	$field['post_type'],
-					'choices'	=>	$choices,
-					'multiple'	=>	1,
-				));
-				
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Filter from Taxonomy",'acf'); ?></label>
-			</td>
-			<td>
-				<?php 
-				$choices = array(
-					'' => array(
-						'all' => __("All",'acf')
-					)
-				);
-				$choices = array_merge($choices, $this->parent->get_taxonomies_for_select());
-				
-				do_action('acf/create_field', array(
-					'type'	=>	'select',
-					'name'	=>	'fields['.$key.'][taxonomy]',
-					'value'	=>	$field['taxonomy'],
-					'choices' => $choices,
-					'optgroup' => true,
-					'multiple'	=>	1,
-				));
-				
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Allow Null?",'acf'); ?></label>
-			</td>
-			<td>
-				<?php
-				
-				do_action('acf/create_field', array(
-					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][allow_null]',
-					'value'	=>	$field['allow_null'],
-					'choices'	=>	array(
-						1	=>	__("Yes",'acf'),
-						0	=>	__("No",'acf'),
-					),
-					'layout'	=>	'horizontal',
-				));
-				
-				?>
-			</td>
-		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Select multiple values?",'acf'); ?></label>
-			</td>
-			<td>
-				<?php
-				
-				do_action('acf/create_field', array(
-					'type'	=>	'radio',
-					'name'	=>	'fields['.$key.'][multiple]',
-					'value'	=>	$field['multiple'],
-					'choices'	=>	array(
-						1	=>	__("Yes",'acf'),
-						0	=>	__("No",'acf'),
-					),
-					'layout'	=>	'horizontal',
-				));
-				
-				?>
-			</td>
-		</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label for=""><?php _e("Post Type",'acf'); ?></label>
+	</td>
+	<td>
+		<?php 
+		
+		$choices = array(
+			''	=>	__("All",'acf')
+		);
+		$choices = apply_filters('acf/get_post_types', $choices);
+		
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'select',
+			'name'	=>	'fields['.$key.'][post_type]',
+			'value'	=>	$field['post_type'],
+			'choices'	=>	$choices,
+			'multiple'	=>	1,
+		));
+		
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Filter from Taxonomy",'acf'); ?></label>
+	</td>
+	<td>
+		<?php 
+		$choices = array(
+			'' => array(
+				'all' => __("All",'acf')
+			)
+		);
+		$simple_value = false;
+		$choices = apply_filters('acf/get_taxonomies_for_select', $choices, $simple_value);
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'select',
+			'name'	=>	'fields['.$key.'][taxonomy]',
+			'value'	=>	$field['taxonomy'],
+			'choices' => $choices,
+			'optgroup' => true,
+			'multiple'	=>	1,
+		));
+		
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Allow Null?",'acf'); ?></label>
+	</td>
+	<td>
 		<?php
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'radio',
+			'name'	=>	'fields['.$key.'][allow_null]',
+			'value'	=>	$field['allow_null'],
+			'choices'	=>	array(
+				1	=>	__("Yes",'acf'),
+				0	=>	__("No",'acf'),
+			),
+			'layout'	=>	'horizontal',
+		));
+		
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label><?php _e("Select multiple values?",'acf'); ?></label>
+	</td>
+	<td>
+		<?php
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'radio',
+			'name'	=>	'fields['.$key.'][multiple]',
+			'value'	=>	$field['multiple'],
+			'choices'	=>	array(
+				1	=>	__("Yes",'acf'),
+				0	=>	__("No",'acf'),
+			),
+			'layout'	=>	'horizontal',
+		));
+		
+		?>
+	</td>
+</tr>
+		<?php
+		
 	}
 	
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  format_value_for_api()
 	*
-	*	get_value_for_api
+	*  This filter is appied to the $value after it is loaded from the db and before it is passed back to the api functions such as the_field
 	*
-	*	@author Elliot Condon
-	*	@since 3.0.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @type	filter
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$value	- the value which was loaded from the database
+	*  @param	$post_id - the $post_id from which the value was loaded
+	*  @param	$field	- the field array holding all the field options
+	*
+	*  @return	$value	- the modified value
+	*/
 	
-	function get_value_for_api($post_id, $field)
+	function format_value_for_api( $value, $post_id, $field )
 	{
-		// get value
-		$value = parent::get_value($post_id, $field);
-		
-		
 		// no value?
 		if( !$value )
 		{
@@ -349,7 +361,7 @@ class acf_Post_object extends acf_Field
 			$posts = get_posts(array(
 				'numberposts' => -1,
 				'post__in' => $value,
-				'post_type'	=>	$this->parent->get_post_types(),
+				'post_type'	=>	apply_filters('acf/get_post_types', array()),
 				'post_status' => array('publish', 'private', 'draft', 'inherit', 'future'),
 			));
 	
@@ -366,7 +378,11 @@ class acf_Post_object extends acf_Field
 			foreach( $value as $k => $v)
 			{
 				// check that post exists (my have been trashed)
-				if( isset($ordered_posts[ $v ]) )
+				if( !isset($ordered_posts[ $v ]) )
+				{
+					unset( $value[ $k ] );
+				}
+				else
 				{
 					$value[ $k ] = $ordered_posts[ $v ];
 				}
@@ -382,7 +398,9 @@ class acf_Post_object extends acf_Field
 		// return the value
 		return $value;
 	}
-		
+	
 }
+
+new acf_field_post_object();
 
 ?>
