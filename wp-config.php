@@ -19,17 +19,20 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	define('DB_COLLATE', '');
 
 // ** Custom "content" directory ** //
+
 define('WP_CONTENT_DIR', dirname( __FILE__ ) . '/content');
 define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content');
 define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
 define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp');
 
 // ** File permissions ** //
+
 define('FS_METHOD', 'direct');
 
 /** Authentication Unique Keys and Salts.
  *  @link https://api.wordpress.org/secret-key/1.1/salt/
  */
+
 define('AUTH_KEY',         '4JD[j4M~>:Hd2r0faZ#.VT|wf;A-Foq5Q$>T<W>%X#C}GBC27-z/^_NPS^N9&liG');
 define('SECURE_AUTH_KEY',  'C&v[<z&;$V8`^G`jn~Db_xI%jvL.33](6^X6&+<p`kH-?;DO.8+DHOJO=o[?/`o9');
 define('LOGGED_IN_KEY',    'e|e84*#!Ws_p_~+Tb=H_W];UQx%&@V ,SIeK+5C`TZLM$q^+6Xg)I5@quk&9WR>@');
