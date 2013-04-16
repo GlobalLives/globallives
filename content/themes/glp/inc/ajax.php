@@ -46,7 +46,7 @@ function toggle_clip() {
             $queue[] = $clip_id;
             $response = apply_filters( 'clip_toggle_response', $response, true, $toggle_type );
 	}
-	update_field( $queue_key, $queue, 'user_'.$user_id );
+	update_field( $queue_key, apply_filters('clean_queue', $queue), 'user_'.$user_id );
 	
 	echo $response;
 	exit;
@@ -77,7 +77,7 @@ function toggle_clip_list() {
 	} 
         else { //Otherwise we add the missing ones to the end of the queue
             foreach ( $all_queued as $clip ) {
-                $queue[] = $clip;
+                $queue[] = $clip->ID;
                 $toggled[] = $clip->ID;
             }            
             $response = json_encode( array(
@@ -86,7 +86,7 @@ function toggle_clip_list() {
             ));
 	}        
         
-	update_field( $queue_key, $queue, 'user_'.$user_id );
+	update_field( $queue_key, apply_filters('clean_queue', $queue), 'user_'.$user_id );
 	echo $response;
 	exit;
 }

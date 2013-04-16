@@ -5,7 +5,7 @@
 			<div class="participant-video-buttons">
 				<a class="btn addthis_button"><i class="icon icon-white icon-share"></i> Share</a>
 				<a class="btn" href="#embed-<?php the_field('youtube_id'); ?>" data-toggle="modal">&lt;&gt; Embed</a>
-				<?php $item_id = $post->ID; $class = "btn"; include(locate_template('templates/link-queue.php')); ?>
+				<?php $item_id = get_the_ID(); $class = "btn"; include(locate_template('templates/link-queue.php')); ?>
 				<?php if ($download_url = get_field('download_url')) : ?><a href="<?php echo $download_url; ?>" class="btn"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
 			</div>
 			<div class="modal hide" id="embed-<?php the_field('youtube_id'); ?>">
