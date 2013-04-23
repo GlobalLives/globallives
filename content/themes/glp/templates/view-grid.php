@@ -6,7 +6,7 @@
 				<h3><?php echo $participant->post_title; ?></h3>
 				<p><?php the_field('location',$participant->ID); ?></p>
 			</div>
-			<img src="<?php the_participant_thumbnail_url( $participant->ID ); ?>">
+			<img src="<?php the_participant_thumbnail_url( $participant->ID, 'medium' ); ?>">
 		</a></article>
 	<?php endforeach; ?>
 </div>
