@@ -871,6 +871,7 @@ hr{width:100%;border:0;border-top:1px dotted #999999;}
 .static-page-container .type-page p{margin-bottom:18px;}
 .static-page-container .type-page .btn{color:#dddddd;}.static-page-container .type-page .btn:hover{color:#ffffff;}
 .page-sidebar{margin:2em 0 0 2em;}
+input.copyable{box-sizing:border-box;width:100%;padding:0.5em;}input.copyable:focus{outline:none;}
 .home{background:transparent url('../img/bg-home.jpg') center no-repeat fixed;background-size:cover;}.home #wrap{background-color:rgba(0, 0, 0, 0.30000000000000004);background-image:-moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.75)));background-image:-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:-o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#bf000000', GradientType=0);min-height:600px;}
 .home #stage{padding:2em 0;}
 .front-page{margin:0 auto;text-align:center;color:#ffffff;text-shadow:0 2px 2px #000000;}.front-page .page-content{margin:0;padding:0;}.front-page .page-content p{margin:2em 0;font:16.003px "Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;letter-spacing:1px;}

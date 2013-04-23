@@ -2,6 +2,7 @@ $(function() {
 
 	$('a:has(img)').addClass('image-link');
 	same_height( $('#nav-modules .widget') );
+	$('input.copyable').click(function(){ $(this).select(); });
 
 /* Functions */
 
