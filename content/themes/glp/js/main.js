@@ -83,7 +83,7 @@ $(function() {
 		$('#featured-carousel').bind('slid',function(){
 			$('#featured-carousel').css('overflow','visible');
 		});
-
+		$('#nav-featured .participant-thumbnail').popover();
 		$('#nav-featured .participant-thumbnail').click(function() {
 			$('.home-thumbnail, .participant-thumbnail').removeClass('active');
 			$(this).addClass('active');
