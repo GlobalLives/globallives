@@ -11,5 +11,6 @@ require( get_template_directory() . '/inc/menus.php' );		// Add custom menus
 require( get_template_directory() . '/inc/queue.php' );		// Enqueue styles and scripts
 require( get_template_directory() . '/inc/types.php' );		// Add custom post types
 require( get_template_directory() . '/inc/widgets.php' );	// Register custom widgets
+require( get_template_directory() . '/inc/helpers.php' );	// Other useful functions
 
 ?>
