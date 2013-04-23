@@ -12,7 +12,7 @@
 			<b><?php _e('Gender'); ?></b> <span class="popover-gender"></span><br>
 			<b><?php _e('Income'); ?></b> <span class="popover-income"></span><br>
 			<b><?php _e('Age'); ?></b> <span class="popover-age"></span><br>
-			<p><a class="btn popover-permalink" href="">&#9658;&nbsp;<?php _e('Full Story','glp'); ?></a></p>
+			<p><a class="btn popover-permalink" href="">&#9658;&nbsp;<?php _e('Learn More','glp'); ?></a></p>
 		</div>
 	</div>
 	<button type="button" class="close">&times;</button>
