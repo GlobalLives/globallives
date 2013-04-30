@@ -362,10 +362,10 @@ function add_comment_to_marker_box(position, comment_html) {
 
 // Flash the taggable area at the start of play
 function display_taggable_area(event) {
-    $("#taggable-area").each(function() {
+    $("#taggable-area").each(function() {        
         $(this).show().find('span').each(function(){
-            $(this).show().delay(1000).fadeOut('slow', function(){
-                $(this).css('display', '');
+            $(this).show().fadeTo(0, 1).delay(1000).fadeTo('slow', .3, function(){
+                $(this).removeAttr('style');
             });
         });
     } );
