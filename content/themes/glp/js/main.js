@@ -31,7 +31,7 @@ $(function() {
 		$('#stage').fadeOut('slow').load(
 			'/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_summary', post_id: post_id },
-			function() { $('#stage').fadeIn('slow'); }
+			function() { $('#stage').fadeIn('slow'); $(window).trigger("setup_players"); }
 		);
 	}
 
