@@ -287,9 +287,17 @@ function videoSetTimer(event) {
 
 function enable_taggable_area() {
     $("#taggable-area").click(function(e) {
-        var xpos = parseInt(e.pageX - $(this).offset().left);
-        $(this).setupPopover().showPopover(xpos);
+        if ( $('body').hasClass('logged-in') ) {
+            var xpos = parseInt(e.pageX - $(this).offset().left);
+            $(this).setupPopover().showPopover(xpos);
+        }
+        else {
+            $(this).popover('hide');
+            // Do something here, maybe link the user to the login page?
+            return false;
+        }
     });
+    
 }
 
 function setup_popover() {
