@@ -52,7 +52,7 @@ $(function() {
 		$('#popover .popover-gender').text(d.gender);
 		$('#popover .popover-income').text(d.income);
 		$('#popover .popover-age').text(d.age);
-		$('#popover .popover-series').html(d.series);
+		if (d.series != '') { $('#popover .popover-series').html(d.series); }
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover, .overlay').show();

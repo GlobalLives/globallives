@@ -8,7 +8,7 @@
 		<div class="span1"><img class="popover-thumbnail" src=""></div>
 		<div class="span3">
 			<b><?php _e('Occupation'); ?>:</b> <span class="popover-occupation"></span><br>
-			<b><?php _e('Series'); ?>:</b> <span class="popover-series"></span><br>
+			<b><?php _e('Series'); ?>:</b> <span class="popover-series">none</span><br>
 			<b><?php _e('Gender'); ?></b> <span class="popover-gender"></span><br>
 			<b><?php _e('Income'); ?></b> <span class="popover-income"></span><br>
 			<b><?php _e('Age'); ?></b> <span class="popover-age"></span><br>
