@@ -2,7 +2,7 @@
     <div class="control-slider-area-cntnr">
         <div class="control-slider-cntnr">
             <a id="taggable-area" data-toggle="popover" data-placement="top">
-                <span><?php _e('(Click to tag or comment)', 'glp'); ?></span>
+                <span><?php if ( is_user_logged_in() ) : _e('(Click to tag or comment)', 'glp'); else: _e('Log in / Sign up to add comments', 'glp'); endif; ?></span>
             </a>
             <div class="popover-data hide">
                 <div class="title"><div class="inner">Comments/Tags (<span class="time"></span>)<a class="icon-remove-circle icon-white close"></a></div></div>
