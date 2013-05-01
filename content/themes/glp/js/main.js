@@ -103,20 +103,23 @@ $(function() {
 
 /* Explore the Collection */
 
+	function toggle_view( view ) {
+		$('.view').slideUp(500,function() {
+			$(view).delay(700).slideDown(500);
+			$('.btn-'+view.substring(1)).addClass('active').siblings().removeClass('active');
+		});
+		window.location.hash = view;
+	}
+
 	if ($('body.page-explore').length) { // Make sure we're on Explore the Collection
 
-		$('.btn-mapview').click(function() {
-			$(this).addClass('active').siblings().removeClass('active');
-			$('.view').slideUp(500,function() {
-				$('#mapview').delay(700).slideDown(500);
-			});
-		});
-		$('.btn-gridview').click(function() {
-			$(this).addClass('active').siblings().removeClass('active');
-			$('.view').slideUp(500,function() {
-				$('#gridview').delay(700).slideDown(500);
-			});
-		});
+		var view = window.location.hash;
+		if (view === '#mapview' || view === '#gridview') {
+			toggle_view(view);
+		}
+
+		$('.btn-mapview').click(function() { toggle_view('#mapview'); });
+		$('.btn-gridview').click(function() { toggle_view('#gridview'); });
 
 		$('#nav-explore input, #nav-explore select').change(function() {
 			$(participants).each(function() {
