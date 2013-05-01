@@ -1,5 +1,5 @@
 $(function() {
-    
+
     $(window).bind("setup_players", setup_players);
     $(window).bind("setup_players", setup_popover);
 
@@ -26,32 +26,32 @@ $(function() {
                     el.webkitRequestFullScreen();
                 }
             break;
-            
+
             case 'comments':
                 $('.clip-markers').toggle();
             break;
-            
+
             case 'dimmer':
                 turn_out_the_lights();
             break;
-            
+
         }
     });
-    
-    $(document).on("click", ".popover .close", function(){ 
+
+    $(document).on("click", ".popover .close", function() {
         $(this).closest('.popover').prev().popover('hide');
     });
 
     $(document).on("submit", ".popover form", function() {
         $(this).find('.error').fadeOut('slow', function() {$(this).remove();});
-        $.post(glpAjax.ajaxurl, {   
+        $.post(glpAjax.ajaxurl, {
             action: 'clip_submit_comment',
             comment: $(this).find('input[name="comment"]').val(),
             minutes: $('#taggable-area' ).data('m'),
             seconds: $('#taggable-area' ).data('s'),
             position: $('#taggable-area' ).data('p'),
             post_id:  $('.participant-video-embed').attr('id').replace('participant-video-embed-', '')
-        }, 
+        },
         function(response) {
             r = $.parseJSON(response);
             $('.comment-box').prepend(r.message).closest('form').find('input').val('');
@@ -62,19 +62,19 @@ $(function() {
         });
         return false;
     });
-    
+
     $(document).on('click', '#shadow', function() {
         turn_out_the_lights();
     });
-    
+
     $(document).on('mouseenter', '.marker', function(event) {
-        var xpos = parseInt($(this).attr('id').replace('marker-', ''));
+        var xpos = parseInt($(this).attr('id').replace('marker-', ''), 10);
         $("#taggable-area").setupPopover().showPopover(xpos);
     });
     $(document).on('mouseleave', '.marker', function(event) {
 //        $("#taggable-area").popover('hide');
     });
-    
+
     $(document).on('click', '.participant-clip-listing .clip-thumbnail', function() {
         $('html, body').scrollTop(0);
         var clip_id = $(this).data('clip-id');
@@ -84,30 +84,33 @@ $(function() {
                 function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
         );
     });
-    
+
     $(document).on('click', '.btn-toggle', function() {
         var user_id = $(this).data('user-id');
         var clip_id = $(this).data('clip-id');
         var toggle_type = $(this).data('toggle-type');
-        $(this).load(glpAjax.ajaxurl, { action: 'toggle_clip', user_id: user_id, clip_id: clip_id, toggle_type: toggle_type }
-            ,function(response) {
+        $(this).load(glpAjax.ajaxurl,
+            {action: 'toggle_clip', user_id: user_id, clip_id: clip_id, toggle_type: toggle_type },
+            function(response) {
                 $("[data-clip-id='" + clip_id + "'][data-toggle-type='" + toggle_type + "']").html(response);
             }
         );
         return false;
     });
-    
+
     $(document).on('click', '.btn-toggle-all', function() {
         var user_id = $(this).data('user-id');
         var post_id = $(this).data('list-id');
-        $.post(glpAjax.ajaxurl, { action: 'toggle_clip_list', user_id: user_id, post_id: post_id }
-            ,function(data) {
+        $.post(glpAjax.ajaxurl, {
+            action: 'toggle_clip_list', user_id: user_id, post_id: post_id },
+            function(data) {
                 response = $.parseJSON(data);
                 $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
                 for (var i in response.toggled){
-                    clip_id = response.toggled[i]
-                    $.post(glpAjax.ajaxurl, { action: 'clip_status', user_id: user_id, clip_id: clip_id }
-                        ,function(status) {
+                    clip_id = response.toggled[i];
+                    $.post(glpAjax.ajaxurl, {
+                        action: 'clip_status', user_id: user_id, clip_id: clip_id },
+                        function(status) {
                             status = $.parseJSON(status);
                             $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
                         }
@@ -117,7 +120,7 @@ $(function() {
         );
         return false;
     });
-    
+
 });
 
 var players = {};
@@ -131,7 +134,7 @@ var t;
 })();
 
 // This function will be called when the API is fully loaded
-function onYouTubePlayerAPIReady() {YT_ready(true)}
+function onYouTubePlayerAPIReady() { YT_ready(true); }
 function getFrameID(id){
     var elem = document.getElementById(id);
     if (elem) {
@@ -171,9 +174,9 @@ var YT_ready = (function() {
             }
         } else if (typeof func == "function") {
             if (api_isReady) func();
-            else onReady_funcs[b_before?"unshift":"push"](func); 
+            else onReady_funcs[b_before?"unshift":"push"](func);
         }
-    }
+    };
 })();
 
 // Add function to execute when the API is ready
@@ -190,7 +193,7 @@ function setup_players() {
                     "onReady": onReady(frameID, identifier)
                 }
             });
-            
+
             // Bind ready events
             $('#'+frameID).bind("player_ready", videoSetTimer);
             $('#'+frameID).bind("player_ready", setup_position_slider);
@@ -216,7 +219,7 @@ function setup_players() {
 function onStateChange(frameID, identifier) {
     return function (event) {
         var player = players[frameID];
-        
+
         switch (event.data) {
             case 1:
             case 3:
@@ -226,21 +229,21 @@ function onStateChange(frameID, identifier) {
                     playerTimeUpdate(frameID);
                 }, 500);
             break;
-            
+
             case 2:
             case 0:
                 // Video has been paused/ended
                 $('#'+frameID).trigger("player_pause_end");
-                clearTimeout(t)
+                clearTimeout(t);
             break;
         }
-    }
+    };
 }
 
 function onReady(frameID, identifier) {
     return function (event) {
         var player = players[frameID];
-        
+
         // Special case for handling browser opted in at http://www.youtube.com/html5. 
         // getDuration doesn't work on html5 embeds until the video has been initialised, which only happens on play.
         // Need to find a solution/workaround to this.
@@ -249,7 +252,7 @@ function onReady(frameID, identifier) {
 //            alert("Youtube html5 detected. Tagging/commenting on this clip won't work until you hit play");
         }
         $('#'+frameID).trigger("player_ready");
-    }
+    };
 }
 
 function playerTimeUpdate(frameID) {
@@ -263,23 +266,23 @@ function videoUpdatePosition(event) {
 }
 function autoShowComment(event) {
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider');
-    var position = parseInt( $(slider).width() * ( ( slider.slider('value') + 1 ) / 1000 ) ); // We add in a small buffer to show the comment just before the time marker is reached
+    var position = parseInt( $(slider).width() * ( ( slider.slider('value') + 1 ) / 1000 ), 10 ); // We add in a small buffer to show the comment just before the time marker is reached
 //    console.log(position);
     var marker_box = $('#marker-'+position);
     if (marker_box.length) {
         $("#taggable-area").setupPopover().showPopover(position);
-    } 
+    }
 }
 function videoUpdateTimer(event) {
     var player = players[event.currentTarget.id];
-    var m = parseInt( player.getCurrentTime() / 60 ) % 60;
+    var m = parseInt( player.getCurrentTime() / 60, 10 ) % 60;
     var s = parseInt( player.getCurrentTime() % 60, 10);
     $('.control-time-current .time-m').text(m);
     $('.control-time-current .time-s').text(s);
 }
 function videoSetTimer(event) {
     var player = players[event.currentTarget.id];
-    var m = parseInt( player.getDuration() / 60 ) % 60;
+    var m = parseInt( player.getDuration() / 60, 10 ) % 60;
     var s = parseInt( player.getDuration() % 60, 10);
     $('.control-time-total .time-m').text(m);
     $('.control-time-total .time-s').text(s);
@@ -288,7 +291,7 @@ function videoSetTimer(event) {
 function enable_taggable_area() {
     $("#taggable-area").click(function(e) {
         if ( $('body').hasClass('logged-in') ) {
-            var xpos = parseInt(e.pageX - $(this).offset().left);
+            var xpos = parseInt(e.pageX - $(this).offset().left, 10);
             $(this).setupPopover().showPopover(xpos);
         }
         else {
@@ -297,7 +300,7 @@ function enable_taggable_area() {
             return false;
         }
     });
-    
+
 }
 
 function setup_popover() {
@@ -307,8 +310,8 @@ function setup_popover() {
 $.fn.setupPopover = function() {
     var content = this.next().find('.content').html();
     var title = this.next().find('.title').html();
-    
-    this.popover({ 
+
+    this.popover({
         html: true,
         animation: false,
         content: content,
@@ -322,14 +325,14 @@ $.fn.showPopover = function(xpos) {
     var player = players[id];
     var percent = (xpos / this.width());
     var spos = Math.round((player.getDuration() * percent) * 100) / 100 ;
-    var m = parseInt( spos / 60 ) % 60;
+    var m = parseInt( spos / 60, 10 ) % 60;
     var s = parseInt( spos % 60, 10);
     this.data('m',m).data('s',s).data('p',xpos);
-    
+
     this.popover('show');
     var popover_box = this.next();
-    var offset = xpos - ( popover_box.width() /2 );
-    
+    var offset = xpos - ( popover_box.width() / 2 );
+
 //    console.log(xpos);
 //    console.log(percent);
 //    console.log(spos);
@@ -341,30 +344,30 @@ $.fn.showPopover = function(xpos) {
     $(popover_box).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
     $(popover_box).css('left', offset).find('.time').text( m + ':' +s);
     $(popover_box).fixPopoverHeight();
-    
+
     return this;
-}
+};
 
 $.fn.fixPopoverHeight = function() {
     this.css('top', ( 0 - this.height() - 20 ) );
     return this;
-}
+};
 
 function add_comment_to_marker_box(position, comment_html) {
     var marker_box = $('#marker-'+position);
     if (marker_box.length) {
         $(marker_box).find('.content').prepend(comment_html);
-    } 
+    }
     else {
-        $('.clip-markers').append('<a class="marker" id="marker-'+position+'" style="left: '+position+'px"><div class="arrow"></div><div class="hide content">'+comment_html+'</div></div>')
+        $('.clip-markers').append('<a class="marker" id="marker-'+position+'" style="left: '+position+'px"><div class="arrow"></div><div class="hide content">'+comment_html+'</div></div>');
     }
 }
 
 // Flash the taggable area at the start of play
 function display_taggable_area(event) {
-    $("#taggable-area").each(function() {        
+    $("#taggable-area").each(function() {
         $(this).show().find('span').each(function(){
-            $(this).show().fadeTo(0, 1).delay(1000).fadeTo('slow', .3, function(){
+            $(this).show().fadeTo(0, 1).delay(1000).fadeTo('slow', 0.3, function(){
                 $(this).removeAttr('style');
             });
         });
@@ -398,7 +401,7 @@ function setup_position_slider(event) {
         var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
         $('#'+id).unbind("player_time_update", videoUpdatePosition);
     } );
-    
+
     $( slider ).on( "slidestop", function( event, ui ) {
         var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
         players[id].seekTo( Math.round((players[id].getDuration() * (ui.value / 1000)) * 100) / 100, true );
@@ -410,7 +413,7 @@ function setup_position_slider(event) {
 
 function setup_volume_slider(event) {
     var player = players[event.currentTarget.id];
-    
+
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.volume-slider').slider({
         orientation: "vertical",
         range: "min",
@@ -418,7 +421,7 @@ function setup_volume_slider(event) {
         max: 100,
         value: player.getVolume()
     });
-    
+
     $( slider ).on( "slide", function( event, ui ) {
         player.setVolume(ui.value);
     } );
