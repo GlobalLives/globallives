@@ -883,7 +883,7 @@ input.copyable{width:100%;padding:0.5em;}input.copyable:focus{outline:none;}
 .participant-summary .participant-meta{font-size:10.998px;}
 .participant-summary .participant-content{margin:1em 0;}.participant-summary .participant-content a{color:#ffffff;border-bottom:1px solid #f89406;text-decoration:none;}.participant-summary .participant-content a:hover{color:#f89406;}
 .participant-summary .participant-location{font-family:"Montreal Serial Light","Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:lighter;}
-.participant-clip{position:relative;padding-bottom:72.25%;padding-top:0;height:0;}.participant-clip iframe,.participant-clip object,.participant-clip embed,.participant-clip .participant-video-embed{position:relative;top:0;left:0;width:100%;height:88%;min-height:0px;}
+.participant-clip{position:relative;padding-bottom:72.25%;padding-top:0;height:0;}.participant-clip iframe,.participant-clip object,.participant-clip embed,.participant-clip .participant-video-embed{position:relative;top:0;left:0;width:100%;height:88%;min-height:350px;}
 .participant-clip .participant-video-buttons{position:absolute;bottom:0;left:0;}
 .participant-clip .btn-embed{display:none;}
 #gridview{position:relative;width:100%;overflow:hidden;background:rgba(0, 0, 0, 0.75);}#gridview .participant-grid{position:relative;float:left;width:16.666666%;padding-bottom:12.5%;background:#000000;overflow:hidden;}#gridview .participant-grid .participant-meta{position:absolute;box-sizing:border-box;height:100%;width:100%;padding:0 1em;border:5px solid #ffffff;z-index:2;color:#ffffff;background:#9d261d;opacity:0;transition:opacity 0.33s;}
@@ -909,7 +909,6 @@ input.copyable{width:100%;padding:0.5em;}input.copyable:focus{outline:none;}
 #popover .btn{margin-top:1em;}
 #popover .close{margin:0;padding:0;height:25px;width:25px;position:absolute;top:5px;right:5px;color:#555555;background:#ffffff;border:none;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;line-height:25px;}
 .overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0, 0, 0, 0.5);}
-.page-explore #wrap{min-height:600px;}
 .page-explore #content{position:relative;width:100%;}
 .single-participant{color:#ffffff;}.single-participant h3{font-family:"Montreal Serial","Montreal Serial Bold",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:normal;}
 .single-participant #wrap{background:#000000;}
