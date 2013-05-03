@@ -5,14 +5,16 @@
 				<a class="btn btn-gridview active"><i class="icon icon-th-large icon-white"></i></a>
 				<a class="btn btn-mapview"><i class="icon icon-globe icon-white"></i></a>
 			</li>
+<?php $serieses = get_terms('series'); if( count($serieses) > 1 ) : ?>
 			<li>Series
 				<select name="series">
 					<option>All</option>
-<?php $serieses = get_terms('series'); foreach( $serieses as $series ) : ?>
+<?php foreach( $serieses as $series ) : ?>
 					<option value="<?php echo $series->slug; ?>"><?php echo $series->name; ?></option>
 <?php endforeach; ?>
 				</select>
 			</li>
+<?php endif; ?>
 			<li>Gender 
 				<select name="gender">
 					<option>All</option>
@@ -37,7 +39,9 @@
 <?php endforeach; ?>
 				</select>
 			</li>
+<?php $proposals = get_posts(array('numberposts' => -1, 'post_type' => 'participant', 'meta_key' => 'proposed', 'meta_value' => 1)); if( count($proposals) > 0 ) : ?>
 			<li><input name="proposed" type="checkbox" value="1" /> Show Proposed</li>
+<?php endif; ?>
 		</ul>
 	</div>
 </nav>

@@ -52,7 +52,7 @@ $(function() {
 		$('#popover .popover-gender').text(d.gender);
 		$('#popover .popover-income').text(d.income);
 		$('#popover .popover-age').text(d.age);
-		if (d.series != '') { $('#popover .popover-series').html(d.series); }
+		if (d.series !== '') { $('#popover .popover-series').html(d.series); }
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
 		$('#popover, .overlay').show();
@@ -125,11 +125,13 @@ $(function() {
 			$(participants).each(function() {
 				this.filtered = false;
 
-				if ($('select[name=series]').val() !== "All" && this.series !== $('select[name=series]').val() ) { this.filtered = true; }
+				if ($('select[name=series]').val() && $('select[name=series]') !== "All" && this.series !== $('select[name=series]').val() ) { this.filtered = true; }
 				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { this.filtered = true; }
 				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { this.filtered = true; }
 				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { this.filtered = true; }
-				if (!$('input[name=proposed]:checked').val() && this.proposed ) { this.filtered = true; }
+
+				if ( this.proposed ) { this.filtered = true; }
+				if ($('input[name=proposed]:checked').val() && this.proposed ) { this.filtered = false; }
 
 				if (this.filtered === true) {
 					$('#participant-' + this.id).addClass('filtered');
