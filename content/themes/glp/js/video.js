@@ -198,6 +198,7 @@ function setup_players() {
             $('#'+frameID).bind("player_ready", videoSetTimer);
             $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
+            $('#'+frameID).bind("player_ready", autoplay_video);
 
             // Bind play events
             $('#'+frameID).bind("player_start_play_buffer", videoSetTimer);
@@ -434,4 +435,8 @@ function turn_out_the_lights() {
     else {
         $('body').append('<div id="shadow"></div>');
     }
+}
+
+function autoplay_video(event) {
+    players[event.currentTarget.id].playVideo();
 }
