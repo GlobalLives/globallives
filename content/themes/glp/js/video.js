@@ -18,6 +18,7 @@ $(function() {
 
             case 'fullscreen':
                 var el = document.getElementById(id);
+                // var el = $('#participant-clip');
                 if (el.requestFullScreen) {
                     el.requestFullScreen();
                 } else if (el.mozRequestFullScreen) {
@@ -108,8 +109,8 @@ $(function() {
                 $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
                 for (var i in response.toggled){
                     clip_id = response.toggled[i];
-                    $.post(glpAjax.ajaxurl, {
-                        action: 'clip_status', user_id: user_id, clip_id: clip_id },
+                    $.post(glpAjax.ajaxurl,
+                        {action: 'clip_status', user_id: user_id, clip_id: clip_id },
                         function(status) {
                             status = $.parseJSON(status);
                             $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
