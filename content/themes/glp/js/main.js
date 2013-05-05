@@ -32,7 +32,11 @@ $(function() {
 		$('#stage').fadeOut('slow').load(
 			'/wp/wp-admin/admin-ajax.php',
 			{ action: 'get_participant_summary', post_id: post_id },
-			function() { $('#stage').fadeIn('slow'); $(window).trigger("setup_players"); }
+			function() {
+				$('#stage').fadeIn('slow');
+				$(window).trigger("setup_players");
+				reinit_addthis();
+			}
 		);
 	}
 
@@ -71,6 +75,20 @@ $(function() {
 			}
 		});
 		group.height(tallest);
+	}
+
+	function reinit_addthis() {
+		var addthis_url = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6";
+		if (window.addthis) {
+			window.addthis = null;
+			window._adr = null;
+			window._atc = null;
+			window._atd = null;
+			window._ate = null;
+			window._atr = null;
+			window._atw = null;
+		}
+		$.getScript( addthis_url );
 	}
 
 /* Front Page */
