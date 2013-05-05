@@ -86,7 +86,7 @@ class RecentlyActiveMembersWidget extends WP_Widget
 		if (!empty($title)) { echo $before_title . $title . $after_title; }
  
 		$members = get_users();
-		usort($members, 'active_profile_compare');
+		@usort($members, 'active_profile_compare'); // Causes a "warning" but it's okay, known issue in PHP 5.2.11+
 		$members = array_slice( $members, 0, $instance['number'] );
 		
 		foreach( $members as $member ) : ?>
