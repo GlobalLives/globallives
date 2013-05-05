@@ -392,10 +392,7 @@
 		}
 	}
 	.entry-share {
-		display: inline-block;
-		width: auto;
-		padding: 10px;
-		background: @grayLight;
+		overflow: hidden;
 	}
 	
 	/* Customize Top Post & Past Posts */
@@ -460,7 +457,7 @@
 				width: auto;
 			}
 			.entry-share {
-				display: inline-block;
+				// display: inline-block;
 			}
 		}
 		.posts-navigation {
@@ -657,6 +654,51 @@
 					}
 		}
 	}
+
+/*	==========================================================================
+	AddThis Generated Classes
+	========================================================================== */
+
+	#content {
+
+		.addthis_native_counter_sibling {
+			display: none;
+		}
+		.addthis_native_counter, .comment-counter {
+			float: left;
+			margin: 0; padding: 0;
+			width: 50px !important;
+			font-size: 12px !important;
+			background: none !important;
+			a {
+				display: block;
+				margin: 0; padding: 0 10px 0 24px;
+				height: auto;
+				width: auto !important;
+				font-size: 12px !important;
+				line-height: 3em;
+				text-align: right;
+				color: @white;
+				background: @grayDark;
+				text-decoration: none;
+			}
+		}
+		.addthis_counter_twitter a {
+			background: #0bf url('../img/icon-tw.png') 5px center no-repeat;
+		}
+		.addthis_counter_facebook a {
+			background: #3b5998 url('../img/icon-fb.png') 5px center no-repeat;
+		}
+		.comment-counter a {
+			padding-left: 5px;
+			text-align: left;
+			i {
+				padding-right: 10px;
+			}
+		}
+
+	}
+
 
 /*	==========================================================================
 	Media Queries
