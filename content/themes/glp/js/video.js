@@ -209,6 +209,9 @@ function setup_players() {
 
             // Bind Pause
             $('#'+frameID).bind("player_pause_end", toggle_play_pause_button);
+            
+            // Bind End
+            $('#'+frameID).bind("player_end", play_next_video);
 
             //Bind ontimeupdate events
             $('#'+frameID).bind("player_time_update", videoUpdateTimer);
@@ -232,10 +235,14 @@ function onStateChange(frameID, identifier) {
                 }, 500);
             break;
 
-            case 2:
-            case 0:
-                // Video has been paused/ended
+            case 2: //Paused
                 $('#'+frameID).trigger("player_pause_end");
+                clearTimeout(t);
+            break;
+            
+            case 0: // Ended
+                $('#'+frameID).trigger("player_pause_end");
+                $('#'+frameID).trigger("player_end");
                 clearTimeout(t);
             break;
         }
@@ -440,4 +447,9 @@ function turn_out_the_lights() {
 
 function autoplay_video(event) {
     players[event.currentTarget.id].playVideo();
+}
+
+function play_next_video(event) {
+    var player = players[event.currentTarget.id];
+    console.log('video ended');
 }
