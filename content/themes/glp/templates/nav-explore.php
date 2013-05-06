@@ -39,7 +39,7 @@
 <?php endforeach; ?>
 				</select>
 			</li>
-<?php $proposals = get_posts(array('numberposts' => -1, 'post_type' => 'participant', 'meta_key' => 'proposed', 'meta_value' => 1)); if( count($proposals) > 0 ) : ?>
+<?php $proposed = get_posts(array('numberposts' => 1, 'post_type' => 'participant', 'meta_key' => 'proposed', 'meta_value' => 1)); if(count($proposed)) : ?>
 			<li><input name="proposed" type="checkbox" value="1" /> Show Proposed</li>
 <?php endif; ?>
 		</ul>

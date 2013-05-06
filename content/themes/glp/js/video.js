@@ -209,7 +209,7 @@ function setup_players() {
 
             // Bind Pause
             $('#'+frameID).bind("player_pause_end", toggle_play_pause_button);
-            
+
             // Bind End
             $('#'+frameID).bind("player_end", play_next_video);
 
@@ -239,7 +239,7 @@ function onStateChange(frameID, identifier) {
                 $('#'+frameID).trigger("player_pause_end");
                 clearTimeout(t);
             break;
-            
+
             case 0: // Ended
                 $('#'+frameID).trigger("player_pause_end");
                 $('#'+frameID).trigger("player_end");
