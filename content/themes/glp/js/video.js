@@ -286,6 +286,7 @@ function videoUpdateTimer(event) {
     var player = players[event.currentTarget.id];
     var m = parseInt( player.getCurrentTime() / 60, 10 ) % 60;
     var s = parseInt( player.getCurrentTime() % 60, 10);
+    if (s < 10) { s = "0" + s; }
     $('.control-time-current .time-m').text(m);
     $('.control-time-current .time-s').text(s);
 }
