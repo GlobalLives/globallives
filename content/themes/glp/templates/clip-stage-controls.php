@@ -50,7 +50,7 @@
             <div class="volume-slider-cntnr"><div class="volume-slider"></div></div>
         </a>
         <a data-control="fullscreen" class="controls btn"><span class="icon-fullscreen icon-white"></span></a>
-        <a data-control="comments" class="controls btn"><span class="icon-comment icon-white"></span></a>
-        <a data-control="dimmer" class="controls btn"><span class="icon-certificate icon-white"></span></a>
+        <a data-control="comments" class="controls btn comments active"><span class="icon-comment icon-white"></span></a>
+        <a data-control="dimmer" class="controls btn dimmer"><span class="icon-certificate icon-white"></span></a>
     </div>
 </div>

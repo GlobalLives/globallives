@@ -51,11 +51,11 @@ $(function() {
 		}
 		$('#popover').css('top', dy).css('left', dx + dx_offset);
 		$('#popover .popover-name').text(d.name);
-		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-occupation').text(d.occupation);
-		$('#popover .popover-gender').text(d.gender);
-		$('#popover .popover-income').text(d.income);
-		$('#popover .popover-age').text(d.age);
+		$('#popover .popover-location').text(d.location);
+		$('#popover .popover-gender').text(d.gender_label);
+		$('#popover .popover-income').text(d.income_label);
+		$('#popover .popover-age').text(d.age_label);
 		if (d.series !== '') { $('#popover .popover-series').html(d.series); }
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
@@ -116,7 +116,6 @@ $(function() {
 				$('#home').fadeIn('slow');
 			});
 		});
-
 	}
 
 /* Explore the Collection */
@@ -230,20 +229,11 @@ $(function() {
 			.attr('dx',-25).attr('dy',18);
 			label.append('tspan').attr('class','name')
 				.text(function(d) { return d.name; });
-			label.append('tspan').attr('class','location')
-				.text(function(d) { return d.location; })
-				.attr('x',-25).attr('dy',18);
 			label.append('tspan').attr('class','occupation')
 				.text(function(d) { return d.occupation; })
 				.attr('x',-25).attr('dy',18);
-			label.append('tspan').attr('class','gender')
-				.text(function(d) { return d.gender_label; })
-				.attr('x',-25).attr('dy',18);
-			label.append('tspan').attr('class','age')
-				.text(function(d) { return d.age_label; })
-				.attr('x',-25).attr('dy',18);
-			label.append('tspan').attr('class','income')
-				.text(function(d) { return d.income_label; })
+			label.append('tspan').attr('class','location')
+				.text(function(d) { return d.location; })
 				.attr('x',-25).attr('dy',18);
 
 		// Load the low-res country outlines, followed by hi-res to replace it when its ready
