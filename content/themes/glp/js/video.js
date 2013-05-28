@@ -458,6 +458,13 @@ function autoplay_video(event) {
 }
 
 function play_next_video(event) {
-    var player = players[event.currentTarget.id];
     console.log('video ended');
+    // var player = players[event.currentTarget.id];
+    var next_clip_id = $('#participant-clip').data('next-clip-id');
+    if ( next_clip_id ) {
+        $('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
+            { action: 'get_participant_clip', clip_id: next_clip_id },
+            function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
+        );
+    }
 }

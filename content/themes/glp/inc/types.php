@@ -109,6 +109,33 @@
 			'taxonomies' => array('clip_tag')
 		));
 	}
+	function get_clip_participant( $clip_id ) {
+		$participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => -1 ));
+		foreach( $participants as $participant ) {
+			if ( $clips = get_field('clips',$participant->ID) ) {
+				foreach( $clips as $clip ) {
+					if ($clip->ID == $clip_id) { return $participant; }
+				}
+			}
+		}
+		return $participant;
+	}
+	function get_next_clip( $clip_id ) {
+		$clip = get_post( $clip_id );
+		# Switch based on context
+		$next_clip = '';
+
+		# Participant
+		$participant = get_clip_participant( $clip_id );
+		$clips = get_field('clips',$participant->ID);
+		$clip_index = array_search($clip, $clips);
+		$next_clip = $clips[$clip_index++];
+		// print_r( $clip_index );
+		# Theme
+		# Queue
+
+		return $next_clip->ID;
+	}
 	
 /*	==========================================================================
 	Users
