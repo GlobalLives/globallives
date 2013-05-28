@@ -13,7 +13,7 @@
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="page" />Pages</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="post" />Articles</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="participant" />Participants</label>
-				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="tribe-event" />Events</label>
+				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="tribe_events" />Events</label>
 
 <!--
 					<h4><?php _e('Theme','glp'); ?></h4>
