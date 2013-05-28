@@ -35,6 +35,9 @@ var acf = {
 		type : function(){}
 	},
 	fields : {
+		date_picker : {
+			text : {}	
+		},
 		color_picker : {
 			farbtastic : null
 		},
@@ -58,8 +61,10 @@ var acf = {
 		},
 		wysiwyg : {
 			toolbars : {},
+			has_tinymce : function(){},
+			add_tinymce : function(){},
 			add_events : function(){},
-			has_tinymce : function(){}
+			remove_tinymce : function(){}
 		},
 		gallery : {
 			add : function(){},
@@ -229,7 +234,7 @@ var acf = {
 	*/
 	
 	$(document).ready(function(){
-
+		
 		// add classes
 		$('#poststuff .postbox[id*="acf_"]').addClass('acf_postbox');
 		$('#adv-settings label[for*="acf_"]').addClass('acf_hide_label');

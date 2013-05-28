@@ -2,6 +2,9 @@
 
 class acf_field_select extends acf_field
 {
+	// vars
+	var $defaults;
+	
 	
 	/*
 	*  __construct
@@ -18,6 +21,12 @@ class acf_field_select extends acf_field
 		$this->name = 'select';
 		$this->label = __("Select",'acf');
 		$this->category = __("Choice",'acf');
+		$this->defaults = array(
+			'multiple' 		=>	0,
+			'allow_null' 	=>	0,
+			'choices'		=>	array(),
+			'default_value'	=>	''
+		);
 		
 		
 		// do not delete!
@@ -46,15 +55,41 @@ class acf_field_select extends acf_field
 	function create_field( $field )
 	{
 		// vars
-		$defaults = array(
-			'value'			=>	array(),
-			'multiple' 		=>	0,
-			'allow_null' 	=>	0,
-			'choices'		=>	array(),
-			'optgroup'		=>	0,
-		);
+		$field = array_merge($this->defaults, $field);
+		$optgroup = false;
 		
-		$field = array_merge($defaults, $field);
+		
+		// determin if choices are grouped (2 levels of array)
+		if( is_array($field['choices']) )
+		{
+			foreach( $field['choices'] as $k => $v )
+			{
+				if( is_array($v) )
+				{
+					$optgroup = true;
+				}
+			}
+		}
+		
+		
+		// value must be array
+		if( !is_array($field['value']) )
+		{
+			// perhaps this is a default value with new lines in it?
+			if( strpos($field['value'], "\n") !== false )
+			{
+				// found multiple lines, explode it
+				$field['value'] = explode("\n", $field['value']);
+			}
+			else
+			{
+				$field['value'] = array( $field['value'] );
+			}
+		}
+		
+		
+		// trim value
+		$field['value'] = array_map('trim', $field['value']);
 		
 		
 		// multiple select
@@ -80,33 +115,21 @@ class acf_field_select extends acf_field
 		}
 		
 		// loop through values and add them as options
-		if( $field['choices'] )
+		if( is_array($field['choices']) )
 		{
-			foreach($field['choices'] as $key => $value)
+			foreach( $field['choices'] as $key => $value )
 			{
-				if($field['optgroup'])
+				if( $optgroup )
 				{
 					// this select is grouped with optgroup
 					if($key != '') echo '<optgroup label="'.$key.'">';
 					
-					if($value)
+					if( is_array($value) )
 					{
 						foreach($value as $id => $label)
 						{
-							$selected = '';
-							if(is_array($field['value']) && in_array($id, $field['value']))
-							{
-								// 2. If the value is an array (multiple select), loop through values and check if it is selected
-								$selected = 'selected="selected"';
-							}
-							else
-							{
-								// 3. this is not a multiple select, just check normaly
-								if($id == $field['value'])
-								{
-									$selected = 'selected="selected"';
-								}
-							}	
+							$selected = in_array($id, $field['value']) ? 'selected="selected"' : '';
+														
 							echo '<option value="'.$id.'" '.$selected.'>'.$label.'</option>';
 						}
 					}
@@ -115,20 +138,7 @@ class acf_field_select extends acf_field
 				}
 				else
 				{
-					$selected = '';
-					if(is_array($field['value']) && in_array($key, $field['value']))
-					{
-						// 2. If the value is an array (multiple select), loop through values and check if it is selected
-						$selected = 'selected="selected"';
-					}
-					else
-					{
-						// 3. this is not a multiple select, just check normaly
-						if($key == $field['value'])
-						{
-							$selected = 'selected="selected"';
-						}
-					}	
+					$selected = in_array($key, $field['value']) ? 'selected="selected"' : '';
 					echo '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
 				}
 			}
@@ -153,18 +163,10 @@ class acf_field_select extends acf_field
 	
 	function create_options( $field )
 	{
-		// vars
-		$defaults = array(
-			'multiple'		=>	0,
-			'allow_null'	=>	0,
-			'default_value' => '',
-			'choices'		=>	'',
-		);
-		
-		$field = array_merge($defaults, $field);
+		$field = array_merge($this->defaults, $field);
 		$key = $field['name'];
-		
-				
+
+
 		// implode choices so they work in a textarea
 		if( is_array($field['choices']) )
 		{		
@@ -179,37 +181,37 @@ class acf_field_select extends acf_field
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
 		<label for=""><?php _e("Choices",'acf'); ?></label>
-		<p class="description"><?php _e("Enter your choices one per line",'acf'); ?><br />
-		<br />
-		<?php _e("Red",'acf'); ?><br />
-		<?php _e("Blue",'acf'); ?><br />
-		<br />
-		<?php _e("red : Red",'acf'); ?><br />
-		<?php _e("blue : Blue",'acf'); ?><br />
-		</p>
+		<p><?php _e("Enter each choice on a new line.",'acf'); ?></p>
+		<p><?php _e("For more control, you may specify both a value and label like this:",'acf'); ?></p>
+		<p><?php _e("red : Red",'acf'); ?><br /><?php _e("blue : Blue",'acf'); ?></p>
 	</td>
 	<td>
-		<?php 
+		<?php
+		
 		do_action('acf/create_field', array(
 			'type'	=>	'textarea',
 			'class' => 	'textarea field_option-choices',
 			'name'	=>	'fields['.$key.'][choices]',
 			'value'	=>	$field['choices'],
 		));
+		
 		?>
 	</td>
 </tr>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
 	<td class="label">
 		<label><?php _e("Default Value",'acf'); ?></label>
+		<p class="description"><?php _e("Enter each default value on a new line",'acf'); ?></p>
 	</td>
 	<td>
-		<?php 
+		<?php
+		
 		do_action('acf/create_field', array(
-			'type'	=>	'text',
+			'type'	=>	'textarea',
 			'name'	=>	'fields['.$key.'][default_value]',
 			'value'	=>	$field['default_value'],
 		));
+		
 		?>
 	</td>
 </tr>
@@ -302,11 +304,7 @@ class acf_field_select extends acf_field
 	function update_field( $field, $post_id )
 	{
 		// vars
-		$defaults = array(
-			'choices'	=>	'',
-		);
-		
-		$field = array_merge($defaults, $field);
+		$field = array_merge($this->defaults, $field);
 		
 		
 		// check if is array. Normal back end edit posts a textarea, but a user might use update_field from the front end

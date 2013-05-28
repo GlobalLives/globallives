@@ -159,45 +159,53 @@ class acf_field_group
 		}
 		
 		
-		// defaults
-		$location = array(
-		 	'rules'		=>	array(),
-		 	'allorany'	=>	'all', 
-		 );
-		
-		
 		// vars
-		$allorany = get_post_meta($post_id, 'allorany', true);
-		if( $allorany )
-		{
-			$location['allorany'] = $allorany;
-		}
+		$groups = array();
+		$group_no = 0;
 		
 		
-		// get all fields
+		// get all rules
 	 	$rules = get_post_meta($post_id, 'rule', false);
 	 	
-
-	 	if($rules)
+	 	
+	 	if( is_array($rules) )
 	 	{
-	 		
-		 	foreach($rules as $rule)
+		 	foreach( $rules as $rule )
 		 	{
 		 		// if field group was duplicated, it may now be a serialized string!
 		 		$rule = maybe_unserialize($rule);
-		
-		
-		 		$location['rules'][ $rule['order_no'] ] = $rule;
+		 		
+		 		
+			 	// does this rule have a group?
+			 	// + groups were added in 4.0.4
+			 	if( !isset($rule['group_no']) )
+			 	{
+				 	$rule['group_no'] = $group_no;
+				 	
+				 	// sperate groups?
+				 	if( get_post_meta($post_id, 'allorany', true) == 'any' )
+				 	{
+					 	$group_no++;
+				 	}
+			 	}
+			 	
+			 	
+			 	// add to group
+			 	$groups[ $rule['group_no'] ][ $rule['order_no'] ] = $rule;
+			 	
+			 	
+			 	// sort rules
+			 	ksort( $groups[ $rule['group_no'] ] );
+	 	
 		 	}
+		 	
+		 	// sort groups
+			ksort( $groups );
 	 	}
-	 	
-	 	
-	 	// sort
-	 	ksort($location['rules']);
-	 	
+	 		 	
 	 	
 	 	// return fields
-		return $location;
+		return $groups;
 	}
 	
 	
@@ -418,9 +426,9 @@ class acf_field_group
 	{
 	    $current .= '<h5>' . __("Fields",'acf') . '</h5>';
 	    
-	    $current .= '<div class="show-field_key">Show Field Key:';
-	    	 $current .= '<label class="show-field_key-no"><input checked="checked" type="radio" value="0" name="show-field_key" /> No</label>';
-	    	 $current .= '<label class="show-field_key-yes"><input type="radio" value="1" name="show-field_key" /> Yes</label>';
+	    $current .= '<div class="show-field_key">' . __("Show Field Key:",'acf');
+			$current .= '<label class="show-field_key-no"><input checked="checked" type="radio" value="0" name="show-field_key" />' . __("No",'acf') . '</label>';
+			$current .= '<label class="show-field_key-yes"><input type="radio" value="1" name="show-field_key" />' . __("Yes",'acf') . '</label>';
 		$current .= '</div>';
 	    
 	    return $current;
@@ -489,11 +497,12 @@ class acf_field_group
 	*  @created: 23/06/12
 	*/
 	
-	function ajax_render_location($options = array())
+	function ajax_render_location( $options = array() )
 	{
 		// defaults
 		$defaults = array(
-			'key' => null,
+			'group_id' => 0,
+			'rule_id' => 0,
 			'value' => null,
 			'param' => null,
 		);
@@ -517,7 +526,6 @@ class acf_field_group
 		
 		// vars
 		$choices = array();
-		$optgroup = false;
 		
 		
 		// some case's have the same outcome
@@ -539,7 +547,6 @@ class acf_field_group
 			
 			case "page":
 				
-				$optgroup = true;
 				$post_types = get_post_types( array('capability_type'  => 'page') );
 				unset( $post_types['attachment'], $post_types['revision'] , $post_types['nav_menu_item'], $post_types['acf']  );
 				
@@ -623,7 +630,6 @@ class acf_field_group
 			
 			case "post" :
 				
-				$optgroup = true;
 				$post_types = get_post_types( array('capability_type'  => 'post') );
 				unset( $post_types['attachment'], $post_types['revision'] , $post_types['nav_menu_item'], $post_types['acf']  );
 				
@@ -698,7 +704,6 @@ class acf_field_group
 				$choices = array();
 				$simple_value = true;
 				$choices = apply_filters('acf/get_taxonomies_for_select', $choices, $simple_value);
-				$optgroup = true;
 								
 				break;
 			
@@ -746,10 +751,9 @@ class acf_field_group
 		// create field
 		do_action('acf/create_field', array(
 			'type'	=>	'select',
-			'name'	=>	'location[rules][' . $options['key'] . '][value]',
+			'name' => 'location[' . $options['group_id'] . '][' . $options['rule_id'] . '][value]',
 			'value'	=>	$options['value'],
 			'choices' => $choices,
-			'optgroup' => $optgroup,
 		));
 		
 		
@@ -882,22 +886,30 @@ class acf_field_group
 		
 		if( isset($_POST['location']) && is_array($_POST['location']) )
 		{
-			update_post_meta($post_id, 'allorany', $_POST['location']['allorany']);
+			delete_post_meta( $post_id, 'rule' );
 			
-			delete_post_meta($post_id, 'rule');
-			if( $_POST['location']['rules'] )
+			
+			// clean array keys
+			$_POST['location'] = array_values( $_POST['location'] );
+			foreach( $_POST['location'] as $group_id => $group )
 			{
-				foreach($_POST['location']['rules'] as $k => $rule)
+				if( is_array($group) )
 				{
-					$rule['order_no'] = $k;
-					add_post_meta($post_id, 'rule', $rule);
+					// clean array keys
+					$group = array_values( $group );
+					foreach( $group as $rule_id => $rule )
+					{
+						$rule['order_no'] = $rule_id;
+						$rule['group_no'] = $group_id;
+						
+
+						add_post_meta( $post_id, 'rule', $rule );
+					}
 				}
 			}
+			
 			unset( $_POST['location'] );
 		}
-		
-		
-		
 		
 		
 		/*

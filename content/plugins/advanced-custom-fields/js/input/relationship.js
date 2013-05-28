@@ -23,31 +23,44 @@
 		
 		$(postbox).find('.acf_relationship').each(function(){
 			
+			// vars
+			var $div = $(this),
+				$input = $div.children('input[type="hidden"]'),
+				$left = $div.find('.relationship_left'),
+				$right = $div.find('.relationship_right');
+			
+			
 			// is clone field?
-			if( acf.helpers.is_clone_field($(this).children('input[type="hidden"]')) )
+			if( acf.helpers.is_clone_field( $input ) )
 			{
 				return;
 			}
 			
 			
-			$(this).find('.relationship_right .relationship_list').sortable({
+			// set height of right column
+			$right.find('.relationship_list').height( $left.height() -2 );
+			
+			
+			// right sortable
+			$right.find('.relationship_list').sortable({
 				axis: "y", // limit the dragging to up/down only
 				items: '> li',
 				forceHelperSize: true,
 				forcePlaceholderSize: true,
-				scroll: true
+				scroll: true,
+				update : function(){
+					
+					$input.trigger('change');
+					
+				}
 			});
 			
 			
 			// load more
-			$(this).find('.relationship_left .relationship_list').scrollTop(0).scroll( function(){
-				
-				// vars
-				var div = $(this).closest('.acf_relationship');
-				
+			$left.find('.relationship_list').scrollTop( 0 ).scroll( function(){
 				
 				// validate
-				if( div.hasClass('loading') )
+				if( $div.hasClass('loading') )
 				{
 					return;
 				}
@@ -56,18 +69,18 @@
 				// Scrolled to bottom
 				if( $(this).scrollTop() + $(this).innerHeight() >= $(this).get(0).scrollHeight )
 				{
-					var paged = parseInt( div.attr('data-paged') );
+					var paged = parseInt( $div.attr('data-paged') );
 					
-					div.attr('data-paged', (paged + 1) );
+					$div.attr('data-paged', (paged + 1) );
 					
-					_relationship.update_results( div );
+					_relationship.update_results( $div );
 				}
 
 			});
 			
 			
 			// ajax fetch values for left side
-			_relationship.update_results( $(this) );
+			_relationship.update_results( $div );
 			
 		});
 		
@@ -119,12 +132,19 @@
 
 
 		// add new li
-		right.append( new_li );
+		$el = $(new_li);
+		right.append( $el );
+		
+		
+		// trigger change on new_li
+		$el.find('input').trigger('change');
 		
 		
 		// validation
 		div.closest('.field').removeClass('error');
 		
+		
+		$(this).blur();
 		return false;
 		
 	});
@@ -152,6 +172,13 @@
 		
 		// show
 		left.find('a[data-post_id="' + id + '"]').parent('li').removeClass('hide');
+		
+		
+		$(this).blur();
+		
+		
+		// trigger change
+		div.children('input[type="hidden"]').trigger('change');
 		
 		
 		return false;
@@ -301,8 +328,7 @@
 			dataType: 'html',
 			data: $.extend( attributes, { 
 				action : 'acf/fields/relationship/query_posts', 
-				field_name : div.parent().attr('data-field_name'),
-				field_key : div.parent().attr('data-field_key'),
+				post_id : acf.post_id,
 				nonce : acf.nonce
 			}),
 			success: function( html ){

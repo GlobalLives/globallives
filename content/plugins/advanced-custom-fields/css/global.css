@@ -238,17 +238,17 @@ table.acf_input tbody tr td {
 	border-bottom: 0 none;
 }
 
-table.acf_input tbody tr:first-child td,
-table.acf_input tbody tr:first-child td.label {
-	border-top: 0 none;
-}
-
 table.acf_input tbody tr td.label {
 	width: 24%;
 	vertical-align: top;
 	background: #F9F9F9;
 	border-top: 1px solid #f0f0f0;
     border-right: 1px solid #E1E1E1;
+}
+
+table.acf_input > tbody > tr:first-child > td,
+table.acf_input > tbody > tr:first-child > td.label {
+	border-top: 0 none;
 }
 
 table.acf_input td.label ul.hl {
@@ -265,14 +265,13 @@ table.acf_input td.label ul.hl li a.acf-button {
 	font-weight: normal;
 }
 
-table.acf_input tbody tr td.label label{
+table.acf_input tbody tr td.label label {
 	display: block;
 	font-size: 12px;
 	font-weight: bold;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 6px;
 	color: #333;
-	
 }
 
 table.acf_input tbody tr td.label label span.required {
@@ -282,11 +281,11 @@ table.acf_input tbody tr td.label label span.required {
 }
 
 
-table.acf_input tbody tr td.label p{
+table.acf_input tbody tr td.label p {
 	display: block;
 	font-size: 12px;
-	padding: 6px 0 !important;
-	margin: 0 !important;
+	padding: 0 !important;
+	margin: 3px 0 0 !important;
 	font-style: normal;
 	line-height: 16px;
 	color: #666;
@@ -336,10 +335,10 @@ ul.checkbox_list {
 	margin: 0;
 }
 
-ul.radio_list input,
-ul.checkbox_list input {
-	margin-right: 5px;
-	width: auto;
+ul.radio_list li input,
+ul.checkbox_list li input {
+	margin-right: 5px !important;
+	width: auto !important;
 }
 
 
