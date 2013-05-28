@@ -204,9 +204,9 @@
             if ( 'favorite' != $toggle_type ) return $response;
 
             if ($toggled_on)
-                $response = __('&hearts; Remove from Favorites', 'glp');
+                $response = __('&hearts; Unfavorite', 'glp');
             else
-                $response = __('&hearts; Add to Favorites', 'glp');
+                $response = __('&hearts; Favorite', 'glp');
 
             return $response;
         }
