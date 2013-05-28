@@ -29,7 +29,7 @@ $(function() {
             break;
 
             case 'comments':
-                $('.clip-markers').toggle();
+                toggle_comments();
             break;
 
             case 'dimmer':
@@ -440,10 +440,17 @@ function setup_volume_slider(event) {
 function turn_out_the_lights() {
     if ( $('#shadow').length ) {
         $('#shadow').remove();
+        $('.control-buttons-cntnr .dimmer').removeClass('active');
     }
     else {
         $('body').append('<div id="shadow"></div>');
+        $('.control-buttons-cntnr .dimmer').addClass('active');
     }
+}
+
+function toggle_comments() {
+    $('.clip-markers').toggle();
+    $('.control-buttons-cntnr .comments').toggleClass('active');
 }
 
 function autoplay_video(event) {
