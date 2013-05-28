@@ -1,13 +1,14 @@
 #gridview {
 	position: relative;
-    width: 100%;
-    overflow: hidden;
+    // width: 100%;
+    overflow: auto;
     #gradient > .vertical(@black,@grayDarker);
     .participant-grid {
+        margin: 0;
     	position: relative;
     	float: left;
-    	width: 16.666666%;
-    	padding-bottom: 12.5%;
+        width: 25%;
+    	padding-bottom: 18.75%;
         background: @black;
     	overflow: hidden;
     	.participant-meta {
@@ -30,6 +31,7 @@
     		top: 0; bottom: 0; left: 0; right: 0;
     		margin: auto;
             max-width: none;
+
     	}
     }
 }
