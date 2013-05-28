@@ -44,6 +44,11 @@
 		#gradient > .vertical(@white,@grayLighter);
 		color: @grayDark;
 		text-shadow: none;
+		&:hover {
+			#gradient > .vertical(@white,@grayLight);
+			background-position: center;
+			color: @grayDark;
+		}
 	}
 	.modal-header {
 		color: @grayDark;
@@ -248,7 +253,7 @@
 		}
 	}
 	#explore {
-		padding: 5em 0;
+		padding: 1.5em 0;
 		text-align: center;
 		color: @white;
 		border-top: 1px dotted @white;
