@@ -11,6 +11,10 @@
     	padding-bottom: 18.75%;
         background: @black;
     	overflow: hidden;
+        transition: opacity .5s;
+        &.filtered {
+            opacity: 0.25;
+        }
     	.participant-meta {
     		position: absolute;
     		box-sizing: border-box;

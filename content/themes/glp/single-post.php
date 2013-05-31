@@ -32,9 +32,6 @@
 		</div>
 	</div>
 	<div class="single-post-content span9">
-		<?php if (has_post_thumbnail()) : ?>
-		<div class="entry-thumbnail"><?php echo get_the_post_thumbnail(); ?></div>
-		<?php endif; ?>
 		<div class="entry-meta">
 			<div class="entry-author"><?php echo __('By','glp'); ?> <?php the_author(); ?> / <?php echo __('Posted in','glp'); ?> <?php the_category(' ');?></div>
 			<div class="entry-tags"><?php echo __('Tags:','glp'); ?> <?php the_tags(' '); ?></div>

@@ -307,6 +307,7 @@ function enable_taggable_area() {
         else {
             $(this).popover('hide');
             // Do something here, maybe link the user to the login page?
+            alert('You must be logged in to comment.');
             return false;
         }
     });

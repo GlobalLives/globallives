@@ -6,13 +6,13 @@
 					<li class="featured-thumbnail home-thumbnail span2 active"><img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo-featured.png"></li>
 					<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 5 )); // First row only grabs 5, because of the "Home" thumbnail ?>
 					<?php foreach ($participants as $participant) : ?>
-					<li class="featured-thumbnail participant-thumbnail span2" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>" data-original-title="<?php echo get_the_title($participant->ID); ?>" data-id="<?php echo $participant->ID; ?>"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>"></li>
+					<li class="featured-thumbnail participant-thumbnail span2" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-animation="false" data-content="<?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>" data-original-title="<?php echo get_the_title($participant->ID); ?>" data-id="<?php echo $participant->ID; ?>"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>"></li>
 					<?php endforeach; ?>
 				</div>
 				<div class="item row">
 					<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 6, 'offset' => 5 )); // First row only grabs 5, because of the "Home" thumbnail ?>
 					<?php foreach ($participants as $participant) : ?>
-					<li class="featured-thumbnail participant-thumbnail span2" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>" data-original-title="<?php echo get_the_title($participant->ID); ?>" data-id="<?php echo $participant->ID; ?>"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>"></li>
+					<li class="featured-thumbnail participant-thumbnail span2" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-animation="false" data-content="<?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>" data-original-title="<?php echo get_the_title($participant->ID); ?>" data-id="<?php echo $participant->ID; ?>"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>"></li>
 					<?php endforeach; ?>
 				</div>
 			</ul>

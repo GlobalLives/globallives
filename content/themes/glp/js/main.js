@@ -158,8 +158,8 @@ $(function() {
 					d3.selectAll('#marker-'+this.id).classed('filtered',false);
 				}
 			});
-			$('.participant-grid').hide();
-			$('.participant-grid:not(.filtered)').fadeIn();
+			// $('.participant-grid').hide();
+			// $('.participant-grid:not(.filtered)').fadeIn();
 			return false;
 		});
 

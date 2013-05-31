@@ -257,6 +257,9 @@
 		text-align: center;
 		color: @white;
 		border-top: 1px dotted @white;
+		a:last-child {
+			margin: 0 1em;
+		}
 	}
 	.participant-summary {
 		position: relative;
@@ -354,8 +357,8 @@
 
 	}
 	.blog #wrap, .single-post #wrap {
-		background: transparent center top no-repeat scroll;
-		background-size: auto;
+		background: transparent center top no-repeat fixed;
+		background-size: cover;
 	}
 	.blog-title {
 		background-image: url('../img/logo-blog.png');

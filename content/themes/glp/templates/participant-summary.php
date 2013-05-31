@@ -27,7 +27,7 @@
 		<?php
 			if ( $summary_video = get_field('summary_video') ) {
 				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
-				get_template_part('templates/clip','stage');
+				get_template_part('templates/clip','summary');
 				wp_reset_query();
 			}
 		?>
