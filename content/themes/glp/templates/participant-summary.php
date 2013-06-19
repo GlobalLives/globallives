@@ -2,6 +2,8 @@
 	<article id="post-<?php the_ID(); ?>" <?php post_class('participant-summary'); ?><?php if (has_post_thumbnail()) : ?> data-bg="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>"<?php endif; ?>>
 		<header>
 	    	<h2 class="participant-title"><?php the_title(); ?><span class="participant-location"> &mdash; <?php the_field('location'); ?></span></h2>
+	    	<?php $item_id = get_the_ID(); $class = "btn"; include(locate_template('templates/link-favorite.php')); ?>
+
 	    </header>
 	    <div class="row">
 		<div class="span4">
@@ -19,13 +21,13 @@
 	    	<div class="participant-content">
 			    <?php the_content(); ?>
 			</div>
-			<a class="btn" href="<?php the_permalink(); ?>">&#9658;&nbsp;<?php _e('Full Story','glp'); ?></a>
+			<a class="btn btn-inverse" href="<?php the_permalink(); ?>">&#9658;&nbsp;<?php _e('Learn More','glp'); ?></a>
 		</div>
 		<div class="span8">
 		<?php
 			if ( $summary_video = get_field('summary_video') ) {
 				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
-				get_template_part('templates/clip','stage');
+				get_template_part('templates/clip','summary');
 				wp_reset_query();
 			}
 		?>

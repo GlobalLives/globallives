@@ -1,0 +1,87 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Really Simple Twitter Feed Widget\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/really-simple-twitter-feed-widget\n"
+"POT-Creation-Date: 2011-11-18 19:06:59+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-03-27 23:59+0100\n"
+"Last-Translator: whiletrue <info@whiletrue.it>\n"
+"Language-Team: whiletrue <info@whiletrue.it>\n"
+"X-Poedit-Language: Italian\n"
+
+#: really_simple_twitter_widget.php:30
+msgid "RSS not configured"
+msgstr "RSS non configurato"
+
+#: really_simple_twitter_widget.php:34
+msgid "Number of tweets not valid"
+msgstr "Numero di tweet non valido"
+
+#: really_simple_twitter_widget.php:55
+msgid "WP Error: Feed not created correctly"
+msgstr "WP Error: Feed non creato correttamente"
+
+#: really_simple_twitter_widget.php:61
+msgid "No public Twitter messages"
+msgstr "Nessun tweet pubblico"
+
+#: really_simple_twitter_widget.php:117
+msgid "%s ago"
+msgstr "%s fa"
+
+#: really_simple_twitter_widget.php:117
+msgid "M d"
+msgstr "d M"
+
+#: really_simple_twitter_widget.php:118
+msgid "Y/m/d H:i"
+msgstr "H:i d/m/Y"
+
+#: really_simple_twitter_widget.php:144
+msgid "Title"
+msgstr "Titolo"
+
+#: really_simple_twitter_widget.php:149
+msgid "Twitter Username"
+msgstr "Twitter Username"
+
+#: really_simple_twitter_widget.php:154
+msgid "Show # of Tweets"
+msgstr "Mostra n. tweet"
+
+#: really_simple_twitter_widget.php:159
+msgid "Show this linked text for each Tweet"
+msgstr "Mostra questo testo per link in ogni tweet"
+
+#: really_simple_twitter_widget.php:164
+msgid "Skip tweets containing this text"
+msgstr "Salta i tweet che contengono il testo seguente"
+
+#: really_simple_twitter_widget.php:169
+msgid "Link above Title with Twitter user"
+msgstr "Linka il titolo alla pagina Twitter dell'utente"
+
+#: really_simple_twitter_widget.php:174
+msgid "Show timestamps"
+msgstr "Mostra data e ora"
+
+#: really_simple_twitter_widget.php:179
+msgid "Find and show hyperlinks"
+msgstr "Cerca e mostra link"
+
+#: really_simple_twitter_widget.php:184
+msgid "Find Replies in Tweets"
+msgstr "Linka i retweet"
+
+#: really_simple_twitter_widget.php:189
+msgid "UTF8 Encode"
+msgstr "Codifica UTF8"
+
+#: really_simple_twitter_widget.php:229
+msgid "Last Tweets"
+msgstr "Tweet recenti"
+

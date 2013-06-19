@@ -7,6 +7,7 @@
 */
 
 var acf = {
+	ajaxurl : '',
 	admin_url : '',
 	wp_version : '0',
 	post_id : 0,
@@ -23,7 +24,8 @@ var acf = {
 		uniqid : function(){},
 		sortable : function(){},
 		add_message : function(){},
-		is_clone_field : function(){}
+		is_clone_field : function(){},
+		url_to_object : function(){}
 	},
 	conditional_logic : {},
 	media : {
@@ -33,6 +35,9 @@ var acf = {
 		type : function(){}
 	},
 	fields : {
+		date_picker : {
+			text : {}	
+		},
 		color_picker : {
 			farbtastic : null
 		},
@@ -56,8 +61,10 @@ var acf = {
 		},
 		wysiwyg : {
 			toolbars : {},
+			has_tinymce : function(){},
+			add_tinymce : function(){},
 			add_events : function(){},
-			has_tinymce : function(){}
+			remove_tinymce : function(){}
 		},
 		gallery : {
 			add : function(){},
@@ -75,24 +82,6 @@ var acf = {
 			text : {
 				max : "Maximum values reached ( {max} values )"
 			}
-		},
-		repeater : {
-			update_order : function(){},
-			set_column_widths : function(){},
-			add_sortable : function(){},
-			update_classes : function(){},
-			add_row : function(){},
-			remove_row : function(){},
-			text : {
-				min : "Minimum rows reached ( {min} rows )",
-				max : "Maximum rows reached ( {max} rows )"
-			}
-		},
-		flexible_content : {
-			add_sortable : function(){},
-			update_order : function(){},
-			add_layout : function(){},
-			remove_layout : function(){}
 		}
 	}
 };
@@ -145,7 +134,7 @@ var acf = {
 	
 	
 	/*
-	*  Helper uniqid
+	*  Helper: uniqid
 	*
 	*  @description: 
 	*  @since: 3.5.8
@@ -156,7 +145,33 @@ var acf = {
     {
     	var newDate = new Date;
     	return newDate.getTime();
-    }
+    };
+    
+    
+    /*
+	*  Helper: url_to_object
+	*
+	*  @description: 
+	*  @since: 4.0.0
+	*  @created: 17/01/13
+	*/
+	
+    acf.helpers.url_to_object = function( url ){
+	    
+	    // vars
+	    var obj = {},
+	    	pairs = url.split('&');
+	    
+	    
+		for( i in pairs )
+		{
+		    var split = pairs[i].split('=');
+		    obj[decodeURIComponent(split[0])] = decodeURIComponent(split[1]);
+		}
+		
+		return obj;
+	    
+    };
     
 	
 	/*
@@ -219,7 +234,7 @@ var acf = {
 	*/
 	
 	$(document).ready(function(){
-
+		
 		// add classes
 		$('#poststuff .postbox[id*="acf_"]').addClass('acf_postbox');
 		$('#adv-settings label[for*="acf_"]').addClass('acf_hide_label');
@@ -276,8 +291,8 @@ var acf = {
 	*  @created: 17/01/13
 	*/
 	
-	$('form#post').live("submit", function(){
-		
+	$('form#post').live('submit', function(){
+			
 		if( ! save_post )
 		{
 			// do validation
@@ -304,7 +319,7 @@ var acf = {
 		// remove hidden postboxes
 		$('.acf_postbox.acf-hidden').remove();
 		
-		
+
 		// submit the form
 		return true;
 		
@@ -386,13 +401,13 @@ var acf = {
 	acf.conditional_logic.calculate = function( options )
 	{
 		// vars
-		var field = $('.field-' + options.field),
-			toggle = $('.field-' + options.toggle),
+		var field = $('.field_key-' + options.field),
+			toggle = $('.field_key-' + options.toggle),
 			r = false;
 		
 		
 		// compare values
-		if( toggle.hasClass('field-true_false') || toggle.hasClass('field-checkbox') || toggle.hasClass('field-radio') )
+		if( toggle.hasClass('field_type-true_false') || toggle.hasClass('field_type-checkbox') || toggle.hasClass('field_type-radio') )
 		{
 			if( options.operator == "==" )
 			{
@@ -412,16 +427,24 @@ var acf = {
 		}
 		else
 		{
+			// get val and make sure it is an array
+			var val = toggle.find('*[name]:last').val();
+			if( !$.isArray(val) )
+			{
+				val = [ val ];
+			}
+			
+			
 			if( options.operator == "==" )
 			{
-				if( toggle.find('*[name]').val() == options.value )
+				if( $.inArray(options.value, val) > -1 )
 				{
 					r = true;
 				}
 			}
 			else
 			{
-				if( toggle.find('*[name]').val() != options.value )
+				if( $.inArray(options.value, val) < 0 )
 				{
 					r = true;
 				}
@@ -444,7 +467,19 @@ var acf = {
 	$(window).load(function(){
 		
 		setTimeout(function(){
+			
+			// Hack for CPT without a content editor
+			try
+			{
+				wp.media.view.settings.post.id = acf.post_id;	
+			} 
+			catch(e)
+			{
+				// one of the objects was 'undefined'...
+			}
+			
 
+			
 			// setup fields
 			$(document).trigger('acf/setup_fields', $('#poststuff'));
 			

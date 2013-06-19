@@ -1,0 +1,41 @@
+#gridview {
+	position: relative;
+    // width: 100%;
+    overflow: auto;
+    #gradient > .vertical(@black,@grayDarker);
+    .participant-grid {
+        margin: 0;
+    	position: relative;
+    	float: left;
+        width: 25%;
+    	padding-bottom: 18.75%;
+        background: @black;
+    	overflow: hidden;
+        transition: opacity .5s;
+        &.filtered {
+            opacity: 0.25;
+        }
+    	.participant-meta {
+    		position: absolute;
+    		box-sizing: border-box;
+    		height: 100%; width: 100%;
+    		padding: 0 1em;
+    		border: 5px solid @white;
+    		z-index: 2;
+    		color: @white;
+    		background: @red;
+    		opacity: 0;
+    		transition: opacity 0.33s;
+    	}
+    	&:hover .participant-meta {
+    		opacity: 0.75;
+    	}
+    	img {
+    		position: absolute;
+    		top: 0; bottom: 0; left: 0; right: 0;
+    		margin: auto;
+            max-width: none;
+
+    	}
+    }
+}

@@ -13,26 +13,39 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <div id="tribe-events-content" class="upcoming">
 
 	<div id="tribe-events-loop" class="tribe-events-events post-list clearfix">
+<?php
 	
-	<?php query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'upcoming' ))); ?>	
-	<?php if (have_posts()) : ?>
-	<?php $hasPosts = true; $first = true; ?>
-	
+	# First get upcoming
+	query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'upcoming' )));
+	if (have_posts()) :
+		$hasPosts = true; $first = true;
+?>
+
 	<h3><?php _e('Upcoming Events','glp'); ?></h3>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
 		<?php get_template_part('templates/content','event'); ?>		
-	<?php endwhile; wp_reset_query();// posts ?>
+	<?php endwhile; wp_reset_query(); // posts ?>
 
-	<?php query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'past' ))); ?>	
+<?php
+	
+	else :
+
+	# Then get past
+	query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'past' )));
+	if (have_posts()) :
+
+?>
 
 	<h3><?php _e('Past Events','glp'); ?></h3>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
-		<?php get_template_part('templates/content','event'); ?>		
-	<?php endwhile; wp_reset_query();// posts ?>
+		<?php get_template_part('templates/content','event'); ?>
+	<?php endwhile; wp_reset_query(); // posts ?>
 	
-	<?php else :?>
+<?php
+	else : // Not even past events 
+?>
 		<div class="tribe-events-no-entry">
 		<?php 
 			$tribe_ecp = TribeEvents::instance();
@@ -59,7 +72,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php } ?>
 		</div>
 	<?php endif; ?>
-
+<?php endif; ?>
 
 	</div><!-- #tribe-events-loop -->
 <?php /*	<div id="tribe-events-nav-below" class="tribe-events-nav clearfix">
