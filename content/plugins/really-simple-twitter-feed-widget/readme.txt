@@ -3,8 +3,8 @@ Contributors: whiletrue
 Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
-Tested up to: 3.5.1
-Stable tag: 2.3
+Tested up to: 3.5.2
+Stable tag: 2.4
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -13,9 +13,7 @@ This plugin displays the latest posts from a Twitter account in a sidebar widget
 Twitter API 1.1 ready, with easy customization of number of posts shown and replies detection.
 
 
-= Breaking news = 
-
-Starting from the 2.0 release, the plugin is based on Twitter API version 1.1. 
+The plugin is based on Twitter API version 1.1. 
 In order to use it, you have to create a personal Twitter Application on the [dev.twitter.com](https://dev.twitter.com/apps "dev.twitter.com") website.
 Within your Application, Twitter provides two strings: the Consumer Key and the Consumer Secret.
 You also need two other strings, the Access Token and the Access Token Secret, that you can get
@@ -25,7 +23,7 @@ Finally, enter all the Authorization string in the widget options box, along wit
 You can use the same Authorization strings for several widgets and multiple website. 
 Just remember to store them in a safe place!
 
-You also need to enable the CURL and OPENSSL extensions in your PHP environment.
+You also need CURL and OPENSSL extensions enabled in your PHP environment.
 
 = Reference =
 
@@ -88,6 +86,23 @@ Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - ht
 2. Options available in the Settings menu 
 
 == Changelog ==
+
+= 2.4 =
+* Added: Twitter Follow @user button with text customization
+* Changed: more compact and clean settings ui
+
+= 2.3.99 =
+* Fixed: revert to older Codebird version (PHP < 5.3 compatible)
+
+= 2.3.1.2 =
+* Fixed: previous Codebird version now available when running PHP < 5.3 
+
+= 2.3.1.1 =
+* Fixed: class_exists check is now namespace safe
+
+= 2.3.1 =
+* Changed: updated Codebird library
+* Changed: better error handling 
 
 = 2.3 =
 * Changed: updated timestamp function, following the current Twitter guidelines 
@@ -230,6 +245,18 @@ Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - ht
 
 
 == Upgrade Notice ==
+
+= 2.3.99 =
+Revert to old Codebird version, users running PHP < 5.3 MUST upgrade (we apologize)
+
+= 2.3.1.2 =
+Previous Codebird version now available, users running PHP < 5.3 should upgrade 
+
+= 2.3.1.1 =
+The class_exists check is now namespace safe, users with multiple Codebird instances should upgrade
+
+= 2.3.1 =
+When using this release, PHP >= 5.3 is needed (required by the latest Codebird Twitter API), users running PHP < 5.3 should upgrade at least to the 2.3.1.2 plugin release.
 
 = 2.0 =
 This plugin is based on Twitter API version 1, that will be deleted on March 2013. 

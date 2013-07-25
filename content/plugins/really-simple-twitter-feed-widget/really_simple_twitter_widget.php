@@ -4,7 +4,7 @@ Plugin Name: Really Simple Twitter Feed Widget
 Plugin URI: http://www.whiletrue.it/
 Description: Displays your public Twitter messages in the sidbar of your blog. Simply add your username and all your visitors can see your tweets!
 Author: WhileTrue
-Version: 2.3
+Version: 2.4
 Author URI: http://www.whiletrue.it/
 */
 /*
@@ -31,8 +31,8 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 
 		$this->options = array(
 			array(
-				'label' => __( 'Twitter Authentication options', 'rstw' ),
-				'type'	=> 'separator', 	'notes' => __('Get them creating your Twitter Application', 'rstw' ).' <a href="https://dev.twitter.com/apps" target="_blank">'.__('here', 'rstw' ).'</a><br /><br />'	),
+				'label' => __( 'Twitter Authentication', 'rstw' ),
+				'type'	=> 'separator', 	'notes' => __('Get them creating your Twitter Application', 'rstw' ).' <a href="https://dev.twitter.com/apps" target="_blank">'.__('here', 'rstw' ).'</a>'	),
 			array(
 				'name'	=> 'consumer_key',	'label'	=> 'Consumer Key',
 				'type'	=> 'text',	'default' => ''			),
@@ -46,7 +46,7 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'access_token_secret',	'label'	=> 'Access Token Secret',
 				'type'	=> 'text',	'default' => ''			),
 			array(
-				'label' => __( 'Twitter data options', 'rstw' ),
+				'label' => __( 'Twitter Data', 'rstw' ),
 				'type'	=> 'separator'			),
 			array(
 				'name'	=> 'username',		'label'	=> __( 'Twitter Username', 'rstw' ),
@@ -64,7 +64,7 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'skip_retweets',		'label'	=> __( 'Skip retweets', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false	),
 			array(
-				'label' => __( 'Widget title options', 'rstw' ),
+				'label' => __( 'Widget Title', 'rstw' ),
 				'type'	=> 'separator'			),
 			array(
 				'name'	=> 'title',	'label'	=> __( 'Title', 'rstw' ),
@@ -76,7 +76,22 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'link_title',	'label'	=> __( 'Link above Title with Twitter user', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 			array(
-				'label' => __( 'Links and display options', 'rstw' ),
+				'label' => __( 'Widget Footer', 'rstw' ),
+				'type'	=> 'separator'			),
+			array(
+				'name'	=> 'link_user',		'label'	=> __( 'Show a link to the Twitter user profile', 'rstw' ),
+				'type'	=> 'checkbox',	'default' => false			),
+			array(
+				'name'	=> 'link_user_text',	'label'	=> __( 'Link text', 'rstw' ),
+				'type'	=> 'text',	'default' => 'See me on Twitter'			),
+			array(
+				'name'	=> 'button_follow',		'label'	=> __( 'Show a Twitter Follow Me button', 'rstw' ),
+				'type'	=> 'checkbox',	'default' => false			),
+			array(
+				'name'	=> 'button_follow_text',	'label'	=> __( 'Button text', 'rstw' ),
+				'type'	=> 'text',	'default' => 'Follow @me'			),
+			array(
+				'label' => __( 'Items and Links', 'rstw' ),
 				'type'	=> 'separator'			),
 			array(
 				'name'	=> 'linked',		'label'	=> __( 'Show this linked text at the end of each Tweet', 'rstw' ),
@@ -103,29 +118,20 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'link_target_blank',	'label'	=> __( 'Create links on new window / tab', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 			array(
-				'label' => __( 'Widget footer options', 'rstw' ),
-				'type'	=> 'separator'			),
-			array(
-				'name'	=> 'link_user',		'label'	=> __( 'Show a footer link to the Twitter user profile', 'rstw' ),
-				'type'	=> 'checkbox',	'default' => false			),
-			array(
-				'name'	=> 'link_user_text',	'label'	=> __( 'Text for footer link', 'rstw' ),
-				'type'	=> 'text',	'default' => 'Follow me on Twitter'			),
-			array(
-				'label' => __( 'Debug options', 'rstw' ),
-				'type'	=> 'separator'			),
+				'label' => __( 'Debug', 'rstw' ),
+				'type'	=> 'separator',		'notes' => 	__('Use them only for a few minutes, when having issues', 'rstw')	),
 			array(
 				'name'	=> 'debug',	'label'	=> __( 'Show debug info', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 			array(
-				'name'	=> 'erase_cached_data',	'label'	=> __( 'Erase cached data (use it only for a few minutes, when having issues)', 'rstw' ),
+				'name'	=> 'erase_cached_data',	'label'	=> __( 'Erase cached data', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 			array(
-				'name'	=> 'encode_utf8',	'label'	=> __( 'Force UTF8 Encode (use it only if having issues)', 'rstw' ),
+				'name'	=> 'encode_utf8',	'label'	=> __( 'Force UTF8 Encode', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 		);
 
-        $control_ops = array('width' => 400);
+        $control_ops = array('width' => 500);
         parent::WP_Widget(false, 'Really Simple Twitter', array(), $control_ops);	
     }
 
@@ -180,6 +186,8 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			return;
 		}
 		
+		echo '<div class="rstw_form">';
+
 		foreach ($this->options as $val) {
 			if ($val['type']=='separator') {
 				if ($val['label']!='') {
@@ -188,18 +196,30 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 					echo '<hr />';
 				}
 				if ($val['notes']!='') {
-					echo '<span class="description">'.$val['notes'].'</span>';
+					echo '<div class="description">'.$val['notes'].'</div>';
 				}
 			} else if ($val['type']=='text') {
-				$label = '<label for="'.$this->get_field_id($val['name']).'">'.$val['label'].'</label>';
-				echo '<p>'.$label.'<br />';
-				echo '<input class="widefat" id="'.$this->get_field_id($val['name']).'" name="'.$this->get_field_name($val['name']).'" type="text" value="'.esc_attr($instance[$val['name']]).'" /></p>';
+				echo '
+					<input class="widefat" id="'.$this->get_field_id($val['name']).'"  name="'.$this->get_field_name($val['name']).'" type="text" value="'.esc_attr($instance[$val['name']]).'" />
+					<label for="'.$this->get_field_id($val['name']).'">'.$val['label'].'</label>
+					<div class="rstw_clear"></div>';
 			} else if ($val['type']=='checkbox') {
-				$label = '<label for="'.$this->get_field_id($val['name']).'">'.$val['label'].'</label>';
 				$checked = ($instance[$val['name']]) ? 'checked="checked"' : '';
-				echo '<input id="'.$this->get_field_id($val['name']).'" name="'.$this->get_field_name($val['name']).'" type="checkbox" '.$checked.' /> '.$label.'<br />';
+				echo '
+					<div class="rstw_checkbox"><input id="'.$this->get_field_id($val['name']).'" name="'.$this->get_field_name($val['name']).'" type="checkbox" '.$checked.' /></div>
+					<label for="'.$this->get_field_id($val['name']).'">'.$val['label'].'</label>
+					<div class="rstw_clear"></div>';
 			}
 		}
+		echo '
+			</div>
+			<style>
+			.rstw_form h3, .rstw_form .description { text-align:center; margin-top:1.2em; margin-bottom:0.6em; }
+			.rstw_form input[type="text"] { float:left; width:200px; }
+			.rstw_form .rstw_checkbox { float:left; width:200px; text-align:right; }
+			.rstw_form label { width:270px; padding-left:5px; }
+			.rstw_form .rstw_clear { clear:both; height:2px; margin-bottom:1px; border-bottom:1px solid #eee; }
+			</style>';
 	}
 
 
@@ -261,7 +281,10 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 							'exclude_replies'=>$options['skip_replies'],
 							'include_rts'=>(!$options['skip_retweets'])
 					));
-			} catch (Exception $e) { return __('Error retrieving tweets','rstw'); }
+			} catch (Exception $e) {
+				$this->debug($options, $e->getMessage().'<br />');
+				return __('Error retrieving tweets','rstw'); 
+			}
 
 			if (isset($twitter_data['errors'])) {
 				$this->debug($options, __('Twitter data error:','rstw').' '.$twitter_data['errors'][0]['message'].'<br />');
@@ -429,6 +452,11 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 	
 		if ($options['link_user']) {
 			$out .= '<div class="rstw_link_user"><a href="http://twitter.com/' . $options['username'] . '" '.$link_target.'>'.$options['link_user_text'].'</a></div>';
+		}
+		if ($options['button_follow']) {
+			$out .= '
+				<a href="https://twitter.com/' . $options['username'] . '" class="twitter-follow-button" data-show-count="false">'.$options['button_follow_text'].'</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document, "script", "twitter-wjs");</script>';
 		}
 		return $out;
 	}
