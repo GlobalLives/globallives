@@ -13,5 +13,3 @@ require( get_template_directory() . '/inc/types.php' );		// Add custom post type
 require( get_template_directory() . '/inc/widgets.php' );	// Register custom widgets
 require( get_template_directory() . '/inc/helpers.php' );	// Other useful functions
 require( get_template_directory() . '/inc/settings.php' );	// Add a Theme Settings page to admin
-
-?>
