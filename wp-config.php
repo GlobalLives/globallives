@@ -18,6 +18,8 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	define('DB_CHARSET', 'utf8');
 	define('DB_COLLATE', '');
 
+	define('GOOGLE_ANALYTICS_ID', 'UA-2159509-3');
+
 // ** Custom "content" directory ** //
 
 define('WP_CONTENT_DIR', dirname( __FILE__ ) . '/content');
