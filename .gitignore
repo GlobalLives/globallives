@@ -3,6 +3,7 @@
 
 local-config.php
 wp/
+wp-content
 
 content/backup*
 content/cache/
