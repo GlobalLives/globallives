@@ -8,7 +8,7 @@ wp-content
 content/backup*
 content/cache/
 
-content/plugins/
+content/plugins/*
 !content/plugins/advanced-custom-fields/
 !content/plugins/gravityforms/
 !content/plugins/the-events-calendar/
