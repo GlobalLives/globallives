@@ -8,13 +8,10 @@ wp-content
 content/backup*
 content/cache/
 
-# Ignore all plugins
 content/plugins/
-
-# Except the ones required for the theme
-!content/plugins/advanced-custom-fields
-!content/plugins/gravityforms
-!content/plugins/the-events-calendar
+!content/plugins/advanced-custom-fields/
+!content/plugins/gravityforms/
+!content/plugins/the-events-calendar/
 
 content/upgrade/
 content/uploads/
