@@ -4,3 +4,5 @@
 
 <?php get_template_part('templates/view','grid'); ?>
 <?php get_template_part('templates/view','map'); ?>
+
+<?php if ($themes = get_terms('themes')) { get_template_part('templates/nav','themes'); } ?>

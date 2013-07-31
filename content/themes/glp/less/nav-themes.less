@@ -1,0 +1,22 @@
+#nav-themes {
+	margin: 0; padding: 0.5em 0;
+	background: @gray;
+	#gradient > .vertical(@grayLight, @gray);
+	.carousel {
+		margin: 0;
+	}
+	ul {
+		margin: 0; padding: 0;
+		list-style: none;
+	}
+	li {
+		line-height: 36px;
+		text-align: center;
+		color: @grayLight;
+		text-shadow: 0 2px 2px @grayDark;
+		list-style: none;
+		&.active, &:hover {
+			color: @white;
+		}
+	}
+}

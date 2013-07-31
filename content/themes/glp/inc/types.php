@@ -33,9 +33,16 @@
 			'label' => __( 'Series' ),
 			'rewrite' => array(
 				'slug' => 'series',
-				'with_front' => false 
+				'with_front' => false
 			)
 		));
+   		register_taxonomy( 'themes', 'participant', array(
+			'label' => __( 'Themes' ),
+			'rewrite' => array(
+				'slug' => 'themes',
+				'with_front' => false
+			)
+		));		
 		
 		register_post_type( 'participant', array(
 			'labels' => array(
@@ -48,7 +55,7 @@
 			'has_archive' => true,
 			'rewrite' => array(
 			    'slug'			=> 'participants',
-			    'with_front'	=> true
+			    'with_front'	=> false
 			)
 		));
 	}
@@ -61,6 +68,16 @@
 		echo get_participant_thumbnail_url( $participant_id, $thumbnail_size );
 	}	
 	
+	function get_participant_taxonomy_slugs( $participant_id, $taxonomy ) {
+		$term_slugs = array();
+		if ($participant_terms = get_the_terms( $participant_id, $taxonomy)) {
+			foreach ($participant_terms as $term) {
+				$term_slugs[] = $term->slug;
+			}
+		}
+		return $term_slugs;
+	}
+
 	function get_participant_clip_tags( $participant_id ) {
 		$clip_tags = array();
 		if ( $clips = get_field('clips',$participant_id) ) {

@@ -47,19 +47,26 @@ $(function() {
 		if ( dx < width/2 ) {
 			dx_offset = 30;
 		} else {
-			dx_offset = -340;
+			dx_offset = -480;
 		}
 		$('#popover').css('top', dy).css('left', dx + dx_offset);
+		$('#popover').attr('data-participant_id',d.id);
 		$('#popover .popover-name').text(d.name);
 		$('#popover .popover-occupation').text(d.occupation);
 		$('#popover .popover-location').text(d.location);
 		$('#popover .popover-gender').text(d.gender_label);
 		$('#popover .popover-income').text(d.income_label);
 		$('#popover .popover-age').text(d.age_label);
-		if (d.series !== '') { $('#popover .popover-series').html(d.series); }
+		$('#popover .popover-series').html(d.series_labels || '');
+		$('#popover .popover-themes').html(d.theme_labels || '');
 		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
 		$('#popover .popover-permalink').attr('href', d.permalink);
-		$('#popover, .overlay').show();
+		// $('#popover, .overlay').show();
+		$('#popover').show();
+
+		$('.popover-series a').on('mouseenter', {taxonomy: 'series', participant: d.id }, connectByTaxonomy);
+		$('.popover-themes a').on('mouseenter', {taxonomy: 'themes', participant: d.id }, connectByTaxonomy);
+		$('.popover-series a, .popover-themes a').on('mouseleave', clearConnections);
 	}
 	function show_mapthumb( i ) {
 		$('.mapthumb').hide();
@@ -150,19 +157,40 @@ $(function() {
 				if ( this.proposed ) { this.filtered = true; }
 				if ($('input[name=proposed]:checked').val() && this.proposed ) { this.filtered = false; }
 
-				if (this.filtered === true) {
+			});
+
+			filterParticipants();
+			return false;
+		});
+
+		$('#nav-themes li').click(function() {
+			var theme = $(this).text().toLowerCase();
+			$(participants).each(function() {
+				this.filteredByTheme = false;
+
+				if (theme !== 'all themes' && $.inArray(theme,this.themes) == -1) {
+					this.filteredByTheme = true;
+				}
+
+			});
+
+			filterParticipants();
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+
+		function filterParticipants() {
+			$(participants).each(function() {
+
+				if (this.filtered === true || this.filteredByTheme === true) {
 					$('#participant-' + this.id).addClass('filtered');
 					d3.selectAll('#marker-'+this.id).classed('filtered',true);
 				} else {
 					$('#marker-' + this.id + ', #participant-' + this.id).removeClass('filtered');
 					d3.selectAll('#marker-'+this.id).classed('filtered',false);
 				}
-			});
-			// $('.participant-grid').hide();
-			// $('.participant-grid:not(.filtered)').fadeIn();
-			return false;
-		});
 
+			});
+		}
 	}
 
 	if ($('#mapview').length) { // For all pages that have a Map View
@@ -216,6 +244,8 @@ $(function() {
 				.attr('id', function(d) { return 'marker-' + d.id; })
 				.attr('class', function(d) { return 'marker ' + d.continent; })
 				.attr('transform', function(d) { return 'translate(' + projection([+d.longitude, +d.latitude]) + ')'; })
+				.attr('data-x', function(d) { var coords = projection([+d.longitude, +d.latitude]); return Math.round(coords[0]); })
+				.attr('data-y', function(d) { var coords = projection([+d.longitude, +d.latitude]); return Math.round(coords[1]); })
 				.on('click', function(d) { set_popover( d, this ); });
 			marker.append('path').attr('class', 'pin') // Add the pins
 				.attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')
@@ -248,16 +278,86 @@ $(function() {
 */
 
 		$('.overlay, .mapthumb, .label, #popover').hide();
-		$('.marker').mouseover( function() {
+		$('.marker').on('mouseenter', function() {
 			$('.mapthumb, .label').hide();
 			$(this).find('.mapthumb, .label').show();
+			if( $('#popover').is(':visible') ) { connectByMarker(this); }
 		});
-		$('.overlay, #popover .close').click( function() {
+		$('.background, #popover .close').click( function() {
 			$('#popover, .overlay').hide();
+			clearConnections();
 		});
 		$('.background').click( function() {
 			$('.mapthumb, .label').hide();
 		});
+
+		function connectByTaxonomy(event) {
+			var term = $(this).attr('href');
+			term = term.split('/').slice(-2)[0]; // Only use the slug
+
+			var hub = map.select('#marker-' + event.data.participant);
+			var hub_xy = [+hub.attr('data-x'), +hub.attr('data-y')];
+
+			$(participants).each( function() {
+				if ($.inArray(term,this[event.data.taxonomy]) > -1) {
+
+					var spoke = map.select('#marker-' + this.id);
+
+					spoke.append('line').attr('class','edge')
+						.attr('x1', 0).attr('y1', 0)
+						.attr('x2',function(d) { var coords = projection([+d.longitude, +d.latitude]); return hub_xy[0] - coords[0]; })
+						.attr('y2',function(d) { var coords = projection([+d.longitude, +d.latitude]); return hub_xy[1] -coords[1]; })
+						.style('stroke','#fff')
+						.style('stroke-width',2);
+				}
+			});
+		}
+		function connectByMarker(marker) {
+			clearConnections();
+			var popover_id = $('#popover').attr('data-participant_id');
+			var marker_id = $(marker).attr('id').split('-');
+
+			// console.log( participants );
+
+			var popover_participant = $.grep(participants, function(p) { return p.id == popover_id; });
+			var marker_participant = $.grep(participants, function(p) { return p.id == marker_id[1]; });
+
+			// console.log( popover_participant, marker_participant );
+
+			if ( marker_id !== popover_id ) {
+
+				var common = $.grep(popover_participant[0].themes, function(t) {
+					return $.inArray(t, marker_participant[0].themes) > -1;
+				});
+				if ( common.length > 0 ) {
+					var popover_g = map.select('#marker-' + popover_id);
+					var marker_g = map.select('#marker-' + marker_id[1]);
+					var popover_xy = [+popover_g.attr('data-x'), +popover_g.attr('data-y')];
+					var marker_xy = [+marker_g.attr('data-x'), +marker_g.attr('data-y')];
+
+					var edge = map.append('line').attr('class','edge')
+						.attr('x1', popover_xy[0])
+						.attr('y1', popover_xy[1])
+						.attr('x2', marker_xy[0])
+						.attr('y2', marker_xy[1])
+						.style('stroke','#fff')
+						.style('stroke-width',2);
+
+					var label = map.append('text').attr('class','label')
+						.attr('dx', (popover_xy[0] + marker_xy[0]) / 2)
+						.attr('dy', 30 + (popover_xy[1] + marker_xy[1]) / 2);
+					$.each(common, function(i,v) {
+						label.append('tspan').attr('class','theme')
+							.text(function() { return v; })
+							.style('fill','#fff');
+					});
+				}
+			}
+		}
+
+		function clearConnections() {
+			map.selectAll('.edge').remove();
+		}
 	}
 
 

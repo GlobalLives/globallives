@@ -5,6 +5,7 @@
  * Keep this file clean and only use it for requires.
  */
 
+require( get_template_directory() . '/inc/keys.php' );		// Field Keys for Advanced Custom Fields
 require( get_template_directory() . '/inc/ajax.php' );		// AJAX functions using admin-ajax.php
 require( get_template_directory() . '/inc/layouts.php' );	// Wrap the theme in layout.php
 require( get_template_directory() . '/inc/menus.php' );		// Add custom menus
