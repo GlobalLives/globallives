@@ -17,8 +17,10 @@ function glp_queue() {
 	}
 	
 	wp_register_script('glp_d3', get_template_directory_uri() . '/js/vendor/d3.v3.min.js', false, null, false);
+	wp_register_script('jquery-cycle', get_template_directory_uri() . '/js/vendor/jquery.cycle.lite.js', 'jquery','1.7', true);
 	if (is_page('explore') || is_tax('series')) {
 		wp_enqueue_script('glp_d3');
+		wp_enqueue_script('jquery-cycle');
 	}
 
 	wp_register_script('glp_main', get_template_directory_uri() . '/js/main.min.js', false, null, false);

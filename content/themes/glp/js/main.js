@@ -164,7 +164,7 @@ $(function() {
 		});
 
 		$('#nav-themes li').click(function() {
-			var theme = $(this).text().toLowerCase();
+			var theme = $(this).attr('data-term');
 			$(participants).each(function() {
 				this.filteredByTheme = false;
 
@@ -176,7 +176,10 @@ $(function() {
 
 			filterParticipants();
 			$(this).addClass('active').siblings().removeClass('active');
+			$(this).siblings().children('.flyup').slideUp();
+			$(this).children('.flyup').slideToggle();
 		});
+		$('#nav-themes .flyup .thumbnails').cycle();
 
 		function filterParticipants() {
 			$(participants).each(function() {

@@ -6,17 +6,40 @@
 		margin: 0;
 	}
 	ul {
-		margin: 0; padding: 0;
+		margin: 0; padding: 5px 0;
 		list-style: none;
 	}
 	li {
+		position: relative;
+		display: block;
 		line-height: 36px;
 		text-align: center;
 		color: @grayLight;
 		text-shadow: 0 2px 2px @grayDark;
 		list-style: none;
+		// outline: 1px solid fade(@grayLight,25%);
 		&.active, &:hover {
 			color: @white;
+		}
+		.flyup {
+			position: absolute;
+			margin: -120px 0 0 0;
+			top: -12px;
+			height: 120px;
+			width: 100%;
+			overflow: hidden;
+			a {
+				display: block;
+				width: 100%;
+				color: @gray;
+				text-shadow: none;
+				background: @black;
+				#gradient > .vertical(@black,@grayDark);
+				&:hover {
+					color: @white;
+					text-decoration: none;
+				}
+			}
 		}
 	}
 }
