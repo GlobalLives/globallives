@@ -162,6 +162,9 @@ $(function() {
 			filterParticipants();
 			return false;
 		});
+	}
+
+	if ($('#nav-themes').length) { // Make sure the Themes navbar is on the page
 
 		$('#nav-themes li').click(function() {
 			var theme = $(this).attr('data-term');
@@ -178,6 +181,8 @@ $(function() {
 			$(this).addClass('active').siblings().removeClass('active');
 			$(this).siblings().children('.flyup').slideUp();
 			$(this).children('.flyup').slideToggle();
+
+
 		});
 		$('#nav-themes .flyup .thumbnails').cycle();
 
@@ -225,6 +230,7 @@ $(function() {
 			.call(zoom);
 		countries.append('rect').attr('class', 'background')
 			.attr('height',height).attr('width',width);
+		var underlay = map.append('g').attr('id','underlay');
 
 		// Set up Participant thumbnails as SVG patterns
 
@@ -281,11 +287,13 @@ $(function() {
 */
 
 		$('.overlay, .mapthumb, .label, #popover').hide();
+
 		$('.marker').on('mouseenter', function() {
 			$('.mapthumb, .label').hide();
 			$(this).find('.mapthumb, .label').show();
 			if( $('#popover').is(':visible') ) { connectByMarker(this); }
 		});
+
 		$('.background, #popover .close').click( function() {
 			$('#popover, .overlay').hide();
 			clearConnections();
@@ -295,8 +303,13 @@ $(function() {
 		});
 
 		function connectByTaxonomy(event) {
-			var term = $(this).attr('href');
-			term = term.split('/').slice(-2)[0]; // Only use the slug
+			clearConnections();
+			if ( $(this).children('.flyup').length ) {
+				var term = $(this).attr('data-term');
+			} else {
+				var term = $(this).attr('href');
+				term = term.split('/').slice(-2)[0]; // Only use the slug
+			}
 
 			var hub = map.select('#marker-' + event.data.participant);
 			var hub_xy = [+hub.attr('data-x'), +hub.attr('data-y')];
@@ -304,7 +317,7 @@ $(function() {
 			$(participants).each( function() {
 				if ($.inArray(term,this[event.data.taxonomy]) > -1) {
 
-					var spoke = map.select('#marker-' + this.id);
+					var spoke = underlay.select('#marker-' + this.id);
 
 					spoke.append('line').attr('class','edge')
 						.attr('x1', 0).attr('y1', 0)
@@ -317,18 +330,13 @@ $(function() {
 		}
 		function connectByMarker(marker) {
 			clearConnections();
-			var popover_id = $('#popover').attr('data-participant_id');
+			var popover_id = $('#popover').attr('data-participant_id') || $('article.participant').attr('data-participant_id');
 			var marker_id = $(marker).attr('id').split('-');
-
-			// console.log( participants );
 
 			var popover_participant = $.grep(participants, function(p) { return p.id == popover_id; });
 			var marker_participant = $.grep(participants, function(p) { return p.id == marker_id[1]; });
 
-			// console.log( popover_participant, marker_participant );
-
-			if ( marker_id !== popover_id ) {
-
+			if ( popover_id && marker_id !== popover_id ) {
 				var common = $.grep(popover_participant[0].themes, function(t) {
 					return $.inArray(t, marker_participant[0].themes) > -1;
 				});
@@ -338,7 +346,7 @@ $(function() {
 					var popover_xy = [+popover_g.attr('data-x'), +popover_g.attr('data-y')];
 					var marker_xy = [+marker_g.attr('data-x'), +marker_g.attr('data-y')];
 
-					var edge = map.append('line').attr('class','edge')
+					var edge = underlay.append('line').attr('class','edge')
 						.attr('x1', popover_xy[0])
 						.attr('y1', popover_xy[1])
 						.attr('x2', marker_xy[0])
@@ -346,20 +354,24 @@ $(function() {
 						.style('stroke','#fff')
 						.style('stroke-width',2);
 
-					var label = map.append('text').attr('class','label')
-						.attr('dx', (popover_xy[0] + marker_xy[0]) / 2)
-						.attr('dy', 30 + (popover_xy[1] + marker_xy[1]) / 2);
+					var label = underlay.append('text').attr('class','label')
+						.attr('x', (popover_xy[0] + marker_xy[0]) / 2)
+						.attr('y', (popover_xy[1] + marker_xy[1]) / 2)
+						.style('fill','#fff');
+
 					$.each(common, function(i,v) {
 						label.append('tspan').attr('class','theme')
 							.text(function() { return v; })
-							.style('fill','#fff');
+							.attr('x', (popover_xy[0] + marker_xy[0]) / 2)
+							// .attr('y', (popover_xy[1] + marker_xy[1]) / 2)
+							.attr('dx',0).attr('dy',18);
 					});
 				}
 			}
 		}
 
 		function clearConnections() {
-			map.selectAll('.edge').remove();
+			map.selectAll('.edge, .label').remove();
 		}
 	}
 
@@ -424,6 +436,22 @@ $(function() {
 		$('.btn-mapview').click(function() {
 			$('#mapview').slideToggle(500);
 		});
+
+	}
+
+/* Participant - Single */
+
+	if ($('body.single-participant').length) { // Make sure we're on the Participant - Single page
+		var single_participant_id = $('article.participant').attr('data-participant_id');
+
+		$('#nav-themes').hide();
+
+		$('.participant-detail-map .handle .btn').click(function() {
+			$('#mapview, #nav-themes').slideToggle();
+			$('.participant-detail-map .handle .btn span').toggle();
+		});
+
+		$('#nav-themes li').on('click', {taxonomy: 'themes', participant: single_participant_id }, connectByTaxonomy);
 
 	}
 
