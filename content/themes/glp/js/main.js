@@ -439,6 +439,17 @@ $(function() {
 
 	}
 
+/* Theme */
+
+	if ($('body.tax-themes').length) { // Make sure we're on the Theme archive page
+
+		$('#theme-select').change(function() {
+			console.log('changed themes');
+			window.location = '/themes/' + $(this).val();
+		});
+
+	}
+
 /* Participant - Single */
 
 	if ($('body.single-participant').length) { // Make sure we're on the Participant - Single page

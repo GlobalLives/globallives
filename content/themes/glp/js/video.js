@@ -200,6 +200,10 @@ function setup_players() {
             $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
             $('#'+frameID).bind("player_ready", autoplay_video);
+            if ($('body.tax-themes').length) {
+                $('#'+frameID).bind('player_ready', mute_player);
+                $('#'+frameID).hover(unmute_player,mute_player);
+            }
 
             // Bind play events
             $('#'+frameID).bind("player_start_play_buffer", videoSetTimer);
@@ -468,4 +472,12 @@ function play_next_video(event) {
             function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
         );
     }
+}
+
+function mute_player(event) {
+    players[event.currentTarget.id].mute();
+}
+
+function unmute_player(event) {
+    players[event.currentTarget.id].unMute();
 }

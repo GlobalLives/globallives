@@ -2,7 +2,7 @@
 		
 		#wrap {
 			color: @white;
-			background: fade(@black, 75%);
+			background: linear-gradient(@black,fade(@black, 75%));
 		}
 		#content {
 			position: relative;
@@ -19,6 +19,14 @@
 			text-align: right;
 		}
 		
+		.theme-header {
+			margin: 2em inherit;
+		}
+
+		.theme-videos {
+			margin: 2em inherit;
+		}
+
 		.theme-video {
 			margin: 0; padding: 0;
 			float: left;
@@ -26,6 +34,21 @@
 			.participant-clip {
 				padding-bottom: 57.5%;
 			}
+			.participant-meta {
+    			position: absolute;
+    			box-sizing: border-box;
+    			height: 100%; width: 100%;
+    			padding: 0 1em;
+    			z-index: 2;
+    			color: @white;
+    			background: @red;
+    			opacity: 0;
+    			transition: opacity 0.33s;
+    			pointer-events: none;
+    		}
+    		&:hover .participant-meta {
+    			opacity: 0.75;
+    		}
 			iframe, object, embed, .participant-video-embed {
 				min-height: 180px;
 			}
@@ -38,6 +61,38 @@
 			#gradient > .vertical(@grayDarker,@grayDark);
 			border-top: 1px solid @gray;
 			text-shadow: 0 0 1px #000;
+			.participant-mini {
+				min-height: 36px;
+				margin-bottom: 1em;
+				a {
+					color: @grayLighter;
+					text-decoration: none;
+					&:hover {
+						color: @white;
+					}
+				}
+				.participant-thumbnail {
+					float: left; clear: left;
+					height: 36px; width: 36px;
+					background: white;
+					border-radius: 50%;
+					overflow: hidden;
+					img {
+						height: 36px;
+						width: auto;
+					}
+				}
+				.participant-name {
+					margin: 0 0 0 50px;
+					font-size: @fontSizeSmall;
+					line-height: 1;
+				}
+				.participant-location {
+					margin: 0 0 0 50px;
+					font-size: @fontSizeSmall * 0.8;
+					line-height: 1;
+				}
+			}
 		}
 		
 	}
