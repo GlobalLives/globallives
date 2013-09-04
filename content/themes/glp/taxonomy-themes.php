@@ -2,6 +2,7 @@
 	$theme = $wp_query->queried_object;
 	$participants = get_posts(array('post_type' => 'participant', 'numberposts' => -1, 'tax_query' => array(array('taxonomy' => 'themes', 'field' => 'slug', 'terms' => $theme->slug))));
 	$referral_id = $_GET['ref'];
+	$download_urls = array();
 ?>
 
 <div class="theme-header container">
@@ -12,7 +13,7 @@
 			<?php _e('Themes','glp'); ?>
 			<select name="theme" id="theme-select">
 				<?php foreach( $allthemes as $alltheme ) : ?>
-					<option value="<?php echo $alltheme->slug; ?>"<?php if($theme->slug == $alltheme->slug) : ?> selected="selected"<?php endif; ?>><?php echo $alltheme->name; ?></option>
+					<option value="<?php echo $alltheme->slug; ?>"<?php if ($theme->slug == $alltheme->slug) : ?> selected="selected"<?php endif; ?>><?php echo $alltheme->name; ?></option>
 				<?php endforeach; ?>
 			</select>
 			<?php endif; ?>
@@ -25,16 +26,18 @@
 		<?php foreach ( $participants as $participant ) : ?>
 			<div class="theme-video">
 			<?php
-				if ( $summary_video = get_field('summary_video',$participant->ID) ) {
+				if ($summary_video = get_field('summary_video',$participant->ID)) {
 					query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
 					get_template_part('templates/clip','grid');
 					wp_reset_query();
+					if ($download_url = get_field('download_url')) { $download_urls[] = $download_url; }
 				}
 			?>
 			</div>
 		<?php endforeach; ?>
 	</div>
 	<div id="stage"></div>
+	<?php $uploads = wp_upload_dir(); $zip_filename = '/themes/'.$theme->slug.'.zip'; if (create_zip( $download_urls, $uploads['basedir'].$zip_filename )) : ?><a href="<?php echo $uploads['baseurl'].$zip_filename; ?>" class="btn"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
 </div>
 
 <div class="theme-details">

@@ -145,9 +145,10 @@
 		# Participant
 		$participant = get_clip_participant( $clip_id );
 		$clips = get_field('clips',$participant->ID);
-		$clip_index = array_search($clip, $clips);
-		$next_clip = $clips[$clip_index++];
-		// print_r( $clip_index );
+		if (is_array($clips)) {
+			$clip_index = array_search($clip, $clips);
+			$next_clip = $clips[$clip_index++];
+		}
 		# Theme
 		# Queue
 
