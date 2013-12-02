@@ -1,0 +1,258 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: google-sitemap-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-03 14:47+0300\n"
+"PO-Revision-Date: 2013-06-03 14:47+0300\n"
+"Last-Translator: \n"
+"Language-Team: Diana <diana@wpdiscounts.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr_RS\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: google-sitemap-plugin.php:101
+#, fuzzy
+msgid "Pro plugins"
+msgstr "BWS Plugins"
+
+#: google-sitemap-plugin.php:104
+#: google-sitemap-plugin.php:130
+msgid "Activated plugins"
+msgstr "Aktivirani plaginovi "
+
+#: google-sitemap-plugin.php:106
+#: google-sitemap-plugin.php:114
+#: google-sitemap-plugin.php:122
+#: google-sitemap-plugin.php:132
+#: google-sitemap-plugin.php:140
+#: google-sitemap-plugin.php:148
+msgid "Read more"
+msgstr "Procitaj vise"
+
+#: google-sitemap-plugin.php:106
+#: google-sitemap-plugin.php:132
+#: google-sitemap-plugin.php:649
+msgid "Settings"
+msgstr "Podesavanja"
+
+#: google-sitemap-plugin.php:112
+#: google-sitemap-plugin.php:138
+msgid "Installed plugins"
+msgstr "Instalirani plaginovi"
+
+#: google-sitemap-plugin.php:120
+#: google-sitemap-plugin.php:146
+msgid "Recommended plugins"
+msgstr "Preporuceni plaginovi"
+
+#: google-sitemap-plugin.php:122
+msgid "Purchase"
+msgstr ""
+
+#: google-sitemap-plugin.php:127
+#, fuzzy
+msgid "Free plugins"
+msgstr "Preporuceni plaginovi"
+
+#: google-sitemap-plugin.php:148
+msgid "Download"
+msgstr "Download"
+
+#: google-sitemap-plugin.php:148
+#, php-format
+msgid "Install %s"
+msgstr "Instaliranje %s"
+
+#: google-sitemap-plugin.php:148
+msgid "Install now from wordpress.org"
+msgstr "Instaliraj sada sa wordpress.org"
+
+#: google-sitemap-plugin.php:153
+msgid "If you have any questions, please contact us via"
+msgstr ""
+
+#: google-sitemap-plugin.php:161
+msgid "BWS Plugins"
+msgstr "BWS Plugins"
+
+#: google-sitemap-plugin.php:162
+msgid "Google Sitemap Options"
+msgstr "Google Sitemap Opcije"
+
+#: google-sitemap-plugin.php:162
+msgid "Google Sitemap"
+msgstr "Google Sitemap"
+
+#: google-sitemap-plugin.php:273
+#: google-sitemap-plugin.php:348
+#, fuzzy
+msgid "Your Sitemap file is created in the site root directory."
+msgstr "Vas sitemap fajt je kreiran u root direktorijumu sajta"
+
+#: google-sitemap-plugin.php:279
+msgid "Options saved."
+msgstr "Opcije sacuvane."
+
+#: google-sitemap-plugin.php:339
+msgid "Google Sitemap options"
+msgstr "Google Sitemap opcije"
+
+#: google-sitemap-plugin.php:344
+#, fuzzy
+msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
+msgstr "Sitemap fajl vec postoji. Ukoliko zelite da ga zamenite za novi sitemap fajl, cekirajte neophodno polje ispod. U suprotnom, sve akcije ce biti izvrsene preko postojeceg fajla."
+
+#: google-sitemap-plugin.php:352
+#: google-sitemap-plugin.php:354
+#, fuzzy
+msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
+msgstr "Ukoliko ne zelite da dodate ovaj fajl automatski mozete nastaviti "
+
+#: google-sitemap-plugin.php:352
+#: google-sitemap-plugin.php:354
+msgid "this"
+msgstr "ovaj"
+
+#: google-sitemap-plugin.php:352
+#: google-sitemap-plugin.php:354
+#, fuzzy
+msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
+msgstr "link, uloguj se, izaberi neophodan sajt, izaberi 'Sitemaps' i kucaj u neophodnom polju"
+
+#: google-sitemap-plugin.php:357
+#, fuzzy
+msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
+msgstr "Ovaj hosting ne podrzava CURL, tako da ne mozete da dodate Sitemap fajl automatski"
+
+#: google-sitemap-plugin.php:366
+#, fuzzy
+msgid "I want to create a new sitemap file or update the existing one"
+msgstr "Zelim da dodam sitemap fajl putanju u robots.txt"
+
+#: google-sitemap-plugin.php:372
+#: google-sitemap-plugin.php:379
+msgid "I want to add sitemap file path in robots.txt"
+msgstr "Zelim da dodam sitemap fajl putanju u robots.txt"
+
+#: google-sitemap-plugin.php:373
+msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
+msgstr ""
+
+#: google-sitemap-plugin.php:384
+#, fuzzy
+msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
+msgstr "Molim izaberite neohodne tipove postova da bi dodali linkove do njih u sitemap-u:"
+
+#: google-sitemap-plugin.php:397
+#, fuzzy
+msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
+msgstr "Ukucajte ovde svoj korisnicko ime i lozinku sa google webmaster tools naloga da bi dodali ili izbrisali sajt i sitemap fajl automatski ili da bi dobili informacije o ovom sajtu na google webmaster tools."
+
+#: google-sitemap-plugin.php:401
+msgid "Settings for remote work with google webmaster tools"
+msgstr "Podesavanja za rad sa daljine sa google webmaster tools"
+
+#: google-sitemap-plugin.php:403
+msgid "Login"
+msgstr "Korisnicko ime"
+
+#: google-sitemap-plugin.php:404
+msgid "Password"
+msgstr "Lozinka"
+
+#: google-sitemap-plugin.php:405
+#, fuzzy
+msgid "I want to add this site to Google Webmaster Tools"
+msgstr "Zelim da dodam ovaj sajt u google webmaster tools"
+
+#: google-sitemap-plugin.php:406
+#, fuzzy
+msgid "I want to delete this site from Google Webmaster Tools"
+msgstr "Zelim da izbrisem ovaj sajt sa google webmaster tools"
+
+#: google-sitemap-plugin.php:407
+#: google-sitemap-plugin.php:538
+#, fuzzy
+msgid "I want to get info about this site in Google Webmaster Tools"
+msgstr "Zelim da dobijem informacije o ovom sajtu na google webmaster tools"
+
+#: google-sitemap-plugin.php:414
+msgid "Save Changes"
+msgstr "Sacuvaj izmene"
+
+#: google-sitemap-plugin.php:422
+#, fuzzy
+msgid "Please enter your login and password"
+msgstr "Morate da unesete korisnicko ime i lozinku"
+
+#: google-sitemap-plugin.php:425
+#, fuzzy
+msgid "You should choose at least one action"
+msgstr "Morate odabrati najmanje jednu radnju "
+
+#: google-sitemap-plugin.php:455
+#, fuzzy
+msgid "Login and password do not match. Please try again"
+msgstr "Korisnicko ime i lozinka se ne poklapaju, molim pokusajte ponovo "
+
+#: google-sitemap-plugin.php:540
+#, fuzzy
+msgid "This site is not added to the Google Webmaster Tools account"
+msgstr "Ovaj sajt nije dodat na google webmaster tools nalog"
+
+#: google-sitemap-plugin.php:561
+#, fuzzy
+msgid "Site URL:"
+msgstr "Url sajta:"
+
+#: google-sitemap-plugin.php:562
+#, fuzzy
+msgid "Site verification:"
+msgstr "Potvrda sajta:"
+
+#: google-sitemap-plugin.php:564
+#, fuzzy
+msgid "verified"
+msgstr "potvrdjeno"
+
+#: google-sitemap-plugin.php:566
+#, fuzzy
+msgid "not verified"
+msgstr "nije potvrdjeno"
+
+#: google-sitemap-plugin.php:567
+#, fuzzy
+msgid "Sitemap file:"
+msgstr "Sitemap fajl:"
+
+#: google-sitemap-plugin.php:569
+msgid "added"
+msgstr "dodato"
+
+#: google-sitemap-plugin.php:571
+msgid "not added"
+msgstr "nije dodato"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you have any questions, please contact us via plugin@bestwebsoft.com "
+#~ "or fill out the contact form on our website"
+#~ msgstr ""
+#~ "Ukoliko imate bilo kakva pitanja, molimo vas kontaktirajte nas preko "
+#~ "plugin@bestwebsoft.com ili popunite nasu kontakt formu na nasem sajtu"
+#~ msgid "I want to create new / update manualy sitemap file"
+#~ msgstr "Zelim da kreiram noc / apdejtujem rucno sitemap fajl"
+#~ msgid "Info about this site in google webmaster tools"
+#~ msgstr "Informacije o ovom sajtu na google webmaster tools "
+#~ msgid "Install Now"
+#~ msgstr "Установить сейчас"
+#~ msgid "Update"
+#~ msgstr "Сохранить"
+

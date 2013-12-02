@@ -1,0 +1,143 @@
+#migrate-form {
+	padding-top: 10px;
+}
+
+.form-table {
+	.row-new-url,
+	.row-new-path,
+	.row-revisions {
+		th, td {
+			padding-bottom: 20px;
+			border-bottom: 1px solid #ccc; 
+		}
+	}
+
+	.row-old-path,
+	.row-save-file,
+	.row-guids {
+		th, td {
+			padding-top: 20px; 
+		} 
+	}
+}
+
+p.submit {
+	overflow: hidden;
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+	
+	input {
+		float: left; 
+	}
+
+	img {
+		float: left;
+		margin: 3px 0 0 5px; 
+	} 
+}
+
+#wpmdb-container {
+	position: relative;
+}
+
+#wpmdb-main {
+	margin-right: 320px;
+	min-height: 1200px;
+}
+
+#wpmdb-sidebar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 250px;
+	border: 1px solid #ccc;
+	padding: 20px;
+
+	.author {
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #ccc;
+		overflow: hidden;
+
+		img {
+			float: left;
+			margin-right: 20px;
+		}
+
+		.desc {
+			float: left;
+		}
+
+		h3 {
+			font-size: 12px;
+			margin: 0;
+		}
+
+		h2 {
+			font-size: 18px;
+			margin: 0;
+			padding: 0;
+
+			a {
+				color: #464646;
+				text-decoration: none;
+
+				&:hover {
+					color: #000;
+				}
+			}
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	.subscribe {
+		h2 {
+			padding: 0;
+			margin: 0;
+			margin-bottom: 0.5em;
+			color: #666;
+			font-size: 20px;
+		}
+
+		h3 {
+			font-size: 16px;
+			margin: 0;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		p.interesting {
+			margin-bottom: 1em;
+		}
+
+		.links {
+			margin-bottom: 2em;
+
+			a {
+				text-decoration: none;
+			}
+		}
+
+		.promise {
+			color: #999;
+		}
+
+		.field {
+			margin-bottom: 1em;
+
+			p {
+				margin-bottom: 0.3em;
+			}
+
+			&.submit-button {
+				margin-bottom: 1em;
+			}
+		}
+	}
+}

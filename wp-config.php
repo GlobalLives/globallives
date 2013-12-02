@@ -1,57 +1,90 @@
 <?php
-
-// ** MySQL settings - You can get this info from your web host ** //
-
+# Database Configuration
 if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 
+	# Local
 	define( 'WP_LOCAL_DEV', true );
 	include( dirname( __FILE__ ) . '/local-config.php' );
 
 } else {
 
-	define('DB_NAME', 'database_name_here');
-	define('DB_USER', 'username_here');
-	define('DB_PASSWORD', 'password_here');
-	define('DB_HOST', 'localhost');
-}
-	
+	# WPEngine
+	define('DB_NAME','wp_globallives');
+	define('DB_USER','globallives');
+	define('DB_PASSWORD','u4DSK07fCT1841ZbvK9e');
+	define('DB_HOST','127.0.0.1');
+	define('DB_HOST_SLAVE','localhost');
 	define('DB_CHARSET', 'utf8');
-	define('DB_COLLATE', '');
+	define('DB_COLLATE', 'utf8_unicode_ci');
+	$table_prefix = 'wp_';
 
-// ** Custom "content" directory ** //
+}
 
-define('WP_CONTENT_DIR', dirname( __FILE__ ) . '/content');
-define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content');
-define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
-define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp');
+# Security Salts, Keys, Etc
+define('AUTH_KEY',         'iPYpgUiA)#XYBA[>aAka];eDUs!A s9?m.2?fPaLRb0`GKB&; $BZsBsR9#]|r4-');
+define('SECURE_AUTH_KEY',  ')He=C|tyx/)t+(uDx-h<2M#!H7svnl8nSh|}Su.vR<,&ctd~#&_y}[ 6pi<W)-+y');
+define('LOGGED_IN_KEY',    '+V_v0j|$MFiME]d)%ta*av?*`#Et6np%hUmsn0Y4[7n)zJ}05s48b9n5,::}iQwO');
+define('NONCE_KEY',        'EP99b6h*z!,;yYPh51<DQmiiKhqA<Irl~iibb#=Re2[)%/`N{bp+Nk.T $G_P|?I');
+define('AUTH_SALT',        'Mo9pj|rE`pNHdiau0l|1NtMy)Iq471pR B@DdW>NF:;_:[](DSWuy>[oPh^Gs =`');
+define('SECURE_AUTH_SALT', '86|q`SSIkP%8IMiD:=cPO;8/nu32FZz+bw<,Xqin=(+y!yzq $^SwzjvG&=&=F}+');
+define('LOGGED_IN_SALT',   '*U+|/j3[-I;6c;*c-*G%]x8nAhdQo[U]E+<Jnb3F5Tg3SMom@,8YF!`Z]3=uQzqY');
+define('NONCE_SALT',       '.cgcr)P0]hqTW<d)+b+bDo7d%o03B.~+wd NH,+lBcog=2^DQ=XR$[l%#N!|g73?');
 
-// ** File permissions ** //
+# Localized Language Stuff
+define('WP_CACHE',TRUE);
+define('PWP_NAME','globallives');
+define('FS_METHOD','direct');
+define('FS_CHMOD_DIR',0775);
+define('FS_CHMOD_FILE',0664);
+define('PWP_ROOT_DIR','/nas/wp');
+define('WPE_APIKEY','fd931f7cb005190b6e27f7410b918c9c9b9033da');
+define('WPE_FOOTER_HTML',"");
+define('WPE_CLUSTER_ID','1546');
+define('WPE_CLUSTER_TYPE','pod');
+define('WPE_ISP',true);
+define('WPE_BPOD',false);
+define('WPE_RO_FILESYSTEM',false);
+define('WPE_LARGEFS_BUCKET','largefs.wpengine');
+define('WPE_CDN_DISABLE_ALLOWED',false);
+define('DISALLOW_FILE_EDIT',FALSE);
+define('DISALLOW_FILE_MODS',FALSE);
+define('DISABLE_WP_CRON',false);
+define('WPE_FORCE_SSL_LOGIN',false);
+define('FORCE_SSL_LOGIN',false);
+/*SSLSTART*/ if ( isset($_SERVER['HTTP_X_WPE_SSL']) && $_SERVER['HTTP_X_WPE_SSL'] ) $_SERVER['HTTPS'] = 'on'; /*SSLEND*/
+define('WPE_EXTERNAL_URL',false);
+define('WP_POST_REVISIONS',3);
+define('WP_TURN_OFF_ADMIN_BAR',false);
+define('WPE_BETA_TESTER',false);
+umask(0002);
+$wpe_cdn_uris=array ();
+$wpe_no_cdn_uris=array ();
+$wpe_content_regexs=array ();
+$wpe_all_domains=array (  0 => 'globallives.wpengine.com',  1 => 'globallives.org',  2 => 'www.globallives.org',);
+$wpe_varnish_servers=array (  0 => 'pod-1546',);
+$wpe_ec_servers=array ();
+$wpe_largefs=array ();
+$wpe_netdna_domains=array ();
+$wpe_netdna_push_domains=array ();
+$wpe_domain_mappings=array ();
+$memcached_servers=array ();
+define('WPE_WHITELABEL','wpengine');
+define('WP_AUTO_UPDATE_CORE',false);
+define('WPLANG','');
 
-define('FS_METHOD', 'direct');
+# WP Engine ID
+define('PWP_DOMAIN_CONFIG', 'globallives.org' );
 
-/** Authentication Unique Keys and Salts.
- *  @link https://api.wordpress.org/secret-key/1.1/salt/
- */
+# WP Engine Settings
 
-define('AUTH_KEY',         '4JD[j4M~>:Hd2r0faZ#.VT|wf;A-Foq5Q$>T<W>%X#C}GBC27-z/^_NPS^N9&liG');
-define('SECURE_AUTH_KEY',  'C&v[<z&;$V8`^G`jn~Db_xI%jvL.33](6^X6&+<p`kH-?;DO.8+DHOJO=o[?/`o9');
-define('LOGGED_IN_KEY',    'e|e84*#!Ws_p_~+Tb=H_W];UQx%&@V ,SIeK+5C`TZLM$q^+6Xg)I5@quk&9WR>@');
-define('NONCE_KEY',        'H/Ng>Ta6M<FjR[;v|0+filW04sEN<zg[B7j.R~0@aU&VKk]Ml%+EAJF;0VF)Ef?^');
-define('AUTH_SALT',        'dvo,LMchl4_;8SC&muY| Oyc,*j2e3bmum3u[hvuj==uI513`upB>&7-+|+kS-w+');
-define('SECURE_AUTH_SALT', 'Y2a!l|4n!+6.gfDe-rbJ5^.h^KwdaN]M25gWd3r}wM9x|R|clhQR:A3hP:vn%Yf`');
-define('LOGGED_IN_SALT',   ' `56qxFE !_pVJthN h:K-VJ1kL;i#$-+$EA_N>,7jX3-~-tL:5Lb[v3+FA Ean_');
-define('NONCE_SALT',       'k4 REb36zMdOy4|o>vKF7~G2VX-imiYOP9*4+[([I*!1#7(a-;gWz/e*L#pc{>U2');
 
-$table_prefix  = 'wp_';
 
-define('WPLANG', '');
-define('WP_DEBUG', false);
 
-/* That's all, stop editing! Happy blogging. */
 
-/** Absolute path to the WordPress directory. */
+
+# That's It. Pencils down
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
-
-/** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+$_wpe_preamble_path = null; if(false){}

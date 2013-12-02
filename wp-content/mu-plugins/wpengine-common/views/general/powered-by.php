@@ -1,0 +1,1 @@
+WP Engine <a href="<?php echo esc_url($affiliate_code?$affiliate_code:'http://wpengine.com'); ?>" title="<?php esc_attr_e( 'Managed WordPress Hosting', 'wpengine' ); ?>"><?php printf( __( '%s.', 'wpengine' ), 'WordPress Hosting' ); ?></a>

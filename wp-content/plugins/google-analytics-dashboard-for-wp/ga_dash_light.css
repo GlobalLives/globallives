@@ -1,0 +1,11 @@
+.note{
+	border:2px solid #a1a1a1;
+	padding:10px 20px; 
+	background:white;
+	border-radius:25px;
+	width:25%;
+}
+
+.note li{
+	line-height:1.5em;
+}

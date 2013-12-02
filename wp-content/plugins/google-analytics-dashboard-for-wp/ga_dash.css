@@ -1,0 +1,89 @@
+.gatable{
+	font-family:Arial, Verdana; 
+	font-weight:bold; 
+	font-size:10pt;
+	width: 90%;
+}
+.gabutton{
+	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+	background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#3d94f6\', endColorstr=\'#1e62d0\');
+	background-color:#3d94f6;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #337fed;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:11px;
+	font-weight:bold;
+	padding:4px 3%;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #1570cd;
+}
+.gabutton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+	background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#1e62d0\', endColorstr=\'#3d94f6\');
+	background-color:#1e62d0;
+}
+.gabutton:active {
+	position:relative;
+	top:1px;
+}
+a.gatable:link { 
+	color: #FFFFC6; 
+	text-decoration: none;
+}
+a.gatable:visited {
+	color: #FFFFC6; 
+	text-decoration: none;
+}
+a.gatable:hover {
+	color: #FAFF00; 
+	text-decoration: none;
+}
+
+#ga_dash_statsdata{
+	width: 90%;
+	display: block;
+	margin: 0 auto;
+}
+	
+table.gatable {
+	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+	background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#3d94f6\', endColorstr=\'#1e62d0\');
+	background-color:#3d94f6;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #337fed;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:11px;
+	font-weight:bold;
+	padding:2px 2px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #1570cd;
+}
+
+.note{
+	border:2px solid #a1a1a1;
+	padding:10px 20px; 
+	background:white;
+	border-radius:25px;
+	width:25%;
+}
+
+.note li{
+	line-height:1.5em;
+}
