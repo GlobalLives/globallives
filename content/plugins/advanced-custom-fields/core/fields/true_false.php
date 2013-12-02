@@ -18,6 +18,10 @@ class acf_field_true_false extends acf_field
 		$this->name = 'true_false';
 		$this->label = __("True / False",'acf');
 		$this->category = __("Choice",'acf');
+		$this->defaults = array(
+			'default_value'	=>	0,
+			'message'	=>	'',
+		);
 		
 		
 		// do not delete!
@@ -40,16 +44,8 @@ class acf_field_true_false extends acf_field
 	
 	function create_field( $field )
 	{
-		// vars
-		$defaults = array(
-			'message'	=>	'',
-		);
-		
-		$field = array_merge($defaults, $field);
-		
-		
 		// html
-		echo '<ul class="checkbox_list ' . $field['class'] . '">';
+		echo '<ul class="acf-checkbox-list ' . $field['class'] . '">';
 			echo '<input type="hidden" name="'.$field['name'].'" value="0" />';
 			$selected = ($field['value'] == 1) ? 'checked="yes"' : '';
 			echo '<li><label><input id="' . $field['id'] . '-1"  type="checkbox" name="'.$field['name'].'" value="1" ' . $selected . ' />' . $field['message'] . '</label></li>';
@@ -74,12 +70,6 @@ class acf_field_true_false extends acf_field
 	function create_options( $field )
 	{
 		// vars
-		$defaults = array(
-			'default_value'	=>	0,
-			'message'	=>	'',
-		);
-		
-		$field = array_merge($defaults, $field);
 		$key = $field['name'];
 		
 		

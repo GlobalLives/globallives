@@ -59,8 +59,10 @@ class acf_field_group
 	function get_field_groups( $array )
 	{
 		// cache
-		$cache = wp_cache_get( 'field_groups', 'acf' );
-		if( $cache )
+		$found = false;
+		$cache = wp_cache_get( 'field_groups', 'acf', false, $found );
+		
+		if( $found )
 		{
 			return $cache;
 		}
@@ -118,7 +120,7 @@ class acf_field_group
 
 		
 		// get field from postmeta
-		$rows = $wpdb->get_results( $wpdb->prepare("SELECT meta_key FROM $wpdb->postmeta WHERE post_id = %d AND meta_key LIKE %s", $post_id, 'field\_%'), ARRAY_A);
+		$rows = $wpdb->get_results( $wpdb->prepare("SELECT meta_key FROM $wpdb->postmeta WHERE post_id = %d AND meta_key LIKE %s", $post_id, 'field_%'), ARRAY_A);
 		
 		
 		if( $rows )
@@ -351,14 +353,42 @@ class acf_field_group
 		global $post;
 		
 		
-		// add js vars
-		echo '<script type="text/javascript">
-			acf.nonce = "' . wp_create_nonce( 'acf_nonce' ) . '";
-			acf.post_id = ' . $post->ID . ';
-		</script>';
+		// l10n
+		$l10n = array(
+			'move_to_trash'		=>	__("Move to trash. Are you sure?",'acf'),
+			'checked'			=>	__("checked",'acf'),
+			'no_fields'			=>	__("No toggle fields available",'acf'),
+			'title'				=>	__("Field group title is required",'acf'),
+			'copy'				=>	__("copy",'acf'),
+			'or'				=>	__("or",'acf'),
+			'fields'			=>	__("Fields",'acf'),
+			'parent_fields'		=>	__("Parent fields",'acf'),
+			'sibling_fields'	=>	__("Sibling fields",'acf'),
+			'hide_show_all'		=>	__("Hide / Show All",'acf')
+		);
 		
+
 		
-		do_action('acf/field_group/admin_head'); // new action
+		?>
+<script type="text/javascript">
+(function($) {
+
+	// vars
+	acf.post_id = <?php echo $post->ID; ?>;
+	acf.nonce = "<?php echo wp_create_nonce( 'acf_nonce' ); ?>";
+	acf.admin_url = "<?php echo admin_url(); ?>";
+	acf.ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
+	
+	
+	// l10n
+	acf.l10n = <?php echo json_encode( $l10n ); ?>;
+	
+})(jQuery);	
+</script>
+		<?php
+		
+		// new action
+		do_action('acf/field_group/admin_head');
 		
 		
 		// add metaboxes
@@ -554,20 +584,27 @@ class acf_field_group
 				{
 					foreach( $post_types as $post_type )
 					{
-						$pages = get_pages(array(
-							'numberposts' => -1,
-							'post_type' => $post_type,
-							'sort_column' => 'menu_order',
-							'order' => 'ASC',
-							'post_status' => array('publish', 'private', 'draft', 'inherit', 'future'),
-							'suppress_filters' => false,
+						$posts = get_posts(array(
+							'posts_per_page'			=>	-1,
+							'post_type'					=> $post_type,
+							'orderby'					=> 'menu_order title',
+							'order'						=> 'ASC',
+							'post_status'				=> 'any',
+							'suppress_filters'			=> false,
+							'update_post_meta_cache'	=> false,
 						));
 						
-						if( $pages )
+						if( $posts )
 						{
-							$choices[$post_type] = array();
+							// sort into hierachial order!
+							if( is_post_type_hierarchical( $post_type ) )
+							{
+								$posts = get_page_children( 0, $posts );
+							}
 							
-							foreach($pages as $page)
+							$choices[ $post_type ] = array();
+							
+							foreach( $posts as $page )
 							{
 								$title = '';
 								$ancestors = get_ancestors($page->ID, 'page');
@@ -691,11 +728,30 @@ class acf_field_group
 								
 				break;
 			
+			case "post_status" :
+				
+				$choices = array(
+					'publish'	=> __( 'Publish' ),
+					'pending'	=> __( 'Pending Review' ),
+					'draft'		=> __( 'Draft' ),
+					'future'	=> __( 'Future' ),
+					'private'	=> __( 'Private' ),
+					'inherit'	=> __( 'Revision' ),
+					'trash'		=> __( 'Trash' )
+				);
+								
+				break;
+			
 			case "user_type" :
 				
 				global $wp_roles;
 				
 				$choices = $wp_roles->get_names();
+
+				if( is_multisite() )
+				{
+					$choices['super_admin'] = __('Super Admin');
+				}
 								
 				break;
 			
@@ -791,8 +847,8 @@ class acf_field_group
 		}
 		
 		
-        $name = 'acf_' . sanitize_title_with_dashes($_POST['post_title']);
-        
+        $name = 'acf_' . sanitize_title($_POST['post_title']);
+
         
         return $name;
 	}

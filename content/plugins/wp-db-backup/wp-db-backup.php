@@ -5,9 +5,9 @@ Plugin URI: http://austinmatzko.com/wordpress-plugins/wp-db-backup/
 Description: On-demand backup of your WordPress database. Navigate to <a href="edit.php?page=wp-db-backup">Tools &rarr; Backup</a> to get started.
 Author: Austin Matzko 
 Author URI: http://austinmatzko.com/
-Version: 2.2.3
+Version: 2.2.4
 
-Copyright 2010  Austin Matzko  (email : austin at pressedcode.com)
+Copyright 2013  Austin Matzko  (email : austin at pressedcode.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -181,10 +181,18 @@ class wpdbBackup {
 				}
 				break;
 			default:
-				$this->deliver_backup($this->backup_file, $via);
-				$this->error_display( 'frame' );
+				$success = $this->deliver_backup($this->backup_file, $via);
+				echo $this->error_display( 'frame', false );
+				
+				if ( $success ) {
+					echo '
+					<script type="text/javascript">
+						window.parent.setProgress("' . __('Backup Complete!','wp-db-backup') . '");
+					</script>
+					';
+				}
 			}
-			die();
+			exit;
 		}
 		if (isset($_GET['fragment'] )) {
 			list($table, $segment, $filename) = explode(':', $_GET['fragment']);
@@ -282,9 +290,15 @@ class wpdbBackup {
 		switch($_POST['deliver']) {
 		case 'http':
 			echo '
-				setProgress("' . __('Backup Complete!','wp-db-backup') . '");
+				setProgress("' . __('Preparing download.','wp-db-backup') . '");
 				window.onbeforeunload = null; 
 				fram.src = "' . $download_uri . '";
+				
+				setTimeout( function() {
+					var secondFrame = document.createElement("iframe");				
+					fram.parentNode.insertBefore(secondFrame, fram);
+					secondFrame.src = "' . $download_uri . '&download-retry=1";
+				}, 30000 );
 			';
 			break;
 		case 'smtp':
@@ -604,7 +618,16 @@ class wpdbBackup {
 	function admin_menu() {
 		$_page_hook = add_management_page(__('Backup','wp-db-backup'), __('Backup','wp-db-backup'), 'import', $this->basename, array(&$this, 'backup_menu'));
 		add_action('load-' . $_page_hook, array(&$this, 'admin_load'));
-		if ( function_exists('add_contextual_help') ) {
+		if (function_exists('get_current_screen')) {
+			$screen = convert_to_screen($_page_hook);
+			if (method_exists($screen,'add_help_tab')) {
+				$screen->add_help_tab(array(
+					'title' => __('Backup','wp-db-backup'),
+					'id' => $_page_hook,
+					'content' => $this->help_menu(),
+				));
+			}
+		} elseif ( function_exists('add_contextual_help') ) {
 			$text = $this->help_menu();
 			add_contextual_help($_page_hook, $text);
 		}
@@ -617,11 +640,10 @@ class wpdbBackup {
 
 	/** 
 	 * Add WP-DB-Backup-specific help options to the 2.7 =< WP contextual help menu
-	 * return string The text of the help menu.
+	 * @return string The text of the help menu.
 	 */
 	function help_menu() {
 		$text = "\n<a href=\"http://wordpress.org/extend/plugins/wp-db-backup/faq/\" target=\"_blank\">" . __('FAQ', 'wp-db-backup') . '</a>';
-		$text .= "\n<br />\n<a href=\"http://www.ilfilosofo.com/forum/forum/2\" target=\"_blank\">" . __('WP-DB-Backup Support Forum', 'wp-db-backup') . '</a>';
 		return $text;
 	}
 
@@ -1016,38 +1038,75 @@ class wpdbBackup {
 		if ('' == $filename) { return false; }
 		
 		$diskfile = $this->backup_dir . $filename;
+		$gz_diskfile = "{$diskfile}.gz";
+
 		/**
-		 * Try to compress to gzip, if available 
+		 * Try upping the memory limit before gzipping
 		 */
-		if ( function_exists('gzencode') ) {
-			$gz_diskfile = "{$diskfile}.gz";
-			if ( function_exists('file_get_contents') ) {
-				$text = file_get_contents($diskfile);
-			} else {
-				$text = implode("", file($diskfile));
+		if ( function_exists('memory_get_usage') && ( (int) @ini_get('memory_limit') < 64 ) ) {
+			@ini_set('memory_limit', '64M' );
+		}
+
+		if ( file_exists( $diskfile ) && empty( $_GET['download-retry'] ) ) {
+			/**
+			 * Try gzipping with an external application
+			 */
+			if ( file_exists( $diskfile ) && ! file_exists( $gz_diskfile ) ) {
+				@exec( "gzip $diskfile" );
 			}
-			$gz_text = gzencode($text, 9);
-			$fp = fopen($gz_diskfile, "w");
-			fwrite($fp, $gz_text);
-			if ( fclose($fp) ) {
-				unlink($diskfile);
+
+			if ( file_exists( $gz_diskfile ) ) {
+				if ( file_exists( $diskfile ) ) {
+					unlink($diskfile);
+				}
 				$diskfile = $gz_diskfile;
 				$filename = "{$filename}.gz";
+			
+			/**
+			 * Try to compress to gzip, if available 
+			 */
+			} else {
+				if ( function_exists('gzencode') ) {
+					if ( function_exists('file_get_contents') ) {
+						$text = file_get_contents($diskfile);
+					} else {
+						$text = implode("", file($diskfile));
+					}
+					$gz_text = gzencode($text, 9);
+					$fp = fopen($gz_diskfile, "w");
+					fwrite($fp, $gz_text);
+					if ( fclose($fp) ) {
+						unlink($diskfile);
+						$diskfile = $gz_diskfile;
+						$filename = "{$filename}.gz";
+					}
+				}
 			}
+			/*
+			 * 
+			 */
+		} elseif ( file_exists( $gz_diskfile ) && empty( $_GET['download-retry'] ) ) {
+			$diskfile = $gz_diskfile;
+			$filename = "{$filename}.gz";
 		}
-		/*
-		 * 
-		 */
 
 		if ('http' == $delivery) {
-			if (! file_exists($diskfile)) 
-				$this->error(array('kind' => 'fatal', 'msg' => sprintf(__('File not found:%s','wp-db-backup'), "&nbsp;<strong>$filename</strong><br />") . '<br /><a href="' . $this->page_url . '">' . __('Return to Backup','wp-db-backup') . '</a>'));
-			header('Content-Description: File Transfer');
-			header('Content-Type: application/octet-stream');
-			header('Content-Length: ' . filesize($diskfile));
-			header("Content-Disposition: attachment; filename=$filename");
-			$success = readfile($diskfile);
-			unlink($diskfile);
+			if ( ! file_exists( $diskfile ) ) {
+				if ( empty( $_GET['download-retry'] ) ) { 
+					$this->error(array('kind' => 'fatal', 'msg' => sprintf(__('File not found:%s','wp-db-backup'), "&nbsp;<strong>$filename</strong><br />") . '<br /><a href="' . $this->page_url . '">' . __('Return to Backup','wp-db-backup') . '</a>'));
+				} else {
+					return true;
+				}
+			} elseif ( file_exists( $diskfile ) ) {
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/octet-stream');
+				header('Content-Length: ' . filesize($diskfile));
+				header("Content-Disposition: attachment; filename=$filename");
+				$success = readfile($diskfile);
+				if ( $success ) {
+					unlink($diskfile);
+				}
+			}
 		} elseif ('smtp' == $delivery) {
 			if (! file_exists($diskfile)) {
 				$msg = sprintf(__('File %s does not exist!','wp-db-backup'), $diskfile);
@@ -1070,7 +1129,9 @@ class wpdbBackup {
 				}
 				$this->error(array('kind' => 'fatal', 'loc' => $location, 'msg' => $msg));
 			} else {
-				unlink($diskfile);
+				if ( file_exists( $diskfile ) ) {
+					unlink($diskfile);
+				}
 			}
 		}
 		return $success;

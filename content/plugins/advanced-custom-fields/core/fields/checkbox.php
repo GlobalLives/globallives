@@ -2,7 +2,7 @@
 
 class acf_field_checkbox extends acf_field
 {
-	
+
 	/*
 	*  __construct
 	*
@@ -18,6 +18,11 @@ class acf_field_checkbox extends acf_field
 		$this->name = 'checkbox';
 		$this->label = __("Checkbox",'acf');
 		$this->category = __("Choice",'acf');
+		$this->defaults = array(
+			'layout'		=>	'vertical',
+			'choices'		=>	array(),
+			'default_value'	=>	'',
+		);
 		
 		
 		// do not delete!
@@ -39,15 +44,6 @@ class acf_field_checkbox extends acf_field
 	
 	function create_field( $field )
 	{
-		// vars
-		$defaults = array(
-			'layout'		=>	'vertical',
-			'choices'		=>	array(),
-		);
-		
-		$field = array_merge($defaults, $field);
-		
-		
 		// value must be array
 		if( !is_array($field['value']) )
 		{
@@ -68,8 +64,10 @@ class acf_field_checkbox extends acf_field
 		$field['value'] = array_map('trim', $field['value']);
 		
 		
-		echo '<input type="hidden" name="' . $field['name'] . '" value="" />';
-		echo '<ul class="checkbox_list ' . $field['class'] . '">';
+		// vars
+		$i = 0;
+		$e = '<input type="hidden" name="' .  esc_attr($field['name']) . '" value="" />';
+		$e .= '<ul class="acf-checkbox-list ' . esc_attr($field['class']) . ' ' . esc_attr($field['layout']) . '">';
 		
 		
 		// checkbox saves an array
@@ -77,32 +75,39 @@ class acf_field_checkbox extends acf_field
 		
 		
 		// foreach choices
-		foreach($field['choices'] as $key => $value)
+		foreach( $field['choices'] as $key => $value )
 		{
-			$selected = '';
+			// vars
+			$i++;
+			$atts = '';
+			
+			
 			if( in_array($key, $field['value']) )
 			{
-				$selected = 'checked="yes"';
+				$atts = 'checked="yes"';
 			}
 			if( isset($field['disabled']) && in_array($key, $field['disabled']) )
 			{
-				$selected .= ' disabled="true"';
+				$atts .= ' disabled="true"';
 			}
 			
 			
-			// ID
 			// each checkbox ID is generated with the $key, however, the first checkbox must not use $key so that it matches the field's label for attribute
 			$id = $field['id'];
 			
-			if( $key > 1 )
+			if( $i > 1 )
 			{
 				$id .= '-' . $key;
 			}
 			
-			echo '<li><label><input id="' . $id . '" type="checkbox" class="' . $field['class'] . '" name="' . $field['name'] . '" value="' . $key . '" ' . $selected . ' />' . $value . '</label></li>';
+			$e .= '<li><label><input id="' . esc_attr($id) . '" type="checkbox" class="' . esc_attr($field['class']) . '" name="' . esc_attr($field['name']) . '" value="' . esc_attr($key) . '" ' . $atts . ' />' . $value . '</label></li>';
 		}
 		
-		echo '</ul>';
+		$e .= '</ul>';
+		
+		
+		// return
+		echo $e;
 	}
 	
 	
@@ -122,12 +127,6 @@ class acf_field_checkbox extends acf_field
 	function create_options( $field )
 	{
 		// vars
-		$defaults = array(
-			'default_value'	=>	'',
-			'choices'		=>	'',
-		);
-		
-		$field = array_merge($defaults, $field);
 		$key = $field['name'];
 		
 		
@@ -174,6 +173,27 @@ class acf_field_checkbox extends acf_field
 			'type'	=>	'textarea',
 			'name'	=>	'fields['.$key.'][default_value]',
 			'value'	=>	$field['default_value'],
+		));
+		
+		?>
+	</td>
+</tr>
+<tr class="field_option field_option_<?php echo $this->name; ?>">
+	<td class="label">
+		<label for=""><?php _e("Layout",'acf'); ?></label>
+	</td>
+	<td>
+		<?php
+		
+		do_action('acf/create_field', array(
+			'type'	=>	'radio',
+			'name'	=>	'fields['.$key.'][layout]',
+			'value'	=>	$field['layout'],
+			'layout' => 'horizontal', 
+			'choices' => array(
+				'vertical' => __("Vertical",'acf'), 
+				'horizontal' => __("Horizontal",'acf')
+			)
 		));
 		
 		?>

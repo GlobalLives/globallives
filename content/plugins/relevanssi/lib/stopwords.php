@@ -11,12 +11,14 @@ function relevanssi_populate_stopwords() {
 		$lang = WPLANG;
 	}
 	
-	include($relevanssi_variables['plugin_dir'] . 'stopwords/stopwords.' . $lang);
+	if (file_exists($relevanssi_variables['plugin_dir'] . 'stopwords/stopwords.' . $lang)) {
+		include($relevanssi_variables['plugin_dir'] . 'stopwords/stopwords.' . $lang);
 
-	if (is_array($stopwords) && count($stopwords) > 0) {
-		foreach ($stopwords as $word) {
-			$q = $wpdb->prepare("INSERT IGNORE INTO " . $relevanssi_variables['stopword_table'] . " (stopword) VALUES (%s)", trim($word));
-			$wpdb->query($q);
+		if (is_array($stopwords) && count($stopwords) > 0) {
+			foreach ($stopwords as $word) {
+				$q = $wpdb->prepare("INSERT IGNORE INTO " . $relevanssi_variables['stopword_table'] . " (stopword) VALUES (%s)", trim($word));
+				$wpdb->query($q);
+			}
 		}
 	}
 }

@@ -3,8 +3,8 @@ Contributors: whiletrue
 Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
-Tested up to: 3.5.1
-Stable tag: 2.3
+Tested up to: 3.7.1
+Stable tag: 2.4.8
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -13,9 +13,7 @@ This plugin displays the latest posts from a Twitter account in a sidebar widget
 Twitter API 1.1 ready, with easy customization of number of posts shown and replies detection.
 
 
-= Breaking news = 
-
-Starting from the 2.0 release, the plugin is based on Twitter API version 1.1. 
+The plugin is based on Twitter API version 1.1. 
 In order to use it, you have to create a personal Twitter Application on the [dev.twitter.com](https://dev.twitter.com/apps "dev.twitter.com") website.
 Within your Application, Twitter provides two strings: the Consumer Key and the Consumer Secret.
 You also need two other strings, the Access Token and the Access Token Secret, that you can get
@@ -25,7 +23,23 @@ Finally, enter all the Authorization string in the widget options box, along wit
 You can use the same Authorization strings for several widgets and multiple website. 
 Just remember to store them in a safe place!
 
-You also need to enable the CURL and OPENSSL extensions in your PHP environment.
+You also need CURL and OPENSSL extensions enabled in your PHP environment.
+
+= Shortcode =
+
+If you want to put your recent tweets other than in a widget, you can use the [really_simple_twitter] shortcode. 
+The shortcode support is experimental. 
+
+At the moment at least the twitter username and the 4 authentication attributes are mandatory. The shortcode minimal configuration is (with all fields filled):
+
+[really_simple_twitter username="" consumer_key="" consumer_secret="" access_token="" access_token_secret=""]
+
+You can specify other optional attributes, e.g.:
+
+* num (number of tweets to show, e.g. num="10")
+* skip_retweets (if set to true, retweets are skipped, e.g. skip_retweets="true")
+
+Virtually every widget option is usable, more examples are coming in the next updates.
 
 = Reference =
 
@@ -37,6 +51,24 @@ Do you like this plugin? Give a chance to our other works:
 * [Most and Least Read Posts](http://www.whiletrue.it/most-and-least-read-posts-widget-for-wordpress/ "Most and Least Read Posts")
 * [Tilted Tag Cloud Widget](http://www.whiletrue.it/tilted-tag-cloud-widget-per-wordpress/ "Tilted Tag Cloud Widget")
 * [Reading Time](http://www.whiletrue.it/reading-time-for-wordpress/ "Reading Time")
+
+= Credits =
+
+The initial release of the plugin was based on previous work of Max Steel (Web Design Company, Pro Web Design Studios), which was based on Pownce for Wordpress widget.
+
+The 1.2.3 release is based on the work of Frank Gregor.
+
+The 1.3.5 and 1.3.7 releases are based on the work of Jim Durand.
+
+Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - https://github.com/mynetx/codebird-php ) is used for Twitter OAuth Authentication.
+
+= Translators =
+
+* Branco, Slovak translation (WebHostingGeeks.com)
+* WhileTrue, Italian translation (www.whiletrue.it)
+* Inspirats, French translation (rysk-x.com)
+* Aleksandra Czuba, Polish translation (www.iwasindira.com)
+* Alexandre Janini, Brazilian Portuguese translation (www.asterisko.com.br)
 
 
 == Installation ==
@@ -64,30 +96,53 @@ You can use some CSS rules like these:
 `.really_simple_twitter_widget img { margin-right :6px; float:left; border-radius:4px; }`
 
 
-== Credits ==
-
-The initial release of the plugin was based on previous work of Max Steel (Web Design Company, Pro Web Design Studios), which was based on Pownce for Wordpress widget.
-
-The 1.2.3 release is based on the work of Frank Gregor.
-
-The 1.3.5 and 1.3.7 releases are based on the work of Jim Durand.
-
-Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - https://github.com/mynetx/codebird-php ) is used for Twitter OAuth Authentication.
-
-= Translators =
-
-* Branco, Slovak translation (WebHostingGeeks.com)
-* WhileTrue, Italian translation (www.whiletrue.it)
-* Inspirats, French translation (rysk-x.com)
-* Aleksandra Czuba, Polish translation (www.iwasindira.com)
-* Alexandre Janini, Brazilian Portuguese translation (www.asterisko.com.br)
-
-
 == Screenshots ==
 1. Sample content, using default options (e.g. no active links)  
 2. Options available in the Settings menu 
 
 == Changelog ==
+
+= 2.4.8 =
+* Fixed: Increased number of retrieved posts when the "skip text" option is enabled
+
+= 2.4.7 =
+* Added: Timestamp format option
+
+= 2.4.6 =
+* Fixed: Secret fields masked
+
+= 2.4.5 =
+* Changed: readme cleaning
+
+= 2.4.4 =
+* Changed: readme cleaning
+
+= 2.4.3 =
+* Changed: code cleaning
+
+= 2.4.2 =
+* Added: account thumbnail option
+* Changed: code cleaning
+
+= 2.4.1 =
+* Added: "really_simple_twitter" shortcode
+
+= 2.4 =
+* Added: Twitter Follow @user button with text customization
+* Changed: more compact and clean settings ui
+
+= 2.3.99 =
+* Fixed: revert to older Codebird version (PHP < 5.3 compatible)
+
+= 2.3.1.2 =
+* Fixed: previous Codebird version now available when running PHP < 5.3 
+
+= 2.3.1.1 =
+* Fixed: class_exists check is now namespace safe
+
+= 2.3.1 =
+* Changed: updated Codebird library
+* Changed: better error handling 
 
 = 2.3 =
 * Changed: updated timestamp function, following the current Twitter guidelines 
@@ -131,60 +186,24 @@ Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - ht
 
 = 1.3.17 =
 * Added: Polish translation by Aleksandra Czuba (www.iwasindira.com)
-
-= 1.3.16 =
 * Added: French translation by Inspirats (rysk-x.com)
-
-= 1.3.15 =
 * Added: Slovak translation by Branco (WebHostingGeeks.com)
-
-= 1.3.14 =
-* Fixed: widget_title filter
-
-= 1.3.13 =
-* Fixed: storing feed error 
-
-= 1.3.12 =
-* Changed: more feed error catching 
-
-= 1.3.11 =
-* Added: more debug info
-* Fixed: feed error catching 
-
-= 1.3.10 =
 * Added: show debug info option
-
-= 1.3.9.1 =
-* Fixed: the Twitter icon wasn't properly shown (AKA never commit on Saturday!)
-
-= 1.3.9 =
 * Added: optional Twitter icon near the widget title
+* Added: span wrapper element around the comma before the timestamp (class: rstw_comma), for easier design customization
+* Added: option to customize text on the user link below the list of tweets
+* Changed: more feed error catching 
 * Changed: screenshots moved outside, reducing the size of the plugin and allowing for faster updates
 * Changed: cleaner options UI
-
-= 1.3.8 =
 * Changed: now the "Create links on new window/tab" option affects all kinds of link
 * Changed: different regular expression for hashtag recognition
-
-= 1.3.7 =
-* Added: span wrapper element around the comma before the timestamp (class: rstw_comma), for easier design customization
-* Fixed: better caching errors control (work by Jim Durand)
-
-= 1.3.6 =
-* Fixed: avoid php warning on preg_replace function (php 5.3.5 bug)
-
-= 1.3.5 =
-* Fixed: better caching errors control (work by Jim Durand) 
-
-= 1.3.4 =
 * Changed: better caching control, allowing two widget with same username and different number of messages
 * Changed: simpler widget name
-
-= 1.3.3 =
+* Fixed: widget_title filter
+* Fixed: storing feed error 
+* Fixed: better caching errors control (work by Jim Durand)
+* Fixed: avoid php warning on preg_replace function (php 5.3.5 bug)
 * Fixed: error checking in the json request
-
-= 1.3.2 =
-* Added: option to customize text on the user link below the list of tweets
 * Fixed: now checks for errors when retrieving data from the Twitter API
 
 = 1.3.1 =
@@ -230,6 +249,18 @@ Starting from the 2.0 release, the Codebird library by J.M. ( me@mynetx.net - ht
 
 
 == Upgrade Notice ==
+
+= 2.3.99 =
+Revert to old Codebird version, users running PHP < 5.3 MUST upgrade (we apologize)
+
+= 2.3.1.2 =
+Previous Codebird version now available, users running PHP < 5.3 should upgrade 
+
+= 2.3.1.1 =
+The class_exists check is now namespace safe, users with multiple Codebird instances should upgrade
+
+= 2.3.1 =
+When using this release, PHP >= 5.3 is needed (required by the latest Codebird Twitter API), users running PHP < 5.3 should upgrade at least to the 2.3.1.2 plugin release.
 
 = 2.0 =
 This plugin is based on Twitter API version 1, that will be deleted on March 2013. 

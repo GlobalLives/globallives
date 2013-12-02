@@ -25,31 +25,34 @@ class acf_field_date_picker extends acf_field
 		);
 		
 		
+		// actions
+		add_action('init', array($this, 'init'));
+		
+		
 		// do not delete!
     	parent::__construct();
 	}
 	
 	
 	/*
-	*  input_admin_head()
+	*  init
 	*
-	*  This action is called in the admin_head action on the edit screen where your field is created.
-	*  Use this action to add css and javascript to assist your create_field() action.
+	*  This function is run on the 'init' action to set the field's $l10n data. Before the init action, 
+	*  access to the $wp_locale variable is not possible.
 	*
-	*  @info	http://codex.wordpress.org/Plugin_API/Action_Reference/admin_head
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
+	*  @type	action (init)
+	*  @date	3/09/13
+	*
+	*  @param	N/A
+	*  @return	N/A
 	*/
-
-	function input_admin_head()
+	
+	function init()
 	{
 		global $wp_locale;
 		
-		
-	    // localize strings
-	    $l10n = array(
-	        'closeText'         => __( 'Done', 'acf' ),
+		$this->l10n = array(
+			'closeText'         => __( 'Done', 'acf' ),
 	        'currentText'       => __( 'Today', 'acf' ),
 	        'monthNames'        => array_values( $wp_locale->month ),
 	        'monthNamesShort'   => array_values( $wp_locale->month_abbrev ),
@@ -58,13 +61,7 @@ class acf_field_date_picker extends acf_field
 	        'dayNamesShort'     => array_values( $wp_locale->weekday_abbrev ),
 	        'dayNamesMin'       => array_values( $wp_locale->weekday_initial ),
 	        'isRTL'             => isset($wp_locale->is_rtl) ? $wp_locale->is_rtl : false,
-	    );
-	 
-		?>
-<script type="text/javascript">
-acf.fields.date_picker.text = <?php echo json_encode( $l10n ); ?>;
-</script>
-		<?php
+		);
 	}
 	
 	
@@ -82,10 +79,6 @@ acf.fields.date_picker.text = <?php echo json_encode( $l10n ); ?>;
 	
 	function create_field( $field )
 	{
-		// defaults
-		$field = array_merge($this->defaults, $field);
-		
-		
 		// make sure it's not blank
 		if( !$field['date_format'] )
 		{
@@ -98,9 +91,10 @@ acf.fields.date_picker.text = <?php echo json_encode( $l10n ); ?>;
 		
 
 		// html
-		echo '<input type="hidden" value="' . $field['value'] . '" name="' . $field['name'] . '" class="acf-hidden-datepicker" />';
-		echo '<input type="text" value="" class="acf_datepicker" data-save_format="' . $field['date_format'] . '" data-display_format="' . $field['display_format'] . '" data-first_day="' . $field['first_day'] . '" />';
-
+		echo '<div class="acf-date_picker" data-save_format="' . $field['date_format'] . '" data-display_format="' . $field['display_format'] . '" data-first_day="' . $field['first_day'] . '">';
+			echo '<input type="hidden" value="' . $field['value'] . '" name="' . $field['name'] . '" class="input-alt" />';
+			echo '<input type="text" value="" class="input"  />';
+		echo '</div>';
 	}
 	
 	
@@ -119,26 +113,12 @@ acf.fields.date_picker.text = <?php echo json_encode( $l10n ); ?>;
 	
 	function create_options( $field )
 	{
-		// vars
-		$field = array_merge($this->defaults, $field);
-		$key = $field['name'];
-		
-		
+		// global
 		global $wp_locale;
 		
 		
-	    // localize strings
-	    $l10n = array(
-	        'closeText'         => __( 'Done', 'acf' ),
-	        'currentText'       => __( 'Today', 'acf' ),
-	        'monthNames'        => array_values( $wp_locale->month ),
-	        'monthNamesShort'   => array_values( $wp_locale->month_abbrev ),
-	        'monthStatus'       => __( 'Show a different month', 'acf' ),
-	        'dayNames'          => array_values( $wp_locale->weekday ),
-	        'dayNamesShort'     => array_values( $wp_locale->weekday_abbrev ),
-	        'dayNamesMin'       => array_values( $wp_locale->weekday_initial ),
-	        'isRTL'             => isset($wp_locale->is_rtl) ? $wp_locale->is_rtl : false,
-	    );
+		// vars
+		$key = $field['name'];
 	    
 	    ?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">

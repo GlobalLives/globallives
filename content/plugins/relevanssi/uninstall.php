@@ -6,7 +6,8 @@ if (!defined('WP_UNINSTALL_PLUGIN'))
 global $wpdb;
 require_once('lib/uninstall.php');
 
-relevanssi_uninstall();
+if (!defined('RELEVANSSI_PREMIUM')) relevanssi_uninstall();
+// if Relevanssi Premium is installed, options will not be deleted
 
 function relevanssi_uninstall() {
 	delete_option('relevanssi_title_boost');

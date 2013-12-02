@@ -1001,7 +1001,7 @@ function relevanssi_options_form() {
 	<?php if (function_exists('relevanssi_form_recency')) relevanssi_form_recency($recency_bonus, $recency_bonus_days); ?>
 	
 	<?php if (function_exists('icl_object_id')) : ?>
-	<h3 id="wpml"><?php _e('WPML compatibility', 'relevanssi'); ?></h3>
+	<h3 id="wpml"><?php _e('WPML/Polylang compatibility', 'relevanssi'); ?></h3>
 	
 	<label for='relevanssi_wpml_only_current'><?php _e("Limit results to current language:", "relevanssi"); ?>
 	<input type='checkbox' name='relevanssi_wpml_only_current' id='relevanssi_wpml_only_current' <?php echo $wpml_only_current ?> /></label>

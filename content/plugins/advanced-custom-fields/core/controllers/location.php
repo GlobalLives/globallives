@@ -23,6 +23,7 @@ class acf_location
 	{
 		// ajax
 		add_action('wp_ajax_acf/location/match_field_groups_ajax', array($this, 'match_field_groups_ajax'));
+		add_action('wp_ajax_nopriv_acf/location/match_field_groups_ajax', array($this, 'match_field_groups_ajax'));
 		
 		
 		// filters
@@ -43,6 +44,7 @@ class acf_location
 		add_filter('acf/location/rule_match/post', array($this, 'rule_match_post'), 10, 3);
 		add_filter('acf/location/rule_match/post_category', array($this, 'rule_match_post_category'), 10, 3);
 		add_filter('acf/location/rule_match/post_format', array($this, 'rule_match_post_format'), 10, 3);
+		add_filter('acf/location/rule_match/post_status', array($this, 'rule_match_post_status'), 10, 3);
 		add_filter('acf/location/rule_match/taxonomy', array($this, 'rule_match_taxonomy'), 10, 3);
 		
 		// Other
@@ -172,6 +174,14 @@ class acf_location
 					{
 						foreach( $group as $rule_id => $rule )
 						{
+							// Hack for ef_media => now post_type = attachment
+							if( $rule['param'] == 'ef_media' )
+							{
+								$rule['param'] = 'post_type';
+								$rule['value'] = 'attachment';
+							}
+							
+							
 							// $match = true / false
 							$match = apply_filters( 'acf/location/rule_match/' . $rule['param'] , false, $rule, $options );
 							
@@ -263,7 +273,7 @@ class acf_location
 		
 		
 		// translate $rule['value']
-		// - this variable will hold the origional post_id, but $options['post_id'] will hold the translated version
+		// - this variable will hold the original post_id, but $options['post_id'] will hold the translated version
 		//if( function_exists('icl_object_id') )
 		//{
 		//	$rule['value'] = icl_object_id( $rule['value'], $options['post_type'], true );
@@ -593,13 +603,28 @@ class acf_location
 		$user = wp_get_current_user();
  
         if( $rule['operator'] == "==" )
-        {
-            $match = in_array( $rule['value'], $user->roles );
-        }
-        elseif( $rule['operator'] == "!=" )
-        {
-            $match = ( ! in_array( $rule['value'], $user->roles ) );
-        }
+		{
+			if( $rule['value'] == 'super_admin' )
+			{
+				$match = is_super_admin( $user->ID );
+			}
+			else 
+			{
+				$match = in_array( $rule['value'], $user->roles );
+			}
+			
+		}
+		elseif( $rule['operator'] == "!=" )
+		{
+			if( $rule['value'] == 'super_admin' )
+			{
+				$match = !is_super_admin( $user->ID );
+			}
+			else 
+			{
+				$match = ( ! in_array( $rule['value'], $user->roles ) );
+			}
+		}
         
         return $match;
         
@@ -618,16 +643,21 @@ class acf_location
 	{
 		global $plugin_page;
 		    	
-		    	
+		// NOTE
+		// comment out below code as it was interfering with custom slugs
+		
 		// older location rules may be "options-pagename"
-		if( substr($rule['value'], 0, 8) == 'options-' )
+		/*
+if( substr($rule['value'], 0, 8) == 'options-' )
 		{
 			$rule['value'] = 'acf-' . $rule['value'];
 		}
+*/
 		
 		
 		// older location ruels may be "Pagename"
-		if( substr($rule['value'], 0, 11) != 'acf-options' )
+		/*
+if( substr($rule['value'], 0, 11) != 'acf-options' )
 		{
 			$rule['value'] = 'acf-options-' . sanitize_title( $rule['value'] );
 			
@@ -637,7 +667,8 @@ class acf_location
 				$rule['value'] = 'acf-options';
 			}
 		}
-		
+*/
+	
 		
 		if($rule['operator'] == "==")
         {
@@ -708,6 +739,52 @@ class acf_location
         
         
         return $match;
+        
+    }
+    
+    
+    /*
+	*  rule_match_post_status
+	*
+	*  @description: 
+	*  @since: 3.5.7
+	*  @created: 3/01/13
+	*/
+	
+	function rule_match_post_status( $match, $rule, $options )
+	{
+		// validate
+		if( !$options['post_id'] )
+		{
+			return false;
+		}
+		
+					
+		// vars
+		$post_status = get_post_status( $options['post_id'] );
+	    
+	    
+	    // auto-draft = draft
+	    if( $post_status == 'auto-draft' )
+	    {
+		    $post_status = 'draft';
+	    }
+	    
+	    
+	    // match
+	    if($rule['operator'] == "==")
+        {
+        	$match = ( $post_status === $rule['value'] );
+        	 
+        }
+        elseif($rule['operator'] == "!=")
+        {
+        	$match = ( $post_status !== $rule['value'] );
+        }
+        
+        
+        // return
+	    return $match;
         
     }
     
@@ -901,58 +978,7 @@ class acf_location
         
         return $match;
         
-    }
-    
-    
-    /*
-	*  rule_match_ef_media
-	*
-	*  @description: 
-	*  @since: 3.5.7
-	*  @created: 3/01/13
-	*/
-	
-	function rule_match_ef_media( $match, $rule, $options )
-	{
-		global $pagenow;
-
-		
-		if( $pagenow == 'post.php' )
-		{
-			// in 3.5, the media rule should check the post type
-			$rule['param'] = 'post_type';
-			$rule['value'] = 'attachment';
-			return $this->rule_match_post_type( $match, $rule, $options );
-		}
-		
-		
-		$ef_media = $options['ef_media'];
-		
-        if( $ef_media )
-		{
-			if($rule['operator'] == "==")
-	        {
-	        	// override for "all"
-		        if( $rule['value'] === "all" )
-				{
-					$match = true;
-				}
-	        }
-	        elseif($rule['operator'] == "!=")
-	        {
-	        	// override for "all"
-		        if( $rule['value'] === "all" )
-				{
-					$match = false;
-				}
-	        }
-
-		}
-		
-        return $match;
-        
-    }
-	
+    }	
 			
 }
 

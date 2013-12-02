@@ -1,19 +1,21 @@
 <?php
 
 /*
-*  Meta Box: Options
+*  Meta box - options
 *
-*  @description: 
-*  @created: 23/06/12
+*  This template file is used when editing a field group and creates the interface for editing options.
+*
+*  @type	template
+*  @date	23/06/12
 */
-	
+
 
 // global
 global $post;
 
 	
 // vars
-$options =  apply_filters('acf/field_group/get_options', array(), $post->ID);
+$options = apply_filters('acf/field_group/get_options', array(), $post->ID);
 	
 
 ?>
@@ -27,7 +29,7 @@ $options =  apply_filters('acf/field_group/get_options', array(), $post->ID);
 			<?php 
 			
 			do_action('acf/create_field', array(
-				'type'	=>	'text',
+				'type'	=>	'number',
 				'name'	=>	'menu_order',
 				'value'	=>	$post->menu_order,
 			));
@@ -47,9 +49,11 @@ $options =  apply_filters('acf/field_group/get_options', array(), $post->ID);
 				'name'	=>	'options[position]',
 				'value'	=>	$options['position'],
 				'choices' => array(
-					'normal'	=>	__("Normal",'acf'),
-					'side'		=>	__("Side",'acf'),
-				)
+					'acf_after_title'	=>	__("High (after title)",'acf'),
+					'normal'			=>	__("Normal (after content)",'acf'),
+					'side'				=>	__("Side",'acf'),
+				),
+				'default_value' => 'normal'
 			));
 
 			?>
@@ -75,7 +79,7 @@ $options =  apply_filters('acf/field_group/get_options', array(), $post->ID);
 			?>
 		</td>
 	</tr>
-	<tr>
+	<tr id="hide-on-screen">
 		<td class="label">
 			<label for="post_type"><?php _e("Hide on screen",'acf'); ?></label>
 			<p class="description"><?php _e("<b>Select</b> items to <b>hide</b> them from the edit screen",'acf'); ?></p>

@@ -20,6 +20,9 @@ function relevanssi_do_excerpt($t_post, $query) {
 
 	$remove_stopwords = false;
 	$terms = relevanssi_tokenize($query, $remove_stopwords, -1, false);
+
+	// These shortcodes cause problems with Relevanssi excerpts
+	remove_shortcode('layerslider');
 	
 	$content = apply_filters('relevanssi_pre_excerpt_content', $post->post_content, $post, $query);
 	$content = apply_filters('the_content', $content);
@@ -53,14 +56,8 @@ function relevanssi_do_excerpt($t_post, $query) {
 	$start = $excerpt_data[2];
 
 	$excerpt = $excerpt_data[0];	
-
-	// This shuffle with excerpts is done to avoid doubled Read more links in some cases.
-	$excerpt_save = $post->post_excerpt;
-	$post->post_excerpt = '';
-	$excerpt = apply_filters('get_the_excerpt', $excerpt);
-	$post->post_excerpt = $excerpt_save;
-
 	$excerpt = trim($excerpt);
+	$excerpt = apply_filters('relevanssi_excerpt', $excerpt);
 
 	$ellipsis = apply_filters('relevanssi_ellipsis', '...');
 
@@ -115,7 +112,7 @@ function relevanssi_create_excerpt($content, $terms, $query) {
 		$terms[] = $phrase;
 	}
 
-	usort($terms, 'relevanssi_strlen_sort');
+	uksort($terms, 'relevanssi_strlen_sort');
 	
 /*
 	$highlight = get_option('relevanssi_highlight');
@@ -359,7 +356,7 @@ function relevanssi_highlight_terms($excerpt, $query) {
 		$terms[] = $phrase;
 	}
 
-	usort($terms, 'relevanssi_strlen_sort');
+	uksort($terms, 'relevanssi_strlen_sort');
 
 	get_option('relevanssi_word_boundaries', 'on') == 'on' ? $word_boundaries = true : $word_boundaries = false;
 	foreach ($terms as $term) {

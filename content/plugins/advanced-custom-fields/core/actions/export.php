@@ -8,6 +8,9 @@
 *  @created: 25/01/13
 */
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit;
+
 
 // vars
 $defaults = array(
@@ -71,7 +74,7 @@ function wxr_site_url() {
 		return network_home_url();
 	// wp: the blog url
 	else
-		return get_bloginfo_rss( 'url' );
+		return get_site_url();
 }
 
 /**
@@ -189,7 +192,7 @@ echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . "\" ?>\n";
 <?php wxr_authors_list(); ?>
 <?php if ( $my_options['acf_posts'] ) {
 
-	global $wp_query, $wpdb;
+	global $wp_query, $wpdb, $post;
 	$wp_query->in_the_loop = true; // Fake being in the loop.
 	
 	// create SQL with %d placeholders

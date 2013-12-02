@@ -204,6 +204,7 @@ class acf_addons
 	
 	<div id="add-ons" class="clearfix">
 		
+		<div class="add-on-group clearfix">
 		<?php foreach( $premium as $addon ): ?>
 		<div class="add-on wp-box <?php if( $addon['active'] ): ?>add-on-active<?php endif; ?>">
 			<a target="_blank" href="<?php echo $addon['url']; ?>">
@@ -215,16 +216,16 @@ class acf_addons
 			</div>
 			<div class="footer">
 				<?php if( $addon['active'] ): ?>
-					<a class="button button-disabled"><span class="tick"></span><?php _e("Installed",'acf'); ?></a>
+					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed",'acf'); ?></a>
 				<?php else: ?>
 					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Purchase & Install",'acf'); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
-		<?php endforeach; ?>	
+		<?php endforeach; ?>
+		</div>
 		
-		<div class="add-on-title"></div>
-		
+		<div class="add-on-group clearfix">
 		<?php foreach( $free as $addon ): ?>
 		<div class="add-on wp-box <?php if( $addon['active'] ): ?>add-on-active<?php endif; ?>">
 			<a target="_blank" href="<?php echo $addon['url']; ?>">
@@ -236,18 +237,44 @@ class acf_addons
 			</div>
 			<div class="footer">
 				<?php if( $addon['active'] ): ?>
-					<a class="button button-disabled"><span class="tick"></span><?php _e("Installed",'acf'); ?></a>
+					<a class="button button-disabled"><span class="acf-sprite-tick"></span><?php _e("Installed",'acf'); ?></a>
 				<?php else: ?>
 					<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download",'acf'); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
 		<?php endforeach; ?>	
-			
+		</div>
+		
 				
 	</div>
 	
 </div>
+<script type="text/javascript">
+(function($) {
+	
+	$(window).load(function(){
+		
+		$('#add-ons .add-on-group').each(function(){
+		
+			var $el = $(this),
+				h = 0;
+			
+			
+			$el.find('.add-on').each(function(){
+				
+				h = Math.max( $(this).height(), h );
+				
+			});
+			
+			$el.find('.add-on').height( h );
+			
+		});
+		
+	});
+	
+})(jQuery);	
+</script>
 		<?php
 		
 		return;

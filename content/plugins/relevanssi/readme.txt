@@ -2,9 +2,11 @@
 Contributors: msaari
 Donate link: http://www.relevanssi.com/buy-premium/
 Tags: search, relevance, better search
-Requires at least: 3.0
-Tested up to: 3.5.1
-Stable tag: 3.1.6
+Requires at least: 3.3
+Tested up to: 3.7
+Stable tag: 3.1.9
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Relevanssi replaces the default search with a partial-match search that sorts results by relevance. It also indexes comments and shortcode content.
 
@@ -387,6 +389,41 @@ removing those words helps to make the index smaller and searching faster.
 * Mohib Ebrahim for relentless bug hunting.
 
 == Changelog ==
+
+= 3.1.9 =
+* Fix to make Relevanssi compatible with WordPress 3.7.
+* Fixed a mistyped database table name.
+* Relevanssi disables responsive-flipbook shortcode in indexing; it was causing problems.
+* Fixed a problem with an author dropdown with no author selected.
+
+= 3.1.8 =
+* Category restriction and exclusion and couple of other category-related settings didn't work properly.
+* Support for Polylang broke the support for WPML. That is now fixed.
+* One deprecated `$wpdb->escape()` was still left; it's gone now.
+* Shortcode `layerslider` was causing problems with Relevanssi; Relevanssi now disables it before building excerpts.
+* Relevanssi won't break BBPress search anymore.
+* If Relevanssi Premium is installed, deleting Relevanssi will not remove the databases and the options.
+
+= 3.1.7 =
+* New filter: `relevanssi_comment_content_to_index` lets you modify comment content before it's indexed by Relevanssi (to index comment meta, for example).
+* Facetious support: if post_type is set to -1, Relevanssi will not hang up on it.
+* Numerical search terms work better now.
+* Excerpt-building had issues, which are now fixed.
+* Punctuation removal now replaces &nbsp; with a space.
+* "starrater" short code from GD Star Rating is now disabled in indexing.
+* Punctuation removal now replaces invisible spaces with a normal space.
+* Division by zero error caused by 0 in posts_per_page is now prevented, and -1 value for posts_per_page handled better.
+* Relevanssi doesn't apply `get_the_excerpt` filters to excerpts it builds any more.
+* New filter: `relevanssi_excerpt` lets you modify the excerpts Relevanssi creates.
+* Relevanssi now suspends WP post cache while indexing, making indexing a lot more efficient. Thanks to Julien Mession for this one.
+* Deprecated function errors in 3.6 removed.
+* When search included user profiles or taxonomy terms, Relevanssi would generate lots of MySQL errors. Not anymore.
+* New filter: `relevanssi_valid_status` lets you modify the post statuses Relevanssi indexes.
+* New filter: `relevanssi_index_taxonomies_args` lets you modify the arguments passed to get_terms() when indexing taxonomies (for example to set 'hide_empty' to false).
+* Searching by taxonomy ID could confuse two taxonomies with the same term_id. The search is now checking the taxonomy as well to see it's correct. 
+* Basic support for Polylang plugin.
+* Russian and Italian stopwords are now included, thanks to Flector and Valerio Vendrame.
+* Small fix in the way user meta fields are handled.
 
 = 3.1.6 =
 * DEACTIVATE AND ACTIVATE THE PLUGIN AFTER YOU UPDATE.
@@ -907,7 +944,7 @@ removing those words helps to make the index smaller and searching faster.
 
 = 1.3.2 =
 * Quicktags are now stripped from custom-created excerpts.
-* Added a function `relevanssi_the_excerpt()', which prints out the excerpt without triggering `wp_trim_excerpt()` filters.
+* Added a function `relevanssi_the_excerpt()`, which prints out the excerpt without triggering `wp_trim_excerpt()` filters.
 
 = 1.3.1 =
 * Another bug fix release.
@@ -934,3 +971,11 @@ removing those words helps to make the index smaller and searching faster.
 
 = 1.0 =
 * First published version.
+
+== Upgrade notice ==
+
+= 3.1.9 =
+* WordPress 3.7 compatibility, couple of minor bug fixes.
+
+= 3.1.8 =
+Recommended for users of WPML and BBpress. Category exclusions and restrictions are also fixed.

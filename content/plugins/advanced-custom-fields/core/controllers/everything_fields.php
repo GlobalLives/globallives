@@ -32,13 +32,17 @@ class acf_everything_fields
 		add_action('wp_ajax_acf/everything_fields', array($this, 'acf_everything_fields'));
 		
 		
+		// attachment
+		add_filter('attachment_fields_to_edit', array($this, 'attachment_fields_to_edit'), 10, 2);
+		add_filter('attachment_fields_to_save', array($this, 'save_attachment'), 10, 2);
+		
+		
 		// save
 		add_action('create_term', array($this, 'save_taxonomy'));
 		add_action('edited_term', array($this, 'save_taxonomy'));
 		add_action('edit_user_profile_update', array($this, 'save_user'));
 		add_action('personal_options_update', array($this, 'save_user'));
 		add_action('user_register', array($this, 'save_user'));
-		add_filter("attachment_fields_to_save", array($this, 'save_attachment'), null , 2);
 
 
 		// shopp
@@ -47,6 +51,141 @@ class acf_everything_fields
 		
 		// delete
 		add_action('delete_term', array($this, 'delete_term'), 10, 4);
+	}
+	
+	
+	/*
+	*  attachment_fields_to_edit
+	*
+	*  Adds ACF fields to the attachment form fields
+	*
+	*  @type	filter
+	*  @date	14/07/13
+	*
+	*  @param	{array}		$form_fields
+	*  @return	{object}	$post
+	*/
+	
+	function attachment_fields_to_edit( $form_fields, $post ) 
+	{
+		// vars
+		$screen = get_current_screen();
+		$post_id = $post->ID;
+		
+		
+		if( !empty($screen) )
+		{
+			return $form_fields;
+		}
+		
+		
+		// get field groups
+		$filter = array( 'post_type' => 'attachment' );
+		$metabox_ids = array();
+		$metabox_ids = apply_filters( 'acf/location/match_field_groups', $metabox_ids, $filter );
+		
+		
+		// validate
+		if( empty($metabox_ids) )
+		{
+			return $form_fields;	
+		}
+		
+		
+		$acfs = apply_filters('acf/get_field_groups', array());
+	
+	
+		if( is_array($acfs) ){ foreach( $acfs as $acf ){
+			
+			// only add the chosen field groups
+			if( !in_array( $acf['id'], $metabox_ids ) )
+			{
+				continue;
+			}
+			
+			
+			// load fields
+			$fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
+			
+			
+			if( is_array($fields) ){ foreach( $fields as $i => $field ){
+				
+				// if they didn't select a type, skip this field
+				if( !$field || !$field['type'] || $field['type'] == 'null' )
+				{
+					continue;
+				}
+					
+			
+				// set value
+				if( !isset($field['value']) )
+				{
+					$field['value'] = apply_filters('acf/load_value', false, $post_id, $field);
+					$field['value'] = apply_filters('acf/format_value', $field['value'], $post_id, $field);
+				}
+				
+				
+				// create field
+				$field['name'] = 'fields[' . $field['key'] . ']';
+				
+				ob_start();
+					
+					do_action('acf/create_field', $field);
+					
+					$html = ob_get_contents();
+				
+				ob_end_clean();
+ 
+				
+				$form_fields[ $field['name'] ] = array(
+		       		'label' => $field['label'],
+		   			'input' => 'html',
+		   			'html' => $html
+				);
+				
+			}};
+ 
+			
+		}}
+		
+		
+		// return
+		return $form_fields;
+	}
+	
+	
+	/*
+	*  save_attachment
+	*
+	*  Triggers the acf/save_post action
+	*
+	*  @type	action
+	*  @date	14/07/13
+	*
+	*  @param	{array}	$post
+	*  @return	{array}	$attachment
+	*/
+	
+	function save_attachment( $post, $attachment )
+	{
+		// verify nonce
+		/*
+if( !isset($_POST['acf_nonce']) || !wp_verify_nonce($_POST['acf_nonce'], 'input') )
+		{
+			return $post;
+		}
+*/
+		
+		
+		// $post_id to save against
+		$post_id = $post['ID'];
+		
+		
+		// update the post
+		do_action('acf/save_post', $post_id);
+		
+				
+		return $post;
 	}
 	
 	
@@ -186,7 +325,7 @@ class acf_everything_fields
 		{
 			
 			$this->data['page_type'] = "media";
-			$filter['ef_media'] = 'all';
+			$filter['post_type'] = 'attachment';
 			
 			$this->data['page_action'] = "add";
 			$this->data['option_name'] = "";
@@ -301,7 +440,7 @@ $(document).ready(function(){
 				}
 				else
 				{
-					echo "$('#edittag > table.form-table:last > tbody').append( html );";
+					echo "$('#edittag > table.form-table:first > tbody').append( html );";
 				}
 			}
 			elseif($this->data['page_type'] == "media")
@@ -346,8 +485,12 @@ $(document).ready(function(){
 		}
 		
 
+		// vars
+		var $el = $('#addtag');
+		
+		
 		// clear WYSIWYG field
-		$('#addtag').find('.acf_wysiwyg textarea').each(function(){
+		$el.find('.acf_wysiwyg textarea').each(function(){
 
 			
 			// vars
@@ -355,11 +498,21 @@ $(document).ready(function(){
 				id = textarea.attr('id'),
 				editor = tinyMCE.get( id );
 			
-			editor.setContent('');
-			editor.save();
-			
+			if( editor )
+			{
+				editor.setContent('');
+				editor.save();
+			}
 			
 		});
+		
+		
+		// clear image / file fields
+		$el.find('.field .active').removeClass('active');
+		
+		
+		// clear checkbox
+		$el.find('input[type="checkbox"]').removeAttr('checked');
 
 	});
 	
@@ -399,8 +552,11 @@ $(document).ready(function(){
 		
 		// $post_id to save against
 		$post_id = $_POST['taxonomy'] . '_' . $term_id;
+						
 		
+		// update the post
 		do_action('acf/save_post', $post_id);
+		
 	}
 		
 		
@@ -424,38 +580,11 @@ $(document).ready(function(){
 		
 		// $post_id to save against
 		$post_id = 'user_' . $user_id;
+
 		
-		
-		do_action('acf/save_post', $post_id);		
-	}
-	
-	
-	/*--------------------------------------------------------------------------------------
-	*
-	*	save_attachment
-	*
-	*	@author Elliot Condon
-	*	@since 3.1.8
-	* 
-	*-------------------------------------------------------------------------------------*/
-	
-	function save_attachment( $post, $attachment )
-	{
-		// verify nonce
-		if( !isset($_POST['acf_nonce']) || !wp_verify_nonce($_POST['acf_nonce'], 'input') )
-		{
-			return $post;
-		}
-		
-		
-		// $post_id to save against
-		$post_id = $post['ID'];
-		
-		
+		// update the post
 		do_action('acf/save_post', $post_id);
-		
-		
-		return $post;
+				
 	}
 	
 	
@@ -478,9 +607,12 @@ $(document).ready(function(){
 		
 		// $post_id to save against
 		$post_id = 'shopp_category_' . $category->id;
-		
-		
+
+
+		// update the post
 		do_action('acf/save_post', $post_id);
+		
+		
 	}
 	
 	
@@ -542,12 +674,26 @@ $(document).ready(function(){
 				{
 					continue;
 				}
-
+				
+				
+				// layout dictates heading
+				$title = true;
+				
+				if( $acf['options']['layout'] == 'no_box' )
+				{
+					$title = false;
+				}
+				
 
 				// title 
 				if( $options['page_action'] == "edit" && $options['page_type'] == 'user' )
 				{
-					echo '<h3>' .$acf['title'] . '</h3><table class="form-table"><tbody>';
+					if( $title )
+					{
+						echo '<h3>' .$acf['title'] . '</h3>';
+					}
+					
+					echo '<table class="form-table"><tbody>';
 				}
 				
 				
@@ -555,7 +701,7 @@ $(document).ready(function(){
 				if( $layout == 'tr' )
 				{
 					//nonce
-					echo '<tr><td colspan="2"><input type="hidden" name="acf_nonce" value="' . wp_create_nonce( 'input' ) . '" /></td></tr>';
+					echo '<tr style="display:none;"><td colspan="2"><input type="hidden" name="acf_nonce" value="' . wp_create_nonce( 'input' ) . '" /></td></tr>';
 				}
 				else
 				{

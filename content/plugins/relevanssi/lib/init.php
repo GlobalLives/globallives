@@ -157,17 +157,39 @@ function relevanssi_create_database_tables($relevanssi_db_version) {
 		
 		dbDelta($sql);
 
-		$sql = "CREATE INDEX terms ON $relevanssi_table (term(20))";
-		$wpdb->query($sql);
+		$sql = "SHOW INDEX FROM $relevanssi_table";
+		$indices = $wpdb->get_results($sql);
 
-		$sql = "CREATE INDEX relevanssi_term_reverse_idx ON $relevanssi_table (term_reverse(10))";
-		$wpdb->query($sql);
+		$terms_exists = false;
+		$relevanssi_term_reverse_idx_exists = false;
+		$docs_exists = false;
+		$typeitem_exists = false;
+		foreach ($indices as $index) {
+			if ($index->Key_name == 'terms') $terms_exists = true;
+			if ($index->Key_name == 'relevanssi_term_reverse_idx') $relevanssi_term_reverse_idx_exists = true;
+			if ($index->Key_name == 'docs') $docs_exists = true;
+			if ($index->Key_name == 'typeitem') $typeitem_exists = true;
+		}
+		
+		if (!$terms_exists) {
+			$sql = "CREATE INDEX terms ON $relevanssi_table (term(20))";
+			$wpdb->query($sql);
+		}
 
-		$sql = "CREATE INDEX docs ON $relevanssi_table (doc)";
-		$wpdb->query($sql);
-
-		$sql = "CREATE INDEX typeitem ON $relevanssi_table (type, item)";
-		$wpdb->query($sql);
+		if (!$relevanssi_term_reverse_idx_exists) {
+			$sql = "CREATE INDEX relevanssi_term_reverse_idx ON $relevanssi_table (term_reverse(10))";
+			$wpdb->query($sql);
+		}
+		
+		if (!$docs_exists) {
+			$sql = "CREATE INDEX docs ON $relevanssi_table (doc)";
+			$wpdb->query($sql);
+		}
+		
+		if (!$typeitem_exists) {
+			$sql = "CREATE INDEX typeitem ON $relevanssi_table (type, item)";
+			$wpdb->query($sql);
+		}
 
 		$sql = "CREATE TABLE " . $relevanssi_stopword_table . " (stopword varchar(50) $charset_collate_bin_column NOT NULL,
 	    UNIQUE KEY stopword (stopword)) $charset_collate;";
@@ -227,7 +249,7 @@ function relevanssi_create_database_tables($relevanssi_db_version) {
 			$wpdb->query($sql);
 		}
 		
-		if (get_option('relevanssi_db_version') < 4) {
+		if (get_option('relevanssi_db_version') < 16) {
 			$sql = "ALTER TABLE $relevanssi_table ADD COLUMN term_reverse VARCHAR(50);";
 			$wpdb->query($sql);
 			$sql = "UPDATE $relevanssi_table SET term_reverse = REVERSE(term);";
