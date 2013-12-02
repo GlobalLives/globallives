@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-03 14:46+0300\n"
-"PO-Revision-Date: 2013-06-03 14:46+0300\n"
+"POT-Creation-Date: 2013-10-02 15:36+0300\n"
+"PO-Revision-Date: 2013-10-02 15:36+0300\n"
 "Last-Translator: \n"
 "Language-Team: Fernando De León <mrjosefernando@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,228 +16,218 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: google-sitemap-plugin.php:101
-#, fuzzy
-msgid "Pro plugins"
-msgstr "Plugins BWS"
-
-#: google-sitemap-plugin.php:104
-#: google-sitemap-plugin.php:130
-msgid "Activated plugins"
-msgstr "Plugins Activados"
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:114
-#: google-sitemap-plugin.php:122
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:140
-#: google-sitemap-plugin.php:148
-msgid "Read more"
-msgstr "Leer m&aacute;s"
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:649
-msgid "Settings"
-msgstr "Configuraci&oacute;n"
-
-#: google-sitemap-plugin.php:112
-#: google-sitemap-plugin.php:138
-msgid "Installed plugins"
-msgstr "Plugins Instalados"
-
-#: google-sitemap-plugin.php:120
-#: google-sitemap-plugin.php:146
-msgid "Recommended plugins"
-msgstr "Plugins Recomendados"
-
-#: google-sitemap-plugin.php:122
-msgid "Purchase"
-msgstr ""
-
-#: google-sitemap-plugin.php:127
-#, fuzzy
-msgid "Free plugins"
-msgstr "Plugins Recomendados"
-
-#: google-sitemap-plugin.php:148
-msgid "Download"
-msgstr "Descargar"
-
-#: google-sitemap-plugin.php:148
-#, php-format
-msgid "Install %s"
-msgstr "Instalar %s"
-
-#: google-sitemap-plugin.php:148
-msgid "Install now from wordpress.org"
-msgstr "Instalar desde wordpress.org"
-
-#: google-sitemap-plugin.php:153
-msgid "If you have any questions, please contact us via"
-msgstr ""
-
-#: google-sitemap-plugin.php:161
+#: google-sitemap-plugin.php:34
 msgid "BWS Plugins"
 msgstr "Plugins BWS"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap Options"
 msgstr "Ajustes de Mapa del Sitio de Google"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap"
 msgstr "Mapa del Sitio de Google"
 
-#: google-sitemap-plugin.php:273
-#: google-sitemap-plugin.php:348
+#: google-sitemap-plugin.php:145
+#: google-sitemap-plugin.php:220
 #, fuzzy
 msgid "Your Sitemap file is created in the site root directory."
 msgstr "El archivo del mapa del sitio se crea en el directorio ra&iacute;z del sitio. "
 
-#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:151
 msgid "Options saved."
 msgstr "Configuraci&oacute;n guardada !!"
 
-#: google-sitemap-plugin.php:339
+#: google-sitemap-plugin.php:211
 msgid "Google Sitemap options"
 msgstr "Opciones del Mapa del Sitio"
 
-#: google-sitemap-plugin.php:344
+#: google-sitemap-plugin.php:216
 #, fuzzy
 msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
 msgstr "Ya existe el archivo sitemap. si desea cambiarlo por otro es necesario marcar la casilla de abajo para crear el archivo. o usted lo puede hacer con un archivo que ya exista."
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
 msgstr "Si no quiere guardar este archivo se puede ir autom&aacute;ticamente a trav&eacute;s de par"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 msgid "this"
 msgstr "este"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
 msgstr "link, registro, seleccione el sitio necesario, el \"Sitemaps\" y escriba el campo cecesario"
 
-#: google-sitemap-plugin.php:357
+#: google-sitemap-plugin.php:229
 #, fuzzy
 msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
 msgstr "Este alojamiento no es compatible con CURL, por lo que no se puede a&ntilde;adir archivos al Mapa del sitio autom&aacute;ticamente"
 
-#: google-sitemap-plugin.php:366
+#: google-sitemap-plugin.php:238
 #, fuzzy
 msgid "I want to create a new sitemap file or update the existing one"
 msgstr "Quiero a&ntilde;adir el Mapa del sitio ruta del archivo en robots.txt"
 
-#: google-sitemap-plugin.php:372
-#: google-sitemap-plugin.php:379
+#: google-sitemap-plugin.php:244
+#: google-sitemap-plugin.php:251
 msgid "I want to add sitemap file path in robots.txt"
 msgstr "Quiero a&ntilde;adir el Mapa del sitio ruta del archivo en robots.txt"
 
-#: google-sitemap-plugin.php:373
+#: google-sitemap-plugin.php:245
 msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
 msgstr ""
 
-#: google-sitemap-plugin.php:384
+#: google-sitemap-plugin.php:256
 #, fuzzy
 msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
 msgstr "Por favor, seleccione los tipos de publicaciones necesarios para agregar en el mapa del sitio:"
 
-#: google-sitemap-plugin.php:397
+#: google-sitemap-plugin.php:269
 #, fuzzy
 msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
 msgstr "Escriba aqu&iacute; su nombre de usuario y contrase&ntilde;a de Herramientas para Webmasters de Google para agregar o eliminar el sitio y el archivo del mapa de forma autom&aacute;tica o para obtener informaci&oacute;n de este sitio en Herramientas para Webmasters de Google."
 
-#: google-sitemap-plugin.php:401
+#: google-sitemap-plugin.php:273
 msgid "Settings for remote work with google webmaster tools"
 msgstr "Ajustes para el trabajo a distancia con Herramientas para Webmasters de Google"
 
-#: google-sitemap-plugin.php:403
+#: google-sitemap-plugin.php:275
 msgid "Login"
 msgstr "Cuenta"
 
-#: google-sitemap-plugin.php:404
+#: google-sitemap-plugin.php:276
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
-#: google-sitemap-plugin.php:405
+#: google-sitemap-plugin.php:277
 #, fuzzy
 msgid "I want to add this site to Google Webmaster Tools"
 msgstr "Quiero a&ntilde;adir este sitio a las Herramientas para Webmasters de Google"
 
-#: google-sitemap-plugin.php:406
+#: google-sitemap-plugin.php:278
 #, fuzzy
 msgid "I want to delete this site from Google Webmaster Tools"
 msgstr "Quiero quitar a este sitio desde Herramientas para Webmasters de Google"
 
-#: google-sitemap-plugin.php:407
-#: google-sitemap-plugin.php:538
+#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:415
 #, fuzzy
 msgid "I want to get info about this site in Google Webmaster Tools"
 msgstr "Quiero ver informaci&oacute;n acerca de este sitio en Herramientas para Webmasters de Google"
 
-#: google-sitemap-plugin.php:414
+#: google-sitemap-plugin.php:286
 msgid "Save Changes"
 msgstr "Guardar Configuraci&oacute;n"
 
-#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:294
 #, fuzzy
 msgid "Please enter your login and password"
 msgstr "Debe introducir nombre de usuario y contrase&ntilde;a"
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:297
 #, fuzzy
 msgid "You should choose at least one action"
 msgstr "Debe elegir al menos una acci&oacute;n"
 
-#: google-sitemap-plugin.php:455
+#: google-sitemap-plugin.php:327
 #, fuzzy
 msgid "Login and password do not match. Please try again"
 msgstr "El nombre de usuario y/o contrase&ntilde;a est&aacute;(n) mal, por favor, intenta de nuevo"
 
-#: google-sitemap-plugin.php:540
+#: google-sitemap-plugin.php:417
 #, fuzzy
 msgid "This site is not added to the Google Webmaster Tools account"
 msgstr "Este sitio no est&aacute; agregado a su cuenta de Herramientas para Webmasters de Google"
 
-#: google-sitemap-plugin.php:561
+#: google-sitemap-plugin.php:437
 #, fuzzy
 msgid "Site URL:"
 msgstr "URL del sitio: "
 
-#: google-sitemap-plugin.php:562
+#: google-sitemap-plugin.php:438
 #, fuzzy
 msgid "Site verification:"
 msgstr "Verificaci&oacute;n del sitio: "
 
-#: google-sitemap-plugin.php:564
+#: google-sitemap-plugin.php:440
 #, fuzzy
 msgid "verified"
 msgstr "verificado"
 
-#: google-sitemap-plugin.php:566
+#: google-sitemap-plugin.php:442
 #, fuzzy
 msgid "not verified"
 msgstr "no verificado"
 
-#: google-sitemap-plugin.php:567
+#: google-sitemap-plugin.php:443
 #, fuzzy
 msgid "Sitemap file:"
 msgstr "Archivo del Mapa del Sitio: "
 
-#: google-sitemap-plugin.php:569
+#: google-sitemap-plugin.php:445
 msgid "added"
 msgstr "agregado"
 
-#: google-sitemap-plugin.php:571
+#: google-sitemap-plugin.php:447
 msgid "not added"
 msgstr "no agregado"
+
+#: google-sitemap-plugin.php:525
+#: google-sitemap-plugin.php:535
+msgid "Settings"
+msgstr "Configuraci&oacute;n"
+
+#: google-sitemap-plugin.php:536
+msgid "FAQ"
+msgstr ""
+
+#: google-sitemap-plugin.php:537
+msgid "Support"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Site URL"
+#~ msgstr "URL del sitio: "
+
+#, fuzzy
+#~ msgid "Please enter a valid email address."
+#~ msgstr "Debe introducir nombre de usuario y contrase&ntilde;a"
+
+#, fuzzy
+#~ msgid "Pro plugins"
+#~ msgstr "Plugins BWS"
+#~ msgid "Activated plugins"
+#~ msgstr "Plugins Activados"
+#~ msgid "Read more"
+#~ msgstr "Leer m&aacute;s"
+#~ msgid "Installed plugins"
+#~ msgstr "Plugins Instalados"
+#~ msgid "Recommended plugins"
+#~ msgstr "Plugins Recomendados"
+
+#, fuzzy
+#~ msgid "Free plugins"
+#~ msgstr "Plugins Recomendados"
+#~ msgid "Download"
+#~ msgstr "Descargar"
+#~ msgid "Install %s"
+#~ msgstr "Instalar %s"
+#~ msgid "Install now from wordpress.org"
+#~ msgstr "Instalar desde wordpress.org"
+
+#, fuzzy
+#~ msgid "Active Plugins"
+#~ msgstr "Plugins Activados"
+
+#, fuzzy
+#~ msgid "Inactive Plugins"
+#~ msgstr "Plugins Activados"
 
 #, fuzzy
 #~ msgid ""

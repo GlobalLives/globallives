@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-03 14:46+0300\n"
-"PO-Revision-Date: 2013-06-03 14:46+0300\n"
+"POT-Creation-Date: 2013-10-02 15:36+0300\n"
+"PO-Revision-Date: 2013-10-02 15:36+0300\n"
 "Last-Translator: \n"
 "Language-Team: Jeff <paillat.jeff@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,228 +16,218 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: google-sitemap-plugin.php:101
-#, fuzzy
-msgid "Pro plugins"
-msgstr "Plugins BWS"
-
-#: google-sitemap-plugin.php:104
-#: google-sitemap-plugin.php:130
-msgid "Activated plugins"
-msgstr "Plugins activés"
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:114
-#: google-sitemap-plugin.php:122
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:140
-#: google-sitemap-plugin.php:148
-msgid "Read more"
-msgstr "Lire la suite"
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:649
-msgid "Settings"
-msgstr "Paramètres"
-
-#: google-sitemap-plugin.php:112
-#: google-sitemap-plugin.php:138
-msgid "Installed plugins"
-msgstr "Plugins installés"
-
-#: google-sitemap-plugin.php:120
-#: google-sitemap-plugin.php:146
-msgid "Recommended plugins"
-msgstr "Plugins recommandés"
-
-#: google-sitemap-plugin.php:122
-msgid "Purchase"
-msgstr ""
-
-#: google-sitemap-plugin.php:127
-#, fuzzy
-msgid "Free plugins"
-msgstr "Plugins recommandés"
-
-#: google-sitemap-plugin.php:148
-msgid "Download"
-msgstr "Télécharger"
-
-#: google-sitemap-plugin.php:148
-#, php-format
-msgid "Install %s"
-msgstr "Installer %s"
-
-#: google-sitemap-plugin.php:148
-msgid "Install now from wordpress.org"
-msgstr "Installer maintenant de wordpress.org"
-
-#: google-sitemap-plugin.php:153
-msgid "If you have any questions, please contact us via"
-msgstr ""
-
-#: google-sitemap-plugin.php:161
+#: google-sitemap-plugin.php:34
 msgid "BWS Plugins"
 msgstr "Plugins BWS"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap Options"
 msgstr "Options de Google Sitemap"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap"
 msgstr "Google Sitemap"
 
-#: google-sitemap-plugin.php:273
-#: google-sitemap-plugin.php:348
+#: google-sitemap-plugin.php:145
+#: google-sitemap-plugin.php:220
 #, fuzzy
 msgid "Your Sitemap file is created in the site root directory."
 msgstr "Votre fichier sitemap est créé dans le répertoire racine du site. "
 
-#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:151
 msgid "Options saved."
 msgstr "Options enregistrées !!"
 
-#: google-sitemap-plugin.php:339
+#: google-sitemap-plugin.php:211
 msgid "Google Sitemap options"
 msgstr "Google Sitemap options de"
 
-#: google-sitemap-plugin.php:344
+#: google-sitemap-plugin.php:216
 #, fuzzy
 msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
 msgstr "Le fichier sitemap est existe déjà. Si vous voulez le changer pour un nouveau fichier sitemap cochez la case ci-dessous nécessaire. Dans le cas contraire toutes les actions seront effectuées sur un fichier existant."
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
 msgstr "Si vous ne voulez pas ajouter automatiquement ce fichier vous pouvez passer par"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 msgid "this"
 msgstr "cela"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
 msgstr "lien, connectez-vous, sélectionnez le site nécessaire, sélectionnez 'Sitemaps' et tapez dans le champ nécessaire"
 
-#: google-sitemap-plugin.php:357
+#: google-sitemap-plugin.php:229
 #, fuzzy
 msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
 msgstr "Cet hébergement ne supporte pas CURL, de sorte que vous ne pouvez pas ajouter fichier sitemap automatiquement"
 
-#: google-sitemap-plugin.php:366
+#: google-sitemap-plugin.php:238
 #, fuzzy
 msgid "I want to create a new sitemap file or update the existing one"
 msgstr "Je tiens à ajouter le chemin fichier sitemap dans le fichier robots.txt"
 
-#: google-sitemap-plugin.php:372
-#: google-sitemap-plugin.php:379
+#: google-sitemap-plugin.php:244
+#: google-sitemap-plugin.php:251
 msgid "I want to add sitemap file path in robots.txt"
 msgstr "Je tiens à ajouter le chemin fichier sitemap dans le fichier robots.txt"
 
-#: google-sitemap-plugin.php:373
+#: google-sitemap-plugin.php:245
 msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
 msgstr ""
 
-#: google-sitemap-plugin.php:384
+#: google-sitemap-plugin.php:256
 #, fuzzy
 msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
 msgstr "S'il vous plaît choisir les types de postes nécessaires afin d'ajouter des liens vers eux dans le sitemap:"
 
-#: google-sitemap-plugin.php:397
+#: google-sitemap-plugin.php:269
 #, fuzzy
 msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
 msgstr "Tapez ici votre login et mot de passe de votre compte Google Outils pour les webmasters d'ajouter ou de supprimer du site et fichier sitemap automatiquement ou pour obtenir des informations sur ce site dans Google Webmaster Tools."
 
-#: google-sitemap-plugin.php:401
+#: google-sitemap-plugin.php:273
 msgid "Settings for remote work with google webmaster tools"
 msgstr "Réglages pour le travail à distance avec Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:403
+#: google-sitemap-plugin.php:275
 msgid "Login"
 msgstr "Connexion"
 
-#: google-sitemap-plugin.php:404
+#: google-sitemap-plugin.php:276
 msgid "Password"
 msgstr "PASSWORD"
 
-#: google-sitemap-plugin.php:405
+#: google-sitemap-plugin.php:277
 #, fuzzy
 msgid "I want to add this site to Google Webmaster Tools"
 msgstr "Je tiens à ajouter ce site à google webmaster outils de l'"
 
-#: google-sitemap-plugin.php:406
+#: google-sitemap-plugin.php:278
 #, fuzzy
 msgid "I want to delete this site from Google Webmaster Tools"
 msgstr "Je veux supprimer ce site à partir de Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:407
-#: google-sitemap-plugin.php:538
+#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:415
 #, fuzzy
 msgid "I want to get info about this site in Google Webmaster Tools"
 msgstr "Je veux obtenir des informations sur ce site dans Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:414
+#: google-sitemap-plugin.php:286
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
-#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:294
 #, fuzzy
 msgid "Please enter your login and password"
 msgstr "Vous devez entrez votre identifiant et mot de passe"
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:297
 #, fuzzy
 msgid "You should choose at least one action"
 msgstr "Vous devez choisir au moins une action"
 
-#: google-sitemap-plugin.php:455
+#: google-sitemap-plugin.php:327
 #, fuzzy
 msgid "Login and password do not match. Please try again"
 msgstr "Login et mot de passe n\\'t correspondance, réessayer, s'il vous plaît"
 
-#: google-sitemap-plugin.php:540
+#: google-sitemap-plugin.php:417
 #, fuzzy
 msgid "This site is not added to the Google Webmaster Tools account"
 msgstr "Ce site n'est pas ajouté au compte Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:561
+#: google-sitemap-plugin.php:437
 #, fuzzy
 msgid "Site URL:"
 msgstr "URL du site: "
 
-#: google-sitemap-plugin.php:562
+#: google-sitemap-plugin.php:438
 #, fuzzy
 msgid "Site verification:"
 msgstr "Vérification sur place: "
 
-#: google-sitemap-plugin.php:564
+#: google-sitemap-plugin.php:440
 #, fuzzy
 msgid "verified"
 msgstr "verificated"
 
-#: google-sitemap-plugin.php:566
+#: google-sitemap-plugin.php:442
 #, fuzzy
 msgid "not verified"
 msgstr "non verificated"
 
-#: google-sitemap-plugin.php:567
+#: google-sitemap-plugin.php:443
 #, fuzzy
 msgid "Sitemap file:"
 msgstr "Plan du site déposer: "
 
-#: google-sitemap-plugin.php:569
+#: google-sitemap-plugin.php:445
 msgid "added"
 msgstr "ajouté"
 
-#: google-sitemap-plugin.php:571
+#: google-sitemap-plugin.php:447
 msgid "not added"
 msgstr "pas ajoutées"
+
+#: google-sitemap-plugin.php:525
+#: google-sitemap-plugin.php:535
+msgid "Settings"
+msgstr "Paramètres"
+
+#: google-sitemap-plugin.php:536
+msgid "FAQ"
+msgstr ""
+
+#: google-sitemap-plugin.php:537
+msgid "Support"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Site URL"
+#~ msgstr "URL du site: "
+
+#, fuzzy
+#~ msgid "Please enter a valid email address."
+#~ msgstr "Vous devez entrez votre identifiant et mot de passe"
+
+#, fuzzy
+#~ msgid "Pro plugins"
+#~ msgstr "Plugins BWS"
+#~ msgid "Activated plugins"
+#~ msgstr "Plugins activés"
+#~ msgid "Read more"
+#~ msgstr "Lire la suite"
+#~ msgid "Installed plugins"
+#~ msgstr "Plugins installés"
+#~ msgid "Recommended plugins"
+#~ msgstr "Plugins recommandés"
+
+#, fuzzy
+#~ msgid "Free plugins"
+#~ msgstr "Plugins recommandés"
+#~ msgid "Download"
+#~ msgstr "Télécharger"
+#~ msgid "Install %s"
+#~ msgstr "Installer %s"
+#~ msgid "Install now from wordpress.org"
+#~ msgstr "Installer maintenant de wordpress.org"
+
+#, fuzzy
+#~ msgid "Active Plugins"
+#~ msgstr "Plugins activés"
+
+#, fuzzy
+#~ msgid "Inactive Plugins"
+#~ msgstr "Plugins activés"
 
 #, fuzzy
 #~ msgid ""

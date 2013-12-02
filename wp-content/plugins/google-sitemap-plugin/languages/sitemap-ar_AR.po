@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-03 14:46+0300\n"
-"PO-Revision-Date: 2013-06-03 14:46+0300\n"
+"POT-Creation-Date: 2013-10-02 15:36+0300\n"
+"PO-Revision-Date: 2013-10-02 15:36+0300\n"
 "Last-Translator: \n"
 "Language-Team: Albayan Design, hani aladoli <info@albayan-design.com, darkking8@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,228 +16,218 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: google-sitemap-plugin.php:101
-#, fuzzy
-msgid "Pro plugins"
-msgstr " اضافات BWS"
-
-#: google-sitemap-plugin.php:104
-#: google-sitemap-plugin.php:130
-msgid "Activated plugins"
-msgstr "الاضافات المفعلة"
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:114
-#: google-sitemap-plugin.php:122
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:140
-#: google-sitemap-plugin.php:148
-msgid "Read more"
-msgstr "اقراء المزيد..."
-
-#: google-sitemap-plugin.php:106
-#: google-sitemap-plugin.php:132
-#: google-sitemap-plugin.php:649
-msgid "Settings"
-msgstr "الاعدادات"
-
-#: google-sitemap-plugin.php:112
-#: google-sitemap-plugin.php:138
-msgid "Installed plugins"
-msgstr "الاضافات المثبته"
-
-#: google-sitemap-plugin.php:120
-#: google-sitemap-plugin.php:146
-msgid "Recommended plugins"
-msgstr "اضافات موصي بها"
-
-#: google-sitemap-plugin.php:122
-msgid "Purchase"
-msgstr ""
-
-#: google-sitemap-plugin.php:127
-#, fuzzy
-msgid "Free plugins"
-msgstr "اضافات موصي بها"
-
-#: google-sitemap-plugin.php:148
-msgid "Download"
-msgstr "تحميل"
-
-#: google-sitemap-plugin.php:148
-#, php-format
-msgid "Install %s"
-msgstr "تثبيت %s"
-
-#: google-sitemap-plugin.php:148
-msgid "Install now from wordpress.org"
-msgstr "حملها الان من wordpress.org"
-
-#: google-sitemap-plugin.php:153
-msgid "If you have any questions, please contact us via"
-msgstr ""
-
-#: google-sitemap-plugin.php:161
+#: google-sitemap-plugin.php:34
 msgid "BWS Plugins"
 msgstr " اضافات BWS"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap Options"
 msgstr "خيارات خرائط جوجل"
 
-#: google-sitemap-plugin.php:162
+#: google-sitemap-plugin.php:35
 msgid "Google Sitemap"
 msgstr "خرائط جوجل"
 
-#: google-sitemap-plugin.php:273
-#: google-sitemap-plugin.php:348
+#: google-sitemap-plugin.php:145
+#: google-sitemap-plugin.php:220
 #, fuzzy
 msgid "Your Sitemap file is created in the site root directory."
 msgstr "تم إنشاء ملف Sitemap الخاص بك في الدليل  الرئيسي للموقع."
 
-#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:151
 msgid "Options saved."
 msgstr "تم حفظ الخيارات."
 
-#: google-sitemap-plugin.php:339
+#: google-sitemap-plugin.php:211
 msgid "Google Sitemap options"
 msgstr "خيارات خرائط جوجل"
 
-#: google-sitemap-plugin.php:344
+#: google-sitemap-plugin.php:216
 #, fuzzy
 msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
 msgstr "ملف الخريطة موجود مسبقاً . اذا كنت ترغب في انشاء خريطة جديدة قم بوضع علامة في المربع ادناه , في حالة اخري جميع التغيرات سوف تعاد كتابتها فوق الملف الموجود مسبقاُ ."
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
 msgstr "إذا كنت لا ترغب في إضافة هذا الملف تلقائيا قد تذهب من خلال"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 msgid "this"
 msgstr "هذه"
 
-#: google-sitemap-plugin.php:352
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
 #, fuzzy
 msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
 msgstr "الرابط , تسجيل الدخول , اختياري الموقع ضاروري , اختيار الخرائط , و املاء الحقول الضرورية"
 
-#: google-sitemap-plugin.php:357
+#: google-sitemap-plugin.php:229
 #, fuzzy
 msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
 msgstr "الاستضافة لا تدعم ( CURL )  اذاُ لا يمكنك اضافة ملف الخريطة تلقائياُ"
 
-#: google-sitemap-plugin.php:366
+#: google-sitemap-plugin.php:238
 #, fuzzy
 msgid "I want to create a new sitemap file or update the existing one"
 msgstr "ارغب في اضافة مسار ملف الخريطة في  robots.txt"
 
-#: google-sitemap-plugin.php:372
-#: google-sitemap-plugin.php:379
+#: google-sitemap-plugin.php:244
+#: google-sitemap-plugin.php:251
 msgid "I want to add sitemap file path in robots.txt"
 msgstr "ارغب في اضافة مسار ملف الخريطة في  robots.txt"
 
-#: google-sitemap-plugin.php:373
+#: google-sitemap-plugin.php:245
 msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
 msgstr ""
 
-#: google-sitemap-plugin.php:384
+#: google-sitemap-plugin.php:256
 #, fuzzy
 msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
 msgstr "الرجاء اختيار انواع المواضيع الضارورية لاضافة روابطها في الخريطة :"
 
-#: google-sitemap-plugin.php:397
+#: google-sitemap-plugin.php:269
 #, fuzzy
 msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
 msgstr "اكتب هنا اسم الدخول والرقم السري الخاصة بـحساب google webmaster tools - للاضافة او حذف ملف الخريطة تلقائياً . او معرفة المعلومات عن هذه الموقع في google webmaster tools"
 
-#: google-sitemap-plugin.php:401
+#: google-sitemap-plugin.php:273
 msgid "Settings for remote work with google webmaster tools"
 msgstr "الضبط للعمل عن بعد مع google webmaster tools"
 
-#: google-sitemap-plugin.php:403
+#: google-sitemap-plugin.php:275
 msgid "Login"
 msgstr "اسم الدخول"
 
-#: google-sitemap-plugin.php:404
+#: google-sitemap-plugin.php:276
 msgid "Password"
 msgstr "الرقم السري"
 
-#: google-sitemap-plugin.php:405
+#: google-sitemap-plugin.php:277
 #, fuzzy
 msgid "I want to add this site to Google Webmaster Tools"
 msgstr "ارغب في اضافة هذه الموقع في google webmaster tools"
 
-#: google-sitemap-plugin.php:406
+#: google-sitemap-plugin.php:278
 #, fuzzy
 msgid "I want to delete this site from Google Webmaster Tools"
 msgstr "ارغب في حذف هذه الموقع من google webmaster tools"
 
-#: google-sitemap-plugin.php:407
-#: google-sitemap-plugin.php:538
+#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:415
 #, fuzzy
 msgid "I want to get info about this site in Google Webmaster Tools"
 msgstr "ارغب في الحصول علي البيانات هذه الموقع في google webmaster tools"
 
-#: google-sitemap-plugin.php:414
+#: google-sitemap-plugin.php:286
 msgid "Save Changes"
 msgstr "حفظ الاعدادات"
 
-#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:294
 #, fuzzy
 msgid "Please enter your login and password"
 msgstr "يجب عليك كتابة اسم الدخول والرقم السري"
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:297
 #, fuzzy
 msgid "You should choose at least one action"
 msgstr "يجب عليك اختيار عملية واحدة علي الاقل"
 
-#: google-sitemap-plugin.php:455
+#: google-sitemap-plugin.php:327
 #, fuzzy
 msgid "Login and password do not match. Please try again"
 msgstr "اسم الدخول والرقم السري // غير مطابقة , الرجاء اعادة المحاولة مرة اخري"
 
-#: google-sitemap-plugin.php:540
+#: google-sitemap-plugin.php:417
 #, fuzzy
 msgid "This site is not added to the Google Webmaster Tools account"
 msgstr "هذه الموقع غير مضاف الي حساب google webmaster tools"
 
-#: google-sitemap-plugin.php:561
+#: google-sitemap-plugin.php:437
 #, fuzzy
 msgid "Site URL:"
 msgstr "رابط الموقع :"
 
-#: google-sitemap-plugin.php:562
+#: google-sitemap-plugin.php:438
 #, fuzzy
 msgid "Site verification:"
 msgstr "كود التحقق لهذه الموقع :"
 
-#: google-sitemap-plugin.php:564
+#: google-sitemap-plugin.php:440
 #, fuzzy
 msgid "verified"
 msgstr "التحقق"
 
-#: google-sitemap-plugin.php:566
+#: google-sitemap-plugin.php:442
 #, fuzzy
 msgid "not verified"
 msgstr "لا يوجد تحقق"
 
-#: google-sitemap-plugin.php:567
+#: google-sitemap-plugin.php:443
 #, fuzzy
 msgid "Sitemap file:"
 msgstr "ملف الخريطة :"
 
-#: google-sitemap-plugin.php:569
+#: google-sitemap-plugin.php:445
 msgid "added"
 msgstr "اضيفت"
 
-#: google-sitemap-plugin.php:571
+#: google-sitemap-plugin.php:447
 msgid "not added"
 msgstr "لم تضاف"
+
+#: google-sitemap-plugin.php:525
+#: google-sitemap-plugin.php:535
+msgid "Settings"
+msgstr "الاعدادات"
+
+#: google-sitemap-plugin.php:536
+msgid "FAQ"
+msgstr ""
+
+#: google-sitemap-plugin.php:537
+msgid "Support"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Site URL"
+#~ msgstr "رابط الموقع :"
+
+#, fuzzy
+#~ msgid "Please enter a valid email address."
+#~ msgstr "يجب عليك كتابة اسم الدخول والرقم السري"
+
+#, fuzzy
+#~ msgid "Pro plugins"
+#~ msgstr " اضافات BWS"
+#~ msgid "Activated plugins"
+#~ msgstr "الاضافات المفعلة"
+#~ msgid "Read more"
+#~ msgstr "اقراء المزيد..."
+#~ msgid "Installed plugins"
+#~ msgstr "الاضافات المثبته"
+#~ msgid "Recommended plugins"
+#~ msgstr "اضافات موصي بها"
+
+#, fuzzy
+#~ msgid "Free plugins"
+#~ msgstr "اضافات موصي بها"
+#~ msgid "Download"
+#~ msgstr "تحميل"
+#~ msgid "Install %s"
+#~ msgstr "تثبيت %s"
+#~ msgid "Install now from wordpress.org"
+#~ msgstr "حملها الان من wordpress.org"
+
+#, fuzzy
+#~ msgid "Active Plugins"
+#~ msgstr "الاضافات المفعلة"
+
+#, fuzzy
+#~ msgid "Inactive Plugins"
+#~ msgstr "الاضافات المفعلة"
 
 #, fuzzy
 #~ msgid ""

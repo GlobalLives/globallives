@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
-Requires at least: 2.9
-Tested up to: 3.5.1
-Stable tag: 2.8
+Requires at least: 3.0
+Tested up to: 3.6.1
+Stable tag: 2.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,8 +24,9 @@ With the Google Sitemap Plugin you can create and add a Sitemap file to Google W
 * Russian (ru_RU)
 * Serbian (sr_RS) (thanks to <a href="mailto:diana@wpdiscounts.com">Diana</a>, www.wpdiscounts.com)
 * Spanish (es_ES) (thanks to <a href="mailto:mrjosefernando@gmail.com">Fernando De León</a>)
+* Ukrainian (uk)
 
-If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BWS</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
@@ -79,6 +80,19 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap Plu
 2. Google sitemap Settings page on the hosting which doesn't support cURL.
 
 == Changelog ==
+
+= V2.8.3 - 02.10.2013 =
+* Update : We updated all functionality for wordpress 3.6.1.
+* NEW : The Ukrainian language file is added to the plugin.
+
+= V2.8.2 - 05.09.2013 =
+* Update : We updated all functionality for wordpress 3.6.
+* Update : Function for displaying BWS plugins section placed in a separate file and has own language files.
+* NEW : Added additional links in activate plugin page.
+
+= V2.8.1 - 18.07.2013 =
+* NEW : Added an ability to view and send system information by mail.
+* Update : We updated all functionality for wordpress 3.5.2.
 
 = V2.8 - 03.06.2013 =
 * Update : BWS plugins section is updated.
@@ -144,6 +158,15 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap Plu
 * New: Added ability to add site in google webmaster tools, verificate it and add sitemap file.
 
 == Upgrade Notice ==
+
+= V2.8.3 =
+We updated all functionality for wordpress 3.6.1. The Ukrainian language file is added to the plugin.
+
+= V2.8.2 =
+We updated all functionality for wordpress 3.6. Function for displaying BWS plugins section placed in a separate file and has own language files. Added additional links in activate plugin page.
+
+= V2.8.1 =
+Added an ability to view and send system information by mail. We updated all functionality for wordpress 3.5.2.
 
 = V2.8 =
 BWS plugins section is updated.

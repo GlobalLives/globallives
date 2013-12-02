@@ -1,29 +1,34 @@
 === Google Analytics Dashboard for WP ===
 Contributors: deconf
-Tags: google analytics dashboard, analytics dashboard, google, dashboard, google analytics widget, google analytics, tracking, analytics
+Donate link: http://deconf.com/donate/
+Tags: google,analytics,google analytics,dashboard,analytics dashboard,google analytics dashboard,google analytics widget,tracking,realtime,wpmu,multisite
 Requires at least: 2.8
-Tested up to: 3.5.1
-Stable tag: 4.0.4
+Tested up to: 3.7.1
+Stable tag: 4.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin will display Google Analytics data and statistics inside your WordPress Blog.
+Google Analytics Dashboard for WP will display Google Analytics data and statistics inside your WordPress Blog.
 
 == Description ==
-Using a widget, Google Analytics Dashboard for WP displays detailed info and statistics about: number of visits, number of visitors, bounce rates, organic searches, pages per visit directly on your Admin Dashboard.
+Using a widget, Google Analytics Dashboard displays detailed info and statistics about: number of visits, number of visitors, bounce rates, organic searches, pages per visit directly on your Admin Dashboard.
 
 Authorized users can also view statistics like Views, UniqueViews and top searches, on frontend, at the end of each article.
 
-Using this plugin, your data is collected in a fast and secure manner because Google Analytics Dashboard for WP uses OAuth2 protocol and Google Analytics API.
+Using this plugin, your data is collected in a fast and secure manner because Google Analytics Dashboard uses OAuth2 protocol and Google Analytics API.
 
 Main benefits:
 
 - you can access all websites statistics in a single widget (websites within same Google Account)
+- real-time feature, displays real-time visitors, real-time sources and per page real-time traffic details
 - cache feature, this improves loading speed up to 7 times and avoids dailyLimitExceeded, usageLimits.userRateLimitExceededUnreg, userRateLimitExceeded errors from Google Analytics API
 - two themes: Blue Theme and Light Theme
-- access level settings and lock profile feature
+- main dash access level settings and lock profile feature
+- access level settings for Backend statistics and reports
+- access level settings for Frontend data and reports
 - option to display top 24 pages, referrers and searches (sortable by columns)
 - option to display Visitors by Country on Geo Map
+- local websites and business have an option to display cities, instead of countries, on a regional map
 - option to display Traffic Overview in Pie Charts
 - option to display Google Analytics statistics on frontend, at the end of each article
 - simple Authorization process
@@ -37,28 +42,30 @@ This plugin suports Google Analytics tracking. Main tracking options and feature
 - supports ga.js tracking for comaptibility with Classic Analytics web property
 - track single domain, domain and all subdomains, multiple TLD domains
 - IP address anonymization feature
+- track events feature: track downloads, emails and outbound links (supported for both tracking methods: classic tracking and universal tracking)
+- exclude traffic based on user level access
  
 Related Links:
 
-* <a href="http://forum.deconf.com/en/wordpress-plugins-f182/google-analytics-dashboard-for-wp-translations-t532.html" target="_blank">Support and Google Analytics Dashboard translations</a>
+* <a href="http://forum.deconf.com/wordpress-plugins-f182/google-analytics-dashboard-for-wp-translations-t532.html" target="_blank">Support and Google Analytics Dashboard translations</a>
 
-* <a href="http://www.deconf.com/en/projects/google-analytics-dashboard-for-wordpress/" title="Google Analytics Dashboard for WP Plugin"  target="_blank">Google Analytics Dashboard Plugin Homepage</a>
+* <a href="http://deconf.com/google-analytics-dashboard-wordpress/" title="Google Analytics Dashboard Plugin"  target="_blank">Google Analytics Dashboard Plugin Homepage</a>
 
 == Installation ==
 
 1. Upload the full directory into your wp-content/plugins directory
 2. Activate the plugin at the plugin administration page
-3. Open the plugin configuration page, which is located under Settings -> GA Dashboard and enter your API Key, Client Secret and Client ID.
+3. Open the plugin configuration page, which is located under Settings -> GA Dashboard (optionally enter your API Key, Client Secret and Client ID).
 4. Authorize the application using the 'Authorize Application' button
 5. Go back to the plugin configuration page, which is located under Settings -> GA Dashboard to update the final settings.
 
-A step by step tutorial is available here: [Google Analytics Dashboard for WP video tutorial](http://www.deconf.com/en/projects/google-analytics-dashboard-for-wordpress/)
+A step by step tutorial is available here: [Google Analytics Dashboard video tutorial](http://deconf.com/google-analytics-dashboard-wordpress/)
 
 == Frequently Asked Questions == 
 
 = Where can I find my Google API Key, Client Secret, Client ID? =
 
-Follow this step by step video tutorial: [Google Analytics Dashboard for WP](http://www.deconf.com/en/projects/google-analytics-dashboard-for-wordpress/)
+Follow this step by step video tutorial: [Google Analytics Dashboard ](http://deconf.com/google-analytics-dashboard-wordpress/)
 
 = I have several wordpress websites do I need an API Project for each one? =
 
@@ -70,23 +77,65 @@ We are constantly improving our plugin, sometimes the video tutorial may be a li
 
 = More Questions? =
 
-A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins Support](http://forum.deconf.com/en/wordpress-plugins-f182/)
+A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins Support](http://forum.deconf.com/wordpress-plugins-f182/)
 
 == Screenshots ==
 
 1. Google Analytics Dashboard Blue Theme
-2. Google Analytics Dashboard Light Theme
+2. Google Analytics Dashboard Real-Time
 3. Google Analytics Dashboard Settings
 4. Google Analytics Dashboard Geo Map
 5. Google Analytics Dashboard Top Pages, Top Referrers and Top Searches
 6. Google Analytics Dashboard Traffic Overview
 7. Google Analytics Dashboard statistics per page on Frontend
+8. Google Analytics Dashboard cities on region map
 
 == License ==
 
 This plugin it's released under the GPLv2, you can use it free of charge on your personal or commercial website.
 
 == Changelog ==
+
+= 11.11.2013 - v4.2.3 =
+- time zone fixes
+- hourly reports for yesterday and today
+- small css fix on frontend
+
+= 06.11.2013 - v4.2.2 =
+- small fixes and update
+
+= 12.10.2013 - v4.2.1 =
+- fixed Domain and Subdomains tracking code for Universal Analytics 
+
+= 21.09.2013 - v4.2 =
+- added google analytics real-time support
+- new date ranges: Today, Yesterday, Last 30 Days and Last 90 Days 
+
+= 15.09.2013 - v4.1.5 =
+- fixed "lightblack" color issue, on geomap, on light theme
+- added cursor:pointer property to class .gabutton
+
+= 09.09.2013 - v4.1.4 =
+- added access level option to Additional Backend Settings section 
+- added access level option to Additional Frontend Settings section
+- new feature for Geo Map allowing local websites to display cities, instead of countries, on a regional map
+- fixed colors for Geo Chart containing world visits by country
+
+= 16.08.2013 - v4.1.3 =
+- solved WooCommerce conflict using .note class
+- added traffic exclusion based on user level access
+
+= 29.07.2013 - v4.1.1 =
+- added missing files
+- other minor fixes
+
+= 27.07.2013 - v4.1 =
+- added event tracking feature: track downloads, track emails, track outbound links
+- remove trailing comma for IE8 compatibility
+
+= 14.07.2013 - v4.0.4 =
+- a better way to retrieve domains and subdomains from profiles
+- remove escaping slashes generating errors on table display
 
 = 21.06.2013 - v4.0.3 =
 - improvements on tracking code
@@ -198,7 +247,7 @@ This plugin it's released under the GPLv2, you can use it free of charge on your
 = 15.03.2013 - v1.3 =
 
 * switch to Google API PHP Client 0.6.1
-* resolved some Google Adsense Dashboard conflicts
+* resolved some Google Analytics Dashboard conflicts
 
 = 13.03.2013 - v1.2.1 =
 
