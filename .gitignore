@@ -1,94 +1,85 @@
-
-.DS_Store
-.htaccess
+# Local
 
 local-config.php
-wp/
 
-content/backup*
-content/cache/
+# development plugins
+wp-content/plugins/debug-bar
+wp-content/plugins/debug-bar-extender
+wp-content/plugins/developer
+wp-content/plugins/log-deprecated-notices
+wp-content/plugins/regenerate-thumbnails
+wp-content/plugins/wp_firephp
+wp-content/plugins/hello.php
 
-content/plugins/debug-bar
-content/plugins/debug-bar-extender
-content/plugins/developer
-content/plugins/log-deprecated-notices
-content/plugins/regenerate-thumbnails
-content/plugins/wp-db-backup
-content/plugins/wp_firephp
-content/plugins/hello.php
-
-content/upgrade/
-content/uploads/
-
-content/advanced-cache.php
-content/wp-cache-config.php
-
-sitemap.xml
-sitemap.xml.gz
-
-/nbproject/
-wp-cli.yml
-
-# From WPEngine
+# WPEngine (ignores WordPress core files)
 
 *~
+.DS_Store
 .svn
 .cvs
-.git
-.listing
 *.bak
 *.swp
-plugins/wp-file-cache/cache
-cache
-_wpeprivate
-.cache
-temp
-tmp
-*.tmp
-imagecache*
-uploads*
-*_backup
-gt-cache
-ics-importer-cache
-wp-config-sample.php
-wp-content/w3tc*
-wp-content/w3-*
-wp-content/plugins/wpengine-snapshot/snapshots/*
-wp-content/uploads/snapshots
-wp-content/themes/thesis*/custom/cache
-wp-content/themes/thesis*/lib/scripts/cache
-wp-content/themes/*/cache
-wp-content/plugins/*/cache
-wp-content/w3tc-bak
-wp-content/backup*
-wp-content/temp*
-wp-content/debug.log
-wp-content/backups
-wp-content/managewp
+Thumbs.db
+
+# wordpress specific
+wp-config.php
+wp-content/uploads/
+wp-content/blogs.dir/
 wp-content/upgrade/*
-wp-content/uploads
-wp-content/blogs.dir/*/*
-pclzip-*
+wp-content/backup-db/*
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/cache/*
+wp-content/cache/supercache/*
 
-# WordPress debugging files
-log.txt
-debug.log
+# wpengine specific
+.smushit-status
+.gitattributes
+_wpeprivate
+wp-content/object-cache.php
+wp-content/mu-plugins/mu-plugin.php
+wp-content/mu-plugins/slt-force-strong-passwords.php
+wp-content/mu-plugins/force-strong-passwords
+wp-content/mu-plugins/limit-login-attempts
+wp-content/mu-plugins/wpengine-common
+wp-content/mysql.sql
 
-# Gallaries in various places
-gallery/*
-wp-content/gallery/*
-wp-content/album/*
+# wp core (as of 3.4.1)
+/db-config.php
+/index.php
+/license.txt
+/readme.html
+/wp-activate.php
+/wp-app.php
+/wp-atom.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-commentsrss2.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-feed.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-rdf.php
+/wp-rss.php
+/wp-rss2.php
+/wp-pass.php
+/wp-register.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+/wp-admin
+/wp-includes
+/wp-content/index.php
+/wp-content/themes/twentyten
+/wp-content/themes/index.php
+/wp-content/plugins/index.php
 
-# Found in 'sneakernews' - probably just a backup but never going to be good to include
-wp-content/plugins/plugins
-
-# Found in the root of pod-1009
-.a
-
-# Forum software we probably shouldn't support anyway
-forum/*
-
-# known large file types
+# large/disallowed file types
+# a CDN should be used for these
 *.hqx
 *.bin
 *.exe
@@ -121,7 +112,3 @@ forum/*
 *.asf
 *.wmv
 *.avi
-*.zip
-*.tar
-*.tgz
-*.gz
