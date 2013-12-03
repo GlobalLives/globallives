@@ -30,7 +30,7 @@ $(function() {
 
 	function set_stage( post_id ) {
 		$('#stage').fadeOut('slow').load(
-			'/wp/wp-admin/admin-ajax.php',
+			glpAjax.ajaxurl,
 			{ action: 'get_participant_summary', post_id: post_id },
 			function() {
 				$('#stage').fadeIn('slow');
@@ -237,7 +237,7 @@ $(function() {
 				.attr('x',-25).attr('dy',18);
 
 		// Load the low-res country outlines, followed by hi-res to replace it when its ready
-		d3.json('/content/themes/glp/js/vendor/countries.json', function( json ) {
+		d3.json('/wp-content/themes/glp/js/vendor/countries.json', function( json ) {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
 		});
 /*
