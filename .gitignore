@@ -4,6 +4,8 @@ local-config.php
 
 # development plugins
 wp-content/plugins/debug-bar
+wp-content/plugins/debug-bar-console
+wp-content/plugins/debug-bar-cron
 wp-content/plugins/debug-bar-extender
 wp-content/plugins/developer
 wp-content/plugins/log-deprecated-notices
