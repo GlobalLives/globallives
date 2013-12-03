@@ -18,6 +18,9 @@
 
 		/* Declare settings */
 		$setting_names = array(
+			'show_donate_banner',
+			'donate_banner_header',
+			'donate_banner_body',
 			'show_filter_bar'
 			);
 		foreach ( $setting_names as $setting ) {
@@ -49,7 +52,18 @@
 			
 			<blockquote>
 			
-				<p>None yet.</p>
+				<h4>Donate Banner</h4>
+				<p>
+					<input type="checkbox" name="show_donate_banner" <?php if ($setting_values[ 'show_donate_banner' ]) : ?>checked="checked"<?php endif; ?> /> <label for="show_filter_bar">Show Donate Banner?</label>
+				</p>
+				<p>
+					<label for="donate_banner_header">Donate Banner header</label><br>
+					<input type="text" name="donate_banner_header" value="<?php echo $setting_values[ 'donate_banner_header' ]; ?>" />
+				</p>
+				<p>
+					<label for="donate_banner_body">Donate Banner body</label><br>
+					<textarea name="donate_banner_body" /><?php echo $setting_values[ 'donate_banner_body' ]; ?></textarea>
+				</p>		
 
 			</blockquote>
 			

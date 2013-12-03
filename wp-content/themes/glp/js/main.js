@@ -324,4 +324,13 @@ $(function() {
 
 	}
 
+/* Donate Banner */
+
+	if ($('#donate-banner').length) {
+		var banner = $('#donate-banner');
+		banner.delay(1000).slideDown(2000);
+
+		$('.not-now').click(function(){ banner.slideUp(2000); });
+	}
+
 });
