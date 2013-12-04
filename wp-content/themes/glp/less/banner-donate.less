@@ -1,9 +1,13 @@
 #donate-banner {
 	display: none;
 	position: relative;
-	padding: 20px 0;
-	background: @yellow;
+	margin-bottom: -160px;
+	width: 100%;
+	padding: 20px 0 180px 0;
+	background: fade(#fff,25%) url('../img/bg-donate-banner.png') top left no-repeat;
+	background-size: cover;
 	color: @white;
+	z-index: 1050;
 	
 	h2, p {
 		margin: 0;
@@ -18,7 +22,14 @@
 	a.not-now {
 		position: absolute;
 		right: 20px;
-		bottom: 20px;
+		bottom: 100px;
 		color: darken(@yellow, 10%);
+	}
+}
+@media screen and (max-width:960px) {
+	#donate-banner {
+		background: @yellow;
+		padding-bottom: 20px;
+		margin-bottom: 0;
 	}
 }
