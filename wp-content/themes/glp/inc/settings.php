@@ -21,6 +21,8 @@
 			'show_donate_banner',
 			'donate_banner_header',
 			'donate_banner_body',
+			'donate_button_url',
+			'donate_learn_more_url',
 			'show_filter_bar'
 			);
 		foreach ( $setting_names as $setting ) {
@@ -64,7 +66,14 @@
 					<label for="donate_banner_body">Donate Banner body</label><br>
 					<textarea name="donate_banner_body" /><?php echo $setting_values[ 'donate_banner_body' ]; ?></textarea>
 				</p>		
-
+				<p>
+					<label for="donate_button_url">Donate Button link</label><br>
+					<input type="text" name="donate_button_url" value="<?php echo $setting_values[ 'donate_button_url' ]; ?>" />
+				</p>	
+				<p>
+					<label for="donate_learn_more_url">Donate "Learn More" link</label><br>
+					<input type="text" name="donate_learn_more_url" value="<?php echo $setting_values[ 'donate_learn_more_url' ]; ?>" />
+				</p>	
 			</blockquote>
 			
 			<h3>Explore Page</h3>
