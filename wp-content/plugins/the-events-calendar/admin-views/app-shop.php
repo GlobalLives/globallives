@@ -5,41 +5,47 @@
 	</div>
 
 
-	<div class="content-wrapper">
-		<?php
+<div class="content-wrapper">
+	<?php
 
-		if ( ! empty( $banner ) ) {
-			$banner_markup = "";
-			if ( property_exists( $banner, 'top_banner_url' ) && ! empty( $banner->top_banner_url ) ) {
-				$banner_markup = sprintf( "<img src='%s'/>", esc_url( $banner->top_banner_url ) );
-			}
-			if ( property_exists( $banner, 'top_banner_link' ) && ! empty( $banner->top_banner_link ) ) {
-				$banner_markup = sprintf( "<a href='%s' target='_blank'>%s</a>", esc_url( $banner->top_banner_link ), $banner_markup );
-			}
-			echo $banner_markup;
+	if ( $banner ) {
+		$banner_markup = "";
+		if ( property_exists( $banner, 'top_banner_url' ) && $banner->top_banner_url ) {
+			$banner_markup = sprintf( "<img src='%s'/>", $banner->top_banner_url );
 		}
+		if ( property_exists( $banner, 'top_banner_link' ) && $banner->top_banner_link ) {
+			$banner_markup = sprintf( "<a href='%s' target='_blank'>%s</a>", $banner->top_banner_link, $banner_markup );
+		}
+		echo $banner_markup;
+	}
 
-		$category = null;
-		$i = 1;
-		foreach ( (array) $products as $product ) {
+	?>
+	<?php
+	$category = NULL;
+
+	foreach ( (array)$products as $product ) {
 
 		?>
 
 		<?php if ( $product->category != $category ) { ?>
 
-		<?php if ( $category !== null ) { ?></div><?php } ?>
+			<?php if ( $category !== NULL ) { ?></div><?php } ?>
 
-	<div class="addon-grid">
+			<div class="category-title">
+				<h3><?php echo $product->category; ?></h3>
+			</div>
+				<div class="addon-grid">
 
 		<?php
-		$category = $product->category;
+			$category = $product->category;
 		} ?>
-		<div class="tribe-addon<?php if ( $i == 1) { echo ' first'; } ?>">
+
+		<div class="tribe-addon">
 			<div class="thumb">
-				<a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
+				<a href="<?php echo $product->permalink;?>"><img src="<?php echo $product->featured_image_url;?>"/></a>
 			</div>
 			<div class="caption">
-				<h4><a href="<?php echo $product->permalink; ?>"><?php echo $product->title;?></a></h4>
+				<h4><a href="<?php echo $product->permalink;?>"><?php echo $product->title;?></a></h4>
 
 				<div class="description">
 					<p><?php echo $product->description;?></p>
@@ -54,10 +60,10 @@
 					}
 					?>
 				</div>
-				<a class="button button-primary" href="<?php echo $product->permalink; ?>">Get This Add-on</a>
 			</div>
 		</div>
 
-		<?php $i++; } ?>
-	</div>
+		<?php }?>
+</div>
+</div>
 </div>

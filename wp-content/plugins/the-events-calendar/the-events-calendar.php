@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: The Events Calendar
-Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
-Version: 3.2
+Description: The Events Calendar is a fully featured event management system with multiple views, 3rd party integrations, and a slew of premium add-ons.
+Version: 2.0.11
 Author: Modern Tribe, Inc.
-Author URI: http://m.tri.be/1x
+Author URI: http://tri.be?ref=tec-plugin
 Text Domain: tribe-events-calendar
 License: GPLv2 or later
 */
@@ -31,6 +31,6 @@ require_once( dirname(__FILE__) . '/lib/the-events-calendar.class.php' );
 
 TribeEvents::instance();
 
-if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
-	register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );
-}
+require_once( dirname(__FILE__) . '/lib/tribe-presstrends.php' );
+
+register_deactivation_hook( __FILE__, array( 'TribeEvents', 'resetActivationMessage' ) );
