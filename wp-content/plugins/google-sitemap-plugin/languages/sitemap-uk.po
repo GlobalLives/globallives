@@ -1,0 +1,289 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: google-sitemap-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-02 15:35+0300\n"
+"PO-Revision-Date: 2013-10-02 15:36+0300\n"
+"Last-Translator: \n"
+"Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru_RU\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Language: Ukrainian\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: google-sitemap-plugin.php:34
+msgid "BWS Plugins"
+msgstr "Плагіни BWS"
+
+#: google-sitemap-plugin.php:35
+msgid "Google Sitemap Options"
+msgstr "Опції карти сайту Google"
+
+#: google-sitemap-plugin.php:35
+msgid "Google Sitemap"
+msgstr "Карта сайту Google"
+
+#: google-sitemap-plugin.php:145
+#: google-sitemap-plugin.php:220
+msgid "Your Sitemap file is created in the site root directory."
+msgstr "Карта сайту для вашого сайту створена у корні основної директорії."
+
+#: google-sitemap-plugin.php:151
+msgid "Options saved."
+msgstr "Опції збережено."
+
+#: google-sitemap-plugin.php:211
+msgid "Google Sitemap options"
+msgstr "Опції карти сайту Google"
+
+#: google-sitemap-plugin.php:216
+msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
+msgstr "Карта уже існує. Якщо ви хочете замінити її на нову карту сайту, виберіть відповідну дію внизу. Усі інші дії перезапишуть файл, що снує."
+
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
+msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
+msgstr "Якщо ви не хочете додати файл карти сайту автоматично до Google Webmaster Tools, ви можете зробити це через"
+
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
+msgid "this"
+msgstr "цю"
+
+#: google-sitemap-plugin.php:224
+#: google-sitemap-plugin.php:226
+msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
+msgstr "посилання - авторизуйтеся, виберіть сайт, виберіть 'Sitemaps' та заповніть обов’язкове поле"
+
+#: google-sitemap-plugin.php:229
+msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
+msgstr "Ваш хостінг не підтримує сURL, отже ви не можете додати карту сайту до Google акаунту автоматично."
+
+#: google-sitemap-plugin.php:238
+msgid "I want to create a new sitemap file or update the existing one"
+msgstr "Я хочу створити нову або шновити карту сайту, що вже існує"
+
+#: google-sitemap-plugin.php:244
+#: google-sitemap-plugin.php:251
+msgid "I want to add sitemap file path in robots.txt"
+msgstr "Я хочу додати карту сайту до robots.txt"
+
+#: google-sitemap-plugin.php:245
+msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
+msgstr "Оскільки ви використовуєте мультисайтинг, плагін не доволяє додати карту сайту до robots.txt"
+
+#: google-sitemap-plugin.php:256
+msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
+msgstr "Будь ласка, виберіть такі типи записів, посилання на які буде додано до карти сайту:"
+
+#: google-sitemap-plugin.php:269
+msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
+msgstr "Введіть сюди ваш логін та пароль для Google акаунту, щоб мати можливість додавати або видаляти сайт та карту сайту автоматично до вашого акаунту або отримати інформацію про цей сайт з Google Webmaster Tools."
+
+#: google-sitemap-plugin.php:273
+msgid "Settings for remote work with google webmaster tools"
+msgstr "Настройки для удаленной работы с google webmaster tools"
+
+#: google-sitemap-plugin.php:275
+msgid "Login"
+msgstr "Логін"
+
+#: google-sitemap-plugin.php:276
+msgid "Password"
+msgstr "Пароль"
+
+#: google-sitemap-plugin.php:277
+msgid "I want to add this site to Google Webmaster Tools"
+msgstr "Я хочу додати цей сайт до Google Webmaster Tools"
+
+#: google-sitemap-plugin.php:278
+msgid "I want to delete this site from Google Webmaster Tools"
+msgstr "Я хочу видалити цей сайт з Google Webmaster Tools"
+
+#: google-sitemap-plugin.php:279
+#: google-sitemap-plugin.php:415
+msgid "I want to get info about this site in Google Webmaster Tools"
+msgstr "Я хочу отримати інформацію про цей сайт з Google Webmaster Tools"
+
+#: google-sitemap-plugin.php:286
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: google-sitemap-plugin.php:294
+msgid "Please enter your login and password"
+msgstr "Ви повинні ввести логін та пароль"
+
+#: google-sitemap-plugin.php:297
+msgid "You should choose at least one action"
+msgstr "Ви повинні вибрати одну з дій"
+
+#: google-sitemap-plugin.php:327
+msgid "Login and password do not match. Please try again"
+msgstr "Логін та пароль введено неправильно. Будь ласка, спробуйте ще раз"
+
+#: google-sitemap-plugin.php:417
+msgid "This site is not added to the Google Webmaster Tools account"
+msgstr "Даний сайт не додано до акаунту Google Webmaster Tools"
+
+#: google-sitemap-plugin.php:437
+msgid "Site URL:"
+msgstr "URL сайту:"
+
+#: google-sitemap-plugin.php:438
+msgid "Site verification:"
+msgstr "Верифікація сайту:"
+
+#: google-sitemap-plugin.php:440
+msgid "verified"
+msgstr "верифіковано"
+
+#: google-sitemap-plugin.php:442
+msgid "not verified"
+msgstr "не верифіковано"
+
+#: google-sitemap-plugin.php:443
+msgid "Sitemap file:"
+msgstr "Файл карти сайту:"
+
+#: google-sitemap-plugin.php:445
+msgid "added"
+msgstr "додано"
+
+#: google-sitemap-plugin.php:447
+msgid "not added"
+msgstr "не додано"
+
+#: google-sitemap-plugin.php:525
+#: google-sitemap-plugin.php:535
+msgid "Settings"
+msgstr "Установки"
+
+#: google-sitemap-plugin.php:536
+msgid "FAQ"
+msgstr "FAQ"
+
+#: google-sitemap-plugin.php:537
+msgid "Support"
+msgstr "Тех.підтримка"
+
+#~ msgid "Not set"
+#~ msgstr "Не задан"
+#~ msgid "On"
+#~ msgstr "Вкл"
+#~ msgid "Off"
+#~ msgstr "Выкл"
+#~ msgid "N/A"
+#~ msgstr "Неизвестно"
+#~ msgid " Mb"
+#~ msgstr " Mb"
+#~ msgid "Yes"
+#~ msgstr "Да"
+#~ msgid "No"
+#~ msgstr "Нет"
+#~ msgid "Operating System"
+#~ msgstr "Операционная система"
+#~ msgid "Server"
+#~ msgstr "Тип сервера"
+#~ msgid "Memory usage"
+#~ msgstr "Памяти использовано"
+#~ msgid "MYSQL Version"
+#~ msgstr "Версия MYSQL"
+#~ msgid "SQL Mode"
+#~ msgstr "Режим SQL"
+#~ msgid "PHP Version"
+#~ msgstr "Версия PHP"
+#~ msgid "PHP Safe Mode"
+#~ msgstr "PHP Safe Mode"
+#~ msgid "PHP Allow URL fopen"
+#~ msgstr "PHP Allow URL fopen"
+#~ msgid "PHP Memory Limit"
+#~ msgstr "Лимит памяти"
+#~ msgid "PHP Max Upload Size"
+#~ msgstr "Макс. размер загружаемого файла"
+#~ msgid "PHP Max Post Size"
+#~ msgstr "Макс. размер записи"
+#~ msgid "PHP Max Script Execute Time"
+#~ msgstr "Макс. время выполнения сценария"
+#~ msgid "PHP Exif support"
+#~ msgstr "Поддержка PHP Exif"
+#~ msgid "PHP IPTC support"
+#~ msgstr "Поддержка PHP IPTC"
+#~ msgid "PHP XML support"
+#~ msgstr "Поддержка PHP XML"
+#~ msgid "Site URL"
+#~ msgstr "Адрес сайта"
+#~ msgid "Home URL"
+#~ msgstr "Адрес сайта"
+#~ msgid "WordPress Version"
+#~ msgstr "Версия WordPress"
+#~ msgid "WordPress DB Version"
+#~ msgstr "Версия базы данных WordPress"
+#~ msgid "Multisite"
+#~ msgstr "Мультиблог"
+#~ msgid "Active Theme"
+#~ msgstr "Текущая тема"
+#~ msgid "Please enter a valid email address."
+#~ msgstr "Пожалуйста, введите валидный емайл."
+#~ msgid "Email with system info is sent to "
+#~ msgstr "E-mail с системной информацией отправлен на"
+#~ msgid "Thank you for contacting us."
+#~ msgstr "Спасибо, что связались с нами."
+#~ msgid "Sorry, email message could not be delivered."
+#~ msgstr "Извините, ваш email не может быть отправлен."
+#~ msgid "Pro plugins"
+#~ msgstr "Pro плагины"
+#~ msgid "Activated plugins"
+#~ msgstr "Активированные плагины"
+#~ msgid "Read more"
+#~ msgstr "Подробнее..."
+#~ msgid "Installed plugins"
+#~ msgstr "Установленные плагины"
+#~ msgid "Recommended plugins"
+#~ msgstr "Рекомендованные к установке плагины"
+#~ msgid "Purchase"
+#~ msgstr "Купить"
+#~ msgid "Free plugins"
+#~ msgstr "Бесплатные плагины"
+#~ msgid "Download"
+#~ msgstr "Скачать"
+#~ msgid "Install %s"
+#~ msgstr "Установлено %s"
+#~ msgid "Install now from wordpress.org"
+#~ msgstr "Установить с wordpress.org"
+#~ msgid "If you have any questions, please contact us via"
+#~ msgstr "Если у вас есть какие-то вопросы, обращайтесь на"
+#~ msgid "System status"
+#~ msgstr "Системная информация"
+#~ msgid "Environment"
+#~ msgstr "Системная среда"
+#~ msgid "Active Plugins"
+#~ msgstr "Активированные плагины"
+#~ msgid "Inactive Plugins"
+#~ msgstr "Неактивированные плагины"
+#~ msgid "Send to custom email &#187;"
+#~ msgstr "Отправить на емейл &#187;"
+#~ msgid ""
+#~ "If you have any questions, please contact us via plugin@bestwebsoft.com "
+#~ "or fill out the contact form on our website"
+#~ msgstr ""
+#~ "Если у вас есть какие-то вопросы, обращайтесь на plugin@bestwebsoft.com "
+#~ "или заполните контактную форму на нашем сайте"
+#~ msgid "I want to create new / update manualy sitemap file"
+#~ msgstr "Я хочу создать новую / обновить существующую карту сайта"
+#~ msgid "Info about this site in google webmaster tools"
+#~ msgstr "Я хочу получить информацию об этом сайте из Google webmaster tools"
+#~ msgid "The plugin could't create robots.txt as you use the multisite"
+#~ msgstr ""
+#~ "Плагин не может создать файл robots.txt, поскольку Вы используете "
+#~ "мультисайт"
+#~ msgid "Install Now"
+#~ msgstr "Установить сейчас"
+#~ msgid "Update"
+#~ msgstr "Сохранить"
+
