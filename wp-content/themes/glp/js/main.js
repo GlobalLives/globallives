@@ -172,7 +172,7 @@ $(function() {
  			$(participants).each(function() {
  				this.filteredByTheme = false;
  
- 				if (theme !== 'all themes' && $.inArray(theme,this.themes) == -1) {
+ 				if (theme && $.inArray(theme,this.themes) == -1) {
 					this.filteredByTheme = true;
 				}
 
@@ -300,7 +300,6 @@ $(function() {
 		$('.background').click( function() {
 			$('.mapthumb, .label').hide();
 		});
-	}
 
 		function connectByTaxonomy(event) {
 			clearConnections();
