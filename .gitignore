@@ -1,6 +1,7 @@
 # Local
 
 local-config.php
+wp-config.php
 
 # development plugins
 wp-content/plugins/debug-bar
