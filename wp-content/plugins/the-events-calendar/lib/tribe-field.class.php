@@ -27,6 +27,12 @@ if ( !class_exists('TribeField') ) {
 		public $name;
 
 		/**
+		 * the field's attributes
+		 * @var array
+		 */
+		public $attributes;
+
+		/**
 		 * the field's arguments
 		 * @var array
 		 */
@@ -36,13 +42,13 @@ if ( !class_exists('TribeField') ) {
 		 * field defaults (static)
 		 * @var array
 		 */
-		public static $defaults;
+		public $defaults;
 
 		/**
 		 * valid field types (static)
 		 * @var array
 		 */
-		public static $valid_field_types;
+		public $valid_field_types;
 
 
 		/**
@@ -52,15 +58,16 @@ if ( !class_exists('TribeField') ) {
 		 * @author jkudish
 		 * @param string $id the field id
 		 * @param array $field the field settings
-		 * @param mixed $value the field's current value
+		 * @param null|mixed $value the field's current value
 		 * @return void
 		 */
 		public function __construct($id, $field, $value = null) {
 
-			// seetup the defaults
+			// setup the defaults
 			$this->defaults = array(
 				'type' => 'html',
 				'name' => $id,
+				'attributes' => array(),
 				'class' => null,
 				'label' => null,
 				'tooltip' => null,
@@ -82,15 +89,17 @@ if ( !class_exists('TribeField') ) {
 				'html',
 				'text',
 				'textarea',
+				'wysiwyg',
 				'radio',
 				'checkbox_bool',
 				'checkbox_list',
 				'dropdown',
 				'dropdown_chosen',
+				'dropdown_select2',
 				'license_key',
 			);
 
-			apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
+			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
 
 			// parse args with defaults and extract them
 			$args = wp_parse_args($field, $this->defaults);
@@ -133,8 +142,6 @@ if ( !class_exists('TribeField') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @param string $id the field id
-		 * @param array $field the field settings
 		 * @return void
 		 */
 		public function doField() {
@@ -149,7 +156,7 @@ if ( !class_exists('TribeField') ) {
 				} elseif ( in_array($this->type, $this->valid_field_types) ) {
 
 					// the specified type exists, run the appropriate method
-					$field = call_user_method($this->type, $this);
+					$field = call_user_func( array( $this, $this->type ) );
 
 					// filter the output
 					$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );
@@ -244,7 +251,7 @@ if ( !class_exists('TribeField') ) {
 		public function doToolTip() {
 			$return = '';
 			if ($this->tooltip)
-				$return = '<p class="description">'.$this->tooltip.'</p>';
+				$return = '<p class="tooltip description">'.$this->tooltip.'</p>';
 			return apply_filters( 'tribe_field_tooltip', $return, $this->tooltip, $this );
 		}
 
@@ -279,6 +286,7 @@ if ( !class_exists('TribeField') ) {
 		/**
 		 * returns the field's name
 		 *
+		 * @param bool $multi
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return string the field name
@@ -292,6 +300,23 @@ if ( !class_exists('TribeField') ) {
 					$return = ' name="'.$this->name.'"';
 				}
 			return apply_filters( 'tribe_field_name', $return, $this->name, $this );
+		}
+
+		/**
+		 * Return a string of attributes for the field
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.4
+		 **/
+		public function doFieldAttributes()	{
+			$return = '';
+			if ( ! empty( $this->attributes ) ) {
+				foreach ( $this->attributes as $key => $value ) {
+					$return .= ' '.$key.'="'.$value.'"';
+				}
+			}
+			return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );
 		}
 
 		/**
@@ -315,7 +340,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function html() {
 			$field = $this->doFieldLabel();
-			$field .= $this->html;			
+			$field .= $this->html;
 			return $field;
 		}
 
@@ -358,6 +383,31 @@ if ( !class_exists('TribeField') ) {
 			$field .= '>';
 			$field .= stripslashes($this->value);
 			$field .= '</textarea>';
+			$field .= $this->doScreenReaderLabel();
+			$field .= $this->doFieldDivEnd();
+			$field .= $this->doFieldEnd();
+			return $field;
+		}
+
+		/**
+		 * generate a wp_editor field
+		 *
+		 * @since 3.0.0
+		 * @author Kyle Unzicker
+		 * @return string the field
+		 */
+		public function wysiwyg() {
+			$settings = array(
+			    'teeny' => true,
+			    'wpautop' => true
+			 );
+			ob_start();
+			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
+			$editor = ob_get_clean();
+			$field = $this->doFieldStart();
+			$field .= $this->doFieldLabel();
+			$field .= $this->doFieldDivStart();
+			$field .= $editor;
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
@@ -443,6 +493,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= '<input type="checkbox"';
 			$field .= $this->doFieldName();
 			$field .= ' value="1" '.checked( $this->value, true, false );
+			$field .= $this->doFieldAttributes();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
@@ -498,6 +549,20 @@ if ( !class_exists('TribeField') ) {
 		}
 
 		/**
+		 * generate a select2 dropdown field - the same as the
+		 * regular dropdown but wrapped so it can have the
+		 * right css class applied to it
+		 *
+		 * @since 2.0.5
+		 * @author jkudish
+		 * @return string the field
+		 */
+		public function dropdown_select2() {
+			$field = $this->dropdown();
+			return $field;
+		}
+
+		/**
 		 * generate a license key field
 		 *
 		 * @since 2.0.5
@@ -513,9 +578,9 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
 			$field .= '/>';
-			$field .= '<img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
+			$field .= '<p class="license-test-results"><img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="valid-key"></span>';
-			$field .= '<span class="invalid-key"></span>';
+			$field .= '<span class="invalid-key"></span></p>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();

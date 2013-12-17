@@ -22,10 +22,10 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 
 // ** Custom "content" directory ** //
 
-define('WP_CONTENT_DIR', dirname( __FILE__ ) . '/content');
-define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content');
-define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
-define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp');
+// define('WP_CONTENT_DIR', dirname( __FILE__ ) . '/content');
+// define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content');
+// define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
+// define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp');
 
 // ** File permissions ** //
 

@@ -615,13 +615,28 @@ var acf = {
 						
 						// if this sub field is within a flexible content layout, hide the entire column because 
 						// there will never be another row added to this table
-						if( $target.parent('tr').parent().parent('table').parent('.layout').exists() )
+						var parent = $target.parent('tr').parent().parent('table').parent('.layout');
+						if( parent.exists() )
 						{
 							hide_all = true;
 							
 							if( $target.is('th') && $toggle.is('th') )
 							{
 								$toggle = $target.closest('.layout').find('td.field_key-' + rule.field);
+							}
+
+						}
+						
+						// if this sub field is within a repeater field which has a max row of 1, hide the entire column because 
+						// there will never be another row added to this table
+						var parent = $target.parent('tr').parent().parent('table').parent('.repeater');
+						if( parent.exists() && parent.attr('data-max_rows') == '1' )
+						{
+							hide_all = true;
+							
+							if( $target.is('th') && $toggle.is('th') )
+							{
+								$toggle = $target.closest('table').find('td.field_key-' + rule.field);
 							}
 
 						}
@@ -1196,15 +1211,7 @@ var acf = {
 			}
 			
 			
-			this.$input.wpColorPicker({
-				
-				change: function(event, ui){
-					
-					$input.trigger('change');
-					
-				}
-				
-			});
+			this.$input.wpColorPicker();
 			
 			
 			
@@ -1831,7 +1838,7 @@ var acf = {
 			
 			// vars
 			var args = {
-        		zoom		: 14,
+        		zoom		: parseInt(this.o.zoom),
         		center		: new google.maps.LatLng(this.o.lat, this.o.lng),
         		mapTypeId	: google.maps.MapTypeId.ROADMAP
         	};

@@ -24,7 +24,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( tribe_is_venue( $postId ) ) {
 			return $postId;
 		} else {
-			return tribe_get_event_meta( $postId, '_EventVenueID', true );
+			return apply_filters('tribe_get_venue_id', tribe_get_event_meta( $postId, '_EventVenueID', true ));
 		}
 	}
 
@@ -38,7 +38,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_has_venue( $postId = null) {
-		return ( tribe_get_venue_id( $postId ) > 0 ) ? true : false;
+		$has_venue = (tribe_get_venue_id( $postId ) > 0 ) ? true : false;
+		return apply_filters('tribe_has_venue', $has_venue);
 	}
 
 	/**
@@ -55,13 +56,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
 		$postId = tribe_get_venue_id( $postId );
 		$venue = ($postId > 0) ? esc_html(get_post( $postId )->post_title) : null;
-		return $venue;
+		return apply_filters('tribe_get_venue', $venue);
 	}
-	
+
 	/**
 	 * Venue Link
 	 *
-	 * Returns or display the event Organizer Name with a link to their supplied website url
+	 * Returns or display the event Venue Name with a link to the venue
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
@@ -69,7 +70,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
-		$url = esc_url( get_permalink( tribe_get_venue_id( $postId ) ) );
+
+		$url = '';
+
+		if ( $venue_id = tribe_get_venue_id( $postId ) ) {
+			$url = esc_url( get_permalink( $venue_id ) );
+		}
+
 		if( $display && $url != '' ) {
 			$venue_name = tribe_get_venue($postId);
 			$link = '<a href="'.$url.'">'.$venue_name.'</a>';
@@ -77,13 +84,14 @@ if( class_exists( 'TribeEvents' ) ) {
 			$link = $url;
 		}
 		$link = apply_filters( 'tribe_get_venue_link', $link, $postId, $display, $url );
+
 		if ( $display ) {
 			echo $link;
 		} else {
 			return $link;
 		}
 	}
-	
+
 	/**
 	 * Country
 	 *
@@ -96,7 +104,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_country( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCountry', true ) );
-		return $output;
+		return apply_filters('tribe_get_country', $output);
 	}
 
 	/**
@@ -105,9 +113,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the full address for the venue. Function uses the views/full-address.php template which you can override in your theme (including google microformats etc).
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 * @param bool $includeVenueName
 	 * @return string Formatted event address
 	 * @since 2.0
-	 */	
+	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
 		$postId = tribe_get_venue_id( $postId );
 		$tribe_ecp = TribeEvents::instance();
@@ -149,7 +158,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_address( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueAddress', true ) );
-		return $output;
+		return apply_filters('tribe_get_address', $output);
 	}
 
 	/**
@@ -164,7 +173,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_city( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueCity', true ) );
-		return $output;
+		return apply_filters('tribe_get_city', $output);
 	}
 
 	/**
@@ -180,7 +189,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_stateprovince( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) );
-		return $output;
+		return apply_filters('tribe_get_stateprovince', $output);
 	}
 
 	/**
@@ -195,7 +204,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_state( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueState', true ) );
-		return $output;
+		return apply_filters('tribe_get_state', $output);
 	}
 
 	/**
@@ -210,7 +219,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_province( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html( tribe_get_event_meta( $postId, '_VenueProvince', true ) );
-		return $output;
+		return apply_filters('tribe_get_province', $output);
 	}
 
 	/**
@@ -226,14 +235,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_region( $postId = null )  {
 		$postId = tribe_get_venue_id( $postId );
 		if(tribe_get_event_meta($postId, '_VenueStateProvince', true )){
-			return tribe_get_event_meta($postId, '_VenueStateProvince', true );
+			$region = tribe_get_event_meta($postId, '_VenueStateProvince', true );
 		} else {
 			if ( tribe_get_country($postId) == __('United States', 'tribe-events-calendar' ) ) {
-				return tribe_get_state($postId);
+				$region = tribe_get_state($postId);
 			} else {
-				return tribe_get_province(); 
+				$region = tribe_get_province();
 			}
 		}
+		return apply_filters('tribe_get_region', $region);
 	}
 
 	/**
@@ -242,15 +252,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the event zip code
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
-	 * @return string Zip code 
+	 * @return string Zip code
 	 * @since 2.0
 	 */
 	function tribe_get_zip( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenueZip', true ));
-		return $output;
+		return apply_filters('tribe_get_zip', $output);
 	}
-	
+
 	/**
 	 * Venue Phone Number
 	 *
@@ -263,8 +273,51 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_phone( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
 		$output = esc_html(tribe_get_event_meta( $postId, '_VenuePhone', true ));
-		return $output;
+		return apply_filters('tribe_get_phone', $output);
+	}
+
+	/**
+	 * Get all the venues
+	 *
+	 * @author PaulHughes01
+	 * @since 2.1
+	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
+	 * @param $posts_per_page
+	 * @param bool $suppress_filters
+	 * @return array An array of venue post objects.
+	 */
+	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
+		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'posts_per_page' => $posts_per_page, 'suppress_filters' => $suppress_filters ) );
+
+		return $venues;
+	}
+
+	/**
+	 * Get the link for the venue website.
+	 * @param null $post_id
+	 * @param null $label
+	 *
+	 * @return string Formatted link to the venue website
+	 */
+	function tribe_get_venue_website_link( $post_id = null, $label = null ){
+		$post_id = tribe_get_venue_id( $post_id );
+		$url = tribe_get_event_meta( $post_id, '_VenueURL', true );
+		if( !empty($url) ) {
+			$label = is_null($label) ? $url : $label;
+			if( !empty( $url )) {
+				$parseUrl = parse_url($url);
+				if (empty($parseUrl['scheme']))
+					$url = "http://$url";
+			}
+			$html = sprintf('<a href="%s" target="%s">%s</a>',
+				$url,
+				apply_filters('tribe_get_venue_website_link_target', 'self'),
+				apply_filters('tribe_get_venue_website_link_label', $label)
+				);
+		} else {
+			$html = '';
+		}
+		return apply_filters('tribe_get_venue_website_link', $html );
 	}
 
 }
-?>

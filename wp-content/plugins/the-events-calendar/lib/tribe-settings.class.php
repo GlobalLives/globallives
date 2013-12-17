@@ -25,88 +25,94 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * filtered on class construct
 		 * @var array
 		 */
-		public static $tabs;
+		public $tabs;
+
+		/**
+		 * All the tabs registered, not just the ones that will appear
+		 * @var array
+		 */
+		public $allTabs;
 
 		/**
 		 * multidimentional array of the fields that will be generated
 		 * for the entire settings panel, tabs are represented in the array keys
 		 * @var array
 		 */
-		public static $fields;
+		public $fields;
 
 		/**
 		 * the default tab for the settings panel
 		 * this should be a tab ID
 		 * @var string
 		 */
-		public static $defaultTab;
+		public $defaultTab;
 
 		/**
 		 * the current tab being displayed
 		 * @var string
 		 */
-		public static $currentTab;
+		public $currentTab;
 
 		/**
 		 * tabs that shouldn't show the save button
 		 * @var array
 		 */
-		public static $noSaveTabs;
+		public $noSaveTabs;
 
 		/**
 		 * the slug used in the admin to generate the settings page
 		 * @var string
 		 */
-		public static $adminSlug;
+		public $adminSlug;
 
 		/**
 		 * the menu name used for the settings page
 		 * @var string
 		 */
-		public static $menuName;
+		public $menuName;
 
 		/**
 		 * the required capability for the settings page
 		 * @var string
 		 */
-		public static $requiredCap;
+		public $requiredCap;
 
 		/**
 		 * errors that occur after a save operation
 		 * @var mixed
 		 */
-		public static $errors;
+		public $errors;
 
 		/**
 		 * POST data before/after save
 		 * @var mixed
 		 */
-		public static $sent_data;
+		public $sent_data;
 
 		/**
 		 * the $current_screen name corresponding to the admin page
 		 * @var string
 		 */
-		public static $admin_page;
+		public $admin_page;
 
 		/**
 		 * true if a major error that prevents saving occurred
 		 * @var bool
 		 */
-		public static $major_error;
+		public $major_error;
 
 		/**
 		 * holds validated fields
 		 * @var array
 		 */
-		public static $validated;
+		public $validated;
 
 		/**
 		 * Static Singleton Factory Method
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @return void
+		 * @return TribeSettings
 		 */
 		public static function instance() {
 			if ( !isset( self::$instance ) ) {
@@ -133,13 +139,17 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			$this->major_error = get_option( 'tribe_settings_major_error', false );
 			$this->sent_data = get_option( 'tribe_settings_sent_data', array() );
 			$this->validated = array();
+			$this->defaultTab = null;
+			$this->currentTab = null;
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
+			add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
 			add_action( 'admin_init', array( $this, 'initTabs' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
 			add_action( 'shutdown', array( $this, 'deleteOptions' ) );
+			add_action( 'tribe_settings_save_field', array( $this, 'maybeFlushPermalinks' ) );
 		}
 
 		/**
@@ -150,7 +160,20 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
+			if ( !is_multisite() || ( is_multisite() && TribeEvents::getNetworkOption( 'allSettingsTabsHidden', '0' ) == '0' ) ) {
+				$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
+			}
+		}
+
+		/**
+		 * create the network options page
+		 *
+		 * @since 2.1
+		 * @author PaulHughes01
+		 * @return void
+		 */
+		public function addNetworkPage() {
+			$this->admin_page = add_submenu_page( 'settings.php', __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Events Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 		}
 
 		/**
@@ -164,10 +187,19 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			if ( isset( $_GET['page'] ) && $_GET['page'] == $this->adminSlug ) {
 				do_action( 'tribe_settings_do_tabs' ); // this is the hook to use to add new tabs
 				$this->tabs = (array) apply_filters( 'tribe_settings_tabs', array() );
-				$this->defaultTab = apply_filters( 'tribe_settings_default_tab', 'general' );
-				$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
-				$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), admin_url( 'edit.php' ) ) ) );
+				$this->allTabs = (array) apply_filters( 'tribe_settings_all_tabs', array() );
 				$this->noSaveTabs = (array) apply_filters( 'tribe_settings_no_save_tabs', array() );
+				if ( is_network_admin() ) {
+					$this->defaultTab = apply_filters( 'tribe_settings_default_tab_network', 'network' );
+					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
+					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), network_admin_url( 'settings.php' ) ) );
+				}
+				if( !is_network_admin() ) {
+					$tabs_keys = array_keys( $this->tabs );
+					$this->defaultTab = in_array( apply_filters( 'tribe_settings_default_tab', 'general' ), $tabs_keys ) ? apply_filters( 'tribe_settings_default_tab', 'general' ) : $tabs_keys[0];
+					$this->currentTab = apply_filters( 'tribe_settings_current_tab', ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : $this->defaultTab );
+					$this->url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'page' => $this->adminSlug, 'tab' => $this->currentTab ), add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE ), admin_url( 'edit.php' ) ) ) );
+				}
 				$this->fields_for_save = (array) apply_filters( 'tribe_settings_fields', array() );
 				do_action( 'tribe_settings_after_do_tabs' );
 				$this->fields = (array) apply_filters( 'tribe_settings_fields', array() );
@@ -190,7 +222,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			echo '<div class="tribe_settings wrap">';
 				screen_icon();
 				echo '<h2>';
-					printf( _x( '%s Settings', 'The Event Calendar settings heading', 'tribe-events-calendar' ), $this->menuName );
+					printf( __( '%s Settings', 'tribe-events-calendar' ), $this->menuName );
 				echo '</h2>';
 				do_action( 'tribe_settings_above_tabs' );
 				$this->generateTabs( $this->currentTab );
@@ -234,10 +266,14 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			if ( is_array( $this->tabs ) && !empty( $this->tabs ) ) {
 				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
 					foreach ( $this->tabs as $tab => $name ) {
+						if ( !is_network_admin() )
+							$url = '?post_type=' .TribeEvents::POSTTYPE . '&page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
+						if ( is_network_admin() )
+							$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
 						$tab = esc_attr( $tab );
 						$name = esc_attr( $name );
 						$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="?post_type=' .TribeEvents::POSTTYPE . '&page=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '">' . $name . '</a>';
+						echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="' . $url . '">' . $name . '</a>';
 					}
 					do_action( 'tribe_settings_after_tabs' );
 				echo '</h2>';
@@ -356,7 +392,11 @@ if ( !class_exists( 'TribeSettings' ) ) {
 					$value = apply_filters( 'tribe_settings_save_field_value', $value, $field_id, $validated_field );
 
 					// figure out the parent option [could be set to false] and filter it
-					$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAME;
+					if ( is_network_admin() )
+						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAMENETWORK;
+					if ( !is_network_admin() )
+						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : TribeEvents::OPTIONNAME;
+
 					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
 
 					// some hooks
@@ -364,8 +404,10 @@ if ( !class_exists( 'TribeSettings' ) ) {
 					do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
 					if ( !$parent_option ) {
-						// if no parent option, then just save the option
-						update_option( $field_id, $value );
+						if ( is_network_admin() )
+							update_site_option( $field_id, $value );
+						else
+							update_option( $field_id, $value );
 					} else {
 						// set the parent option
 						$parent_options[$parent_option][$field_id] = $value;
@@ -381,17 +423,26 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {
 				// get the old options
-				$old_options = (array) get_option( $option_id );
+				if ( $option_id == TribeEvents::OPTIONNAME )
+					$old_options = (array) get_option( $option_id );
+				else
+					$old_options = (array) get_site_option( $option_id );
 
 				// set the options by parsing old + new and filter that
 				$options = apply_filters( 'tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
 				if ( $option_id == TribeEvents::OPTIONNAME ) {
 					// save using the TribeEvents method
-					TribeEvents::setOptions( $options );
+					TribeEvents::instance()->setOptions( $options );
+				} elseif ( $option_id == TribeEvents::OPTIONNAMENETWORK ) {
+					TribeEvents::instance()->setNetworkOptions( $options );
 				} else {
 					// save using regular WP method
-					update_option( $option_id, $options );
+					if ( is_network_admin() )
+						update_site_option( $option_id, $options );
+					else
+						update_option( $option_id, $options );
+
 				}
 			}
 
@@ -472,6 +523,37 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			delete_option( 'tribe_settings_errors' );
 			delete_option( 'tribe_settings_major_error' );
 			delete_option( 'tribe_settings_sent_data' );
+		}
+
+
+		/**
+		 * Flushes permalinks when one of the slug related settings is changed
+		 * Uses a static var to only flush once if more than a field changes
+		 * Uses a filter to allow plugins to extend the validation
+		 *
+		 * @param $field_id
+		 * @param $value
+		 * @param $validated_field
+		 */
+		public function maybeFlushPermalinks( $field_id, $value = null, $validated_field = null ) {
+
+			static $done;
+
+			// If we already flushed on this pageload
+			if ( $done )
+				return;
+
+			// Only monitor these fields
+			$flush_if_changed = apply_filters( 'tribe_settings_flush_permalinks_if_changed', array( 'eventsSlug', 'singleEventSlug' ) );
+			if ( ! in_array( $field_id, $flush_if_changed ) )
+				return;
+
+			global $wp_rewrite;
+	    $wp_rewrite->flush_rules();
+
+			$done = true;
+
+			return;
 		}
 
 

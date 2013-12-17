@@ -8,7 +8,15 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if (!class_exists('TribeEventsViewHelpers')) {
 	class TribeEventsViewHelpers {
-		public static function constructCountries( $postId = '', $useDefault = true ) {
+
+        /**
+         * Get the countries being used and available for the plugin.
+         *
+         * @param string $postId The post ID.
+         * @param bool $useDefault Should we use the defaults?
+         * @return array The countries array.
+         */
+        public static function constructCountries( $postId = '', $useDefault = true ) {
 			$tribe_ecp = TribeEvents::instance();
 
 			if(tribe_get_option('tribeEventsCountries') != ''){
@@ -290,8 +298,13 @@ if (!class_exists('TribeEventsViewHelpers')) {
 					return $countries;
 				}
 		}
-	
-		public static function loadStates() {
+
+        /**
+         * Get the i18ned states available to the plugin.
+         *
+         * @return array The states array.
+         */
+        public static function loadStates() {
 			return array("AL" => __("Alabama", 'tribe-events-calendar'),
 				"AK" => __("Alaska", 'tribe-events-calendar'),
 				"AZ" => __("Arizona", 'tribe-events-calendar'),
@@ -348,7 +361,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 	
 		/**
 		 * Builds a set of options for displaying an hour chooser
-		 * @param string the current date (optional)
+		 *
+         * @param string $date the current date (optional)
+         * @param bool $isStart
 		 * @return string a set of HTML options with hours (current hour selected)
 		 */
 		public static function getHourOptions($date = "", $isStart = false) {
@@ -371,6 +386,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				if ($hour > 12 && $h == 'h')
 					$hour = $hour - 12;
 			}
+
+			$hour = apply_filters('tribe_get_hour_options', $hour, $date, $isStart);
+
 			foreach ($hours as $hourText) {
 				if ($hour == $hourText) {
 					$selected = 'selected="selected"';
@@ -384,10 +402,12 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Builds a set of options for displaying a minute chooser
-		 * @param string the current date (optional)
+         *
+		 * @param string $date the current date (optional)
+         * @param bool $isStart
 		 * @return string a set of HTML options with minutes (current minute selected)
 		 */
-		public static function getMinuteOptions($date = "") {
+		public static function getMinuteOptions($date = "", $isStart = false) {
 			$minutes = TribeEventsViewHelpers::minutes();
 			$options = '';
 		
@@ -396,7 +416,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 			} else {
 				$minute = date('i', strtotime($date));
 			}
-		
+			
+			$minute = apply_filters('tribe_get_minute_options', $minute, $date, $isStart);
+			
 			foreach ($minutes as $minuteText) {
 				if ($minute == $minuteText) {
 					$selected = 'selected="selected"';
@@ -411,6 +433,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Helper method to return an array of 1-12 for hours
+         *
+         * @return array The hours array.
 		 */
 		private static function hours() {
 			$hours = array();
@@ -427,6 +451,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Helper method to return an array of 00-59 for minutes
+         *
+         * @return array The minutes array.
 		 */
 		private static function minutes() {
 			$minutes = array();
@@ -442,7 +468,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		/**
 		 * Builds a set of options for diplaying a meridian chooser
 		 *
-		 * @param string YYYY-MM-DD HH:MM:SS to select (optional)
+		 * @param string $date YYYY-MM-DD HH:MM:SS to select (optional)
+         * @param bool $isStart
 		 * @return string a set of HTML options with all meridians 
 		 */
 		public static function getMeridianOptions($date = "", $isStart = false) {
@@ -458,6 +485,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 			} else {
 				$meridian = date($a, strtotime($date));
 			}
+			
+			$meridian = apply_filters('tribe_get_meridian_options', $meridian, $date, $isStart);
+			
 			$return = '';
 			foreach ($meridians as $m) {
 				$return .= "<option value='$m'";
@@ -471,12 +501,13 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Builds a set of options for displaying a month chooser
-		 * @param string the current date to select  (optional)
+         *
+		 * @param string $date the current date to select  (optional)
 		 * @return string a set of HTML options with all months (current month selected)
 		 */
 		public static function getMonthOptions($date = "") {
 			$tribe_ecp = TribeEvents::instance();
-			$months = $tribe_ecp->monthNames();
+			$months = $tribe_ecp->monthNames( true );
 			$options = '';
 			if (empty($date)) {
 				$month = ( date_i18n('j') == date_i18n('t') ) ? date('F', time() + 86400) : date_i18n('F');
@@ -501,8 +532,9 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Builds a set of options for displaying a day chooser
-		 * @param int number of days in the month
-		 * @param string the current date (optional)
+         *
+		 * @param string $date the current date (optional)
+         * @param int $totalDays number of days in the month
 		 * @return string a set of HTML options with all days (current day selected)
 		 */
 		public static function getDayOptions($date = "", $totalDays = 31) {
@@ -535,7 +567,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Builds a set of options for displaying a year chooser
-		 * @param string the current date (optional)
+         *
+		 * @param string $date the current date (optional)
 		 * @return string a set of HTML options with adjacent years (current year selected)
 		 */
 		public static function getYearOptions($date = "") {
@@ -562,6 +595,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 		/**
 		 * Helper method to return an array of years
 		 * default is back 5 and forward 5
+         *
+         * @return array The array of years.
 		 */
 		private static function years() {
 			$current_year = (int) date_i18n( 'Y' );
@@ -572,7 +607,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				$year = $current_year - $i;
 				$years[] = $year;
 			}
-			for ($i = 0; $i <= $years_forward; $i++) {
+			$years[] = $current_year;
+			for ($i = 1; $i <= $years_forward; $i++) {
 				$year = $current_year + $i;
 				$years[] = $year;
 			}
@@ -582,6 +618,8 @@ if (!class_exists('TribeEventsViewHelpers')) {
 
 		/**
 		 * Helper method to return an array of 1-31 for days
+         *
+         * @return array The days array.
 		 */
 		public static function days( $totalDays ) {
 			$days = array();

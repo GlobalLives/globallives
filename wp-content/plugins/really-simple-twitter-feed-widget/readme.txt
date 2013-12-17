@@ -3,8 +3,8 @@ Contributors: whiletrue
 Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
-Tested up to: 3.7.1
-Stable tag: 2.4.8
+Tested up to: 3.8
+Stable tag: 2.4.9
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -103,6 +103,9 @@ You can use some CSS rules like these:
 == Changelog ==
 
 = 2.4.8 =
+* Fixed: Layout cleaning
+
+= 2.4.8 =
 * Fixed: Increased number of retrieved posts when the "skip text" option is enabled
 
 = 2.4.7 =
@@ -112,7 +115,7 @@ You can use some CSS rules like these:
 * Fixed: Secret fields masked
 
 = 2.4.5 =
-* Changed: readme cleaning
+* Changed: Readme cleaning
 
 = 2.4.4 =
 * Changed: readme cleaning
