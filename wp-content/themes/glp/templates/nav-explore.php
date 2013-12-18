@@ -19,7 +19,7 @@
 			<li>Gender 
 				<select name="gender">
 					<option>All</option>
-<?php $genders = get_field_object($gender_key); print_r( $genders ); foreach( $genders['choices'] as $k => $v ) : ?>
+<?php $genders = get_field_object($gender_key); foreach( $genders['choices'] as $k => $v ) : ?>
 					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
 <?php endforeach; ?>
 				</select>
@@ -41,7 +41,7 @@
 				</select>
 			</li>
 <?php $proposed = get_posts(array('numberposts' => 1, 'post_type' => 'participant', 'meta_key' => 'proposed', 'meta_value' => 1)); if(count($proposed)) : ?>
-			<li><input name="proposed" type="checkbox" value="1" /> Show Proposed</li>
+			<li><input name="proposed" type="checkbox" /> <?php _e('Show Proposed','glp'); ?></li>
 <?php endif; ?>
 		</ul>
 	</div>

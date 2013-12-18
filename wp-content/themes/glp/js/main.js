@@ -154,12 +154,13 @@ $(function() {
 				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { this.filtered = true; }
 				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { this.filtered = true; }
 				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { this.filtered = true; }
-
-				if ( this.proposed ) { this.filtered = true; }
-				if ($('input[name=proposed]:checked').val() && this.proposed ) { this.filtered = false; }
-
  			});
- 
+ 			if ($('input[name=proposed]:checked').val()) {
+				$('.proposed').removeClass('hide'); console.log('unhide proposed');
+			} else {
+				$('.proposed').addClass('hide'); console.log('hide proposed');
+			}
+
  			filterParticipants();
  			return false;
  		});
