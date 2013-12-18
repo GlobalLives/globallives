@@ -118,7 +118,7 @@
 			));
 			return $related_participants;
 		} else {
-			return false;
+			return get_post($participant_id);
 		}
 	}
 
@@ -149,31 +149,41 @@
 	}
 	function get_clip_participant( $clip_id ) {
 		$participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => -1 ));
+		$parent_participants = array();
 		foreach( $participants as $participant ) {
 			if ( $clips = get_field('clips',$participant->ID) ) {
 				foreach( $clips as $clip ) {
-					if ($clip->ID == $clip_id) { return $participant; }
+					if ($clip->ID == $clip_id) { $parent_participants[] = $participant->ID; }
 				}
 			}
+			if ( $summary_video = get_field('summary_video',$participant->ID) ) {
+				print_r( $summary_video );
+				if ($summary_video->ID == $clip_id) { $parent_participants[] = $participant->ID; }
+			}
 		}
-		return $participant;
+		return $parent_participants[0];
 	}
 	function get_next_clip( $clip_id ) {
-		$clip = get_post( $clip_id );
-		# Switch based on context
-		$next_clip = '';
+		$next_clip_id = '';
+		$participant_id = get_clip_participant( $clip_id );
+		$next_clip_position = 0;
 
-		# Participant
-		$participant = get_clip_participant( $clip_id );
-		$clips = get_field('clips',$participant->ID);
-		if (is_array($clips)) {
-			$clip_index = array_search($clip, $clips);
-			$next_clip = $clips[$clip_index++];
+		echo ($participant_id);
+
+		if ($participant_id) {
+			$clips = get_field('clips',$participant_id);
+			if (is_array($clips)) {
+				$clip_index = array_search($clip, $clips);
+				$next_clip_position = $clip_index++;
+			}
+			$next_clip = $clips[$next_clip_position];
+			$next_clip_id = $next_clip->ID;
 		}
-		# Theme
-		# Queue
 
-		return $next_clip->ID;
+		return $next_clip_id;
+	}
+	function the_next_clip( $clip_id ) {
+		echo get_next_clip( $clip_id );
 	}
 	
 /*	==========================================================================

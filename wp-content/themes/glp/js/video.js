@@ -80,7 +80,7 @@ $(function() {
         $('html, body').scrollTop(0);
         var clip_id = $(this).data('clip-id');
         $(this).parents('.participant-clip-listing').addClass('active').siblings().removeClass('active');
-        $('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
+        $('#stage').slideUp().load(glpAjax.ajaxurl,
                 { action: 'get_participant_clip', clip_id: clip_id },
                 function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
         );
@@ -463,11 +463,9 @@ function autoplay_video(event) {
 }
 
 function play_next_video(event) {
-    console.log('video ended');
-    // var player = players[event.currentTarget.id];
     var next_clip_id = $('#participant-clip').data('next-clip-id');
-    if ( next_clip_id ) {
-        $('#stage').slideUp().load('/wp/wp-admin/admin-ajax.php',
+    if ( next_clip_id.length ) {
+        $('#stage').slideUp().load(glpAjax.ajaxurl,
             { action: 'get_participant_clip', clip_id: next_clip_id },
             function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
         );
