@@ -201,6 +201,7 @@ $(function() {
 	}
 
 	if ($('#mapview').length) { // For all pages that have a Map View
+		var single_participant_id = $('article.participant').attr('data-participant_id');
 
 		$('#mapview').hide();
 
@@ -225,8 +226,8 @@ $(function() {
 		// SVG groups
 		var map = d3.select('#mapview').append('svg')
 			.attr('height',height).attr('width',width);
-		var countries = map.append('g').attr('id', 'countries')
-			.call(zoom);
+		var countries = map.append('g').attr('id', 'countries');
+			// .call(zoom);
 		countries.append('rect').attr('class', 'background')
 			.attr('height',height).attr('width',width);
 		var underlay = map.append('g').attr('id','underlay');
@@ -242,7 +243,8 @@ $(function() {
 			.append('image')
 				.attr('xlink:href', function(d) { return d.thumbnail; })
 				.attr('x', 0).attr('y', 0)
-				.attr('width', 50).attr('height', 50);
+				.attr('width',function(d){ return (single_participant_id == d.id) ? 64 : 48; })
+				.attr('height',function(d){ return (single_participant_id == d.id) ? 64 : 48; });
 
 		// Add markers and labels for each Participant
 
@@ -257,9 +259,9 @@ $(function() {
 				.on('click', function(d) { window.location = d.permalink; });
 			marker.append('circle').attr('class', 'pin') // Add the pins
 				.attr('r',5);
-			marker.append('circle').attr('class', 'mapthumb') // Add the map thumbs
+			marker.append('circle').attr('class', function(d){ return (single_participant_id == d.id) ? 'mapthumb single' : 'mapthumb'; }) // Add the map thumbs
 				.attr('id',function(d,i){ return 'mapthumb-'+i; })
-				.attr('r',25)
+				.attr('r',function(d){ return (single_participant_id == d.id) ? 32 : 24; })
 				.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
 
 		var label = marker.append('text').attr('class','label') // Add the labels
@@ -273,8 +275,6 @@ $(function() {
 				.text(function(d) { return d.location; })
 				.attr('x',-25).attr('dy',15);
 
-
-
 		// Load the low-res country outlines, followed by hi-res to replace it when its ready
 		d3.json('/wp-content/themes/glp/js/vendor/countries.json', function( json ) {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
@@ -285,15 +285,19 @@ $(function() {
 			countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
 		});
 
-		$('.overlay, .mapthumb, .label, #popover').hide();
+		$('.overlay, .mapthumb:not(.single), .label, #popover').hide();
 
 		$('.marker').hover(
 			function() { // Enter
 				$(this).find('.mapthumb, .label').show();
-				showConnections($(this));
+				if (hub_id = $('article.participant').attr('data-participant_id')) { // Single?
+					showConnection(hub_id, $(this).attr('id').split('-')[1]);
+				} else {
+					showConnections($(this).attr('id').split('-')[1]);
+				}
 			},
 			function() { // Leave
-				$(this).find('.mapthumb, .label').hide();
+				$(this).find('.mapthumb:not(.single), .label').hide();
 				clearConnections();
 			}
 		);
@@ -302,17 +306,14 @@ $(function() {
 			clearConnections();
 		});
 		$('.background').click( function() {
-			$('.mapthumb, .label').hide();
+			$('.mapthumb:not(.single), .label').hide();
 		});
 
-		function showConnections(marker) {
+		function showConnections(hub_id) {
 
-			var hub_id = marker.attr('id').split('-')[1],
-				hub_marker = map.select('#marker-' + hub_id),
+			var hub_marker = map.select('#marker-' + hub_id),
 				hub_xy = [+hub_marker.attr('data-x'), +hub_marker.attr('data-y')],
 				hub_participant = $.grep(participants, function(p) { return p.id == hub_id; })[0];
-
-			var spokes;
 
 			$(participants).each( function() {
 
@@ -325,7 +326,7 @@ $(function() {
 
 					var edge = underlay.append('path').attr('class','edge')
 						.attr('id', 'edge-' + spoke_id)
-						.attr('d', 'M'+hub_xy[0]+','+hub_xy[1]+'L'+spoke_xy[0]+','+spoke_xy[1]+'Z')
+						.attr('d', function(d){ return (hub_xy[0] < spoke_xy[0]) ? 'M'+hub_xy[0]+','+hub_xy[1]+'L'+spoke_xy[0]+','+spoke_xy[1]+'Z' : 'M'+spoke_xy[0]+','+spoke_xy[1]+'L'+hub_xy[0]+','+hub_xy[1]+'Z'; })
 						.style('stroke','#fff')
 						.style('stroke-width',3)
 						.style('opacity',0.25);
@@ -333,80 +334,42 @@ $(function() {
 					var label = underlay.append('text').attr('class','edge-label')
 						.style('fill','#fff')
 						.style('text-anchor','middle')
+						.attr('dy',3)
 						.append('textPath')
 							.attr('xlink:href', '#edge-' + spoke_id)
 							.attr('startOffset','25%')
 							.text(shared_themes);
 				}
-
 			});
 		}
 
-		function connectByTaxonomy(event) {
-			clearConnections();
-			if ( $(this).children('.flyup').length ) {
-				var term = $(this).attr('data-term');
-			} else {
-				var term = $(this).attr('href');
-				term = term.split('/').slice(-2)[0]; // Only use the slug
-			}
+		function showConnection(hub_id, spoke_id) {
 
-			var hub = map.select('#marker-' + event.data.participant);
-			var hub_xy = [+hub.attr('data-x'), +hub.attr('data-y')];
+			var hub_marker = map.select('#marker-' + hub_id),
+				hub_xy = [+hub_marker.attr('data-x'), +hub_marker.attr('data-y')],
+				hub_participant = $.grep(participants, function(p) { return p.id == hub_id; })[0],
+				spoke_participant = $.grep(participants, function(p) { return p.id == spoke_id; })[0],
+				shared_themes = shared(hub_participant.themes, spoke_participant.themes);
 
-			$(participants).each( function() {
-				if ($.inArray(term,this[event.data.taxonomy]) > -1) {
+			if (hub_id !== spoke_id && shared_themes.length > 0) {
+				var spoke_marker = map.select('#marker-' + spoke_id),
+					spoke_xy = [+spoke_marker.attr('data-x'), +spoke_marker.attr('data-y')];
 
-					var spoke = underlay.select('#marker-' + this.id);
+				var edge = underlay.append('path').attr('class','edge')
+					.attr('id', 'edge-' + spoke_id)
+					.attr('d', function(d){ return (hub_xy[0] < spoke_xy[0]) ? 'M'+hub_xy[0]+','+hub_xy[1]+'L'+spoke_xy[0]+','+spoke_xy[1]+'Z' : 'M'+spoke_xy[0]+','+spoke_xy[1]+'L'+hub_xy[0]+','+hub_xy[1]+'Z'; })
+					.style('stroke','#fff')
+					.style('stroke-width',3)
+					.style('opacity',0.25);
 
-					spoke.append('line').attr('class','edge')
-						.attr('x1', 0).attr('y1', 0)
-						.attr('x2',function(d) { var coords = projection([+d.longitude, +d.latitude]); return hub_xy[0] - coords[0]; })
-						.attr('y2',function(d) { var coords = projection([+d.longitude, +d.latitude]); return hub_xy[1] -coords[1]; })
-						.style('stroke','#fff')
-						.style('stroke-width',2);
-				}
-			});
-		}
-		function connectByMarker(marker) {
-			clearConnections();
-			var popover_id = $('#popover').attr('data-participant_id') || $('article.participant').attr('data-participant_id');
-			var marker_id = $(marker).attr('id').split('-');
-
-			var popover_participant = $.grep(participants, function(p) { return p.id == popover_id; });
-			var marker_participant = $.grep(participants, function(p) { return p.id == marker_id[1]; });
-
-			if ( popover_id && marker_id !== popover_id ) {
-				var common = $.grep(popover_participant[0].themes, function(t) {
-					return $.inArray(t, marker_participant[0].themes) > -1;
-				});
-				if ( common.length > 0 ) {
-					var popover_g = map.select('#marker-' + popover_id);
-					var marker_g = map.select('#marker-' + marker_id[1]);
-					var popover_xy = [+popover_g.attr('data-x'), +popover_g.attr('data-y')];
-					var marker_xy = [+marker_g.attr('data-x'), +marker_g.attr('data-y')];
-
-					var edge = underlay.append('path').attr('class','edge')
-						.attr('x1', popover_xy[0])
-						.attr('y1', popover_xy[1])
-						.attr('x2', marker_xy[0])
-						.attr('y2', marker_xy[1])
-						.style('stroke','#fff')
-						.style('stroke-width',2);
-
-					var label = underlay.append('text').attr('class','label')
-						.attr('x', (popover_xy[0] + marker_xy[0]) / 2)
-						.attr('y', (popover_xy[1] + marker_xy[1]) / 2)
-						.style('fill','#fff');
-
-					$.each(common, function(i,v) {
-						label.append('tspan').attr('class','theme')
-							.text(function() { return v; })
-							.attr('x', (popover_xy[0] + marker_xy[0]) / 2)
-							// .attr('y', (popover_xy[1] + marker_xy[1]) / 2)
-							.attr('dx',0).attr('dy',18);
-					});
-				}
+				var label = underlay.append('text').attr('class','edge-label')
+					.style('fill','#fff')
+					.style('text-anchor','middle')
+					.attr('dy',3)
+					.append('textPath')
+						.attr('xlink:href', '#edge-' + spoke_id)
+						.attr('startOffset','25%')
+						.text(shared_themes);
 			}
 		}
 
@@ -491,7 +454,6 @@ $(function() {
 	if ($('body.tax-themes').length) { // Make sure we're on the Theme archive page
 
 		$('#theme-select').change(function() {
-			console.log('changed themes');
 			window.location = '/themes/' + $(this).val();
 		});
 
@@ -510,7 +472,6 @@ $(function() {
 		});
 
 		$('#nav-themes li').on('click', {taxonomy: 'themes', participant: single_participant_id }, connectByTaxonomy);
-
 	}
 
 /* Donate Banner */

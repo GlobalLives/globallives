@@ -3,7 +3,7 @@
 
 	<div class="participant-detail-map">
 		
-		<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => -1 )); ?>
+		<?php $participants = get_related_participants(get_the_ID()); ?>
 		<?php get_template_part('templates/view','map'); ?>
 		<?php if ($themes = get_the_terms(get_the_ID(),'themes')) { get_template_part('templates/nav','themes'); } ?>
 

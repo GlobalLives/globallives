@@ -199,7 +199,7 @@ function setup_players() {
             $('#'+frameID).bind("player_ready", videoSetTimer);
             $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
-            $('#'+frameID).bind("player_ready", autoplay_video);
+            // $('#'+frameID).bind("player_ready", autoplay_video);
             if ($('body.tax-themes').length) {
                 $('#'+frameID).bind('player_ready', mute_player);
                 $('#'+frameID).hover(unmute_player,mute_player);

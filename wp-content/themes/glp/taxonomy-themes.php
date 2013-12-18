@@ -56,7 +56,7 @@
 			</div>
 		</div>
 		<div class="span6">
-			<h4><?php _e('Comments'); ?> ([#])</h4>
+			<h4><?php _e('Comments'); ?></h4>
 			<?php
 				$wp_query->is_single = true;
 				$withcomments = 1;

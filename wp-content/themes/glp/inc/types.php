@@ -101,6 +101,27 @@
 		return $crew_members;
 	}
 
+	function get_related_participants( $participant_id, $taxonomy = 'themes' ) {
+
+		$tax_ids = wp_get_post_terms( $participant_id, $taxonomy, array( 'fields' => 'ids' ) );
+
+		if ( $tax_ids ) { // Get participants that share taxonomy
+			$related_participants = get_posts(array(
+				'post_type'			=> 'participant',
+				'posts_per_page'	=> -1,
+				'tax_query'			=> array(array(
+					'taxonomy' 	=> $taxonomy,
+					'field'		=> 'id',
+					'terms'		=> $tax_ids,
+					'operator' 	=> 'IN'
+				))
+			));
+			return $related_participants;
+		} else {
+			return false;
+		}
+	}
+
 /*	==========================================================================
 	Clips
 	========================================================================== */
