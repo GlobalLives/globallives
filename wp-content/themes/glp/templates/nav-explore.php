@@ -1,4 +1,4 @@
-<?php global $gender_key, $age_group_key, $income_group_key; ?>
+<?php global $gender_key, $age_key, $income_key; ?>
 <nav id="nav-explore" class="navbar">
 	<div class="nav-explore-inner navbar-inner container">
 		<ul class="nav">
@@ -19,7 +19,7 @@
 			<li>Gender 
 				<select name="gender">
 					<option>All</option>
-<?php $genders = get_field_object('gender'); foreach( $genders['choices'] as $k => $v ) : ?>
+<?php $genders = get_field_object($gender_key); print_r( $genders ); foreach( $genders['choices'] as $k => $v ) : ?>
 					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
 <?php endforeach; ?>
 				</select>
@@ -27,7 +27,7 @@
 			<li>Income
 				<select name="income">
 					<option>All</option>
-<?php $incomes = get_field_object('income'); foreach( $incomes['choices'] as $k => $v ) : ?>
+<?php $incomes = get_field_object($income_key); foreach( $incomes['choices'] as $k => $v ) : ?>
 					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
 <?php endforeach; ?>
 				</select>
@@ -35,7 +35,7 @@
 			<li>Age
 				<select name="age">
 					<option>All</option>
-<?php $ages = get_field_object('age'); foreach( $ages['choices'] as $k => $v ) : ?>
+<?php $ages = get_field_object($age_key); foreach( $ages['choices'] as $k => $v ) : ?>
 					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
 <?php endforeach; ?>
 				</select>
