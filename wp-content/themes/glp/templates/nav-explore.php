@@ -3,8 +3,8 @@
 	<div class="nav-explore-inner navbar-inner container">
 		<ul class="nav">
 			<li>
-				<a class="btn btn-gridview active"><i class="icon icon-th-large icon-white"></i></a>
-				<a class="btn btn-mapview"><i class="icon icon-globe icon-white"></i></a>
+				<a class="btn btn-gridview active"><i class="icon icon-th-large icon-white"></i> <?php _e('Grid View','glp'); ?></a>
+				<a class="btn btn-mapview"><i class="icon icon-globe icon-white"></i> <?php _e('Map View','glp'); ?></a>
 			</li>
 <?php $serieses = get_terms('series'); if( count($serieses) > 1 ) : ?>
 			<li>Series
