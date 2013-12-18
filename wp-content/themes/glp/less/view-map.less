@@ -17,7 +17,7 @@
 	.marker {
 		fill: @gray;
 		cursor: pointer;
-		.mapthumb { stroke-width: 3px; }
+		.mapthumb { stroke-width: 2px; }
 		
 		&.africa		{ fill: #ff0;	.mapthumb { stroke: #ff0; } }
 		&.antarctica	{ fill: #fff;	.mapthumb { stroke: #fff; } }
@@ -34,7 +34,14 @@
 		.location, .occupation, .gender, .age, .income {
 			fill: @white;
 		}
-
+	}
+	.edge {
+		fill: @gray;
+		stroke-width: 2;
+	}
+	.edge-label {
+		fill: @white;
+		text-anchor: middle;
 	}
 }
 #popover {
