@@ -14,3 +14,13 @@ require( get_template_directory() . '/inc/types.php' );		// Add custom post type
 require( get_template_directory() . '/inc/widgets.php' );	// Register custom widgets
 require( get_template_directory() . '/inc/helpers.php' );	// Other useful functions
 require( get_template_directory() . '/inc/settings.php' );	// Add a Theme Settings page to admin
+
+
+# Additional Settings
+
+function remove_admin_bar() {
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
+}
+add_action('after_setup_theme', 'remove_admin_bar');
