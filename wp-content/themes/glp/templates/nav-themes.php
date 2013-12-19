@@ -22,8 +22,8 @@
 					</li><?php endforeach; ?>
 				</div>
 			</ul>
-			<a class="carousel-control left" href="#theme-carousel" data-slide="prev">&lsaquo;</a>
-			<a class="carousel-control right" href="#theme-carousel" data-slide="next">&rsaquo;</a>
+			<!-- <a class="carousel-control left" href="#theme-carousel" data-slide="prev">&#9664;</a> -->
+			<a class="carousel-control right" href="#theme-carousel" data-slide="next">&#9654;</a>
 		</div>
 	</div>
 </nav>

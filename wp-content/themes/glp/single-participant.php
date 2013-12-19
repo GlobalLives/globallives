@@ -21,7 +21,7 @@
 	<div id="stage" class="participant-detail-video container">
 		<?php
 			if ( $summary_video = get_field('summary_video') ) {
-				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
+				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID, 'posts_per_page' => 1 ));
 				get_template_part('templates/clip','stage');
 				wp_reset_query();
 			}
