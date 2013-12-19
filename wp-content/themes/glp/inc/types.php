@@ -166,22 +166,18 @@
             )
         ));
 
-		// print_r($participant[0]);
-
 		return $participant[0];
 	}
 	function get_next_clip( $clip_id ) {
+		$clip = get_post($clip_id);
+		$participant = get_clip_participant( $clip_id );
 		$next_clip_id = '';
-		$participant_id = get_clip_participant( $clip_id );
-		$next_clip_position = 0;
+		$clip_index = 0;
 
-		if ($participant_id) {
-			$clips = get_field('clips',$participant_id);
-			if (is_array($clips)) {
-				$clip_index = array_search($clip, $clips);
-				$next_clip_position = $clip_index++;
-			}
-			$next_clip = $clips[$next_clip_position];
+		if ($participant) {
+			$clips = get_field('clips',$participant->ID);
+			$clip_index = array_search($clip, $clips);
+			$next_clip = $clips[$clip_index + 1];
 			$next_clip_id = $next_clip->ID;
 		}
 		return $next_clip_id;

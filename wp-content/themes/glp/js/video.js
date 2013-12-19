@@ -126,6 +126,7 @@ $(function() {
 
 var players = {};
 var t;
+
 // Load YouTube Frame API
 (function() { // Closure, to not leak to the scope
     var s = document.createElement("script");
@@ -187,6 +188,10 @@ function setup_players() {
     $(".participant-video-embed").each(function() {
         var identifier = this.id;
         var frameID = getFrameID(identifier);
+
+        var clip_id = $('#participant-clip').data('clip-id'),
+            next_clip_id = $('#participant-clip').data('next-clip-id');
+
         if (frameID) {
             players[frameID] = new YT.Player(frameID, {
                 events: {
@@ -199,6 +204,10 @@ function setup_players() {
             $('#'+frameID).bind("player_ready", videoSetTimer);
             $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
+            $('#'+frameID).bind("player_ready", {
+                clip_id: clip_id,
+                next_clip_id: next_clip_id
+            }, report_clip_status);
             // $('#'+frameID).bind("player_ready", autoplay_video);
             if ($('body.tax-themes').length) {
                 $('#'+frameID).bind('player_ready', mute_player);
@@ -215,7 +224,10 @@ function setup_players() {
             $('#'+frameID).bind("player_pause_end", toggle_play_pause_button);
 
             // Bind End
-            $('#'+frameID).bind("player_end", play_next_video);
+            $('#'+frameID).bind("player_end", {
+                clip_id: clip_id,
+                next_clip_id: next_clip_id
+            }, play_next_video);
 
             //Bind ontimeupdate events
             $('#'+frameID).bind("player_time_update", videoUpdateTimer);
@@ -442,6 +454,10 @@ function setup_volume_slider(event) {
     } );
 }
 
+function report_clip_status(event) {
+    console.log('[READY] Current clip: '+event.data.clip_id+ ' Next: '+event.data.next_clip_id);
+}
+
 function turn_out_the_lights() {
     if ( $('#shadow').length ) {
         $('#shadow').remove();
@@ -463,10 +479,11 @@ function autoplay_video(event) {
 }
 
 function play_next_video(event) {
-    var next_clip_id = $('#participant-clip').data('next-clip-id');
-    if ( next_clip_id.length ) {
+
+    console.log('[LOADING] Current clip: '+event.data.clip_id+ ' Next: '+event.data.next_clip_id);
+    if ( event.data.next_clip_id ) {
         $('#stage').slideUp().load(glpAjax.ajaxurl,
-            { action: 'get_participant_clip', clip_id: next_clip_id },
+            { action: 'get_participant_clip', clip_id: event.data.next_clip_id },
             function() { $('#stage').delay(250).slideDown(); $(window).trigger("setup_players"); }
         );
     }
