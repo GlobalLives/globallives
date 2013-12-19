@@ -140,7 +140,7 @@
 			    'singular_name'	=> __( 'Clip' )
 			),
 			'public' => true,
-			'exclude_from_search' => true,
+			// 'exclude_from_search' => true,
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
 			'has_archive' => false,
@@ -148,19 +148,27 @@
 		));
 	}
 	function get_clip_participant( $clip_id ) {
-		$participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => -1 ));
-		$parent_participants = array();
-		foreach( $participants as $participant ) {
-			if ( $clips = get_field('clips',$participant->ID) ) {
-				foreach( $clips as $clip ) {
-					if ($clip->ID == $clip_id) { $parent_participants[] = $participant->ID; }
-				}
-			}
-			if ( $summary_video = get_field('summary_video',$participant->ID) ) {
-				if ($summary_video->ID == $clip_id) { $parent_participants[] = $participant->ID; }
-			}
-		}
-		return $parent_participants[0];
+		$participant = get_posts(array(
+            'post_type' => 'participant',
+            'posts_per_page' => 1,
+            'meta_query' => array(
+            	'relation' => 'OR',
+            	array(
+	                'key' => 'clips',
+    	            'value' => '"'.$clip_id.'"',
+        	        'compare' => 'LIKE'
+            	),
+            	array(
+            		'key' => 'summary_video',
+            		'value' => '"'.$clip_id.'"',
+            		'compare' => 'LIKE'
+            	)
+            )
+        ));
+
+		// print_r($participant[0]);
+
+		return $participant[0];
 	}
 	function get_next_clip( $clip_id ) {
 		$next_clip_id = '';
