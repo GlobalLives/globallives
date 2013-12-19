@@ -157,7 +157,6 @@
 				}
 			}
 			if ( $summary_video = get_field('summary_video',$participant->ID) ) {
-				print_r( $summary_video );
 				if ($summary_video->ID == $clip_id) { $parent_participants[] = $participant->ID; }
 			}
 		}
@@ -168,8 +167,6 @@
 		$participant_id = get_clip_participant( $clip_id );
 		$next_clip_position = 0;
 
-		echo ($participant_id);
-
 		if ($participant_id) {
 			$clips = get_field('clips',$participant_id);
 			if (is_array($clips)) {
@@ -179,7 +176,6 @@
 			$next_clip = $clips[$next_clip_position];
 			$next_clip_id = $next_clip->ID;
 		}
-
 		return $next_clip_id;
 	}
 	function the_next_clip( $clip_id ) {
@@ -268,9 +264,9 @@
             if ( 'queue' != $toggle_type ) return $response;
 
             if ($toggled_on)
-                $response = __('&#45; Remove from Queue', 'glp');
+                $response = __('&#45; Queue', 'glp');
             else
-                $response = __('&#43; Add to Queue', 'glp');
+                $response = __('&#43; Queue', 'glp');
 
             return $response;
         }
@@ -304,9 +300,9 @@
             if ( 'queue' != $toggle_type ) return $response;
 
             if (true === $all_queued)
-                $response = __('&#45; Remove all from Queue', 'glp');
+                $response = __('&#45; All from Queue', 'glp');
             else
-                $response = __('&#43; Add all to Queue', 'glp');
+                $response = __('&#43; All to Queue', 'glp');
 
             return $response;
         }

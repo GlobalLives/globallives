@@ -112,12 +112,19 @@
 			.clip-thumbnail {
 				position: relative;
 				cursor: pointer;
+				margin-left: 10px;
+				padding-bottom: 16.666%;
+				border: 3px solid @white;
+				overflow: hidden;
 				img {
-					border: 5px solid @white;
+					position: absolute;
+					top: 0; bottom: 0; left: 0; right: 0;
+					margin: auto;
+					width: 100%;
 				}
 				&:after {
 					position: absolute;
-					top: 40%; left: 45%;
+					top: 40%; left: 40%;
 					color: @white;
 					font-size: 36px;
 					content: '►';
