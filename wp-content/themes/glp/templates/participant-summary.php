@@ -7,6 +7,7 @@
 	    </header>
 	    <div class="row">
 		<div class="span4">
+			<a class="btn btn-inverse map-explore" href="<?php the_permalink(); echo "#mapview"; ?>"><i class="icon icon-globe"></i> <?php _e('Explore in map','glp'); ?></a>
 			<a href="https://maps.google.com/maps?q=loc:<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&hl=en&ll=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&z=6" target="new"><img class="participant-map" src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&zoom=6&size=570x250&markers=color:red|<?php the_field('latitude'); ?>,<?php the_field('longitude'); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100"></a>			
 			<div class="participant-meta row">
 	    		<div class="span2">

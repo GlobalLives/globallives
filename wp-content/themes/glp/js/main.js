@@ -202,7 +202,7 @@ $(function() {
 	if ($('#mapview').length) { // For all pages that have a Map View
 		var single_participant_id = $('article.participant').attr('data-participant_id');
 
-		$('#mapview').hide();
+		if (!window.location.hash || window.location.hash !== 'mapview') { $('#mapview').hide(); }
 
 		var height = $('#mapview').height(),
 			width = $('#mapview').width();
