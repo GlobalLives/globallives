@@ -34,7 +34,7 @@
 	<div class="single-post-content span9">
 		<div class="entry-meta">
 			<div class="entry-author"><?php echo __('By','glp'); ?> <?php the_author(); ?> / <?php echo __('Posted in','glp'); ?> <?php the_category(' ');?></div>
-			<div class="entry-tags"><?php echo __('Tags:','glp'); ?> <?php the_tags(' '); ?></div>
+			<?php if ( has_tag(); ) : ?><div class="entry-tags"><?php echo __('Tags:','glp'); ?> <?php the_tags(' '); ?></div><?php endif; ?>
 		</div>
 		<div class="entry-content">
 			<?php the_content(); ?>
