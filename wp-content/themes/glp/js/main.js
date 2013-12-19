@@ -205,7 +205,7 @@ $(function() {
 		if (!window.location.hash || window.location.hash !== 'mapview') { $('#mapview').hide(); }
 
 		var height = $('#mapview').height(),
-			width = $('#mapview').width();
+			width = Math.min($('#mapview').width(),$('.container').width());
 
 		// D3 Functions
 		var	projection = d3.geo.mercator()
