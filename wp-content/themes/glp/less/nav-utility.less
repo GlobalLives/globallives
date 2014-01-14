@@ -1,25 +1,23 @@
 #nav-utility {
-			background: url('../img/edges-color.png') center no-repeat;
-			background-size: cover;
-			.lang-btn {
-				float: left;
-			}
-			.container {
-				position: relative;
-				min-height: 10px;
-			}
-			.nav-tabs {
-				display: none;
-				position: absolute;
-				bottom: 0; right: 0;
-				margin: 0; padding: 0;
-				float: right;
-				a {
-					background: @grayLighter;
-					font: @baseFontSize @headingsFontFamily;
-				}
-				li.active a {
-					background: @white;
-				}
-			}
+	background: url('../img/edges-color.png') center no-repeat;
+	background-size: cover;
+	.lang-btn {
+		float: left;
+	}
+	.container {
+		position: relative;
+	}
+	.nav-tabs {
+		float: right;
+		margin-bottom: 0;
+		a {
+			margin: 0.5em 0 0 2px;
+			padding: 0.5em 1em;
+			background: @grayLighter;
+			font: @baseFontSize @headingsFontFamily;
 		}
+		li.active a {
+			background: @white;
+		}
+	}
+}

@@ -97,6 +97,15 @@ $(function() {
 		$.getScript( addthis_url );
 	}
 
+/* Banner Modals */
+
+	function popModal(el) {
+		$(el).modal('show');
+	}
+
+	$('#signup-tab').click(function(ev){ ev.preventDefault(); popModal('#signup-modal'); });
+	$('#login-tab').click(function(ev){ ev.preventDefault(); popModal('#login-modal'); });
+
 /* Front Page */
 
 	if ($('body.page-home').length) { // Make sure we're on the homepage

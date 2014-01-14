@@ -1,17 +1,15 @@
-<?php if (is_front_page() && get_option('show_donate_banner')) : ?><?php get_template_part('templates/banner', 'donate'); ?><?php endif; ?>
+<?php if (get_option('show_donate_banner')) : ?><?php get_template_part('templates/banner', 'donate'); ?><?php endif; ?>
 <header id="banner" role="banner">
 	<div id="nav-utility">
 		<div class="container">
-			<div class="lang-btn"><?php #do_action('icl_language_selector'); ?></div>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#searchtab" data-toggle="tab"><i class="icon-search"></i> Search</a></li>
-				<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
-				<li><a href="#profiletab" data-toggle="tab"><?php echo __('Hi,','glp') . " " . $current_user->display_name; ?></a></li>
-				<li><a href="<?php echo wp_logout_url( get_permalink() ); ?>"><?php echo __('Log out','glp'); ?></a></li>
-				<?php else : ?>
-				<li><a href="#jointab" data-toggle="tab"><?php echo __('Join Global Lives','glp'); ?></a></li>
-				<li><a href="#logintab" data-toggle="tab">Log in</a></li>
-				<?php endif; ?>
+			<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
+				<li><a href="/profile"><?php _e('Profile','glp'); ?></a></li>
+				<li><a href="<?php echo wp_logout_url( home_url() ); ?>"><?php _e('Log out','glp'); ?></a></li>
+			<?php else : ?>
+				<li><a id="signup-tab" href="<?php echo wp_registration_url(); ?>"><?php _e('Sign up','glp'); ?></a></li>
+				<li><a id="login-tab" href="<?php echo wp_login_url(); ?>"><?php _e('Log in','glp'); ?></a></li>
+			<?php endif; ?>
 			</ul>
 		</div>
 	</div>
