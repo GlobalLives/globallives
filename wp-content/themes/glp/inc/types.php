@@ -207,7 +207,28 @@
 	}
 	function the_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
 		echo get_profile_thumbnail_url( $profile_id, $thumbnail_size );
-	}	
+	}
+
+	function is_profile_created( $user_id ) {
+		$user = get_userdata( $user_id );
+		if ( // Check all required fields
+			$user->user_firstname &&
+			$user->user_lastname &&
+			get_field('user_occupation','user_'.$user_id) &&
+			get_field('user_location','user_'.$user_id)
+		) {
+			return true;
+		} else {
+			echo "<!-- USER (" . $user_id . ")";
+			echo "\nFirst Name: " . $user->user_firstname;
+			echo "\nLast Name: " . $user->user_lastname;
+			echo "\nOccupation: " . get_field('user_occupation','user_'.$user_id);
+			echo "\nLocation: " . get_field('user_location','user_'.$user_id);
+			// print_r($user);
+			echo "\n\n -->";
+			return false;
+		}
+	}
 
 	function get_profile_activities( $user_id ) {
 		$activities = array();

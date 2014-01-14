@@ -3,9 +3,10 @@
 	<header class="row">
 		<div class="profile-header span9 offset3">
 			<div class="profile-header-inner">
-				<button class="edit-profile btn" type="submit"><i class="icon icon-white icon-ok"></i> <?php _e('Save edits','glp'); ?></button>
-				<input class="profile-location" name="location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field('location','user_'.$profile->ID); ?>" >
-				<input class="profile-name" name="nickname" placeholder="<?php _e('Name','glp'); ?>" value="<?php echo $profile->nickname; ?>">
+				<button class="edit-profile btn" type="submit"><?php _e('Save','glp'); ?> <i class="icon icon-white icon-ok"></i></button>
+				<input class="profile-location" name="location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field('user_location','user_'.$profile->ID); ?>" >
+				<input class="profile-firstname" name="first_name" placeholder="<?php _e('First Name','glp'); ?>" value="<?php echo $profile->first_name; ?>">
+				<input class="profile-firstname" name="last_name" placeholder="<?php _e('Last Name','glp'); ?>" value="<?php echo $profile->last_name; ?>">
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
 			</div>
 		</div>
@@ -34,7 +35,7 @@
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
 				<h4><?php _e('About','glp'); ?></h4>
-				<textarea name="bio" placeholder="<?php _e('Bio','glp'); ?>" class="profile-bio"><?php the_field('bio','user_'.$profile->ID); ?></textarea>
+				<textarea name="description" placeholder="<?php _e('Bio','glp'); ?>" class="profile-bio"><?php echo $profile->description; ?></textarea>
 				<p><b><?php _e("Your website",'glp'); ?>:</b><br><input name="user_url" class="profile-website" value="<?php echo $profile->user_url; ?>"></p>
 			</div>
 		</div>
