@@ -67,17 +67,18 @@ function gf_get_field_action(formId, conditionalLogic){
 }
 
 function gf_is_match(formId, rule){
-    
+
     var isMatch = false;
     var inputs = jQuery("#input_" + formId + "_" + rule["fieldId"] + " input");
-
+    var fieldValue;
     if(inputs.length > 0){
         //handling checkboxes/radio
+
         for(var i=0; i< inputs.length; i++){
-            var fieldValue = gf_get_value(jQuery(inputs[i]).val());
+            fieldValue = gf_get_value(jQuery(inputs[i]).val());
 
             //find specific checkbox/radio item. Skip if this is not the specific item and the operator is not one that targets a range of values (i.e. greater than and less than)
-            var isRangeOperator = jQuery.inArray(rule["operator"], ["<", ">"]) >= 0;
+            var isRangeOperator = jQuery.inArray(rule["operator"], ["<", ">", "contains", "starts_with", "ends_with"]) >= 0;
             if(fieldValue != rule["value"] && !isRangeOperator)
                 continue;
 
@@ -97,8 +98,19 @@ function gf_is_match(formId, rule){
         var values = (val instanceof Array) ? val : [val];
 
         var matchCount = 0;
+
+        var isCurrencyFormat = window['gf_global'] && gf_global.number_formats && gf_global.number_formats[formId] && gf_global.number_formats[formId][rule["fieldId"]] == 'currency';
+
         for(var i=0; i < values.length; i++){
-            var fieldValue = gf_get_value(values[i]);
+            fieldValue = gf_get_value(values[i]);
+            if(isCurrencyFormat){
+                var decimalSeparator = gformGetDecimalSeparator('currency');
+                fieldValue = gformCleanNumber( fieldValue, '', '', decimalSeparator);
+                if( ! fieldValue )
+                    fieldValue = 0;
+                fieldValue = fieldValue.toString();
+            }
+
             if(gf_matches_operation(fieldValue, rule["value"], rule["operator"])){
                 matchCount++;
             }
@@ -106,7 +118,7 @@ function gf_is_match(formId, rule){
         //If operator is Is Not, none of the value can match
         isMatch = rule["operator"] == "isnot" ? matchCount == values.length : matchCount > 0;
     }
-    
+
     return gform.applyFilters( 'gform_is_value_match', isMatch, formId, rule );
 }
 
@@ -285,7 +297,9 @@ function gf_reset_to_default(targetId, defaultValue){
             val = defaultValue[jQuery(this).attr("name")];
         }
         else if(defaultValue){
+
             val = defaultValue;
+
         }
 
         jQuery(this).val(val).trigger('change');
@@ -312,5 +326,5 @@ function gf_reset_to_default(targetId, defaultValue){
             jQuery(this).trigger('click').prop('checked', doCheck);
         }
     });
-}
 
+}

@@ -4,7 +4,7 @@ Plugin Name: Really Simple Twitter Feed Widget
 Plugin URI: http://www.whiletrue.it/
 Description: Displays your public Twitter messages in the sidbar of your blog. Simply add your username and all your visitors can see your tweets!
 Author: WhileTrue
-Version: 2.4.9
+Version: 2.4.10
 Author URI: http://www.whiletrue.it/
 */
 /*
@@ -135,6 +135,8 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			array(
 				'name'	=> 'encode_utf8',	'label'	=> __( 'Force UTF8 Encode', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
+			array(
+				'type'	=> 'donate'			),
 		);
 
         $control_ops = array('width' => 500);
@@ -234,7 +236,14 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 					<div class="rstw_checkbox"><input id="'.$this->get_field_id($val['name']).'" name="'.$this->get_field_name($val['name']).'" type="checkbox" '.$checked.' /></div>
 					<label for="'.$this->get_field_id($val['name']).'">'.$val['label'].'</label>
 					<div class="rstw_clear"></div>';
-			}
+      } else if (isset($val['type']) && $val['type']=='donate') {
+        echo '<p style="text-align:center; font-weight:bold;">
+            '.__('Do you like it? I\'m supporting it, please support me!', 'rstw').'<br />
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=giu%40formikaio%2eit&item_name=WhileTrue&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted" target="_blank">
+         			<img alt="PayPal - The safer, easier way to pay online!" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" > 
+            </a>
+          </p>';
+      }
 		}
 		echo '
 			</div>

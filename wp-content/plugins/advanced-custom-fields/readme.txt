@@ -1,8 +1,8 @@
 === Advanced Custom Fields ===
-Contributors: Elliot Condon
+Contributors: elliotcondon
 Tags: custom, field, custom field, advanced, simple fields, magic fields, more fields, repeater, matrix, post, type, text, textarea, file, image, edit, admin
 Requires at least: 3.5.0
-Tested up to: 3.7.1
+Tested up to: 3.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,20 @@ http://support.advancedcustomfields.com/
 
 
 == Changelog ==
+
+= 4.3.4 =
+* Post Object field: Fixed get_pages bug cuasing 'pages' to not appear
+* Page Link field: Fixed get_pages bug cuasing 'pages' to not appear
+* Tab field: Fixed JS bug causing multiple tab groups on page to render incorrectly
+* Language: Updated Russian translation - Thanks to Alex Torscho
+
+= 4.3.3 =
+* Core: Updated styling to suit WP 3.8
+* Core: Added new logic to set 'autoload' to 'off' on all values saved to the wp_options table to help improve load speed
+* API: Added new logic to the $post_id parameter to accept an object of type post, user or taxonomy term
+* Tab field: Added compatibility with taxonomy term and user edit screens (table layout)
+* Tab field: Fixed JS bug causing incorrect tab to show when validation fails
+* Text field: Fixed bug causing append setting of '+50' to appear as '50'
 
 = 4.3.2 =
 * Color Picker field: Fixed JS bug preventing wpColorPicker from updating value correctly

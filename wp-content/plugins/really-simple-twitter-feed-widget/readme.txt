@@ -4,7 +4,7 @@ Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
 Tested up to: 3.8
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -102,7 +102,10 @@ You can use some CSS rules like these:
 
 == Changelog ==
 
-= 2.4.8 =
+= 2.4.10 =
+* Added: Donate link
+
+= 2.4.9 =
 * Fixed: Layout cleaning
 
 = 2.4.8 =

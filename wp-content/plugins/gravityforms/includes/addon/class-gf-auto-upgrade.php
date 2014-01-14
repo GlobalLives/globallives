@@ -47,7 +47,7 @@ class GFAutoUpgrade{
             $message = sprintf(__("Gravity Forms " . $this->_min_gravityforms_version . " is required. Activate it now or %spurchase it today!%s", "gravityforms"), "<a href='http://www.gravityforms.com'>", "</a>");
             GFAddOn::display_plugin_message($message, true);
         } else {
-            $version_info = $this->get_version_info($this->_slug, $this->get_key(), $this->_version);
+            $version_info = $this->get_version_info($this->_slug);
 
             if (!$version_info["is_valid_key"]) {
                 $title       = $this->_title;
@@ -64,7 +64,7 @@ class GFAutoUpgrade{
         if (!function_exists('get_plugin_data'))
             include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-        $update = GFCommon::get_version_info();
+        $update = $this->get_version_info($this->_slug);
         if ($update["is_valid_key"] == true && version_compare($this->_version, $update["version"], '<')) {
             $plugin_data                = get_plugin_data($this->_full_path);
             $plugin_data['type']        = 'plugin';
@@ -82,7 +82,7 @@ class GFAutoUpgrade{
         if (!function_exists('get_plugin_data'))
             include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-        $update = GFCommon::get_version_info();
+        $update = $this->get_version_info($this->_slug);
         if ($update["is_valid_key"] == true && version_compare($this->_version, $update["version"], '<')) {
             $plugin_data         = get_plugin_data($this->_full_path);
             $plugin_data['slug'] = $this->_path;
@@ -110,9 +110,9 @@ class GFAutoUpgrade{
 
         $key = $this->get_key();
 
-        $version_info = $this->get_version_info($this->_slug, $key, $this->_version, true);
+        $version_info = $this->get_version_info($this->_slug);
 
-        if ($version_info == -1)
+        if ( rgar($version_info, "is_error") == "1")
             return $option;
 
         if(empty($option->response[$this->_path]))
@@ -168,35 +168,14 @@ class GFAutoUpgrade{
         exit;
     }
 
-    private function get_version_info($offering, $key, $version, $use_cache=true){
+    private function get_version_info($offering, $use_cache=true){
 
-        $version_info = function_exists('get_site_transient') ? get_site_transient($this->_slug . "_version") : get_transient($this->_slug . "_version");
-        if(!$version_info || !$use_cache){
+        $version_info = GFCommon::get_version_info($use_cache);
+        $is_valid_key = $version_info["is_valid_key"] && rgars($version_info, "offerings/{$offering}/is_available");
 
-            $body = "key=$key";
-            $options = array('method' => 'POST', 'timeout' => 3, 'body' => $body);
-            $options['headers'] = array(
-                'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option('blog_charset'),
-                'Content-Length' => strlen($body),
-                'User-Agent' => 'WordPress/' . get_bloginfo("version"),
-                'Referer' => get_bloginfo("url")
-            );
-            $url = GRAVITY_MANAGER_URL . "/version.php?" . $this->get_remote_request_params($offering, $key, $version);
-            $raw_response = wp_remote_request($url, $options);
+        $info = array("is_valid_key" => $is_valid_key, "version" => rgars($version_info, "offerings/{$offering}/version"), "url" => rgars($version_info, "offerings/{$offering}/url"));
 
-            if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'])
-                $version_info = -1;
-            else
-            {
-                $ary = explode("||", $raw_response['body']);
-                $version_info = array("is_valid_key" => $ary[0], "version" => $ary[1], "url" => $ary[2]);
-            }
-
-            $this->set_version_info($this->_slug, $version_info);
-
-        }
-
-        return $version_info;
+        return $info;
     }
 
     private function get_remote_request_params($offering, $key, $version){
