@@ -2,6 +2,10 @@
 
 local-config.php
 
+# Bower, Grunt, Node
+wp-content/themes/glp/bower_components/*
+wp-content/themes/glp/node_modules/*
+
 # development plugins
 wp-content/plugins/debug-bar
 wp-content/plugins/debug-bar-console
