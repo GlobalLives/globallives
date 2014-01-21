@@ -46,6 +46,15 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		mocha: {
+			test: {
+				src: 'test/*.html',
+				options: {
+					reporter: 'Spec',
+					run: true
+				}
+			}
+		},
 		watch: {
 			scripts: {
 				files: '<%= jshint.all %>',
@@ -63,6 +72,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-mocha');
 
 	grunt.registerTask('default',['jshint','uglify','less']);
+	grunt.registerTask('test','mocha');
 };
