@@ -66,6 +66,16 @@
 						
 					}
 				}
+				.skill_name {
+					display: inline-block;
+					width: 50%;
+				}
+				.skill_level {
+					color: @blue;
+					font-size: @fontSizeLarge;
+				}
+
+
 				.participant-title {
 					margin: 0;
 				}
@@ -104,13 +114,14 @@
 		
 		.profile-edit-form {
 			input,textarea {
-				display: block;
+				// display: block;
 				margin: 5px 0; padding: 5px !important;
 				background: rgba(128,128,128,0.25);
 				border: none;
 			}
-			.profile-name, .profile-location {
-				width: 80%;
+			input.span1 {
+				display: inline;
+				margin-top: -5px;
 			}
 			.profile-bio {
 				width: 80%;
