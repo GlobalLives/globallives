@@ -136,7 +136,7 @@
 	}
 	
 	function ga_dash_refresh_token ($client){
-		$transient = get_transient("ga_dash_token_expire");
+		$transient = get_transient("ga_dash_token_refresh");
 		if ( empty( $transient ) ){
 			
 			if (!ga_dash_get_refreshtoken()){
@@ -153,7 +153,7 @@
 			ga_dash_store_token($token);
 			return $token;
 		}else{
-			return $token;
+			return $transient;
 		}	
 	}
 	

@@ -1,15 +1,23 @@
 (function($) {
 	$(document).ready( function() {
 		/* new version */
-	/*	var product = $( '.bws_product' ),
+		var product = $( '.bws_product' ),
 			max = 0;
 		$( product ).each( function () {
 			if ( $( this ).outerHeight( true ) > max )
 				max = $( this ).outerHeight( true );
 		});
-
 		$( '.bws_product' ).css( 'height', max + 'px' );
-	*/	
+
+		var product_links = $( '.bws_product_links' );
+		max = 0;
+		$( product_links ).each( function () {
+			if ( $( this ).innerHeight() > max )
+				max = $( this ).innerHeight();
+		});
+		max = max - parseInt( $( '.bws_product_links' ).css( 'padding-top' ) ) - parseInt( $( '.bws_product_links' ).css( 'padding-bottom' ) );
+		$( '.bws_product_links' ).css( 'height', max + 'px' );		
+		
 		$( '.bws_product_button' ).css( 'display', 'none' );
 	
 		$( '.bws_product_box' ).hover( function() {

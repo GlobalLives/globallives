@@ -12,69 +12,96 @@
 				<style type="text/css">
 					body {
 						font-family:"Lucida Grande","Lucida Sans Unicode",Tahoma,Verdana;
-						font-size:13px;
-						float: left;
-					}
+						font-size: 13px;
+					}	
+
+					#header {
+						text-align: center;
+						padding-top: 14px;
+						padding-bottom: 29px;
+					}				
 					
 					h1 {
-						text-align:center;
+						font-weight: normal;
+						font-size: 24px;
+						line-height: 20px;
+						color: #333333;
+					}
+
+					h2 {
+						font-weight: normal;
+						font-size: 13px;
+						color: #aaaaaa;
+						line-height: 10px;
 					}
 					
-					#intro {
-						background-color:#CFEBF7;
-						border:1px #2580B2 solid;
-						padding:5px 13px 5px 13px;
-						margin:10px;
+					#content {
+						background: #f8f8f8;
+						border-top: 1px solid #dddddd;
+						padding-top: 50px;
 					}
-					
-					#intro p {
-						line-height:	16.8667px;
+
+					#content a:visited,
+					#content tr:hover a:visited {
+						color: #68009c;
 					}
-					
+
+					table {
+						margin: 0 auto;
+						text-align: left;
+					}
+
+					tr#table-header:hover {
+						background: none;
+					}
+
+					tr:hover {
+						background: #ebebeb;
+					}
+
+					#content tr:hover a {
+						color: #6e6e6e;						
+					}
+
 					td {
-						font-size:11px;
-						text-align: center;
+						color: #6e6e6e;
+						font-size: 12px;
+						border-bottom: 1px solid #dddddd;
+						padding: 11px 5px 13px;
 					}
 					
 					th {
-						text-align:left;
-						font-size:11px;
-						text-align: center;
-					}
-					
-					tr.high {
-						background-color:whitesmoke;
+						color: #333333;
+						font-size: 12px;
+						border-bottom: 1px solid #dddddd;
+						padding: 5px 50px 17px 5px;
 					}
 					
 					#footer {
-						padding:2px;
-						margin:10px;
-						font-size:8pt;
-						color:gray;
-						text-align: center;
-					}
-					
-					#footer a {
-						color:gray;
-						
+						background: #f8f8f8;
+						font-size: 13px;
+						color: #aaaaaa;
+						padding: 54px 0 20px;
+						text-align: center;						
 					}
 					
 					a {
-						color:black;
-					}
+						color: #2384c6;
+					}			
+					a:hover {
+						color: #6e6e6e;
+						text-decoration: none;
+					}		
 				</style>
 			</head>
 			<body>
-				<h1>XML Sitemap</h1>
-				<div id="intro">
-					<p>
-						This is a XML Sitemap which is supposed to be processed by <a href="http://www.google.com">Google</a> search engine.<br />
-						It was generated using the <a href="http://bestwebsoft.com">BestWebSoft Software</a>.<br />
-					</p>
+				<div id="header">
+					<h1>XML Sitemap</h1>
+					<h2>This is a XML Sitemap which is supposed to be processed by <a href="http://www.google.com">Google search engine</a>.</h2>
 				</div>
 				<div id="content">
-					<table cellpadding="5">
-						<tr style="border-bottom:1px black solid;">
+					<table cellpadding="5" cellspacing="0">
+						<tr id="table-header">
 							<th>URL</th>
 							<th>Priority</th>
 							<th>Change Frequency</th>
@@ -109,7 +136,7 @@
 					</table>
 				</div>
 				<div id="footer">
-					Generated with Google sitemap plugin by <a href="http://bestwebsoft.com">BestWebSoft</a>
+					Generated with <a href="http://bestwebsoft.com/plugin/google-sitemap-plugin">Google Sitemap</a> plugin by <a href="http://bestwebsoft.com">BestWebSoft</a>
 				</div>
 			</body>
 		</html>

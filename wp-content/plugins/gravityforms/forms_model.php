@@ -1465,18 +1465,21 @@ class GFFormsModel {
         if (!empty($field_value) && !is_array($field_value) && $source_field["type"] == "multiselect")
 			$field_value = explode(",", $field_value); // convert the comma-delimited string into an array
 
+        $target_value = GFFormsModel::maybe_trim_input($target_value, rgar($source_field, "formId"),$source_field);
+
         if(is_array($field_value)){
             $field_value = array_values($field_value); //returning array values, ignoring keys if array is associative
             $match_count = 0;
             foreach($field_value as $val){
-                if(self::matches_operation(GFCommon::get_selection_value($val), $target_value, $operation)){
+                $val = GFFormsModel::maybe_trim_input(GFCommon::get_selection_value($val), rgar($source_field,"formId"),$source_field);
+                if(self::matches_operation($val, $target_value, $operation)){
                     $match_count++;
                 }
             }
             // if operation is Is Not, none of the values in the array can match the target value.
             $is_match = $operation == "isnot" ? $match_count == count($field_value) : $match_count > 0;
         }
-        else if(self::matches_operation(GFCommon::get_selection_value($field_value), $target_value, $operation)){
+        else if(self::matches_operation(GFFormsModel::maybe_trim_input(GFCommon::get_selection_value($field_value), rgar($source_field,"formId"),$source_field), $target_value, $operation)){
             $is_match = true;
         }
 
@@ -1752,7 +1755,7 @@ class GFFormsModel {
 
     private static function get_post_field_value($field, $lead){
 
-        if(is_array($field["inputs"])){
+        if(isset($field["inputs"]) && is_array($field["inputs"])){
             $value = array();
             foreach($field["inputs"] as $input){
                 $val = isset($lead[strval($input["id"])]) ? $lead[strval($input["id"])] : "";
@@ -2218,8 +2221,9 @@ class GFFormsModel {
 
 
     public static function choice_value_match($field, $choice, $value){
-
-        if($choice["value"] == $value){
+        $choice_value = GFFormsModel::maybe_trim_input($choice["value"], rgar($field, "formId"), $field);
+        $value = GFFormsModel::maybe_trim_input($value, rgar($field, "formId"), $field);
+        if($choice_value == $value){
            return true;
         }
         else if(rgget("enablePrice", $field)){
@@ -2233,7 +2237,7 @@ class GFFormsModel {
         // add support for prepopulating multiselects @alex
         else if(RGFormsModel::get_input_type($field) == 'multiselect') {
             $values = explode(',', $value);
-            if(in_array($choice['value'], $values))
+            if(in_array($choice_value, $values))
                 return true;
         }
         return false;

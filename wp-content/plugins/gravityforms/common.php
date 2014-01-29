@@ -1758,6 +1758,10 @@ class GFCommon{
 
     public static function get_remote_post_params(){
         global $wpdb;
+
+        if(!function_exists('get_plugins')){
+            require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+        }
         $plugin_list = get_plugins();
 		$site_url = get_bloginfo("url");
 		$plugins = array();
@@ -2788,8 +2792,9 @@ class GFCommon{
             return "<div class='ginput_container'>" . __("Donations are not editable", "gravityforms") . "</div>";
 
         // add categories as choices for Post Category field
-        if($field['type'] == 'post_category')
+        if($field['type'] == 'post_category'){
             $field = self::add_categories_as_choices($field, $value);
+		}
 
         $max_length = "";
         $html5_attributes = "";
@@ -3519,8 +3524,11 @@ class GFCommon{
                     $preview .= sprintf("<div id='preview_existing_files_%d'>", $id);
 
                     foreach($file_urls as $file_index => $file_url){
+                        if(self::is_ssl() && strpos($file_url, "http:") !== false ){
+                            $file_url = str_replace("http:", "https:", $file_url);
+                        }
                         $file_url = esc_attr($file_url);
-                        $preview .= sprintf("<div id='preview_file_%d' class='ginput_preview'><a href='%s' target='_blank' alt='%s' title='%s'>%s</a><a href='%s' target='_blank' alt='" . __("Download file", "gravityforms") . "' title='" . __("Download file", "gravityforms") . "'><img src='%s' style='margin-left:10px;'/></a><a href='javascript:void(0);' alt='" . __("Delete file", "gravityforms") . "' title='" . __("Delete file", "gravityforms") . "' onclick='DeleteFile(%d,%d,this);' ><img src='%s' style='margin-left:10px;'/></a></div>", $file_index, $file_url, $file_url, $file_url, GFCommon::truncate_url($file_url), $file_url, GFCommon::get_base_url() . "/images/download.png", $lead_id, $id, GFCommon::get_base_url() . "/images/icon-delete.png");
+                        $preview .= sprintf("<div id='preview_file_%d' class='ginput_preview'><a href='%s' target='_blank' alt='%s' title='%s'>%s</a><a href='%s' target='_blank' alt='" . __("Download file", "gravityforms") . "' title='" . __("Download file", "gravityforms") . "'><img src='%s' style='margin-left:10px;'/></a><a href='javascript:void(0);' alt='" . __("Delete file", "gravityforms") . "' title='" . __("Delete file", "gravityforms") . "' onclick='DeleteFile(%d,%d,this);' ><img src='%s' style='margin-left:10px;'/></a></div>", $file_index, $file_url, $file_url, $file_url, GFCommon::truncate_url($file_url), $file_url, GFCommon::get_base_url() . "/images/download.png", $lead_id, $id, GFCommon::get_base_url() . "/images/delete.png");
                     }
 
                     $preview .="</div>";
@@ -4337,18 +4345,21 @@ class GFCommon{
                 return $value;
 
             case "fileupload" :
-                $output =  $format == "text" ? "" : "<ul>";
+                $output = "";
                 if(!empty($value)){
                     $output_arr = array();
                     $file_paths = rgar($field,"multipleFiles") ? json_decode($value) : array($value);
                     foreach($file_paths as $file_path){
                         $info = pathinfo($file_path);
+                        if(self::is_ssl() && strpos($file_path, "http:") !== false ){
+                            $file_path = str_replace("http:", "https:", $file_path);
+                        }
                         $file_path = esc_attr(str_replace(" ", "%20", $file_path));
                         $output_arr[] = $format == "text" ? $file_path . PHP_EOL: "<li><a href='$file_path' target='_blank' title='" . __("Click to view", "gravityforms") . "'>" . $info["basename"] . "</a></li>";
                     }
                     $output = join(PHP_EOL, $output_arr);
                   }
-                $output .=  $format == "text" ? "" : "</ul>";
+                $output = empty($output) || $format == "text" ? $output : sprintf("<ul>%s</ul>", $output);
                 return $output;
             break;
 
@@ -5043,6 +5054,9 @@ class GFCommon{
         }
 
         $field['choices'] = $choices;
+        
+        $field['choices'] = apply_filters("gform_post_category_choices", $field["choices"], $field, $field["formId"]);
+        $field['choices'] = apply_filters("gform_post_category_choices_{$field["formId"]}_{$field["id"]}", $field["choices"], $field, $field["formId"]);
 
         if(RGFormsModel::get_input_type($field) == 'checkbox')
             $field['inputs'] = $inputs;
@@ -5088,21 +5102,26 @@ class GFCommon{
 
     public static function calculate($field, $form, $lead) {
 
-        $formula = apply_filters('gform_calculation_formula', rgar($field, 'calculationFormula'), $field, $form, $lead);
+        $formula = (string) apply_filters( 'gform_calculation_formula', rgar( $field, 'calculationFormula' ), $field, $form, $lead );
 
-        preg_match_all('/{[^{]*?:(\d+(\.\d+)?)(:(.*?))?}/mi', $formula, $matches, PREG_SET_ORDER);
+        // replace multiple spaces and new lines with single space
+        // @props: http://stackoverflow.com/questions/3760816/remove-new-lines-from-string
+        $formula = trim( preg_replace( '/\s+/', ' ', $formula ) );
 
-        if(is_array($matches)) {
-            foreach($matches as $match) {
+        preg_match_all( '/{[^{]*?:(\d+(\.\d+)?)(:(.*?))?}/mi', $formula, $matches, PREG_SET_ORDER );
 
-                list($text, $input_id) = $match;
+        if( is_array( $matches ) ) {
+            foreach( $matches as $match ) {
 
-                $value = self::get_calculation_value($match[1], $form, $lead);
-                $formula = str_replace($match[0], $value, $formula);
+                list( $text, $input_id ) = $match;
+                $value = self::get_calculation_value( $input_id, $form, $lead);
+                $formula = str_replace( $text, $value, $formula);
 
             }
         }
-        $result = preg_match("/^[0-9 -\/*\(\)]+$/", $formula) ? eval("return {$formula};") : false;
+
+        $result = preg_match( '/^[0-9 -\/*\(\)]+$/', $formula ) ? eval( "return {$formula};" ) : false;
+
         return $result;
     }
 
@@ -5472,7 +5491,7 @@ class GFCommon{
         $account_choices = array();
         if($get_users){
             $args    = apply_filters("gform_filters_get_users", array("number" => 200));
-            $accounts        = get_users();
+            $accounts        = get_users($args);
             $account_choices = array();
             foreach ($accounts as $account) {
                 $account_choices[] = array("text" => $account->user_login, "value" => $account->ID);

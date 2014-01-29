@@ -690,7 +690,7 @@ class GFFormDisplay{
                 //return regular confirmation message
                 if($ajax)
                 {
-                    $progress_confirmation = "<!DOCTYPE html><html><head><meta charset='UTF-8' /></head><body class='GF_AJAX_POSTBACK'>" . $confirmation_message . "</body></html>";
+                    $progress_confirmation = apply_filters('gform_ajax_iframe_content', "<!DOCTYPE html><html><head><meta charset='UTF-8' /></head><body class='GF_AJAX_POSTBACK'>" . $confirmation_message . "</body></html>");
                 }
                 else
                 {
@@ -1594,6 +1594,9 @@ class GFFormDisplay{
 
     public static function enqueue_form_scripts( $form, $ajax = false ){
 
+        // adding pre enqueue scripts hook so that scripts can be added first if a need exists
+        do_action("gform_pre_enqueue_scripts_{$form["id"]}", do_action("gform_pre_enqueue_scripts", $form, $ajax), $ajax);
+
         if(!get_option('rg_gforms_disable_css')){
 
             wp_enqueue_style("gforms_reset_css", GFCommon::get_base_url() . "/css/formreset.css", null, GFCommon::$version);
@@ -2030,7 +2033,7 @@ class GFFormDisplay{
                 $currency_fields[] = "#input_{$form["id"]}_{$field["id"]}";
         }
 
-        return "gformInitCurrencyFormatFields('" . implode(",", $currency_fields) . "')";
+        return "gformInitCurrencyFormatFields('" . implode(",", $currency_fields) . "');";
     }
 
     public static function get_counter_init_script($form){

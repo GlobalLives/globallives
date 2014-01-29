@@ -4,7 +4,7 @@ Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 2.8.5
+Stable tag: 2.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap and
 3. Google Sitemap Extra Settings page.
 
 == Changelog ==
+
+= V2.8.6 - 16.01.2014 =
+* Bugfix : Bug related on The link which get's added to the robots.txt was fixed.
+* Update : Style of the sitemap file was updated.
 
 = V2.8.5 - 13.01.2014 =
 * Bugfix : Bugs related on using string offset as an array were fixed.
@@ -177,6 +181,9 @@ In the WordPress admin panel please go to "Plugins", find the Google Sitemap and
 * New: Ability to add site in google webmaster tools, verify it and add sitemap file was added.
 
 == Upgrade Notice ==
+
+= V2.8.6 =
+Bug related on The link which get's added to the robots.txt was fixed. Style of the sitemap file was updated.
 
 = V2.8.5 =
 Bugs related on using string offset as an array were fixed. Screenshots was updated.

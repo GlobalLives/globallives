@@ -2237,8 +2237,9 @@ class GFFormDetail{
 
         require_once(GFCommon::get_base_path() . "/form_display.php");
         $field_html = GFFormDisplay::get_field($field, "", true);
+        $field_html_json = json_encode($field_html);
 
-        die("EndAddField($field_json, \"$field_html\");");
+        die("EndAddField($field_json, " . $field_html_json . ");");
     }
 
     public static function duplicate_field(){

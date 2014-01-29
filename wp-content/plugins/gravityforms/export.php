@@ -280,6 +280,9 @@ class GFExport{
 
     public static function import_form_page() {
 
+        if(!GFCommon::current_user_can_any("gravityforms_edit_forms"))
+            wp_die("You do not have permission to access this page");
+
         if(isset($_POST["import_forms"])){
             check_admin_referer("gf_import_forms", "gf_import_forms_nonce");
 
@@ -333,6 +336,9 @@ class GFExport{
 
     public static function export_form_page(){
 
+        if(!GFCommon::current_user_can_any("gravityforms_edit_forms"))
+            wp_die("You do not have permission to access this page");
+
         self::page_header(__('Export Forms', 'gravityforms'));
 
         ?>
@@ -373,6 +379,10 @@ class GFExport{
     }
 
     public static function export_lead_page(){
+
+        if(!GFCommon::current_user_can_any("gravityforms_export_entries"))
+            wp_die("You do not have permission to access this page");
+
 
         self::page_header(__('Export Entries', 'gravityforms'));
 
@@ -830,11 +840,15 @@ class GFExport{
 
     public static function get_tabs() {
 
-        $setting_tabs = array(
-            "10" => array("name" => "export_entry", "label" => __("Export Entries", "gravityforms")),
-            "20" => array("name" => "export_form" , "label" => __("Export Forms", "gravityforms")),
-            "30" => array("name" => "import_form", "label" => __("Import Forms", "gravityforms"))
-        );
+        $setting_tabs = array();
+        if(GFCommon::current_user_can_any("gravityforms_export_entries")){
+            $setting_tabs["10"] = array("name" => "export_entry", "label" => __("Export Entries", "gravityforms"));
+        }
+
+        if(GFCommon::current_user_can_any("gravityforms_edit_forms")){
+            $setting_tabs["20"] = array("name" => "export_form" , "label" => __("Export Forms", "gravityforms"));
+            $setting_tabs["30"] = array("name" => "import_form", "label" => __("Import Forms", "gravityforms"));
+        }
 
         $setting_tabs = apply_filters("gform_export_menu", $setting_tabs);
         ksort($setting_tabs, SORT_NUMERIC);

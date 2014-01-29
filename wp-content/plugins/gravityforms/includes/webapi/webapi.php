@@ -385,160 +385,159 @@ if (class_exists("GFForms")) {
 
             $method        = strtoupper($_SERVER['REQUEST_METHOD']);
             $args          = compact("offset", "page_size", "schema");
-            $filter_suffix = empty($collection2) ? $collection : "_" . $collection2;
-
-            $output = apply_filters("gform_webapi_" . strtolower($method) . "_" . $filter_suffix, "", $id, $collection2, $id2, $format, $args);
-
-            if ("" == $output) {
-                $data = file_get_contents("php://input");
-                $data = json_decode($data, true);
-                switch ($collection) {
-                    case "forms" :
-                        switch ($collection2) {
-                            case "results" :
-                                switch ($method) {
-                                    case 'GET' :
-                                        $this->get_results($id);
-                                        break;
-                                    case 'DELETE':
-                                    case 'PUT':
-                                    case 'POST':
-                                    default:
-                                        $this->die_bad_request();
-                                }
-                                break;
-                            case "feeds" :
-                                if (false == empty($id2))
-                                    $this->die_bad_request();
-                                switch ($method) {
-                                    case 'GET' :
-                                        $this->get_feeds(null, $id);
-                                        break;
-                                    case 'DELETE' :
-                                        $this->delete_feeds(null, $id);
-                                        break;
-                                    case 'PUT' :
-                                        $this->die_not_implemented();
-                                        break;
-                                    case 'POST' :
-                                        $this->post_feeds($data, $id);
-                                        break;
-                                    default :
-                                        $this->die_bad_request();
-                                }
-                                break;
-                            case "entries" :
-                                if (false == empty($id2))
-                                    $this->die_bad_request();
-                                switch ($method) {
-                                    case 'GET' :
-                                        $this->get_entries(null, $id, $schema);
-                                        break;
-                                    case 'POST' :
-                                        $this->post_entries($data, $id);
-                                        break;
-                                    case 'PUT' :
-                                    case 'DELETE' :
-                                    case 'POST' :
-                                        $this->die_not_implemented();
-                                        break;
-                                    default:
-                                        $this->die_bad_request();
-                                }
-                                break;
-
-                            case "" :
-                                switch ($method) {
-                                    case 'GET':
-                                        $this->get_forms($id, $schema);
-                                        break;
-                                    case 'DELETE':
-                                        $this->delete_forms($id);
-                                        break;
-                                    case 'PUT':
-                                        $this->put_forms($data, $id, $id2);
-                                        break;
-                                    case 'POST':
-                                        if (false === empty($id))
-                                            $this->die_bad_request();
-                                        $this->post_forms($data, $id);
-                                        break;
-                                    default:
-                                        $this->die_bad_request();
-                                }
-                                break;
-                            default :
-                                $this->die_bad_request();
-                                break;
-
-                        }
-                        break;
-                    case "entries" : //  route = /entries/{id}
-                        switch ($method) {
-                            case 'GET':
-                                switch ($collection2) {
-                                    case "fields" : // route = /entries/{id}/fields/{id2}
-                                        switch ($method) {
-                                            case 'GET' :
-                                                $this->get_entries($id, null, $schema, $id2);
-                                                break;
-                                            case 'DELETE' :
-                                            case 'PUT' :
-                                            case 'POST' :
-                                            default:
-                                                $this->die_bad_request();
-                                        }
-                                        break;
-                                    case "" :
-                                        $this->get_entries($id, null, $schema);
-                                        break;
-                                }
-
-                                break;
-                            case 'DELETE' :
-                                $this->delete_entries($id);
-                                break;
-                            case 'PUT' :
-                                $this->put_entries($data, $id);
-                                break;
-                            case 'POST' :
-                                if (false === empty($id))
-                                    $this->die_bad_request();
-                                $this->post_entries($data);
-                                break;
-                            default:
-                                $this->die_bad_request();
-                        }
-                        break;
-                    case "feeds" :
-                        switch ($method) {
-                            case 'GET' :
-                                $this->get_feeds($id);
-                                break;
-                            case 'DELETE' :
-                                if (empty($id))
-                                    $this->die_bad_request();
-                                $this->delete_feeds($id);
-                                break;
-                            case 'PUT' :
-                                $this->put_feeds($data, $id);
-                                break;
-                            case 'POST' :
-                                if (false === empty($id))
-                                    $this->die_bad_request();
-                                $this->post_feeds($data);
-                                break;
-                            default :
-                                $this->die_bad_request();
-                        }
-                        break;
-                    default :
-                        $this->die_bad_request();
-                        break;
-                }
-
-
+            if(empty($collection2)){
+                do_action("gform_webapi_" . strtolower($method) . "_" . $collection, $id, $format, $args);
+            } else {
+                do_action("gform_webapi_" . strtolower($method) . "_" . $collection . "_" . $collection2, $id, $id2, $format, $args);
             }
+
+            $data = file_get_contents("php://input");
+            $data = json_decode($data, true);
+            switch ($collection) {
+                case "forms" :
+                    switch ($collection2) {
+                        case "results" :
+                            switch ($method) {
+                                case 'GET' :
+                                    $this->get_results($id);
+                                    break;
+                                case 'DELETE':
+                                case 'PUT':
+                                case 'POST':
+                                default:
+                                    $this->die_bad_request();
+                            }
+                            break;
+                        case "feeds" :
+                            if (false == empty($id2))
+                                $this->die_bad_request();
+                            switch ($method) {
+                                case 'GET' :
+                                    $this->get_feeds(null, $id);
+                                    break;
+                                case 'DELETE' :
+                                    $this->delete_feeds(null, $id);
+                                    break;
+                                case 'PUT' :
+                                    $this->die_not_implemented();
+                                    break;
+                                case 'POST' :
+                                    $this->post_feeds($data, $id);
+                                    break;
+                                default :
+                                    $this->die_bad_request();
+                            }
+                            break;
+                        case "entries" :
+                            if (false == empty($id2))
+                                $this->die_bad_request();
+                            switch ($method) {
+                                case 'GET' :
+                                    $this->get_entries(null, $id, $schema);
+                                    break;
+                                case 'POST' :
+                                    $this->post_entries($data, $id);
+                                    break;
+                                case 'PUT' :
+                                case 'DELETE' :
+                                case 'POST' :
+                                    $this->die_not_implemented();
+                                    break;
+                                default:
+                                    $this->die_bad_request();
+                            }
+                            break;
+
+                        case "" :
+                            switch ($method) {
+                                case 'GET':
+                                    $this->get_forms($id, $schema);
+                                    break;
+                                case 'DELETE':
+                                    $this->delete_forms($id);
+                                    break;
+                                case 'PUT':
+                                    $this->put_forms($data, $id, $id2);
+                                    break;
+                                case 'POST':
+                                    if (false === empty($id))
+                                        $this->die_bad_request();
+                                    $this->post_forms($data, $id);
+                                    break;
+                                default:
+                                    $this->die_bad_request();
+                            }
+                            break;
+                        default :
+                            $this->die_bad_request();
+                            break;
+
+                    }
+                    break;
+                case "entries" : //  route = /entries/{id}
+                    switch ($method) {
+                        case 'GET':
+                            switch ($collection2) {
+                                case "fields" : // route = /entries/{id}/fields/{id2}
+                                    switch ($method) {
+                                        case 'GET' :
+                                            $this->get_entries($id, null, $schema, $id2);
+                                            break;
+                                        case 'DELETE' :
+                                        case 'PUT' :
+                                        case 'POST' :
+                                        default:
+                                            $this->die_bad_request();
+                                    }
+                                    break;
+                                case "" :
+                                    $this->get_entries($id, null, $schema);
+                                    break;
+                            }
+
+                            break;
+                        case 'DELETE' :
+                            $this->delete_entries($id);
+                            break;
+                        case 'PUT' :
+                            $this->put_entries($data, $id);
+                            break;
+                        case 'POST' :
+                            if (false === empty($id))
+                                $this->die_bad_request();
+                            $this->post_entries($data);
+                            break;
+                        default:
+                            $this->die_bad_request();
+                    }
+                    break;
+                case "feeds" :
+                    switch ($method) {
+                        case 'GET' :
+                            $this->get_feeds($id);
+                            break;
+                        case 'DELETE' :
+                            if (empty($id))
+                                $this->die_bad_request();
+                            $this->delete_feeds($id);
+                            break;
+                        case 'PUT' :
+                            $this->put_feeds($data, $id);
+                            break;
+                        case 'POST' :
+                            if (false === empty($id))
+                                $this->die_bad_request();
+                            $this->post_feeds($data);
+                            break;
+                        default :
+                            $this->die_bad_request();
+                    }
+                    break;
+                default :
+                    $this->die_bad_request();
+                    break;
+            }
+
 
             $this->die_bad_request();
 
@@ -1325,7 +1324,7 @@ if (class_exists("GFForms")) {
             return $sig;
         }
 
-        public function end($status, $response) {
+        public static function end($status, $response) {
             $output["status"]   = $status;
             $output["response"] = $response;
 

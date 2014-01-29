@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-10 17:07+0300\n"
-"PO-Revision-Date: 2014-01-10 17:07+0300\n"
+"POT-Creation-Date: 2014-01-16 12:23+0300\n"
+"PO-Revision-Date: 2014-01-16 12:24+0300\n"
 "Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -30,7 +30,6 @@ msgid "Google Sitemap"
 msgstr "Карта сайта Google"
 
 #: google-sitemap-plugin.php:155
-#: google-sitemap-plugin.php:375
 msgid "Your Sitemap file is created in the site root directory."
 msgstr "Карта сайта для вашего сайта создана в корне основной директории."
 
@@ -52,19 +51,19 @@ msgid "Login and password do not match. Please try again"
 msgstr "Логин и пароль не совпадают, попробуйте еще раз, пожалуйста"
 
 #: google-sitemap-plugin.php:253
-#: google-sitemap-plugin.php:291
+#: google-sitemap-plugin.php:292
 msgid "Wrong license key"
 msgstr "Неправильный лицензионный ключ"
 
-#: google-sitemap-plugin.php:284
+#: google-sitemap-plugin.php:285
 msgid "Something went wrong. Try again later. If the error will appear again, please, contact us <a href=http://support.bestwebsoft.com>BestWebSoft</a>. We are sorry for inconvenience."
 msgstr "Что-то пошло не так. Повторите попытку позже. Если ошибка появится снова, пожалуйста, свяжитесь с нами <a href=http://support.bestwebsoft.com>BestWebSoft</a>. Приносим извинения за неудобства."
 
-#: google-sitemap-plugin.php:293
+#: google-sitemap-plugin.php:294
 msgid "This license key is bind to another site"
 msgstr "Этот лицензионный ключ привязан к другому сайту"
 
-#: google-sitemap-plugin.php:295
+#: google-sitemap-plugin.php:296
 #: google-sitemap-plugin.php:535
 msgid "Unfortunately, you have exceeded the number of available tries per day. Please, upload the plugin manually."
 msgstr "К сожалению, вы превысили количество доступных попыток в день. Пожалуйста, загрузите плагин вручную."
@@ -98,7 +97,7 @@ msgstr "Настройки"
 
 #: google-sitemap-plugin.php:362
 msgid "Extra settings"
-msgstr "Доп. настройки"
+msgstr "Экстра настройки"
 
 #: google-sitemap-plugin.php:363
 msgid "Go PRO"
@@ -113,8 +112,20 @@ msgid "The plugin's settings have been changed. In order to save them please don
 msgstr "Настройки плагина были изменены. Для того, чтобы сохранить их, пожалуйста, не забудьте нажать кнопку \"Сохранить\"."
 
 #: google-sitemap-plugin.php:372
-msgid "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
-msgstr "Карта сайта уже существует. Если вы хотите изменить ее на новую карту сайта, выберите соответствующее действие внизу. Все остальные действия перезапишут существующий файл."
+msgid "The Sitemap file"
+msgstr "Файл карты сайта"
+
+#: google-sitemap-plugin.php:372
+msgid "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
+msgstr "уже существует. Если вы хотите изменить ее на новую карту сайта, выберите соответствующее действие внизу. Все остальные действия перезапишут существующий файл."
+
+#: google-sitemap-plugin.php:375
+msgid "Your Sitemap file"
+msgstr "Ваш файл карты сайта"
+
+#: google-sitemap-plugin.php:375
+msgid "is created in the site root directory."
+msgstr "создана в корне основной директории."
 
 #: google-sitemap-plugin.php:379
 #: google-sitemap-plugin.php:381

@@ -4,7 +4,7 @@ Plugin Name: Google Sitemap
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in Google Webmaster Tools account.
 Author: BestWebSoft
-Version: 2.8.5
+Version: 2.8.6
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -369,10 +369,10 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 				<form action="admin.php?page=google-sitemap-plugin.php" method='post' id="gglstmp_auth" name="gglstmp_auth">
 					<?php /*=============================== Creating sitemap file ====================================*/
 					if ( file_exists( $url_sitemap ) ) {
-						echo "<p>" . __( "The Sitemap file already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
+						echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "The Sitemap file", 'sitemap' ) . "</a> " . __( "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
 					} else {
 						gglstmp_sitemapcreate();
-						echo "<p>" . __( "Your Sitemap file is created in the site root directory.", 'sitemap' ) . "</p>";
+						echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "Your Sitemap file", 'sitemap' ) . "</a> " . __( "is created in the site root directory.", 'sitemap' ) . "</p>";
 					}
 					/*========================================== Recreating sitemap file ====================================*/
 					if ( is_multisite() ) {
@@ -396,7 +396,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 						<?php } else { ?>
 							<tr valign="top">
 								<td colspan="2">
-									<label><input type='checkbox' name='gglstmp_checkbox' value="1" <?php if ( 1 == $gglstmp_robots ) echo 'checked="checked"'; ?> /> <?php _e( "I want to add sitemap file path in robots.txt", 'sitemap' );?></label>
+									<label><input type='checkbox' name='gglstmp_checkbox' value="1" <?php if ( 1 == $gglstmp_robots ) echo 'checked="checked"'; ?> /> <?php _e( "I want to add sitemap file path in", 'sitemap' ); ?> <a href="<?php echo $url_home; ?>robots.txt" target="_new">robots.txt</a></label>
 								</td>
 							</tr>
 						<?php } ?>
@@ -411,7 +411,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 								<?php } ?>
 							</td>
 						</tr>
-						<?php if ( function_exists( 'curl_init' ) ) { ?>
+						<?php if ( ! function_exists( 'curl_init' ) ) { ?>
 							<tr valign="top">
 								<td colspan="2" class="gglstmppr_error">
 									<?php echo __( "This hosting does not support сURL, so you cannot add a sitemap file automatically.", 'sitemap' ); ?>
@@ -560,9 +560,9 @@ if ( ! function_exists( 'gglstmp_robots_add_sitemap' ) ) {
 				$path = ( ! empty( $site_url['path'] ) ) ? $site_url['path'] : '';
 				if ( is_multisite() ) {
 					$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
-					$output .= "Sitemap: " . $path . "/sitemap_" . $home_url . ".xml";
+					$output .= "Sitemap: " . $path . "sitemap_" . $home_url . ".xml";
 				} else {
-					$output .= "Sitemap: " . $path . "/sitemap.xml";
+					$output .= "Sitemap: " . $path . "sitemap.xml";
 				}
 				return $output;
 			}
@@ -800,8 +800,8 @@ if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 		if ( $hook_suffix == 'plugins.php' ) {   
 			$banner_array = array(
 				array( 'pdtr_hide_banner_on_plugin_page', 'updater/updater.php', '1.12' ),
-				array( 'gglstmp_hide_banner_on_plugin_page', 'google-sitemap-plugin/google-sitemap-plugin.php', '2.8.4' ),
 				array( 'cntctfrmtdb_hide_banner_on_plugin_page', 'contact-form-to-db/contact_form_to_db.php', '1.2' ),
+				array( 'gglstmp_hide_banner_on_plugin_page', 'google-sitemap-plugin/google-sitemap-plugin.php', '2.8.4' ),
 				array( 'cntctfrmpr_for_ctfrmtdb_hide_banner_on_plugin_page', 'contact-form-pro/contact_form_pro.php', '1.14' ),
 				array( 'cntctfrm_for_ctfrmtdb_hide_banner_on_plugin_page', 'contact-form-plugin/contact_form.php', '3.62' ),
 				array( 'cntctfrm_hide_banner_on_plugin_page', 'contact-form-plugin/contact_form.php', '3.47' ),	
@@ -864,7 +864,7 @@ add_action( 'save_post', 'gglstmp_update_sitemap' );
 add_action( 'trashed_post ', 'gglstmp_update_sitemap' );
 
 if ( 1 == get_option( 'gglstmp_robots' ) )
-	add_filter('robots_txt', 'gglstmp_robots_add_sitemap', 10, 2 );
+	add_filter( 'robots_txt', 'gglstmp_robots_add_sitemap', 10, 2 );
 
 add_filter( 'plugin_action_links', 'gglstmp_action_links', 10, 2 );
 add_filter( 'plugin_row_meta', 'gglstmp_links', 10, 2 );

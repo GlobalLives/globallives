@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.8.1
+Version: 1.8.3
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 
@@ -96,7 +96,7 @@ if(is_admin() && (RGForms::is_gravity_page() || RGForms::is_gravity_ajax_action(
 
 class GFForms {
 
-    public static $version = '1.8.1';
+    public static $version = '1.8.3';
 
     public static function has_members_plugin(){
         return function_exists( 'members_get_capabilities' );
@@ -333,6 +333,7 @@ class GFForms {
             //Auto-importing forms based on GF_IMPORT_FILE AND GF_THEME_IMPORT_FILE
             self::maybe_import_forms();
 
+            //The format the version info changed to JSON. Make sure the old format is not cached.
             if(version_compare(get_option("rg_form_version"), "1.8.0.3", "<" )){
                 delete_transient("gform_update_info");
             }
@@ -495,6 +496,89 @@ class GFForms {
 
         //fix checkbox value. needed for version 1.0 and below but won't hurt for higher versions
         self::fix_checkbox_value();
+
+        //fix leading and trailing spaces in Form objects and entry values from versions prior to 1.8.2
+        if(version_compare(get_option("rg_form_version"), "1.8.2", "<=" )){
+            //uncomment to test
+            //self::fix_leading_and_trailing_spaces();
+        }
+
+    }
+
+    private static function fix_leading_and_trailing_spaces(){
+
+        global $wpdb;
+
+        $meta_table_name =  GFFormsModel::get_meta_table_name();
+        $lead_details_table = GFFormsModel::get_lead_details_table_name();
+        $lead_details_long_table = GFFormsModel::get_lead_details_long_table_name();
+
+        //fast but doesn't allow for the gform_trim_input_value filter
+        //$result = $wpdb->query("UPDATE $lead_details_table SET value = TRIM(value)");
+        //$result = $wpdb->query("UPDATE $lead_details_long_table SET value = TRIM(value)");
+
+
+        $results = $wpdb->get_results("SELECT form_id, display_meta FROM {$meta_table_name}", ARRAY_A);
+
+        foreach ($results as &$result) {
+            $form_id = $result["form_id"];
+
+            $form = GFFormsModel::unserialize($result["display_meta"]);
+            $form_updated = false;
+            if(isset($form["fields"]) && is_array($form["fields"])){
+                $fields_to_update = array();
+                foreach($form["fields"] as &$field){
+                    $trim_value = apply_filters("gform_trim_input_value", true, $form_id, $field);
+                    if(!$trim_value){
+                        continue;
+                    }
+
+                    if(isset($field["label"]) && $field["label"] != trim($field["label"])){
+                        $field["label"] = trim($field["label"]);
+                        $form_updated = true;
+                    }
+                    if(isset($field["choices"]) && is_array($field["choices"])){
+                        foreach($field["choices"] as &$choice){
+                            if(isset($choice["text"]) && $choice["text"] != trim($choice["text"])){
+                                $choice["text"] = trim($choice["text"]);
+                                $form_updated = true;
+                            }
+                            if(isset($choice["value"]) && $choice["value"] != trim($choice["value"])){
+                                $choice["value"] = trim($choice["value"]);
+                                $form_updated = true;
+                            }
+                        }
+                    }
+                    if(isset($field["inputs"]) && is_array($field["inputs"])){
+                        foreach($field["inputs"] as &$input){
+                            if(isset($input["label"]) && $input["label"] != trim($input["label"])){
+                                $input["label"] = trim($input["label"]);
+                                $form_updated = true;
+                            }
+                        }
+                    }
+                    $field_id = (int)$field["id"];
+                    $field_number_min = $field_id - 0.001;
+                    $field_number_max = $field_id + 0.999;
+                    $fields_to_update[] = sprintf("field_number BETWEEN %s AND %s", $field_number_min, $field_number_max);
+                }
+
+
+                if(!empty($fields_to_update)){
+                    $fields_to_update_str = join(" OR ", $fields_to_update);
+
+                    //slow - may cause timeouts on sites with high volume of entries
+                    $result = $wpdb->query("UPDATE $lead_details_table SET value = TRIM(value) WHERE form_id = $form_id AND ($fields_to_update_str)");
+                    $result = $wpdb->query("UPDATE $lead_details_long_table SET value = TRIM(value) WHERE lead_detail_id IN (SELECT id FROM $lead_details_table WHERE form_id = $form_id AND ($fields_to_update_str))");
+                }
+
+            }
+            if($form_updated){
+                GFFormsModel::update_form_meta($form_id, $form);
+            }
+        }
+
+        return $results;
     }
 
     private static function maybe_import_forms()
@@ -561,7 +645,7 @@ class GFForms {
         return $wpdb->get_var($wpdb->prepare("SELECT option_value FROM {$wpdb->prefix}options WHERE option_name=%s", $option_name));
     }
 
-	//Changes form_id values from default value "0" to the correct value. Neededed when upgrading users from 1.6.11
+	//Changes form_id values from default value "0" to the correct value. Needed when upgrading users from 1.6.11
     private static function fix_lead_meta_form_id_values(){
         global $wpdb;
 
