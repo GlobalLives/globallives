@@ -62,7 +62,7 @@ function glp_queue() {
 
 		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', 'glp_vendor', null, true);
 		wp_register_script('glp_vendor', get_template_directory_uri() . '/js/vendor.min.js', false, null, true);
-		wp_register_script('d3', get_template_directory_uri() . '/bower_components/d3/d3.min.js', false, null, true);
+		wp_register_script('d3', get_template_directory_uri() . '/js/d3.min.js', false, null, true);
 		wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, true);
 
 		// Enqueue scripts for ALL pages

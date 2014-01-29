@@ -32,7 +32,8 @@ module.exports = function(grunt) {
 						'bower_components/jquery-ui/ui/jquery.ui.slider.js',
 						'bower_components/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
 						'bower_components/jquery-cycle/jquery.cycle.lite.js'
-					]
+					],
+					'js/d3.min.js': ['bower_components/d3/d3.js']
 				}
 			}
 		},
