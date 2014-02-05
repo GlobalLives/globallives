@@ -16,7 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "d3": "~3.4.1"
+    "d3": "~3.4.1",
+    "font-awesome": "~4.0.3"
   },
   "devDependencies": {
     "jquery": "~2.0.3",
@@ -25,7 +26,6 @@
     "jquery-ui-touch-punch": "*",
     "jquery-cycle": "~3.0.3",
     "mocha": "~1.17.0",
-    "chai": "~1.8.1",
-    "font-awesome": "~4.0.3"
+    "chai": "~1.8.1"
   }
 }
