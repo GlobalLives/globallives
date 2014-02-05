@@ -25,6 +25,7 @@
     "jquery-ui-touch-punch": "*",
     "jquery-cycle": "~3.0.3",
     "mocha": "~1.17.0",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "font-awesome": "~4.0.3"
   }
 }

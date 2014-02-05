@@ -197,6 +197,14 @@
 		$wp_rewrite->flush_rules();
 	}
 
+	function get_fullname( $user_id ) {
+		$user = get_userdata( $user_id );
+		return $user->user_firstname . ' ' . $user->user_lastname;
+	}
+	function the_fullname( $user_id ) {
+		echo get_fullname( $user_id );
+	}
+
 	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
 		$thumbnail = wp_get_attachment_image_src( get_field('avatar','user_'.$profile_id), $thumbnail_size );
 		if ($thumbnail) {
@@ -239,10 +247,11 @@
 		foreach ($comments as $comment) {
 			$activity = array(
 				'activity_type' => 'comment',
-				'activity_description' => __('wrote a comment on','glp') . ' <span class="activity-post">'.get_the_title($comment->comment_post_ID).'</span>',
+				'activity_description' => __('commented on','glp') . ' <span class="activity-post">'.get_the_title($comment->comment_post_ID).'</span>',
 				'activity_user' => $user_id,
 				'activity_content' => $comment->comment_content,
-				'activity_timestamp' => strtotime($comment->comment_date)
+				'activity_timestamp' => strtotime($comment->comment_date),
+				'activity_icon' => 'comment'
 			);
 			$activities[] = $activity;
 		}
@@ -253,16 +262,34 @@
 			if ( strpos($mention->comment_content, '@'.$user->user_login) === 0 ) {
 				$activity = array(
 					'activity_type' => 'mention',
-					'activity_description' => __('mentioned this user on','glp') . ' <span class="activity-post">'.get_the_title($mention->comment_post_ID).'</span>',
+					'activity_description' => __('mentioned','glp') . ' <span class="activity-username">' . get_fullname($user->ID) .' </span>',
 					'activity_user' => $mention->user_id,
 					'activity_content' => $mention->comment_content,
-					'activity_timestamp' => strtotime($mention->comment_date)
+					'activity_timestamp' => strtotime($mention->comment_date),
+					'activity_icon' => 'reply'
 				);
 				$activities[] = $activity;
 			}
 		}
 
-		// Add queue, favorites, bookmarks
+		// Add tags
+		$tags = get_comments(array( 'status' => 'approve' ));
+		foreach ($tags as $tag) {
+			if ( strpos($tag->comment_content, '#') === 0 ) {
+				$activity = array(
+					'activity_type' => 'tag',
+					'activity_description' => __('tagged','glp') . ' <span class="activity-post">'.get_the_title($mention->comment_post_ID).'</span>',
+					'activity_user' => $mention->user_id,
+					'activity_content' => $mention->comment_content,
+					'activity_timestamp' => strtotime($mention->comment_date),
+					'activity_icon' => 'tag'
+				);
+				$activities[] = $activity;
+			}
+		}		
+
+		// Add favorites, bookmarks
+		$favorites;
 
 		// Sort activities by timestamp before returning
 		usort($activities, 'profile_activity_compare');
@@ -405,10 +432,10 @@
                     $queue_key = 'field_117';
                     break;
                 case 'favorite':
-                    $queue_key = 'field_116';
+                    $queue_key = 'field_52f17cb980e31';
                     break;
                 case 'bookmark':
-                    $queue_key = 'field_118';
+                    $queue_key = 'field_52f17cf180e32';
                     break;
             }
             return $queue_key;

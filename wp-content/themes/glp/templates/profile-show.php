@@ -21,7 +21,7 @@
 
 				<?php if (get_field('user_skills','user_'.$profile->ID)) : ?>
 				<p>
-					<b><?php _e('Skills','glp'); ?></b><br>
+					<b><?php _e('Volunteer Skills','glp'); ?></b><br>
 				<?php while (has_sub_field('user_skills','user_'.$profile->ID)) : ?>
 					<?php if (get_sub_field('skill_name')) : ?><span class="skill_name"><?php the_sub_field('skill_name'); ?></span> <span class="skill_level"><?php $skill_level = get_sub_field('skill_level'); for ($i = 0; $i < $skill_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
 				<?php endwhile; ?>
@@ -30,60 +30,51 @@
 
 				<?php if (get_field('user_languages','user_'.$profile->ID)) : ?>
 				<p>
-					<b><?php _e('Languages','glp'); ?></b><br>
+					<b><?php _e('Languages Spoken','glp'); ?></b><br>
 				<?php while (has_sub_field('user_languages','user_'.$profile->ID)) : ?>
 					<?php if (get_sub_field('language_name')) : ?><span class="skill_name"><?php the_sub_field('language_name'); ?></span> <span class="skill_level"><?php $language_level = get_sub_field('language_level'); for ($i = 0; $i < $language_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
 				<?php endwhile; ?>
 				</p>
 				<?php endif; ?>
 
-				<?php /*
-				<?php if ($interests = get_field('interests','user_'.$profile->ID)) : ?>
-				<p><b><?php _e('Interested in','glp'); ?>:</b><br><?php foreach( $interests as $interest ) : ?><li><?php echo $interest; ?></li><?php endforeach; ?></p>
-				<hr>
+				<?php if (get_field('user_contact','user_'.$profile->ID)) : ?>
+				<p>
+					<b><?php _e('Contact Information','glp'); ?></b><br>
+				<?php while (has_sub_field('user_contact','user_'.$profile->ID)) : ?>
+					<i class="fa fa-<?php echo strtolower(get_sub_field('contact_channel')); ?>"></i>
+					<?php the_sub_field('contact_information'); ?><br>
+				<?php endwhile; ?>
+				</p>
 				<?php endif; ?>
-				<?php if ($expertises = get_field('expertise','user_'.$profile->ID)) : ?>
-				<p><b><?php _e('Expertise','glp'); ?>:</b><br><?php foreach( $expertises as $expertise ) : ?><li><?php echo $expertise; ?></li><?php endforeach; ?></p>
-				<hr>
-				<?php endif; ?>	
-				<?php if ($shoots = get_field('shoots','user_'.$profile->ID)) : ?>
-				<p><b><?php _e('Previous shoots','glp'); ?>:</b><br><?php foreach( $shoots as $shoot ) : ?><li>
-					<div class="participant-thumbnail"><img src="<?php the_participant_thumbnail_url( $shoot->ID, 'thumbnail' ); ?>"></div>
-					<h5 class="participant-title"><?php echo get_the_title($shoot->ID); ?></h5>
-					<span class="participant-location"><?php the_field('location',$shoot->ID); ?></span>
-				</li><?php endforeach; ?></p>
-				<?php endif; ?>
-				*/ ?>
+
 			</div>
 		</div>
 
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
-				<h4><?php _e('About','glp'); ?></h4>
+				<h4><?php _e('Bio','glp'); ?></h4>
 				<p><?php echo $profile->description; ?></p>
 			<?php if ($profile->user_url) : ?>
 				<h4><?php _e('Website','glp'); ?></h4>
 				<p><?php echo $profile->user_url; ?></p>
 			<?php endif; ?>
-				<hr>
 				<p class="profile-activity-buttons">
-					<span class="span2"><?php _e('All Activity','glp'); ?></span>
-					<a class="span1 text-center" href=""><i class="icon icon-film"></i><br>Shoots</a>
-					<a class="span1 text-center" href=""><i class="icon icon-comment"></i><br>Comments</a>
-					<a class="span1 text-center" href=""><i class="icon icon-tag"></i><br>Tags</a>
-					<a class="span1 text-center" href=""><i class="icon icon-user"></i><br>Mentions</a>
-					<a class="span1 text-center" href=""><i class="icon icon-book"></i><br>Bookmarks</a>
-					<a class="span1 text-center" href=""><i class="icon icon-heart"></i><br>Favorites</a>
+					<span class="span1"><?php _e('Activity','glp'); ?></span>
+					<a class="" href=""><i class="fa fa-video-camera"></i> Shoots</a>
+					<a class="" href=""><i class="fa fa-comment"></i> Comments</a>
+					<a class="" href=""><i class="fa fa-tag"></i> Tags</a>
+					<a class="" href="">@ Mentions</a>
+					<a class="" href=""><i class="fa fa-bookmark"></i> Bookmarks</a>
+					<a class="" href=""><i class="fa fa-heart"></i> Favorites</a>
 				</p>
-				<hr>
-				<h4><?php _e('All Recent Activity','glp'); ?></h4>
 								
 				<ul class="profile-activity">
 				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
 					<li class="activity <?php echo $activity['activity_type']; ?> row">
-						<div class="activity-thumbnail span2"><img src="<?php the_profile_thumbnail_url($activity['activity_user']); ?>"></div>
-						<div class="activity-meta span6">
-							<span class="activity-username">@<?php echo $activity_user->user_login; ?></span> 
+						<div class="activity-thumbnail span1"><img src="<?php the_profile_thumbnail_url($activity['activity_user']); ?>"></div>
+						<div class="activity-meta span7">
+							<i class="fa fa-<?php echo $activity['activity_icon']; ?>"></i>
+							<span class="activity-username"><?php the_fullname($activity_user->ID); ?></span> 
 							<?php echo $activity['activity_description']; ?> 
 							<?php echo human_time_diff( $activity['activity_timestamp'], current_time('timestamp') ); ?> ago.
 						</div>

@@ -50,7 +50,7 @@ function glp_queue() {
 		}
 
 		// Localize glpAjax.ajaxurl
-		wp_localize_script('glp_var', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+		wp_localize_script('glp_main', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
 	} else { // Production environment, load concatented scripts.
 
@@ -81,7 +81,7 @@ function glp_queue() {
 		}
 
 		// Localize glpAjax.ajaxurl
-		wp_localize_script('glp_var', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+		wp_localize_script('glp_main', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
 	}
 

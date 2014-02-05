@@ -94,6 +94,21 @@
 			}
 			.profile-body-inner {
 				padding: 2em 1em 2em 0;
+				.profile-activity-buttons {
+					margin: 0 -1em 1em;
+					padding: 1em;
+					color: @grayLight;
+					background: @grayLighter;
+					a {
+						padding: 0.5em;
+						color: @gray;
+						background: @white;
+						border-radius: @borderRadiusSmall;
+						&:disabled {
+							color: @grayLighter;
+						}
+					}
+				}
 			}
 			.profile-activity {
 				margin: 0; padding: 0;
