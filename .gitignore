@@ -19,6 +19,8 @@ wp-content/plugins/regenerate-thumbnails
 wp-content/plugins/wp_firephp
 wp-content/plugins/hello.php
 
+sitemap.xml
+
 # WPEngine (ignores WordPress core files)
 
 *~
