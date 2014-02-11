@@ -175,6 +175,15 @@ $(function() {
  
 	if ($('#nav-themes').length) { // Make sure the Themes navbar is on the page
  
+		$('#nav-themes li').hover(
+			function() {
+				$(this).siblings().children('.flyup').slideUp();
+				$(this).children('.flyup').slideDown();
+			},
+			function() {
+				$(this).children('.flyup').slideUp();
+			}
+		);
 		$('#nav-themes li').click(function() {
 			var theme = $(this).attr('data-term');
 			$(participants).each(function() {
@@ -188,9 +197,6 @@ $(function() {
 
 			filterParticipants();
 			$(this).addClass('active').siblings().removeClass('active');
-			$(this).siblings().children('.flyup').slideUp();
-			$(this).children('.flyup').slideToggle();
-
 		});
 		$('#nav-themes .flyup .thumbnails').cycle();
 
