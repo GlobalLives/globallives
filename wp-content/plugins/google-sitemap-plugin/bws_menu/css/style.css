@@ -65,7 +65,7 @@ h4.bws_recommended {
 }
 .bws_product_title {
     font-weight: bold;
-    padding: 16px 5px 28px;
+    padding: 16px 10px 28px;
     font-size: 14px;
     height: 18px;
 }
@@ -83,12 +83,12 @@ h4.bws_recommended {
     top: -9px;
 }
 .bws_product_description {
-    padding: 0 5px;
+    padding: 0 10px;
     color: #a7a7a7;
     display: none;
 }
 .bws_product_links {
-    padding: 10px 7px 12px;
+    padding: 10px 6px 12px;
 }
 .bws_product_links span {
     color: #c2c2c2;
@@ -111,8 +111,9 @@ h4.bws_recommended {
     border-radius: 2px;
     margin: 3px auto;
     padding: 7px 5px 8px;
-    width: 75%;
     font-size: 14px;
+    min-width: 103px;
+    display: inline-block;
 }
 .bws_product_button:hover{
     background: #008726; 
@@ -131,7 +132,6 @@ h4.bws_recommended {
 }
 .bws_product_button.bws_donate_button {
     background: #E89D09 !important;
-    text-transform: uppercase;
 }
 .bws_product_button.bws_donate_button:hover {
     background: #D69108 !important;
@@ -142,7 +142,7 @@ h4.bws_recommended {
     color: #0074A2;
     float: right;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
 }
 .bws_switch_link:hover {
     color: #2ea2cc;

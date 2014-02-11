@@ -233,6 +233,12 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 		
 			$recommend_plugins = array_diff_key( $bws_plugins, $all_plugins );
 
+			foreach ( $bws_plugins as $key_plugin => $value_plugin ) {
+				if ( ! isset( $all_plugins[ $key_plugin ] ) && isset( $bws_plugins[ $key_plugin ]['pro_version'] ) && isset( $all_plugins[ $bws_plugins[ $key_plugin ]['pro_version'] ] ) ) {				
+					unset( $recommend_plugins[ $key_plugin ] );
+				}
+			}
+
 			foreach ( $all_plugins as $key_plugin => $value_plugin ) {
 				if ( ! isset( $bws_plugins[ $key_plugin ] ) && ! isset( $bws_plugins_pro[ $key_plugin ] ) )
 					unset( $all_plugins[ $key_plugin ] );
@@ -656,10 +662,28 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 					<div class="clear"></div>
 					<?php if ( ( isset( $_GET['sub'] ) && 'installed' == $_GET['sub'] ) || !isset( $_GET['sub'] ) ) { ?>	
 						<h4 class="bws_installed"><?php _e( 'Installed plugins', 'bestwebsoft' ); ?></h4>
-						<?php foreach ( $all_plugins as $key_plugin => $value_plugin ) { ?>
-							<?php if ( in_array( $key_plugin, $active_plugins ) || is_plugin_active_for_network( $key_plugin ) ) { ?>
-								<?php if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) {
-									$icon = ( false != strstr( $key_plugin, '-plugin-pro/', true ) ) ? strstr( $key_plugin, '-plugin-pro/', true ) : strstr( $key_plugin, '-pro/', true ); ?>
+						<?php foreach ( $all_plugins as $key_plugin => $value_plugin ) {
+
+							if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) {
+								$key_plugin_explode = explode( '-plugin-pro/', $key_plugin );
+								if ( isset( $key_plugin_explode[1] ) )
+									$icon = $key_plugin_explode[0];
+								else {
+									$key_plugin_explode = explode( '-pro/', $key_plugin );
+									$icon = $key_plugin_explode[0];
+								}
+							} elseif ( isset( $bws_plugins[ $key_plugin ] ) ) {
+								$key_plugin_explode = explode( '-plugin/', $key_plugin );
+								if ( isset( $key_plugin_explode[1] ) )
+									$icon = $key_plugin_explode[0];
+								else {
+									$key_plugin_explode = explode( '/', $key_plugin );
+									$icon = $key_plugin_explode[0];
+								}
+							}
+
+							if ( in_array( $key_plugin, $active_plugins ) || is_plugin_active_for_network( $key_plugin ) ) { ?>
+								<?php if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) { ?>									
 									<div class="bws_product_box bws_exist_overlay">
 										<div class="bws_product">				
 											<div class="bws_product_title"><?php echo $value_plugin["Name"]; ?></div>
@@ -670,9 +694,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 												</div>			
 												<div class="bws_product_description"><?php echo $value_plugin["Description"]; ?></div>
 											</div>
-											<a href="<?php echo $bws_plugins_pro[ $key_plugin ]["link"]; ?>" target="_blank">
-												<div class="bws_product_button"><strong>PRO</strong> <?php _e( 'installed', 'bestwebsoft' );?></div>
-											</a> 
 											<div class="clear"></div>
 										</div>
 										<div class="bws_product_links">								
@@ -681,8 +702,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 											<a href="<?php echo $bws_plugins_pro[ $key_plugin ]["settings"]; ?>" target="_blank"><?php _e( "Settings", 'bestwebsoft' ); ?></a>
 										</div>
 									</div>
-								<?php } elseif ( isset( $bws_plugins[ $key_plugin ] ) ) {
-									$icon = ( false != strstr( $key_plugin, '-plugin/', true ) ) ? strstr( $key_plugin, '-plugin/', true ) : strstr( $key_plugin, '/', true ); ?>
+								<?php } elseif ( isset( $bws_plugins[ $key_plugin ] ) ) { ?>
 									<div class="bws_product_box bws_product_free">
 										<div class="bws_product">				
 											<div class="bws_product_title"><?php echo $value_plugin["Name"]; ?></div>
@@ -693,12 +713,12 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 												<div class="bws_product_description"><?php echo $bws_plugins[ $key_plugin ]["description"]; ?></div>
 											</div>
 											<?php if ( isset( $bws_plugins[ $key_plugin ]['pro_version'] ) && isset( $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ] ) ) { ?>
-												<a href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["purchase"]; ?>" target="_blank">
-													<div class="bws_product_button"><?php _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong></div>
+												<a class="bws_product_button" href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["purchase"]; ?>" target="_blank">
+													<?php _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong>
 												</a>
 											<?php } else { ?>
-												<a href="<?php echo $bws_donate_link; ?>" target="_blank">
-													<div class="bws_product_button bws_donate_button"><strong><?php _e( 'DONATE', 'bestwebsoft' );?></strong></div>
+												<a class="bws_product_button bws_donate_button" href="<?php echo $bws_donate_link; ?>" target="_blank">
+													<strong><?php _e( 'DONATE', 'bestwebsoft' );?></strong>
 												</a>
 											<?php } ?>
 											<div class="clear"></div>
@@ -711,8 +731,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 									</div>
 								<?php }
 							} else {
-								if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) {
-									$icon = ( false != strstr( $key_plugin, '-plugin-pro/', true ) ) ? strstr( $key_plugin, '-plugin-pro/', true ) : strstr( $key_plugin, '-pro/', true ); ?>
+								if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) { ?>
 									<div class="bws_product_box bws_product_deactivated">
 										<div class="bws_product">					
 											<div class="bws_product_title"><?php echo $value_plugin["Name"]; ?></div>
@@ -723,9 +742,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 												</div>
 												<div class="bws_product_description"><?php echo $bws_plugins_pro[ $key_plugin ]["description"]; ?></div>
 											</div>
-											<a href="<?php echo $bws_plugins_pro[ $key_plugin ]["link"]; ?>" target="_blank">
-												<div class="bws_product_button"><strong>PRO</strong> <?php _e( 'installed', 'bestwebsoft' );?></div>
-											</a>
 											<div class="clear"></div>
 										</div>
 										<div class="bws_product_links">
@@ -734,8 +750,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 											<a class="bws_activate" href="plugins.php" title="<?php _e( "Activate this plugin", 'bestwebsoft' ); ?>" target="_blank"><?php _e( "Activate", 'bestwebsoft' ); ?></a>
 										</div>
 									</div>
-								<?php } elseif ( isset( $bws_plugins[ $key_plugin ] ) ) {
-									$icon = ( false != strstr( $key_plugin, '-plugin/', true ) ) ? strstr( $key_plugin, '-plugin/', true ) : strstr( $key_plugin, '/', true ); ?>
+								<?php } elseif ( isset( $bws_plugins[ $key_plugin ] ) ) { ?>
 									<div class="bws_product_box bws_product_deactivated bws_product_free">
 										<div class="bws_product">					
 											<div class="bws_product_title"><?php echo $value_plugin["Name"]; ?></div>
@@ -746,12 +761,12 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 												<div class="bws_product_description"><?php echo $bws_plugins[ $key_plugin ]["description"]; ?></div>
 											</div>
 											<?php if ( isset( $bws_plugins[ $key_plugin ]['pro_version'] ) && isset( $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ] ) ) { ?>
-												<a href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["purchase"]; ?>" target="_blank">
-													<div class="bws_product_button"><?php _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong></div>
+												<a class="bws_product_button" href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["purchase"]; ?>" target="_blank">
+													<?php _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong>
 												</a>
 											<?php } else { ?>
-												<a href="<?php echo $bws_donate_link; ?>" target="_blank">
-													<div class="bws_product_button bws_donate_button"><strong><?php _e( 'Donate', 'bestwebsoft' );?></strong></div>
+												<a class="bws_product_button bws_donate_button" href="<?php echo $bws_donate_link; ?>" target="_blank">
+													<strong><?php _e( 'DONATE', 'bestwebsoft' );?></strong>
 												</a>
 											<?php } ?>
 											<div class="clear"></div>
@@ -770,9 +785,24 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 					<?php if ( ( isset( $_GET['sub'] ) && 'recommended' == $_GET['sub'] ) || !isset( $_GET['sub'] ) ) { ?>
 						<h4 class="bws_recommended"><?php _e( 'Recommended plugins', 'bestwebsoft' ); ?></h4>
 						<?php foreach ( $recommend_plugins as $key_plugin => $value_plugin ) {
-							$icon = ( false != strstr( $key_plugin, '-plugin-pro/', true ) ) ? strstr( $key_plugin, '-plugin-pro/', true ) : strstr( $key_plugin, '-pro/', true );
-							if ( ! $icon )
-								$icon = ( false != strstr( $key_plugin, '-plugin/', true ) ) ? strstr( $key_plugin, '-plugin/', true ) : strstr( $key_plugin, '/', true );
+
+							if ( isset( $bws_plugins_pro[ $key_plugin ] ) ) {
+								$key_plugin_explode = explode( '-plugin-pro/', $key_plugin );
+								if ( isset( $key_plugin_explode[1] ) )
+									$icon = $key_plugin_explode[0];
+								else {
+									$key_plugin_explode = explode( '-pro/', $key_plugin );
+									$icon = $key_plugin_explode[0];
+								}
+							} elseif ( isset( $bws_plugins[ $key_plugin ] ) ) {
+								$key_plugin_explode = explode( '-plugin/', $key_plugin );
+								if ( isset( $key_plugin_explode[1] ) )
+									$icon = $key_plugin_explode[0];
+								else {
+									$key_plugin_explode = explode( '/', $key_plugin );
+									$icon = $key_plugin_explode[0];
+								}
+							}
 							?>
 							<div class="bws_product_box">
 								<div class="bws_product">				
@@ -787,19 +817,19 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 										<div class="bws_product_description"><?php echo $bws_plugins[ $key_plugin ]["description"]; ?></div>
 									</div>
 									<?php if ( isset( $bws_plugins[ $key_plugin ]['pro_version'] ) && isset( $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ] ) ) { ?>								
-										<a href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["link"]; ?>" target="_blank">
-											<div class="bws_product_button"><?php echo _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong></div>
+										<a class="bws_product_button" href="<?php echo $bws_plugins_pro[ $bws_plugins[ $key_plugin ]['pro_version'] ]["link"]; ?>" target="_blank">
+											<?php echo _e( 'Go', 'bestwebsoft' );?> <strong>PRO</strong>
 										</a> 
 									<?php } else { ?>
-										<a href="<?php echo $bws_donate_link; ?>" target="_blank">
-											<div class="bws_product_button bws_donate_button"><strong><?php echo _e( 'Donate', 'bestwebsoft' );?></strong></div>
+										<a class="bws_product_button bws_donate_button" href="<?php echo $bws_donate_link; ?>" target="_blank">
+											<strong><?php echo _e( 'DONATE', 'bestwebsoft' );?></strong>
 										</a>
 									<?php } ?>
 								</div>
 								<div class="clear"></div>
 								<div class="bws_product_links">								
 									<a href="<?php echo $bws_plugins[ $key_plugin ]["link"]; ?>" target="_blank"><?php echo __( "Learn more", 'bestwebsoft' ); ?></a>
-									<span> | <span>
+									<span> | </span>
 									<a href="<?php echo $bws_plugins[ $key_plugin ]["wp_install"]; ?>" target="_blank"><?php echo __( "Install now", 'bestwebsoft' ); ?></a>
 								</div>
 							</div>

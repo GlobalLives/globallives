@@ -4,7 +4,7 @@ Plugin Name: Google Sitemap
 Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in Google Webmaster Tools account.
 Author: BestWebSoft
-Version: 2.8.6
+Version: 2.8.7
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -60,12 +60,7 @@ if ( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 			$str .= "'" . $val . "'";
 		}
 		$xml = new DomDocument( '1.0', 'utf-8' );
-
-		if ( defined( 'WP_CONTENT_DIR' ) ) {
-			$xml_stylesheet_path = basename( WP_CONTENT_DIR ) . "/plugins/google-sitemap-plugin/sitemap.xsl";
-		} else {
-			$xml_stylesheet_path = "wp-content/plugins/google-sitemap-plugin/sitemap.xsl";
-		}
+		$xml_stylesheet_path = plugins_url() . "/google-sitemap-plugin/sitemap.xsl";
 
 		$xslt = $xml->createProcessingInstruction( 'xml-stylesheet', "type=\"text/xsl\" href=\"$xml_stylesheet_path\"" );
 		$xml->appendChild( $xslt );
@@ -92,7 +87,7 @@ if ( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 		}
 
 		if ( is_multisite() ) {
-			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', str_replace( 'https://', '', home_url() ) ) );
 			$xml->save( ABSPATH . 'sitemap_' . $home_url . '.xml' );
 		} else {
 			$xml->save( ABSPATH . 'sitemap.xml' );
@@ -145,7 +140,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 		$plugin_info = get_plugin_data( __FILE__ );
 
 		if ( is_multisite() ) {
-			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', str_replace( 'https://', '', home_url() ) ) );
 			$url_sitemap = ABSPATH . "sitemap_" . $home_url .".xml";
 		} else {
 			$url_sitemap = ABSPATH . "sitemap.xml";
@@ -172,11 +167,11 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 				$fp = fopen( ABSPATH . 'robots.txt', "a+" );
 				$flag = false;
 				while ( false !== ( $line = fgets( $fp ) ) ) {
-					if ( $line == "Sitemap: " . $url_home . "/sitemap.xml" )
+					if ( $line == "Sitemap: " . $url_home . "sitemap.xml" )
 						$flag = true;
 				}
 				if ( ! $flag )
-					fwrite( $fp, "\nSitemap: " . $url_home . "/sitemap.xml" );
+					fwrite( $fp, "\nSitemap: " . $url_home . "sitemap.xml" );
 				fclose ( $fp );
 			}
 
@@ -411,6 +406,35 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 								<?php } ?>
 							</td>
 						</tr>
+					</table>
+
+
+					<table class="form-table bws_pro_version">
+						<tr valign="top">
+							<th><?php _e( 'XML Sitemap "Change Frequency" parameter', 'sitemap_pro' ); ?></th>
+							<td>
+								<select name="gglstmppr_sitemap_change_frequency">
+									<option value="always"><?php _e( 'Always', 'sitemap_pro' ); ?></option>
+									<option value="hourly"><?php _e( 'Hourly', 'sitemap_pro' ); ?></option>
+									<option value="daily"><?php _e( 'Daily', 'sitemap_pro' ); ?></option>
+									<option value="weekly"><?php _e( 'Weekly', 'sitemap_pro' ); ?></option>
+									<option value="monthly"><?php _e( 'Monthly', 'sitemap_pro' ); ?></option>
+									<option value="yearly"><?php _e( 'Yearly', 'sitemap_pro' ); ?></option>
+									<option value="never"><?php _e( 'Never', 'sitemap_pro' ); ?></option>
+								</select><br />
+								<span style="color: #888888;font-size: 10px;"><?php _e( 'This value is used in the sitemap file and provides general information to search engines. The sitemap itself is generated once and will be re-generated when you create or update any post or page.', 'sitemap_pro' ); ?></span>
+							</td>
+						</tr>
+						<tr class="bws_pro_version_tooltip">
+							<th scope="row" colspan="2">
+								<?php _e( 'This functionality is available in the Pro version of the plugin. For more details, please follow the link', 'sitemap' ); ?> 
+								<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro">
+									Google Sitemap Pro
+								</a>
+							</th>
+						</tr>					
+					</table>
+					<table class="form-table">
 						<?php if ( ! function_exists( 'curl_init' ) ) { ?>
 							<tr valign="top">
 								<td colspan="2" class="gglstmppr_error">
@@ -559,7 +583,7 @@ if ( ! function_exists( 'gglstmp_robots_add_sitemap' ) ) {
 				$site_url = parse_url( site_url() );
 				$path = ( ! empty( $site_url['path'] ) ) ? $site_url['path'] : '';
 				if ( is_multisite() ) {
-					$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
+					$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', str_replace( 'https://', '', home_url() ) ) );
 					$output .= "Sitemap: " . $path . "sitemap_" . $home_url . ".xml";
 				} else {
 					$output .= "Sitemap: " . $path . "sitemap.xml";
@@ -742,13 +766,13 @@ if ( ! function_exists( 'gglstmp_add_sitemap' ) ) {
 		if ( is_multisite() ) {
 			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', home_url() ) );
 			$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
-			."<atom:id>" . $url_home . "/sitemap_" . $home_url . ".xml</atom:id>"
+			."<atom:id>" . $url_home . "sitemap_" . $home_url . ".xml</atom:id>"
 			."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
 			."<wt:sitemap-type>WEB</wt:sitemap-type>"
 			."</atom:entry>";
 		} else {
 			$content  = "<atom:entry xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:wt=\"http://schemas.google.com/webmasters/tools/2007\">"
-			."<atom:id>" . $url_home . "/sitemap.xml</atom:id>"
+			."<atom:id>" . $url_home . "sitemap.xml</atom:id>"
 			."<atom:category scheme=\"http://schemas.google.com/g/2005#kind\" term=\"http://schemas.google.com/webmasters/tools/2007#sitemap-regular\"/>"
 			."<wt:sitemap-type>WEB</wt:sitemap-type>"
 			."</atom:entry>";

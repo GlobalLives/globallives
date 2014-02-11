@@ -25,14 +25,14 @@
 				$( this ).children( '.bws_product' ).addClass( 'bws_product_pro' );
 				$( this ).children( '.bws_product' ).children( '.bws_product_content' ).children( '.bws_product_description' ).css( 'display', 'block' );
 				$( this ).children( '.bws_product' ).children( '.bws_product_content' ).children( '.bws_product_icon' ).css( 'display', 'none' );
-				$( this ).children( '.bws_product' ).children( 'a' ).children( '.bws_product_button' ).css( 'display', 'block' );
+				$( this ).children( '.bws_product' ).children( '.bws_product_button' ).css( 'display', 'inline-block' );
 			}
 		}, function() {			
 			if ( $( this ).children( '.bws_product' ).children( '.bws_product_content' ).children( '.bws_product_description' ).length > 0 ) {
 				$( this ).children( '.bws_product' ).removeClass( 'bws_product_pro' );
 				$( this ).children( '.bws_product' ).children( '.bws_product_content' ).children( '.bws_product_description' ).css( 'display', 'none' );
 				$( this ).children( '.bws_product' ).children( '.bws_product_content' ).children( '.bws_product_icon' ).css( 'display', 'block' );
-				$( this ).children( '.bws_product' ).children( 'a' ).children( '.bws_product_button' ).css( 'display', 'none' );
+				$( this ).children( '.bws_product' ).children( '.bws_product_button' ).css( 'display', 'none' );
 			}
 		});
 
