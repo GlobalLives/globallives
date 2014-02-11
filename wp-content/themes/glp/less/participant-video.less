@@ -8,6 +8,10 @@
 		background: rgb(0,0,0);
 		background: rgba(0,0,0,0.6);
 		padding: 20px;
+		.opacity(0);
+		-webkit-transition: 0.5s opacity;
+		-moz-transition: 0.5s opacity;
+		transition: 0.5s opacity;
 	}
 	#taggable-area,
 	.clip-markers {
@@ -274,4 +278,7 @@
 .participant-detail-video {
 	position: relative;
 	z-index: 1050;
+}
+.participant-clip:hover .control-slider-area-cntnr {
+	.opacity(100);
 }
