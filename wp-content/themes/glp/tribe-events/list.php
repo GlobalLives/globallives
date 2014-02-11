@@ -8,6 +8,7 @@
 
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+global $query_string;
 
 ?>
 <div id="tribe-events-content" class="upcoming">
@@ -16,7 +17,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <?php
 	
 	# First get upcoming
-	query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'upcoming' )));
+	query_posts($query_string . '&eventDisplay=upcoming');
 	if (have_posts()) :
 		$hasPosts = true; $first = true;
 ?>
@@ -32,7 +33,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	else :
 
 	# Then get past
-	query_posts(array_merge($wp_query->query, array( 'eventDisplay' => 'past' )));
+	query_posts($query_string . '&eventDisplay=past');
 	if (have_posts()) :
 
 ?>
