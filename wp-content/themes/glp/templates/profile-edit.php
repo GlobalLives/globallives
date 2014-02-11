@@ -31,34 +31,47 @@
 
 				<p>
 					<b><?php _e('Skills','glp'); ?></b><br>
-				<?php $i = 0; while (has_sub_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
+				<?php
+					$user_skills = get_field($field_keys['user_skills'],'user_'.$profile->ID);
+					$user_skills_obj = get_field_object($field_keys['user_skills'],'user_'.$profile->ID);
+					$available_skills = $user_skills_obj['sub_fields'][0]['choices'];
+					$max_skills = 5;
+
+					for ($i = 0; $i < $max_skills; $i++) :
+				?>
 					<div class="span4"><div class="row">
 					<select class="span2" name="user_skills[<?php echo $i; ?>][skill_name]">
 					<option value=""><?php _e('- select -','glp'); ?></option>
-					<?php $skill_name_field = get_sub_field_object('skill_name'); $skill_name_options = $skill_name_field['choices']; foreach($skill_name_options as $skill_name_option) : ?>
-						<option value="<?php echo $skill_name_option; ?>" <?php if (get_sub_field('skill_name') == $skill_name_option) : ?> selected<?php endif; ?>><?php echo $skill_name_option; ?></option>
+					<?php foreach($available_skills as $skill_name_option) : ?>
+						<option value="<?php echo $skill_name_option; ?>" <?php if ($user_skills[$i]['skill_name'] == $skill_name_option) : ?> selected<?php endif; ?>><?php echo $skill_name_option; ?></option>
 					<?php endforeach; ?>
 					</select>
-					<input class="span1" type="number" name="user_skills[<?php echo $i; ?>][skill_level]" value="<?php the_sub_field('skill_level'); ?>"><br>
+					<input class="span1" type="number" min="0" max="5" name="user_skills[<?php echo $i; ?>][skill_level]" value="<?php echo $user_skills[$i]['skill_level']; ?>"><br>
 					</div></div>
-				<?php $i++; endwhile; ?>
+				<?php endfor; ?>
 				</p>
 
 				<hr>
 
 				<p>
 					<b><?php _e('Languages','glp'); ?></b><br>
-				<?php $i = 0; while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
+				<?php
+					$user_languages = get_field($field_keys['user_languages'], 'user_'.$profile->ID);
+					$enabled_languages = icl_get_languages('skip_missing=0');
+					$max_languages = 5;
+
+					for ($i = 0; $i < $max_languages; $i++ ) :
+				?>
 					<div class="span4"><div class="row">
 					<select class="span2" name="user_languages[<?php echo $i; ?>][language_name]">
 					<option value=""><?php _e('- select -','glp'); ?></option>
-					<?php $lang_name_field = get_sub_field_object('language_name'); $lang_name_options = $lang_name_field['choices']; foreach($lang_name_options as $lang_name_option) : ?>
-						<option value="<?php echo $lang_name_option; ?>" <?php if (get_sub_field('lang_name') == $lang_name_option) : ?> selected<?php endif; ?>><?php echo $lang_name_option; ?></option>
+					<?php foreach($enabled_languages as $lang_name_option) : ?>
+						<option value="<?php echo $lang_name_option['native_name']; ?>" <?php if ($user_languages[$i]['language_name'] == $lang_name_option['native_name']) : ?> selected<?php endif; ?>><?php echo $lang_name_option['native_name']; ?></option>
 					<?php endforeach; ?>
 					</select>
-					<input class="span1" type="number" name="user_languages[<?php echo $i; ?>][lang_level]" value="<?php the_sub_field('lang_level'); ?>"><br>
+					<input class="span1" type="number" min="0" max="5" name="user_languages[<?php echo $i; ?>][language_level]" value="<?php if ($user_languages[$i]) { echo $user_languages[$i]['language_level']; } ?>">
 					</div></div>
-				<?php $i++; endwhile; ?>
+				<?php endfor; ?>
 				</p>
 
 			</div>
