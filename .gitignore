@@ -12,6 +12,8 @@ wp-content/plugins/debug-bar-console
 wp-content/plugins/debug-bar-cron
 wp-content/plugins/debug-bar-extender
 wp-content/plugins/developer
+wp-content/plugins/theme-check
+wp-content/plugins/log-viewer
 wp-content/plugins/log-deprecated-notices
 wp-content/plugins/regenerate-thumbnails
 wp-content/plugins/wp_firephp
