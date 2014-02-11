@@ -460,11 +460,12 @@ function report_clip_status(event) {
 
 function turn_out_the_lights() {
     if ( $('#shadow').length ) {
-        $('#shadow').remove();
+        $('#shadow').fadeOut(500,function() { $(this).remove(); });
         $('.control-buttons-cntnr .dimmer').removeClass('active');
     }
     else {
-        $('body').append('<div id="shadow"></div>');
+        $('body').append('<div id="shadow" class="hide"></div>');
+        $('#shadow').fadeIn(500);
         $('.control-buttons-cntnr .dimmer').addClass('active');
     }
 }
