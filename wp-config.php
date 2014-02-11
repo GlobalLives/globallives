@@ -46,7 +46,6 @@ define('NONCE_SALT',       'k4 REb36zMdOy4|o>vKF7~G2VX-imiYOP9*4+[([I*!1#7(a-;gW
 $table_prefix  = 'wp_';
 
 define('WPLANG', '');
-// define('WP_DEBUG', false);
 
 /* That's all, stop editing! Happy blogging. */
 

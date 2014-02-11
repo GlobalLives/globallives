@@ -22,9 +22,9 @@
   "devDependencies": {
     "jquery": "~2.0.3",
     "jquery-ui": "~1.10.3",
-    "bootstrap": "2.3.2",
     "jquery-ui-touch-punch": "*",
     "jquery-cycle": "~3.0.3",
+    "bootstrap": "2.3.2",
     "mocha": "~1.17.0",
     "chai": "~1.8.1"
   }

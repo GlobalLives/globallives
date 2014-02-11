@@ -1,4 +1,4 @@
-<?php global $profile, $current_user; ?>
+<?php global $profile, $current_user, $field_keys; ?>
 <form action="/profile" method="post" id="user-<?php echo $profile->ID; ?>" class="profile-edit-form container">
 	<input type="hidden" name="mode" value="save" />
 	<header class="row">
@@ -11,12 +11,12 @@
 				</h1>
 				<p class="profile-location">
 					<select class="profile-occupation span2" name="user_occupation">
-					<?php $user_occupation_field = get_field_object('user_occupation','user_'.$profile->ID); $user_occupation_options = $user_occupation_field['choices']; foreach($user_occupation_options as $user_occupation_option) : ?>
-						<option value="<?php echo $user_occupation_option; ?>" <?php if (get_field('user_occupation','user_'.$profile->ID) == $user_occupation_option) : ?> selected<?php endif; ?>><?php echo $user_occupation_option; ?></option>
+					<?php $user_occupation_field = get_field_object($field_keys['user_occupation'],'user_'.$profile->ID); $user_occupation_options = $user_occupation_field['choices']; foreach($user_occupation_options as $user_occupation_option) : ?>
+						<option value="<?php echo $user_occupation_option; ?>" <?php if (get_field($field_keys['user_occupation'],'user_'.$profile->ID) == $user_occupation_option) : ?> selected<?php endif; ?>><?php echo $user_occupation_option; ?></option>
 					<?php endforeach; ?>
 					</select>
 					<?php _e(' in ','glp'); ?>
-					<input class="profile-location span3" name="user_location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field('user_location','user_'.$profile->ID); ?>" >
+					<input class="profile-location span3" name="user_location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field($field_keys['user_location'],'user_'.$profile->ID); ?>" >
 				</p>
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
 			</div>
@@ -31,7 +31,7 @@
 
 				<p>
 					<b><?php _e('Skills','glp'); ?></b><br>
-				<?php $i = 0; while (has_sub_field('user_skills','user_'.$profile->ID)) : ?>
+				<?php $i = 0; while (has_sub_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
 					<div class="span4"><div class="row">
 					<select class="span2" name="user_skills[<?php echo $i; ?>][skill_name]">
 					<option value=""><?php _e('- select -','glp'); ?></option>
@@ -48,7 +48,7 @@
 
 				<p>
 					<b><?php _e('Languages','glp'); ?></b><br>
-				<?php $i = 0; while (has_sub_field('user_languages','user_'.$profile->ID)) : ?>
+				<?php $i = 0; while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
 					<div class="span4"><div class="row">
 					<select class="span2" name="user_languages[<?php echo $i; ?>][language_name]">
 					<option value=""><?php _e('- select -','glp'); ?></option>
@@ -72,5 +72,4 @@
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="profile-save" value="true">
 </form>

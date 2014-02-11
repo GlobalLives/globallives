@@ -1,5 +1,5 @@
 <?php
-	global $profile;
+	global $current_user, $field_keys;
 
 	// Get form data
 	$user_firstname		= $_GET['user_firstname'];
@@ -13,7 +13,7 @@
 		'first_name' => $user_firstname,
 		'last_name' => $user_lastname
 	));
-
+	
 	// Advanced Custom Fields
-	update_field('user_occupation',	$user_occupation,	'user_'.$current_user->ID);
-	update_field('user_location',	$user_location,		'user_'.$current_user->ID);
+	update_field($field_keys['user_occupation'],	$user_occupation,	'user_' . $current_user->ID);
+	update_field($field_keys['user_location'],		$user_location,		'user_' . $current_user->ID);

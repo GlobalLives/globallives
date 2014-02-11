@@ -1,13 +1,34 @@
 <?php
-	global $profile;
+	global $profile, $field_keys;
 
-	// WordPress built-in fields
-	update_user_meta($profile->ID, 'first_name',	$_POST['first_name']);
-	update_user_meta($profile->ID, 'last_name',		$_POST['last_name']);
-	update_user_meta($profile->ID, 'description',	$_POST['description']);
-	update_user_meta($profile->ID, 'user_url',		$_POST['user_url']);
-			
-	// Advanced Custom Fields						
-	update_field( 'user_location',		$_POST['user_location'],	'user_'.$profile->ID );
-	update_field( 'user_occupation',	$_POST['user_occupation'],	'user_'.$profile->ID );
-	update_field( 'user_skills',		$_POST['user_skills'],		'user_'.$profile->ID );
+	$wp_fields = array( # WordPress built-in fields
+		'first_name',
+		'last_name',
+		'description',
+		'user_url'
+	);
+	foreach($wp_fields as $field) {
+		if (isset($_POST[$field])) {
+			update_user_meta(
+				$profile->ID,
+				$field,
+				$_POST[$field]
+			);
+		}
+	}
+
+	$acf_fields = array( # Advanced Custom Fields
+		'user_location',
+		'user_occupation',
+		'user_skills',
+		'user_languages'
+	);
+	foreach($acf_fields as $field) {
+		if (isset($_POST[$field])) {
+			update_field(
+				$field_keys[$field],
+				$_POST[$field],
+				'user_'.$profile->ID
+			);
+		}
+	}

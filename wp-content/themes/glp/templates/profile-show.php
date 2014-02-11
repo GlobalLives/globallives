@@ -1,11 +1,14 @@
-<?php global $profile, $current_user; ?>
+<?php global $profile, $current_user, $field_keys; ?>
 <article id="user-<?php echo $profile->ID; ?>" class="container">
 	<header class="row">
 		<div class="profile-header span9 offset3">
 			<div class="profile-header-inner">
-				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile" href="/profile?profile-edit=1"><?php _e('Edit','glp'); ?> <i class="icon icon-white icon-edit"></i></a><?php endif; ?>
+				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile" href="/profile?mode=edit"><?php _e('Edit','glp'); ?> <i class="icon icon-white icon-edit"></i></a><?php endif; ?>
 				<h1 class="profile-name"><?php echo $profile->first_name; ?> <?php echo $profile->last_name; ?></h1>
-				<p class="profile-location"><b><?php the_field('user_occupation','user_'.$profile->ID); ?></b> <?php _e('in','glp'); ?> <b><?php the_field('user_location','user_'.$profile->ID); ?></b></p>
+				<p class="profile-location">
+					<?php if ($user_occupation = get_field($field_keys['user_occupation'],'user_'.$profile->ID)) : ?><b><?php echo $user_occupation; ?></b><?php endif; ?>
+					<?php if ($user_location = get_field($field_keys['user_location'],'user_'.$profile->ID)) : ?> <?php _e('in','glp'); ?> <b><?php echo $user_location; ?></b><?php endif; ?>
+				</p>
 				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
 			</div>
 		</div>
@@ -19,28 +22,28 @@
 				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo human_time_diff( get_profile_last_active( $profile->ID ), current_time('timestamp') ); ?> ago.</p>
 				<hr>
 
-				<?php if (get_field('user_skills','user_'.$profile->ID)) : ?>
+				<?php if (get_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
 				<p>
 					<b><?php _e('Volunteer Skills','glp'); ?></b><br>
-				<?php while (has_sub_field('user_skills','user_'.$profile->ID)) : ?>
+				<?php while (has_sub_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
 					<?php if (get_sub_field('skill_name')) : ?><span class="skill_name"><?php the_sub_field('skill_name'); ?></span> <span class="skill_level"><?php $skill_level = get_sub_field('skill_level'); for ($i = 0; $i < $skill_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
 				<?php endwhile; ?>
 				</p>
 				<?php endif; ?>
 
-				<?php if (get_field('user_languages','user_'.$profile->ID)) : ?>
+				<?php if (get_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
 				<p>
 					<b><?php _e('Languages Spoken','glp'); ?></b><br>
-				<?php while (has_sub_field('user_languages','user_'.$profile->ID)) : ?>
+				<?php while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
 					<?php if (get_sub_field('language_name')) : ?><span class="skill_name"><?php the_sub_field('language_name'); ?></span> <span class="skill_level"><?php $language_level = get_sub_field('language_level'); for ($i = 0; $i < $language_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
 				<?php endwhile; ?>
 				</p>
 				<?php endif; ?>
 
-				<?php if (get_field('user_contact','user_'.$profile->ID)) : ?>
+				<?php if (get_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
 				<p>
 					<b><?php _e('Contact Information','glp'); ?></b><br>
-				<?php while (has_sub_field('user_contact','user_'.$profile->ID)) : ?>
+				<?php while (has_sub_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
 					<i class="fa fa-<?php echo strtolower(get_sub_field('contact_channel')); ?>"></i>
 					<?php the_sub_field('contact_information'); ?><br>
 				<?php endwhile; ?>
