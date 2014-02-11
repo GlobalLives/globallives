@@ -161,26 +161,26 @@ $(function() {
 				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { this.filtered = true; }
 				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { this.filtered = true; }
 				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { this.filtered = true; }
- 			});
- 			if ($('input[name=proposed]:checked').val()) {
-				$('.proposed').removeClass('hide'); console.log('unhide proposed');
+			});
+			if ($('input[name=proposed]:checked').val()) {
+				$('.proposed').removeClass('hide');
 			} else {
-				$('.proposed').addClass('hide'); console.log('hide proposed');
+				$('.proposed').addClass('hide');
 			}
 
- 			filterParticipants();
- 			return false;
- 		});
- 	}
+			filterParticipants();
+			return false;
+		});
+	}
  
- 	if ($('#nav-themes').length) { // Make sure the Themes navbar is on the page
+	if ($('#nav-themes').length) { // Make sure the Themes navbar is on the page
  
- 		$('#nav-themes li').click(function() {
- 			var theme = $(this).attr('data-term');
- 			$(participants).each(function() {
- 				this.filteredByTheme = false;
- 
- 				if (theme && $.inArray(theme,this.themes) == -1) {
+		$('#nav-themes li').click(function() {
+			var theme = $(this).attr('data-term');
+			$(participants).each(function() {
+				this.filteredByTheme = false;
+
+				if (theme && $.inArray(theme,this.themes) == -1) {
 					this.filteredByTheme = true;
 				}
 

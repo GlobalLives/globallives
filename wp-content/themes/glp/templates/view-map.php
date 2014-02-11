@@ -1,4 +1,4 @@
-<?php global $participants; ?>
+<?php global $participants, $field_keys; ?>
 <div id="mapview" class="view"></div>
 <div class="overlay"></div>
 
@@ -33,26 +33,22 @@ var participants = [
 <?php foreach ($participants as $participant) : ?>
 	{
 		name: '<?php echo $participant->post_title; ?>',
-		occupation: '<?php the_field('occupation', $participant->ID); ?>',
-		location: '<?php the_field('location', $participant->ID); ?>',
+		occupation: '<?php the_field($field_keys['participant_occupation'], $participant->ID); ?>',
+		location: '<?php the_field($field_keys['participant_location'], $participant->ID); ?>',
 		dob: '<?php the_field('dob', $participant->ID); ?>',
 
-		latitude: <?php the_field('latitude', $participant->ID); ?>,
-		longitude: <?php the_field('longitude', $participant->ID); ?>,
+		latitude: <?php the_field($field_keys['participant_latitude'], $participant->ID); ?>,
+		longitude: <?php the_field($field_keys['participant_longitude'], $participant->ID); ?>,
 		continent: '<?php the_field('continent', $participant->ID); ?>',
 
 		series: ['<?php echo implode("','",get_participant_taxonomy_slugs($participant->ID,'series')); ?>'],
 		series_labels: '<?php echo get_the_term_list($participant->ID,'series','',', '); ?>',
 		themes: ['<?php echo implode("','",get_participant_taxonomy_slugs($participant->ID,'themes')); ?>'],
 		theme_labels: '<?php echo get_the_term_list($participant->ID,'themes','',', '); ?>',
-
-		gender: '<?php the_field('gender', $participant->ID); ?>',
-		gender_label: '<?php $field = get_field_object('gender', $participant->ID); $value = get_field('gender', $participant->ID); echo $field['choices'][ $value ]; ?>',
-		income: '<?php the_field('income_group', $participant->ID); ?>',
-		income_label: '<?php $field = get_field_object('income_group', $participant->ID); $value = get_field('income_group', $participant->ID); echo $field['choices'][ $value ]; ?>',
-		age: '<?php the_field('age_group', $participant->ID); ?>',
-		age_label: '<?php $field = get_field_object('age_group', $participant->ID); $value = get_field('age_group', $participant->ID); echo $field['choices'][ $value ]; ?>',
-		proposed: '<?php the_field('proposed', $participant->ID); ?>',
+		gender: '<?php the_field($field_keys['participant_gender'], $participant->ID); ?>',
+		income: '<?php the_field($field_keys['participant_income'], $participant->ID); ?>',
+		age: '<?php the_field($field_keys['participant_age'], $participant->ID); ?>',
+		proposed: '<?php the_field($field_keys['participant_proposed'], $participant->ID); ?>',
 		filtered: false,
 
 		id: <?php echo $participant->ID; ?>,

@@ -30,6 +30,7 @@ $field_keys = array(
 	'participant_religion'			=> 'field_92',
 	'participant_income'			=> 'field_93',
 	'participant_gender'			=> 'field_52b154cec448d',
+	'participant_age'				=> 'field_52faae241b011',
 	'participant_summary_video'		=> 'field_95',
 	'participant_clips' 			=> 'field_70',
 	'participant_background_image'	=> 'field_71',
