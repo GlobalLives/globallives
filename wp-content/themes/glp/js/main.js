@@ -480,7 +480,7 @@ $(function() {
 
 		$('#nav-themes').hide();
 
-		$('.participant-detail-map .handle .btn').click(function() {
+		$('.participant-detail-map .handle').click(function() {
 			$('#mapview, #nav-themes').slideToggle();
 			$('.participant-detail-map .handle .btn span').toggle();
 		});
