@@ -25,6 +25,11 @@ class GFCommon{
 
     public static function is_numeric($value, $number_format=""){
 
+        if($number_format == "currency"){
+
+            $number_format = self::is_currency_decimal_dot() ? "decimal_dot" : "decimal_comma";
+        }
+
         switch($number_format){
             case "decimal_dot" :
                 return preg_match("/^(-?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]+)?)$/", $value);
@@ -38,6 +43,19 @@ class GFCommon{
                 return preg_match("/^(-?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?)$/", $value) || preg_match("/^(-?[0-9]{1,3}(?:\.?[0-9]{3})*(?:,[0-9]{2})?)$/", $value);
 
         }
+    }
+
+    public static function is_currency_decimal_dot($currency = null){
+
+        if($currency == null){
+            $code = GFCommon::get_currency();
+            if(empty($code))
+                $code = "USD";
+
+            $currency = RGCurrency::get_currency($code);
+        }
+
+        return rgar($currency, "decimal_separator") == ".";
     }
 
     public static function trim_all($text){
@@ -645,6 +663,12 @@ class GFCommon{
 
                 switch(RGFormsModel::get_input_type($field)){
 
+                    case "number" :
+
+                        $value = GFCommon::format_number($value, rgar($field, "numberFormat"));
+
+                    break;
+
                     case "fileupload" :
                         if(rgar($field, "multipleFiles")){
                             $files = empty($value) ? array() : json_decode($value, true);
@@ -662,8 +686,8 @@ class GFCommon{
                     break;
 
                     case "post_image" :
-                        list($url, $title, $caption, $description) = explode("|:|", $value);
-                        $value = str_replace(" ", "%20", $url);
+                        list( $url, $title, $caption, $description ) = array_pad( explode( '|:|', $value ), 4, false );
+                        $value = str_replace( ' ', '%20', $url );
                     break;
 
                     case "checkbox" :
@@ -2119,6 +2143,7 @@ class GFCommon{
 
                     $onfocus = !IS_ADMIN ? 'jQuery(this).prev("input").attr("checked", true); if(jQuery(this).val() == "' . $other_default_value . '") { jQuery(this).val(""); }' : '';
                     $onblur = !IS_ADMIN ? 'if(jQuery(this).val().replace(" ", "") == "") { jQuery(this).val("' . $other_default_value . '"); }' : '';
+                    $onkeyup = self::get_logic_event($field, "keyup");
 
                     $input_focus = !IS_ADMIN ? "onfocus=\"jQuery(this).next('input').focus();\"" : "";
                     $value_exists = RGFormsModel::choices_value_match($field, $field["choices"], $value);
@@ -2132,7 +2157,7 @@ class GFCommon{
                     } else {
                         $other_value = $other_default_value;
                     }
-                    $label = "<input name='input_{$field["id"]}_other' type='text' value='" . esc_attr($other_value) . "' onfocus='$onfocus' onblur='$onblur' $tabindex $disabled_text />";
+                    $label = "<input id='input_{$field["formId"]}_{$field["id"]}_other' name='input_{$field["id"]}_other' type='text' value='" . esc_attr($other_value) . "' onfocus='$onfocus' onblur='$onblur' $tabindex $onkeyup $disabled_text />";
                 }
 
                 $choices .= sprintf("<li class='gchoice_$id'><input name='input_%d' type='radio' value='%s' %s id='choice_%s' $tabindex %s $logic_event %s />%s</li>", $field["id"], esc_attr($field_value), $checked, $id, $disabled_text, $input_focus, $label);
@@ -2991,8 +3016,12 @@ class GFCommon{
                     }
 
                 }
+                else if( RG_CURRENT_VIEW == "entry" ){
+                    $value = GFCommon::format_number($value, rgar($field, "numberFormat"));
+                }
+
                 $is_html5 = RGFormsModel::is_html5_enabled();
-                $html_input_type = $is_html5 && !GFCommon::has_field_calculation($field) && !$field["numberFormat"] == "currency" ? "number" : "text"; // chrome does not allow number fields to have commas, calculations and currency values display numbers with commas
+                $html_input_type = $is_html5 && !GFCommon::has_field_calculation($field) && ($field["numberFormat"] != "currency" && $field["numberFormat"] != "decimal_comma" ) ? "number" : "text"; // chrome does not allow number fields to have commas, calculations and currency values display numbers with commas
                 $step_attr = $is_html5 ? "step='any'" : "";
 
                 $logic_event = self::get_logic_event($field, "keyup");
@@ -3708,9 +3737,9 @@ class GFCommon{
 
                //security code field
                 $tabindex = self::get_tabindex();
-                $html_input_type = GFFormsModel::is_html5_enabled() ? "number" : "text";
+                $html5_output = GFFormsModel::is_html5_enabled() ? "pattern='[0-9]*' title='" . __("Only digits are allowed", "gravityforms") .  "'" : "";
                 $security_field =        "<span class='ginput_cardinfo_right{$class_suffix}' id='{$field_id}_2_cardinfo_right'>".
-                                            "<input type='{$html_input_type}' name='input_{$id}.3' id='{$field_id}_3' {$tabindex} {$disabled_text} class='ginput_card_security_code' value='{$security_code}' {$autocomplete} />".
+                                            "<input type='text' name='input_{$id}.3' id='{$field_id}_3' {$tabindex} {$disabled_text} class='ginput_card_security_code' value='{$security_code}' {$autocomplete} {$html5_output} />".
                 				            "<span class='ginput_card_security_code_icon'>&nbsp;</span>".
                                             "<label for='{$field_id}_3' >" . apply_filters("gform_card_security_code_{$form_id}", apply_filters("gform_card_security_code",__("Security Code", "gravityforms"), $form_id), $form_id) . "</label>".
                                          "</span>".
@@ -5054,7 +5083,7 @@ class GFCommon{
         }
 
         $field['choices'] = $choices;
-        
+
         $field['choices'] = apply_filters("gform_post_category_choices", $field["choices"], $field, $field["formId"]);
         $field['choices'] = apply_filters("gform_post_category_choices_{$field["formId"]}_{$field["id"]}", $field["choices"], $field, $field["formId"]);
 

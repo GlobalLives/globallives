@@ -72,23 +72,29 @@ function gf_is_match(formId, rule){
     var inputs = jQuery("#input_" + formId + "_" + rule["fieldId"] + " input");
     var fieldValue;
     if(inputs.length > 0){
-        //handling checkboxes/radio
+    	//handling checkboxes/radio
 
         for(var i=0; i< inputs.length; i++){
             fieldValue = gf_get_value(jQuery(inputs[i]).val());
-
+        
             //find specific checkbox/radio item. Skip if this is not the specific item and the operator is not one that targets a range of values (i.e. greater than and less than)
             var isRangeOperator = jQuery.inArray(rule["operator"], ["<", ">", "contains", "starts_with", "ends_with"]) >= 0;
-            if(fieldValue != rule["value"] && !isRangeOperator)
+            if(fieldValue != rule["value"] && !isRangeOperator) {
                 continue;
-
+			}
+		
             //blank value if item isn't checked
-            if(!jQuery(inputs[i]).is(":checked"))
+            if(!jQuery(inputs[i]).is(":checked")) {
                 fieldValue = "";
+			}
+			else if (fieldValue == "gf_other_choice"){
+				//get the value from the associated text box
+				fieldValue = jQuery("#input_" + formId + "_" + rule["fieldId"] + "_other").val();
+			}
 
             if(gf_matches_operation(fieldValue, rule["value"], rule["operator"]))
                 isMatch = true;
-        }
+        }       
     }
     else{
         //handling all other fields (non-checkboxes)

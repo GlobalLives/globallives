@@ -526,7 +526,7 @@ class GFEntryDetail{
                         do_action("gform_entry_detail", $form, $lead);
 
                         if(GFCommon::current_user_can_any("gravityforms_view_entry_notes")) { ?>
-                            <div id="namediv" class="stuffbox">
+                            <div class="postbox">
                                 <h3>
                                     <label for="name"><?php _e("Notes", "gravityforms"); ?></label>
                                 </h3>
@@ -576,7 +576,7 @@ class GFEntryDetail{
         $form = apply_filters("gform_admin_pre_render_" . $form["id"], apply_filters("gform_admin_pre_render", $form));
         $form_id = $form["id"];
         ?>
-        <div id="namediv" class="stuffbox">
+        <div class="postbox">
             <h3>
                 <label for="name"><?php _e("Details", "gravityforms"); ?></label>
             </h3>

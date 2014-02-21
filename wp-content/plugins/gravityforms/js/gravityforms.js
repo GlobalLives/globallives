@@ -1,12 +1,7 @@
-// "prop" method fix for previous versions of jQuery
-var originalPropMethod = jQuery.fn.prop;
 
-jQuery.fn.prop = function() {
-    if(typeof originalPropMethod == 'undefined') {
-        return jQuery.fn.attr.apply(this, arguments);
-    } else {
-        return originalPropMethod.apply(this, arguments);
-    }
+// "prop" method fix for previous versions of jQuery (1.5 and below)
+if( typeof jQuery.fn.prop === 'undefined' ) {
+    jQuery.fn.prop = jQuery.fn.attr;
 }
 
 //Formatting free form currency fields to currency

@@ -1321,6 +1321,9 @@ class GFFormSettings {
         // allow user to filter confirmation before save
         $confirmation = apply_filters("gform_pre_confirmation_save_{$form['id']}", apply_filters('gform_pre_confirmation_save', $confirmation, $form), $form);
 
+        // trim values
+        $confirmation = GFFormsModel::trim_conditional_logic_values_from_element($confirmation, $form);
+
         // add current confirmation to confirmations array
         $form['confirmations'][$confirmation['id']] = $confirmation;
 

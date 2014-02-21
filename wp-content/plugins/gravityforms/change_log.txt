@@ -1,4 +1,68 @@
 -------------------------------------------------------------------------------------------------------------------
+Version 1.8.4
+
+    - Added "gform_footer_init_scripts_filter" hook to support filtering the footer init scripts string
+	- Added support for custom wp-includes directory
+
+    - Updated setup to run only in admin for single site installations and always on multisite
+    - Updated Google Font includes to be protocol-less
+    - Updated conditional logic to handle the "Other" choice for radio buttons
+	- Updated INACTIVE trim values setup script to ACTIVE. All leading and trailing spaces are now stripped from all previous entry values, field labels, choice texts, choice values, input labels and conditional logic rule values for fields, notifications and confirmations.
+	- Updated the form editor, form importer, notification editor and confirmation editor to trim leading and trailing spaces from all labels, choices values and conditional logic values on save/import
+    - Updated GFFormDisplay::print_form_scripts() to print all scripts at once rather than printing individually
+    - Updated GFFormsModel::update_lead_property() to return the result of the $wpdb->update() call
+    - Updated Credit Card field's Security Code input to use "type='text'" and "pattern='[0-9]*' when in HTML5 mode (rather than "type='number'")
+    - Updated location of gform_form_actions hook so that actions can be filtered when in the trash page
+    - Updated the entry search criteria to support times in the start_date and end_date
+    - Updated GFFormsModel::get_form to optionally allow returning a trashed form
+
+    - Fixed issue with number field not properly formatting numbers on the entry edit page and on the individual field merge tag
+    - Fixed issue with export start and end dates
+    - Fixed issue with entry list trash view where entry row remains in the list after deleting when a fileupload field in the entry is empty
+    - Fixed issue with deleting entries on multisite installs where files uploaded using the fileupload field aren't deleted if the site ms_files_rewriting option is not set. This issue affects all new multisite installations of WordPress created after the release of WordPres 3.5.
+    - Fixed issue with number field configured with the 9.999,99 format displaying browser validation errors when HTML5 is enabled.
+    - Fixed issue with list field export where "Array" was being displayed under certain conditions.
+    - Fixed warning thrown in rewrite_rules function when using array_merge with a parameter that wasn't an array
+    - Fixed issue with dates used when exporting entries
+    - Fixed number field validation when currency format is specified.
+    - Fixed issue with how spaces in post image file names were being replaced.
+    - Fixed notices when Post Image field with enabled Title, Description, and/or Caption were submitted without values
+    - Fixed styling issue with checkboxes on entry notes
+    - Fixed number field input type
+    - Fixed JS error on form editor when user refreshes the page with the scrollbar lower than the top of the page
+    - Fixed left margin of conditional logic instructions when label position is set to left-aligned.
+
+    - API: Added support for PUT entries/{entry ID}/properties so entry properties (is_read, is_starred etc) can be updated individually
+    - API: Added GFAPI::update_form_property() and GFAPI::update_forms_property() so form properties from the main forms table (is_trash, is_active etc) can be updated individually
+    - API: Added support for PUT forms/{form ID}/properties
+    - API: Added GFAPI::update_entry_property() to update a single property of an entry
+    - API: Updated the QR Code to include the site title
+    - API: Updated GFAPI::add_entry() to return an error if the entry object is not an array
+    - API: Fixed authentication for multisite installations
+    - API: Fixed loading of scripts on the API settings page when using SSL
+    - API: Fixed GFAPI::update_entry() to update the entry status
+
+    - AF: Added support for "dynamic_field_map" field setting
+    - AF: Added icon support to form editor top toolbar
+	- AF: Added support for displaying an icon next to the form settings page title
+	- AF: Added support for displaying an icon next to the plugin settings page title
+    - AF: Added support for configuring a form settings page title (using first section as default)
+    - AF: Added support for configuring the "No items" message as well as forcing any message to be displayed in the feed list
+    - AF: Added support for "requires credit card" setting in the Payment Add-On to be used by payment gateways that require a credit card field on the form
+    - AF: Added replace_field() method to replace a field by name in a given $settings array
+    - AF: Added get_field() method to retrieve a field by name in a given $settings array
+    - AF: Updated get_feed() method to return false if no feed is found instead of a non-empty array
+    - AF: Updated get_payment_choices() from private to public
+    - AF: Updated the feed add-on feed_condition field to trim values before saving
+    - AF: Updated payment add-on to better handle different payment actions
+    - AF: Updated payment add-on get_webhook_url() to use simpler callback parameter
+    - AF: Updated default icon for the Results menu
+    - AF: Updated Payment Add-On default settings so that it is easier to add feed settings under the "Other" section
+    - AF: Updated field_map settings field type so that it is available from GFAddon instead of GFFeedAddOn
+    - AF: Fixed issue with subscription cancellation
+    - AF: Fixed results calculation loop to allow add-ons to add custom data to the field_data element. Fixes an issue with the Quiz Add-On correct/incorrect numbers for > 150 entries.
+
+-------------------------------------------------------------------------------------------------------------------
 Version 1.8.3
 	- Added new filter "gform_post_category_choices" to alter post category choices sort order. Both globally and form id + field id specific.
         add_filter("gform_post_category_choices", "set_sort", 10, 3);

@@ -33,9 +33,10 @@ class GFAPI {
             return false;
 
         //loading form columns into meta
-        $form_info            = GFFormsModel::get_form($form_id);
+        $form_info            = GFFormsModel::get_form($form_id, true);
         $form["is_active"]    = $form_info->is_active;
         $form["date_created"] = $form_info->date_created;
+        $form["is_trash"] = $form_info->is_trash;
 
         return $form;
 
@@ -146,6 +147,59 @@ class GFAPI {
 
         return true;
     }
+
+    /**
+     * Updates a form property - a column in the main forms table. e.g. is_trash, is_active, title
+     *
+     * @since  1.8.3.15
+     * @access public
+     * @static
+     *
+     * @param array $form_ids The IDs of the forms to update
+     * @param array $property_key The name of the column in the database e.g. is_trash, is_active, title
+     * @param array $value The new value
+     *
+     * @return mixed Either a WP_Error instance or the result of the query
+     */
+    public static function update_forms_property($form_ids, $property_key, $value){
+        global $wpdb;
+        $table = GFFormsModel::get_form_table_name();
+        $property_key = mysql_real_escape_string($property_key);
+        $value = mysql_real_escape_string($value);
+        if(!is_numeric($value)){
+            $value = sprintf("'%s'", $value);
+        }
+        $in_str_arr = array_fill(0, count($form_ids), '%d');
+        $in_str     = join($in_str_arr, ",");
+        $result     = $wpdb->query($wpdb->prepare(
+                "
+                UPDATE $table
+                SET {$property_key} = {$value}
+                WHERE id IN ($in_str)
+                ", $form_ids
+            )
+        );
+
+        return $result;
+    }
+
+    /**
+     * Updates the property of one form - columns in the main forms table. e.g. is_trash, is_active, title
+     *
+     * @since  1.8.3.15
+     * @access public
+     * @static
+     *
+     * @param array $form_id The ID of the forms to update
+     * @param string|int $property_key The name of the column in the database e.g. is_trash, is_active, title
+     * @param string $value The new value
+     *
+     * @return mixed Either a WP_Error instance or the result of the query
+     */
+    public static function update_form_property($form_id, $property_key, $value){
+        return self::update_forms_property(array($form_id), $property_key, $value);
+    }
+
 
     /**
      * Adds multiple form objects.
@@ -462,6 +516,7 @@ class GFAPI {
         $payment_method = isset($entry["payment_method"]) ? $entry["payment_method"] : '';
         $transaction_id = isset($entry["transaction_id"]) ? sprintf("'%s'", mysql_real_escape_string($entry["transaction_id"])) : 'NULL';
         $is_fulfilled   = isset($entry["is_fulfilled"]) ? intval($entry["is_fulfilled"]) : 'NULL';
+        $status = isset($entry["status"]) ? $entry["status"] : "active";
 
         global $current_user;
         $user_id = isset($entry["created_by"]) ? mysql_real_escape_string($entry["created_by"]) : "";
@@ -490,10 +545,11 @@ class GFAPI {
                 is_fulfilled = {$is_fulfilled},
                 created_by = {$user_id},
                 transaction_type = {$transaction_type},
+                status = %s,
                 payment_method = %s
                 WHERE
                 id = %d
-                ", $form_id, $is_starred, $is_read, $ip, $source_url, $user_agent, $currency, $payment_method, $entry_id));
+                ", $form_id, $is_starred, $is_read, $ip, $source_url, $user_agent, $currency, $status, $payment_method, $entry_id));
         if (false === $result)
             return new WP_Error("update_entry_properties_failed", __("There was a problem while updating the entry properties", "gravityforms"), $wpdb->last_error);
 
@@ -580,13 +636,19 @@ class GFAPI {
     public static function add_entry($entry) {
         global $wpdb;
 
+        if(!is_array($entry)){
+            return new WP_Error("invalid_entry_object", __("The entry object must be an array", "gravityforms"));
+        }
+
         // make sure the form id exists
         $form_id = rgar($entry, "form_id");
-        if (empty($form_id))
+        if (empty($form_id)){
             return new WP_Error("empty_form_id", __("The form id must be specified", "gravityforms"));
+        }
 
-        if (false === self::form_id_exists($form_id))
+        if (false === self::form_id_exists($form_id)){
             return new WP_Error("invalid_form_id", __("The form for this entry does not exist", "gravityforms"));
+        }
 
         // use values in the entry object if present
         $post_id        = isset($entry["post_id"]) ? intval($entry["post_id"]) : 'NULL';
@@ -680,6 +742,23 @@ class GFAPI {
         GFFormsModel::delete_lead($entry_id);
 
         return true;
+    }
+
+    /**
+     * Updates a single property of an entry.
+     *
+     * @since  1.8.3.1
+     * @access public
+     * @static
+     *
+     * @param int $entry_id The ID of the Entry object
+     * @param string $property The property of the Entry object to be updated
+     * @param mixed $value The value to which the property should be set
+     *
+     * @return bool Whether the entry property was updated successfully
+     */
+    public static function update_entry_property( $entry_id, $property, $value ) {
+        return GFFormsModel::update_lead_property( $entry_id, $property, $value );
     }
 
     // FEEDS ------------------------------------------------------

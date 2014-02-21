@@ -58,7 +58,7 @@ function InitializeFormConditionalLogic(){
     }
     else{
         jQuery("#form_button_conditional_logic").prop("disabled", false).prop("checked", false);
-        jQuery("#form_button_conditional_logic_container").show().html("<span class='instruction'><?php _e("To use conditional logic, please create a drop down, checkbox or radio button field.", "gravityforms") ?></span>");
+        jQuery("#form_button_conditional_logic_container").show().html("<span class='instruction' style='margin-left:0'><?php _e("To use conditional logic, please create a field that supports conditional logic.", "gravityforms") ?></span>");
     }
 }
 
@@ -220,7 +220,7 @@ function LoadFieldConditionalLogic(isEnabled, objectType){
     }
     else{
         jQuery("#" + objectType + "_conditional_logic").prop("disabled", true).prop("checked", false);
-        jQuery("#" + objectType + "_conditional_logic_container").show().html("<span class='instruction'><?php _e("To use conditional logic, please create a drop down, checkbox or radio button field.", "gravityforms") ?></span>");
+        jQuery("#" + objectType + "_conditional_logic_container").show().html("<span class='instruction' style='margin-left:0'><?php _e("To use conditional logic, please create a field that supports conditional logic.", "gravityforms") ?></span>");
     }
 }
 
@@ -857,7 +857,7 @@ function GetFieldChoices(field){
         str += gform.applyFilters('gform_append_field_choice_option', '', field, i);
 
 		str += "<a class='gf_insert_field_choice' onclick=\"InsertFieldChoice(" + (i+1) + ");\"><i class='fa fa-plus-square'></i></a>";
-	
+
 
         if(field.choices.length > 1 )
             str += "<a class='gf_delete_field_choice' onclick=\"DeleteFieldChoice(" + i + ");\"><i class='fa fa-minus-square'></i></a>";

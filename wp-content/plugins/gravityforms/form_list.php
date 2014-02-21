@@ -492,8 +492,11 @@ class GFFormList{
                                                     'menu_class'    => 'trash',
                                                     'priority'		=> 500
                                                 );
-                                                $form_actions = apply_filters("gform_form_actions", $form_actions, $form->id);
+
                                             }
+
+                                            $form_actions = apply_filters("gform_form_actions", $form_actions, $form->id);
+
 											echo GFForms::format_toolbar_menu_items($form_actions, true);
 
                                             ?>

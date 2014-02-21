@@ -237,6 +237,7 @@ class GFExport{
         self::cleanup($forms);
 
         foreach($forms as $key => &$form){
+
             $title = $form["title"];
             $count = 2;
             while(!RGFormsModel::is_unique_title($title)){
@@ -251,14 +252,18 @@ class GFExport{
             $form["title"] = $title;
             $form["id"] = $form_id;
 
+            $form = GFFormsModel::trim_form_meta_values($form);
+
             if(isset($form['confirmations'])) {
                 $form['confirmations'] = self::set_property_as_key($form['confirmations'], 'id');
+                $form['confirmations'] = GFFormsModel::trim_conditional_logic_values($form['confirmations'], $form);
                 GFFormsModel::update_form_meta($form_id, $form['confirmations'], 'confirmations');
                 unset($form['confirmations']);
             }
 
             if(isset($form['notifications'])) {
                 $form['notifications'] = self::set_property_as_key($form['notifications'], 'id');
+                $form['notifications'] = GFFormsModel::trim_conditional_logic_values($form['notifications'], $form);
                 GFFormsModel::update_form_meta($form_id, $form['notifications'], 'notifications');
                 unset($form['notifications']);
             }
@@ -545,7 +550,10 @@ class GFExport{
 
         $row_counts = array();
         global $wpdb;
-        while($entry_count > 0){
+
+        $go_to_next_page = true;
+
+        while($go_to_next_page){
             $sql = "SELECT d.field_number as field_id, ifnull(l.value, d.value) as value
                     FROM {$wpdb->prefix}rg_lead_detail d
                     LEFT OUTER JOIN {$wpdb->prefix}rg_lead_detail_long l ON d.id = l.lead_detail_id
@@ -564,7 +572,8 @@ class GFExport{
             }
 
             $offset += $page_size;
-            $entry_count -= $page_size;
+
+            $go_to_next_page = count($results) == $page_size;
         }
 
         return $row_counts;
@@ -588,8 +597,12 @@ class GFExport{
         $form_id = $form["id"];
         $fields = $_POST["export_field"];
 
-        $start_date = empty($_POST["export_date_start"]) ? "" : self::get_gmt_date($_POST["export_date_start"] . " 00:00");
+        $start_date = empty($_POST["export_date_start"]) ? "" : self::get_gmt_date($_POST["export_date_start"] . " 00:00:00");
         $end_date = empty($_POST["export_date_end"]) ? "" : self::get_gmt_date($_POST["export_date_end"] . " 23:59:59");
+
+        //strip off time and re-add midnight to "midnight"
+        //$start_date = date("Y-m-d", strtotime($start_date)) . " 00:00:00";
+        //$end_date = date("Y-m-d", strtotime($end_date)) . " 23:59:59";
 
         $search_criteria["status"] = "active";
         $search_criteria["field_filters"] = GFCommon::get_field_filters_from_post();
@@ -624,6 +637,8 @@ class GFExport{
             $field = RGFormsModel::get_field($form, $field_id);
             $value = str_replace('"', '""', GFCommon::get_label($field, $field_id)) ;
 
+            GFCommon::log_debug("Header for field ID {$field_id}: {$value}");
+
             $subrow_count = isset($field_rows[$field_id]) ? intval($field_rows[$field_id]) : 0;
             if($subrow_count == 0){
                 $lines .= '"' . $value . '"' . $separator;
@@ -633,6 +648,8 @@ class GFExport{
                     $lines .= '"' . $value . " " . $i . '"' . $separator;
                 }
             }
+
+            GFCommon::log_debug("Lines: {$lines}");
         }
         $lines = substr($lines, 0, strlen($lines)-1) . "\n";
 
@@ -663,6 +680,8 @@ class GFExport{
 
                             $value = !empty($long_text) ? $long_text : rgar($lead,$field_id);
                             $value = apply_filters("gform_export_field_value", $value, $form_id, $field_id, $lead);
+
+                            GFCommon::log_debug("Value for field ID {$field_id}: {$value}");
                         break;
                     }
 
@@ -683,13 +702,17 @@ class GFExport{
                     }
                     else{
                         $value = maybe_unserialize($value);
-                        if(is_array($value))
+                        if(is_array($value)){
                             $value = implode("|", $value);
+                        }
 
                         $lines .= '"' . str_replace('"', '""', $value) . '"' . $separator;
                     }
                 }
                 $lines = substr($lines, 0, strlen($lines)-1);
+
+                GFCommon::log_debug("Lines: {$lines}");
+
                 $lines.= "\n";
             }
 

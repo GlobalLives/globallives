@@ -709,7 +709,10 @@ class GFFormDisplay{
         $form_string = self::get_form_init_scripts($form);
         $current_page = self::get_current_page($form_id);
         $form_string .= "<script type='text/javascript'>" . apply_filters("gform_cdata_open", "") . " jQuery(document).ready(function(){jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters("gform_cdata_close", "") . "</script>";
-
+        
+        $form_string = apply_filters( 'gform_footer_init_scripts_filter', $form_string, $form, $current_page );
+        $form_string = apply_filters( 'gform_footer_init_scripts_filter_' . $form['id'], $form_string, $form, $current_page );
+        
         if(!isset($_init_forms[$form_id])){
             echo $form_string;
             if(!is_array($_init_forms))
@@ -1718,8 +1721,9 @@ class GFFormDisplay{
 
         foreach( $scripts as $script ) {
             wp_enqueue_script( $script );
-            wp_print_scripts( array( $script ) );
         }
+        
+        wp_print_scripts( $scripts );
 
         if( wp_script_is( 'gform_gravityforms' ) ) {
             echo '<script type="text/javascript"> ' . GFCommon::gf_global( false ) . ' </script>';

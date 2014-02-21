@@ -104,13 +104,13 @@ if (class_exists("GFForms")) {
         public function scripts() {
             $scripts = array(
                 array("handle"  => "gfwebapi_hmac_sha1",
-                      "src"     => "http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js",
+                      "src"     => "https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js",
                       "enqueue" => array(
                           array("admin_page" => array("plugin_settings"))
                       )
                 ),
                 array("handle"   => "gfwebapi_enc_base64",
-                      "src"      => "http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js",
+                      "src"      => "https://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js",
                       "deps"     => array('gfwebapi_hmac_sha1'),
                       "callback" => array($this, "localize_form_settings_scripts"),
                       "enqueue"  => array(
@@ -152,7 +152,7 @@ if (class_exists("GFForms")) {
         // ------- Plugin settings -------
 
         public function plugin_settings_title() {
-            return "<span><i class='fa fa-cogs'></i> " . __("Gravity Forms API Settings", "gravityforms") . "</span>";
+            return "<span>" . __("Gravity Forms API Settings", "gravityforms") . "</span>";
         }
 
         public function plugin_settings_fields() {
@@ -322,7 +322,13 @@ if (class_exists("GFForms")) {
 
             $gfapi_rules[GFWEBAPI_SLUG . '/(.*)'] = 'index.php?' . GFWEBAPI_ROUTE_VAR . '=$matches[1]';
 
-            $rules = $gfapi_rules + $rules;
+            if (is_array($rules)){
+                // the array operator instead of array_merge avoids tampering with the keys in the original array
+            	$rules = $gfapi_rules + $rules;
+			}
+			else{
+				$rules = $gfapi_rules;
+			}
 
             return $rules;
         }
@@ -347,7 +353,7 @@ if (class_exists("GFForms")) {
             if ($test_mode)
                 die("test mode");
 
-            $settings = get_site_option('gravityformsaddon_gravityformswebapi_settings');
+            $settings = get_option('gravityformsaddon_gravityformswebapi_settings');
 
             if (empty($settings))
                 $this->die_not_authorized();
@@ -373,8 +379,7 @@ if (class_exists("GFForms")) {
 
             if (strpos($id2, ";") !== false)
                 $id2 = explode(";", $id2);
-            else
-                $id2 = intval($id2);
+
 
             if (empty($format))
                 $format = "json";
@@ -391,8 +396,8 @@ if (class_exists("GFForms")) {
                 do_action("gform_webapi_" . strtolower($method) . "_" . $collection . "_" . $collection2, $id, $id2, $format, $args);
             }
 
-            $data = file_get_contents("php://input");
-            $data = json_decode($data, true);
+            $raw_body = file_get_contents("php://input");
+            $data = json_decode($raw_body, true);
             switch ($collection) {
                 case "forms" :
                     switch ($collection2) {
@@ -404,6 +409,15 @@ if (class_exists("GFForms")) {
                                 case 'DELETE':
                                 case 'PUT':
                                 case 'POST':
+                                default:
+                                    $this->die_bad_request();
+                            }
+                            break;
+                        case "properties" :
+                            switch ($method) {
+                                case 'PUT' :
+                                    $this->put_forms_properties($data, $id);
+                                    break;
                                 default:
                                     $this->die_bad_request();
                             }
@@ -479,20 +493,13 @@ if (class_exists("GFForms")) {
                         case 'GET':
                             switch ($collection2) {
                                 case "fields" : // route = /entries/{id}/fields/{id2}
-                                    switch ($method) {
-                                        case 'GET' :
-                                            $this->get_entries($id, null, $schema, $id2);
-                                            break;
-                                        case 'DELETE' :
-                                        case 'PUT' :
-                                        case 'POST' :
-                                        default:
-                                            $this->die_bad_request();
-                                    }
+                                    $this->get_entries($id, null, $schema, $id2);
                                     break;
                                 case "" :
                                     $this->get_entries($id, null, $schema);
                                     break;
+                                default :
+                                    $this->die_bad_request();
                             }
 
                             break;
@@ -500,7 +507,15 @@ if (class_exists("GFForms")) {
                             $this->delete_entries($id);
                             break;
                         case 'PUT' :
-                            $this->put_entries($data, $id);
+                            switch ($collection2) {
+                                case "properties" : // route = /entries/{id}/fields/{id2}
+                                    $this->put_entry_properties($data, $id);
+                                    break;
+                                case "" :
+                                    $this->put_entries($data, $id);
+                                    break;
+                            }
+
                             break;
                         case 'POST' :
                             if (false === empty($id))
@@ -735,6 +750,50 @@ if (class_exists("GFForms")) {
             }
 
             $this->end($status, $response);
+        }
+
+        public function put_forms_properties($property_values, $form_id){
+            $this->authorize("gravityforms_edit_forms");
+
+            foreach($property_values as $key => $property_value){
+                $result = GFAPI::update_form_property($form_id, $key, $property_value);
+                if(is_wp_error($result)){
+                    break;
+                }
+            }
+
+            if (is_wp_error($result)) {
+                $response = $this->get_error_response($result);
+                $status   = $this->get_error_status($result);
+            } else {
+                $status   = 200;
+                $response = __("Success", "gravityforms");
+            }
+
+            $this->end($status, $response);
+
+        }
+
+        public function put_entry_properties($property_values, $entry_id){
+            $this->authorize("gravityforms_edit_entries");
+
+            foreach($property_values as $key => $property_value){
+                $result = GFAPI::update_entry_property($entry_id, $key, $property_value);
+                if(is_wp_error($result)){
+                    break;
+                }
+            }
+
+            if (is_wp_error($result)) {
+                $response = $this->get_error_response($result);
+                $status   = $this->get_error_status($result);
+            } else {
+                $status   = 200;
+                $response = __("Success", "gravityforms");
+            }
+
+            $this->end($status, $response);
+
         }
 
         public function post_forms($data) {
@@ -1402,7 +1461,8 @@ if (class_exists("GFForms")) {
             if (empty($settings))
                 die();
 
-            $data["site"]        = site_url();
+            $data["url"]        = site_url();
+            $data["name"]        = get_bloginfo();
             $data["public_key"]  = rgar($settings, "public_key");
             $data["private_key"] = rgar($settings, "private_key");
 
