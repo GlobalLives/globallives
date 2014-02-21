@@ -7,6 +7,9 @@
 			<div class="search-sidebar">
 				<h4><?php _e('Narrow your search','glp'); ?></h4>
 				<hr>
+				<h4><?php _e('Search query','glp'); ?></h4>
+				<?php get_template_part('templates/form','search'); ?>
+				<hr>
 				<h4><?php _e('Content type','glp'); ?></h4>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="participant" />Participants</label>
 				<label class="checkbox"><input type="checkbox" name="post_type[]" checked value="clip" />Clips</label>
