@@ -34,6 +34,7 @@ class FeaturedArticlesWidget extends WP_Widget
 		if (!empty($title)) { echo $before_title . $title . $after_title; }
  
 		if ( $sticky_ids = get_option( 'sticky_posts' )) {
+			echo '<h4 class="widget-title">' . __('Featured Articles','glp') . '</h4>';
 			rsort( $sticky_ids );
 			$sticky_ids = array_slice( $sticky_ids, 0, $instance['number'] );
 
