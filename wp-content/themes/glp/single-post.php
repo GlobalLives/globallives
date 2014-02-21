@@ -5,6 +5,7 @@
 <header class="single-post-header span9 offset3">
 	<?php posts_nav_link(); ?>
 	<div class="entry-date"><?php echo get_the_date(); ?></div>
+	<div class="posts-navigation"><?php previous_post_link('&laquo %link',__(' Previous post','glp)')); ?> &nbsp; <?php next_post_link('%link &raquo',__('Next post','glp')); ?></div>
 	<div class="entry-header">
 			<h2 class="entry-category"><?php the_category(' '); ?></h3>
 	    	<h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>		
