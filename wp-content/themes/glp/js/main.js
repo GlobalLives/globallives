@@ -1,7 +1,7 @@
-$(function() {
+$(function () {
 
 	$('a:has(img)').addClass('image-link');
-	same_height( $('#nav-modules .widget') );
+	same_height($('#nav-modules .widget'));
 	$('input.copyable').click(function(){ $(this).select(); });
 
 /* Functions */
@@ -218,6 +218,10 @@ $(function() {
 		var single_participant_id = $('article.participant').attr('data-participant_id');
 
 		if (!window.location.hash || window.location.hash !== 'mapview') { $('#mapview').hide(); }
+
+		$('#mapview').css('max-height', function() {
+			return $(window).height() - $('#content').offset().top - $('#nav-explore').height() - $('#nav-themes').height() - $('.handle').height();
+			});
 
 		var height = $('#mapview').height(),
 			width = Math.min($('#mapview').width(),$('.container').width());
