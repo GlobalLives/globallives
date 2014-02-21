@@ -57,33 +57,29 @@
 					</div>*/?>
 				</div>
 				
-				<div class="span6">
-					<div class="participant-clips">
+				<div class="span6"><div class="row">
+					<div class="participant-clips span4">
 						<h3><?php _e('Footage','glp'); ?> (<?php echo count(get_field('clips')); ?>)</h3>
 						<div class="participant-clips-scrollbox">
 						<?php if (get_field('clips')) : ?>
 							<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
 							<a class="btn-toggle-all" data-list-id="<?php the_ID(); ?>" data-user-id="<?php echo $current_user->ID; ?>"><?php echo apply_filters('clip_toggle_queue_list_status', $text, $current_user->ID); ?></a>
 							<?php endif; ?>
-						<?php foreach( get_field('clips') as $clip ) : ?>
+						<?php foreach( get_field('clips') as $clip_index => $clip ) : ?>
 								<?php get_template_part('templates/clip','listing'); ?>
 						<?php endforeach; else : ?>
 								<p class="alert alert-error"><?php _e('No clips for this participant.','glp'); ?></p>
 						<?php endif; ?>
 						</div>
 					</div>
-				
-						<?php /*<div class="span2">
-							<div class="participant-filter-clips">
-							<h4><?php _e('Filter Clips','glp'); ?></h4>
-							<h5><?php _e('By Popular Tags','glp'); ?></h5>
-							<?php if ( $clip_tags = get_participant_clip_tags( get_the_ID() )) : foreach( $clip_tags as $clip_tag ) : ?>
-								<a><?php echo $clip_tag->name; ?></a>
-							<?php endforeach; endif; ?>
-							</div>	    		    		
-						</div>*/?>
-					</div>
-				</div>
+					<div class="span2"><div class="participant-filter-clips">
+						<h4><?php _e('Filter Clips','glp'); ?></h4>
+						<h5><?php _e('By Popular Tags','glp'); ?></h5>
+						<?php if ( $clip_tags = get_participant_clip_tags( get_the_ID() )) : foreach( $clip_tags as $clip_tag ) : ?>
+						<a class="active filter" data-tag="<?php echo $clip_tag->name; ?>"><?php echo $clip_tag->name; ?></a>
+						<?php endforeach; endif; ?>
+					</div></div>
+				</div></div>
 		
 			</div>
 		</div>

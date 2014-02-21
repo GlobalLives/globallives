@@ -488,6 +488,12 @@ $(function () {
 			$('#mapview, #nav-themes').slideToggle();
 			$('.participant-detail-map .handle .btn span').toggle();
 		});
+
+		$('.participant-filter-clips a.filter').click(function () {
+			$(this).toggleClass('active');
+			$('.participant-clip-listing.'+$(this).data('tag')).toggle();
+		});
+
 	}
 
 /* Donate Banner */

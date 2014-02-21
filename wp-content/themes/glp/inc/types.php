@@ -1,4 +1,5 @@
 <?php
+	global $field_keys;
 
 /*	==========================================================================
 	Posts
@@ -82,7 +83,9 @@
 		$clip_tags = array();
 		if ( $clips = get_field('clips',$participant_id) ) {
 			foreach( $clips as $clip ) {
-				$clip_tags += get_the_terms( $clip->ID, 'post_tag' );
+				if ($this_clip_tags = get_the_terms($clip->ID, 'clip_tags')) {
+					$clip_tags += $this_clip_tags;
+				}
 			}
 			return $clip_tags;
 		} else {
@@ -144,7 +147,7 @@
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
 			'has_archive' => false,
-			'taxonomies' => array('clip_tag')
+			'taxonomies' => array('clip_tags')
 		));
 	}
 	function get_clip_participant( $clip_id ) {
@@ -289,7 +292,18 @@
 		}		
 
 		// Add favorites, bookmarks
-		$favorites;
+		$favorites = get_field('favorites','user_'.$user_id);
+		foreach ($favorites as $favorite_id) {
+			$favorite = get_post($favorite_id);
+			$activity = array(
+					'activity_type' => 'favorite',
+					'activity_description' => __('favorited','glp') . ' <span class="activity-post">'.get_the_title($favorite->ID).'</span>',
+					'activity_user' => $favorite->user_id,
+					'activity_content' => null,
+					'activity_timestamp' => strtotime($favorite->comment_date),
+					'activity_icon' => 'favorite'
+				);
+		}
 
 		// Sort activities by timestamp before returning
 		usort($activities, 'profile_activity_compare');
