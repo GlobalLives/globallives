@@ -20,7 +20,6 @@
         }
     	.participant-meta {
     		position: absolute;
-    		box-sizing: border-box;
     		height: 100%; width: 100%;
     		padding: 0 1em;
     		border: 5px solid @white;
@@ -29,6 +28,9 @@
     		background: @red;
     		opacity: 0;
     		transition: opacity 0.33s;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
     	}
     	&:hover .participant-meta {
     		opacity: 0.75;
