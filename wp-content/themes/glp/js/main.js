@@ -157,7 +157,7 @@ $(function () {
 			$(participants).each(function() {
 				this.filtered = false;
 
-				if ($('select[name=series]').val() && $('select[name=series]') !== "All" && this.series !== $('select[name=series]').val() ) { this.filtered = true; }
+				if ($('select[name=series]').val() && $('select[name=series]').val() !== "All" && !($.inArray($('select[name=series]').val(),this.series) !== -1)) { this.filtered = true; }
 				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { this.filtered = true; }
 				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { this.filtered = true; }
 				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { this.filtered = true; }
@@ -201,8 +201,8 @@ $(function () {
 		$('#nav-themes .flyup .thumbnails').cycle();
 
 		function filterParticipants() {
+			console.log('filtering...');
 			$(participants).each(function() {
-
 				if (this.filtered === true || this.filteredByTheme === true) {
 					$('#participant-' + this.id).addClass('filtered');
 					d3.selectAll('#marker-'+this.id).classed('filtered',true);
