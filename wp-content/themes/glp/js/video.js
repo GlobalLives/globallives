@@ -204,10 +204,6 @@ function setup_players() {
             $('#'+frameID).bind("player_ready", videoSetTimer);
             $('#'+frameID).bind("player_ready", setup_position_slider);
             $('#'+frameID).bind("player_ready", setup_volume_slider);
-            $('#'+frameID).bind("player_ready", {
-                clip_id: clip_id,
-                next_clip_id: next_clip_id
-            }, report_clip_status);
             // $('#'+frameID).bind("player_ready", autoplay_video);
             if ($('body.tax-themes').length) {
                 $('#'+frameID).bind('player_ready', mute_player);
@@ -452,10 +448,6 @@ function setup_volume_slider(event) {
     $( slider ).on( "slide", function( event, ui ) {
         player.setVolume(ui.value);
     } );
-}
-
-function report_clip_status(event) {
-    console.log('[READY] Current clip: '+event.data.clip_id+ ' Next: '+event.data.next_clip_id);
 }
 
 function turn_out_the_lights() {
