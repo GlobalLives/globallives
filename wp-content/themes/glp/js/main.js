@@ -279,7 +279,7 @@ $(function() {
 				.attr('fill',function(d,i) { return 'url(#image-'+i+')';});
 
 		var label = marker.append('text').attr('class','label') // Add the labels
-			.attr('dx',-25).attr('dy',40);
+			.attr('dx',-25).attr('dy',function(d) { return (single_participant_id == d.id) ? 48 : 40; });
 			label.append('tspan').attr('class','name')
 				.text(function(d) { return d.name; });
 			label.append('tspan').attr('class','occupation')
