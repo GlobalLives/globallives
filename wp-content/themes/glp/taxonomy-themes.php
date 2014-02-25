@@ -37,7 +37,10 @@
 		<?php endforeach; ?>
 	</div>
 	<div id="stage"></div>
-	<?php $uploads = wp_upload_dir(); $zip_filename = '/themes/'.$theme->slug.'.zip'; if (create_zip( $download_urls, $uploads['basedir'].$zip_filename )) : ?><a href="<?php echo $uploads['baseurl'].$zip_filename; ?>" class="btn"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
+	<p class="buttons">
+		<?php $uploads = wp_upload_dir(); $zip_filename = '/themes/'.$theme->slug.'.zip'; if (create_zip( $download_urls, $uploads['basedir'].$zip_filename )) : ?><a href="<?php echo $uploads['baseurl'].$zip_filename; ?>" class="btn"><i class="icon icon-white icon-arrow-down"></i> Download</a><?php endif; ?>
+		<a class="btn btn-play-all"><i class="icon icon-white icon-play"></i> <?php _e('Play all','glp'); ?></a>
+	</p>
 </div>
 
 <div class="theme-details">

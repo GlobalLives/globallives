@@ -122,6 +122,12 @@ $(function() {
         return false;
     });
 
+    $(document).on('click', '.btn-play-all', function () {
+        $.each(players, function() {
+            this.playVideo();
+        });
+    });
+
 });
 
 var players = {};
