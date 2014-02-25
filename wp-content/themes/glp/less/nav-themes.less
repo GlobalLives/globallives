@@ -4,6 +4,9 @@
 	#gradient > .vertical(@grayDarker, @black);
 	.carousel {
 		margin: 0;
+		.carousel-control {
+			font-size: 16px;
+		}
 	}
 	ul {
 		margin: 0; padding: 0;
@@ -15,9 +18,7 @@
 		line-height: 36px;
 		text-align: center;
 		color: @grayLight;
-		// text-shadow: 0 2px 2px @grayDark;
 		list-style: none;
-		// outline: 1px solid fade(@grayLight,25%);
 		&.active, &:hover {
 			color: @white;
 			background: @gray;
