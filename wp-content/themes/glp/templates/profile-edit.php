@@ -10,13 +10,7 @@
 					<input class="profile-lastname span3" name="last_name" placeholder="<?php _e('Last Name','glp'); ?>" value="<?php echo $profile->last_name; ?>">
 				</h1>
 				<p class="profile-location">
-					<?php /*<select class="profile-occupation span2" name="user_occupation">
-					<?php $user_occupation_field = get_field_object($field_keys['user_occupation'],'user_'.$profile->ID); $user_occupation_options = $user_occupation_field['choices']; foreach($user_occupation_options as $user_occupation_option) : ?>
-						<option value="<?php echo $user_occupation_option; ?>" <?php if (get_field($field_keys['user_occupation'],'user_'.$profile->ID) == $user_occupation_option) : ?> selected<?php endif; ?>><?php echo $user_occupation_option; ?></option>
-					<?php endforeach; ?>
-					</select> */ ?>
 					<input class="profile-occupation span3" name="user_occupation" placeholder="<?php _e('Occupation','glp'); ?>" value="<?php the_field($field_keys['user_occupation'],'user_'.$profile->ID); ?>" >
-
 					<?php _e(' in ','glp'); ?>
 					<input class="profile-location span3" name="user_location" placeholder="<?php _e('Location','glp'); ?>" value="<?php the_field($field_keys['user_location'],'user_'.$profile->ID); ?>" >
 				</p>
