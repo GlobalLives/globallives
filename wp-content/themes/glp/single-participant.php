@@ -49,12 +49,14 @@
 					<div class="participant-content">
 						<?php the_content(); ?>
 					</div>
-					<?php /*<div class="participant-crew row">
+					<?php if ( $crew_members = get_participant_crew_members( get_the_ID() )) : ?>
+					<div class="participant-crew row">
 						<h3 class="span6">Crew Members</h3>
-						<?php if ( $crew_members = get_participant_crew_members( get_the_ID() )) : foreach ( $crew_members as $crew_member ) : ?>
+						<?php foreach ( $crew_members as $crew_member ) : ?>
 							<?php get_template_part('templates/profile','crew_member'); ?>
-							<?php endforeach; endif; ?>
-					</div>*/?>
+						<?php endforeach; ?>
+					</div>
+					<?php endif; ?>
 				</div>
 				
 				<div class="span6"><div class="row">
