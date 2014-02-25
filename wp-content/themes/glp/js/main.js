@@ -305,20 +305,30 @@ $(function () {
 
 		$('.overlay, .mapthumb:not(.single), .label, #popover').hide();
 
-		$('.marker').hover(
-			function() { // Enter
-				$(this).find('.mapthumb, .label').show();
-				if (hub_id = $('article.participant').attr('data-participant_id')) { // Single?
-					showConnection(hub_id, $(this).attr('id').split('-')[1]);
-				} else {
-					showConnections($(this).attr('id').split('-')[1]);
+		if (hub_id = $('article.participant').attr('data-participant_id')) {
+			// Single participant - show all
+			showConnections(hub_id);
+			$('.marker').hover(
+				function() { // Enter
+					$(this).find('.mapthumb, .label').show();
+				},
+				function() { // Leave
+					$(this).find('.mapthumb:not(.single), .label').hide();
 				}
-			},
-			function() { // Leave
-				$(this).find('.mapthumb:not(.single), .label').hide();
-				clearConnections();
-			}
-		);
+			);
+		} else {
+			// Explore View - show on hover
+			$('.marker').hover(
+				function() { // Enter
+					$(this).find('.mapthumb, .label').show();
+					showConnections($(this).attr('id').split('-')[1]);
+				},
+				function() { // Leave
+					$(this).find('.mapthumb:not(.single), .label').hide();
+					clearConnections();
+				}
+			);
+		}
 		$('.background, #popover .close').click( function() {
 			$('#popover, .overlay').hide();
 			clearConnections();
