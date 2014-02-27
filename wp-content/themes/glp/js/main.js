@@ -1,7 +1,7 @@
 $(function () {
 
 	$('a:has(img)').addClass('image-link');
-	same_height($('#nav-modules .widget'));
+	same_height('#nav-modules .widget');
 	$('input.copyable').click(function(){ $(this).select(); });
 
 /* Functions */
@@ -73,14 +73,23 @@ $(function () {
 	}
 
 	function same_height( group ) {
-		var tallest = 0;
-		group.each(function() {
-			var thisHeight = $(this).height();
-			if(thisHeight > tallest) {
-				tallest = thisHeight;
-			}
+		var resizeTimer;
+		$(window).resize(function() {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function() {
+				var tallest = 0;
+				$(group).each(function() {
+					$(this).height('auto');
+					var thisHeight = $(this).height();
+					if(thisHeight > tallest) {
+						tallest = thisHeight;
+					}
+				});
+				$(group).height(tallest);
+				console.log('resized: ' + group);
+			}, 250);
 		});
-		group.height(tallest);
+		$(window).resize();
 	}
 
 	function reinit_addthis() {
