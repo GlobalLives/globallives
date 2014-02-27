@@ -209,9 +209,10 @@
 	}
 
 	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
-		$thumbnail = wp_get_attachment_image_src( get_field('avatar','user_'.$profile_id), $thumbnail_size );
+		global $field_keys;
+		$thumbnail = get_field($field_keys['user_avatar'],'user_'.$profile_id);
 		if ($thumbnail) {
-			return $thumbnail[0];		
+			return $thumbnail['sizes']['thumbnail'];
 		} else {
 			return get_bloginfo('template_directory') . '/img/logo-coda.png';
 		}

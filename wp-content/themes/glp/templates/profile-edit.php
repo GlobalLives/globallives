@@ -1,5 +1,7 @@
-<?php global $profile, $current_user, $field_keys; ?>
-<form action="/profile" method="post" id="user-<?php echo $profile->ID; ?>" class="profile-edit-form container">
+<?php global $profile, $current_user, $field_keys, $field_groups; ?>
+
+<form action="/profile" method="post" 
+enctype="multipart/form-data" id="user-<?php echo $profile->ID; ?>" class="profile-edit-form container">
 	<input type="hidden" name="mode" value="save" />
 	<header class="row">
 		<div class="profile-header span9 offset3">
@@ -70,14 +72,45 @@
 				<?php endfor; ?>
 				</p>
 
+				<hr>
+
+				<p>
+					<b><?php _e('Contact Information','glp'); ?></b><br>
+				<?php
+					$user_contact = get_field($field_keys['user_contact'], 'user_'.$profile->ID);
+					$user_contact_obj = get_field_object($field_keys['user_contact'],'user_'.$profile->ID);
+					$available_channels = $user_contact_obj['sub_fields'][0]['choices'];
+					$max_contact = 5;
+
+					for ($i = 0; $i < $max_contact; $i++ ) :
+				?>
+					<div class="span4"><div class="row">
+					<select class="span2" name="user_contact[<?php echo $i; ?>][contact_channel]">
+					<option value=""><?php _e('- select -','glp'); ?></option>
+					<?php foreach($available_channels as $channel_option) : ?>
+						<option value="<?php echo $channel_option; ?>" <?php if ($user_contact[$i]['contact_channel'] == $channel_option) : ?> selected<?php endif; ?>><?php echo $channel_option; ?></option>
+					<?php endforeach; ?>
+					</select>
+					<input class="span1" name="user_contact[<?php echo $i; ?>][contact_information]" value="<?php if ($user_contact[$i]) { echo $user_contact[$i]['contact_information']; } ?>">
+					</div></div>
+				<?php endfor; ?>
+				</p>
+
 			</div>
 		</div>
 
 		<div class="profile-body span9">
 			<div class="profile-body-inner">
+
+				<h4><?php _e('Avatar','glp'); ?></h4>
+				<input type="file" name="user_avatar" class="profile-avatar">
+
 				<h4><?php _e('About','glp'); ?></h4>
 				<textarea name="description" placeholder="<?php _e('Bio','glp'); ?>" class="profile-bio"><?php echo $profile->description; ?></textarea>
-				<p><b><?php _e("Website",'glp'); ?>:</b><br><input name="user_url" class="profile-website" value="<?php echo $profile->user_url; ?>"></p>
+
+				<h4><?php _e("Website",'glp'); ?></h4>
+				<input name="user_url" class="profile-website" value="<?php echo $profile->user_url; ?>">
+
 			</div>
 		</div>
 	</div>

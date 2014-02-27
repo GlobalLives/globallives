@@ -3,6 +3,10 @@
 # Advanced Custom Field Keys
 # IMPORTANT: Local to each environment (dev, stage, prod) and shouldn't go in git
 
+$field_groups = array(
+	'user_editable' => 225
+);
+
 # Clips
 $field_keys = array(
 	'clip_youtube_id'				=> 'field_103',
@@ -46,6 +50,7 @@ $field_keys = array(
 	'user_contact'					=> 'field_52f160e0a10dc',
 	'user_favorites'				=> 'field_52f17cb980e31',
 	'user_bookmarks'				=> 'field_52f17cf180e32',
+	'user_avatar'					=> 'field_530fab0f25592',
 
 # Series
 

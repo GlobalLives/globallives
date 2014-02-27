@@ -44,8 +44,10 @@
 				<p>
 					<b><?php _e('Contact Information','glp'); ?></b><br>
 				<?php while (has_sub_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
+					<?php if (get_sub_field('contact_information') !== '') : ?>
 					<i class="fa fa-<?php echo strtolower(get_sub_field('contact_channel')); ?>"></i>
 					<?php the_sub_field('contact_information'); ?><br>
+					<?php endif; ?>
 				<?php endwhile; ?>
 				</p>
 				<?php endif; ?>

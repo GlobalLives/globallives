@@ -11,4 +11,9 @@ function remove_admin_bar() {
 		show_admin_bar(false);
 	}
 }
-// add_action('after_setup_theme', 'remove_admin_bar');
+add_action('after_setup_theme', 'remove_admin_bar');
+
+function my_deregister_styles() {
+	wp_deregister_style( 'wp-admin' );
+}
+add_action('wp_print_styles', 'my_deregister_styles', 100);
