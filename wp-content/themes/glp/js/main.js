@@ -40,33 +40,6 @@ $(function () {
 		);
 	}
 
-	function set_popover( d, el ) {
-		var width = $('#mapview').width(),
-			dy = $(el).position().top,
-			dx = $(el).position().left;
-		if ( dx < width/2 ) {
-			dx_offset = 30;
-		} else {
-			dx_offset = -340;
-		}
-
-		$('#popover').attr('data-participant_id',d.id);		
-		$('#popover').css('top', dy).css('left', dx + dx_offset);
-		$('#popover .popover-name').text(d.name);
-		$('#popover .popover-occupation').text(d.occupation);
-		$('#popover .popover-location').text(d.location);
-		$('#popover .popover-gender').text(d.gender_label);
-		$('#popover .popover-income').text(d.income_label);
-		$('#popover .popover-age').text(d.age_label);
-		$('#popover .popover-series').html(d.series_labels || '');
-		$('#popover .popover-themes').html(d.theme_labels || '');
-		$('#popover .popover-thumbnail').attr('src', d.thumbnail);
-		$('#popover .popover-permalink').attr('href', d.permalink);
-		// $('#popover, .overlay').show();
-		$('#popover').show();
-
-		$('.popover-series a, .popover-themes a').on('mouseleave', clearConnections);
-	}
 	function show_mapthumb( i ) {
 		$('.mapthumb').hide();
 		$('#mapthumb-'+i).show();
@@ -78,15 +51,12 @@ $(function () {
 			clearTimeout(resizeTimer);
 			resizeTimer = setTimeout(function() {
 				var tallest = 0;
+				$(group).height('auto');
 				$(group).each(function() {
-					$(this).height('auto');
 					var thisHeight = $(this).height();
-					if(thisHeight > tallest) {
-						tallest = thisHeight;
-					}
+					if (thisHeight > tallest) { tallest = thisHeight; }
 				});
 				$(group).height(tallest);
-				console.log('resized: ' + group);
 			}, 250);
 		});
 		$(window).resize();
@@ -173,8 +143,10 @@ $(function () {
 			});
 			if ($('input[name=proposed]:checked').val()) {
 				$('.proposed').removeClass('hide');
+				d3.selectAll('.marker.proposed').style('opacity',1);
 			} else {
 				$('.proposed').addClass('hide');
+				d3.selectAll('.marker.proposed').style('opacity',0);
 			}
 
 			filterParticipants();
@@ -210,7 +182,6 @@ $(function () {
 		$('#nav-themes .flyup .thumbnails').cycle();
 
 		function filterParticipants() {
-			console.log('filtering...');
 			$(participants).each(function() {
 				if (this.filtered === true || this.filteredByTheme === true) {
 					$('#participant-' + this.id).addClass('filtered');
@@ -279,7 +250,7 @@ $(function () {
 			.data(participants)
 			.enter().append('g')
 				.attr('id', function(d) { return 'marker-' + d.id; })
-				.attr('class', function(d) { return 'marker ' + d.continent; })
+				.attr('class', function(d) { return 'marker ' + d.continent + (d.proposed ? ' proposed' : ''); })
 				.attr('transform', function(d) { return 'translate(' + projection([+d.longitude, +d.latitude]) + ')'; })
 				.attr('data-x', function(d) { var coords = projection([+d.longitude, +d.latitude]); return Math.round(coords[0]); })
 				.attr('data-y', function(d) { var coords = projection([+d.longitude, +d.latitude]); return Math.round(coords[1]); })
