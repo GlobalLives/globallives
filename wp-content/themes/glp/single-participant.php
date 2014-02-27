@@ -53,7 +53,7 @@
 					<div class="participant-crew row">
 						<h3 class="span6">Crew Members</h3>
 						<?php foreach ( $crew_members as $crew_member ) : ?>
-							<?php get_template_part('templates/profile','crew_member'); ?>
+							<?php include(locate_template('templates/profile-crew_member.php')); ?>
 						<?php endforeach; ?>
 					</div>
 					<?php endif; ?>

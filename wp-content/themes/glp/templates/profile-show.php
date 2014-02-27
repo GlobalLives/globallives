@@ -63,6 +63,14 @@
 				<h4><?php _e('Website','glp'); ?></h4>
 				<p><?php echo $profile->user_url; ?></p>
 			<?php endif; ?>
+			<?php if ($collaborators = get_profile_collaborators($profile->ID)) : ?>
+				<div class="profile-collaborators">
+				<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators); ?>)</small></h4>
+				<?php foreach ($collaborators as $crew_member) : ?>
+					<?php include(locate_template('templates/profile-crew_member.php')); ?>
+				<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
 				<p class="profile-activity-buttons">
 					<span class="span1"><?php _e('Activity','glp'); ?></span>
 					<a class="" href=""><i class="fa fa-video-camera"></i> Shoots</a>

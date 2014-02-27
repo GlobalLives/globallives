@@ -197,6 +197,7 @@
 	function set_profile_base() {
 		global $wp_rewrite;
 		$wp_rewrite->author_base = 'profile';
+		$wp_rewrite->author_structure = '/' . $wp_rewrite->author_base . '/%author%';
 		$wp_rewrite->flush_rules();
 	}
 
@@ -324,6 +325,38 @@
 		} else {
 			return strtotime(' ');
 		}
+	}
+
+	function get_profile_collaborators ($profile_id) {
+		global $field_keys;
+
+		$participants = get_field($field_keys['user_shoots'], 'user_'.$profile_id);
+		$collaborators = [];
+		$collaborator_ids = [];
+
+		foreach ($participants as $participant) {
+			$collaborators += get_users(array(
+				'meta_query' => array(
+					array(
+						'key' => 'shoots',
+						'compare' => 'LIKE',
+						'value' => '"' . $participant->ID . '"'
+					)
+				)
+			));
+		}
+		foreach ($collaborators as $i => $collaborator) {
+			if ($collaborator->ID == $profile_id) {
+				unset($collaborators[$i]);
+			} else {
+				$collaborator_ids[] = $collaborator->ID;
+			}
+		}
+		array_unique($collaborator_ids);
+
+		$collaborators = get_users(array('include' => $collaborator_ids));
+
+		return $collaborators;
 	}
         
         add_filter('clip_toggle_response', 'clip_toggle_queue_response', 1, 3);
