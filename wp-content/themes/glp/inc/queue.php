@@ -60,14 +60,16 @@ function glp_queue() {
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
 
-		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', 'glp_vendor', null, true);
-		wp_register_script('glp_vendor', get_template_directory_uri() . '/js/vendor.min.js', false, null, true);
+		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', 'glp_plugins', null, true);
+		wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', false, null, true);
+		wp_register_script('glp_plugins', get_template_directory_uri() . '/js/jquery-plugins.min.js', false, null, true);
 		wp_register_script('d3', get_template_directory_uri() . '/js/d3.min.js', false, null, true);
 		wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, true);
 
 		// Enqueue scripts for ALL pages
 		wp_enqueue_script('glp_app');
-		wp_enqueue_script('glp_vendor');
+		wp_enqueue_script('glp_bootstrap');
+		wp_enqueue_script('glp_plugins');
 		wp_enqueue_script('addthis');
 	
 		// Enqueue scripts for "Single" pages
@@ -75,13 +77,13 @@ function glp_queue() {
 			wp_enqueue_script('comment-reply');
 		}
 	
-		// Enqueue scripts for "Explore", "Series", and "Pariticpant" pages
+		// Enqueue scripts for "Explore", "Series", and "Participant" pages
 		if (is_page('explore') || is_tax('series') || is_singular('participant')) {
 			wp_enqueue_script('d3');
 		}
 
 		// Localize glpAjax.ajaxurl
-		wp_localize_script('glp_main', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+		wp_localize_script('glp_app', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
 	}
 
