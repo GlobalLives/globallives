@@ -124,7 +124,7 @@
 			));
 			return $related_participants;
 		} else {
-			return get_post($participant_id);
+			return false;
 		}
 	}
 
