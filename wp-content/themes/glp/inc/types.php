@@ -94,12 +94,15 @@
 	}
 	
 	function get_participant_crew_members( $participant_id ) {
+		global $field_keys;
 		$crew_members = get_users(array(
-			'meta_query' => array(array(
+			'meta_query' => array(
+				array(
 					'key' => 'shoots',
-					'value' => '"' . $participant_id . '"',
-					'compare' => 'LIKE'
-			))
+					'compare' => 'LIKE',
+					'value' => '"' . $participant_id . '"'
+				)
+			)
 		));
 		return $crew_members;
 	}
@@ -335,26 +338,16 @@
 		$collaborator_ids = [];
 
 		foreach ($participants as $participant) {
-			$collaborators += get_users(array(
-				'meta_query' => array(
-					array(
-						'key' => 'shoots',
-						'compare' => 'LIKE',
-						'value' => '"' . $participant->ID . '"'
-					)
-				)
-			));
+			$collaborators += get_participant_crew_members($participant->ID);
 		}
-		foreach ($collaborators as $i => $collaborator) {
-			if ($collaborator->ID == $profile_id) {
-				unset($collaborators[$i]);
-			} else {
+
+		foreach ($collaborators as $collaborator) {
+			if ($collaborator->ID != $profile_id) {
 				$collaborator_ids[] = $collaborator->ID;
 			}
 		}
-		array_unique($collaborator_ids);
 
-		$collaborators = get_users(array('include' => $collaborator_ids));
+		$collaborators = get_users(array('include' => array_unique($collaborator_ids)));
 
 		return $collaborators;
 	}
