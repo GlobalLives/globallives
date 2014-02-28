@@ -334,8 +334,8 @@
 		global $field_keys;
 
 		$participants = get_field($field_keys['user_shoots'], 'user_'.$profile_id);
-		$collaborators = [];
-		$collaborator_ids = [];
+		$collaborators = array();
+		$collaborator_ids = array();
 
 		foreach ($participants as $participant) {
 			$collaborators += get_participant_crew_members($participant->ID);
