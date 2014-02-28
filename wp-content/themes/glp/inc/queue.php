@@ -8,7 +8,7 @@ function glp_queue() {
 	// Deregister jQuery because we're loading it in head.php
 	if (!is_admin()) {
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', '', '', '1.10.0', false);
+		wp_register_script('jquery', null, null, '2.0.3', false);
 	}
 
 	if (WP_ENV == 'DEV') { // Local development environment, load scripts separately.
@@ -60,9 +60,9 @@ function glp_queue() {
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
 
-		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', 'glp_plugins', null, true);
-		wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', false, null, true);
-		wp_register_script('glp_plugins', get_template_directory_uri() . '/js/jquery-plugins.min.js', false, null, true);
+		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', array('glp_bootstrap','glp_plugins'), null, true);
+		wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', 'jquery', null, true);
+		wp_register_script('glp_plugins', get_template_directory_uri() . '/js/plugins.min.js', 'jquery', null, true);
 		wp_register_script('d3', get_template_directory_uri() . '/js/d3.min.js', false, null, true);
 		wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, true);
 

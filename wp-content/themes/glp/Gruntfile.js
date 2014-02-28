@@ -13,24 +13,33 @@ module.exports = function(grunt) {
 		uglify: {
 			all: {
 				options: {
-					mangle: false
+					mangle: true,
+					beautify: false
 				},
 				files: {
 					'js/app.min.js': [
 						'js/main.js',
 						'js/video.js'
 					],
+					'js/jquery.min.js': [
+						'bower_components/jquery/jquery.js'
+					],
 					'js/bootstrap.min.js': [
-						'bower_components/bootstrap/js/bootstrap-button.js',
-						'bower_components/bootstrap/js/bootstrap-carousel.js',
-						'bower_components/bootstrap/js/bootstrap-dropdown.js',
+						'bower_components/bootstrap/js/bootstrap-transition.js',
+						'bower_components/bootstrap/js/bootstrap-alert.js',
 						'bower_components/bootstrap/js/bootstrap-modal.js',
-						'bower_components/bootstrap/js/bootstrap-popover.js',
+						'bower_components/bootstrap/js/bootstrap-dropdown.js',
+						'bower_components/bootstrap/js/bootstrap-scrollspy.js',
 						'bower_components/bootstrap/js/bootstrap-tab.js',
 						'bower_components/bootstrap/js/bootstrap-tooltip.js',
-						'bower_components/bootstrap/js/bootstrap-transition.js'
+						'bower_components/bootstrap/js/bootstrap-popover.js',
+						'bower_components/bootstrap/js/bootstrap-button.js',
+						'bower_components/bootstrap/js/bootstrap-collapse.js',
+						'bower_components/bootstrap/js/bootstrap-carousel.js',
+						'bower_components/bootstrap/js/bootstrap-typeahead.js',
+						'bower_components/bootstrap/js/bootstrap-affix.js'
 					],
-					'js/jquery-plugins.min.js': [
+					'js/plugins.min.js': [
 						'bower_components/jquery-ui/ui/jquery.ui.core.js',
 						'bower_components/jquery-ui/ui/jquery.ui.widget.js',
 						'bower_components/jquery-ui/ui/jquery.ui.mouse.js',
