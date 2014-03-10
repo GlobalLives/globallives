@@ -44,7 +44,7 @@
         <div class="control-time">
             <span class="control-time-current"><span class="time-m">0</span>:<span class="time-s">00</span></span>
             <span class="control-time-sep">&#47;</span>
-            <span class="control-time-total"><span class="time-m">0</span>:<span class="time-s">00</span></span>
+            <span class="control-time-total"><span class="time-m"><?php the_clip_minutes(get_the_ID()); ?></span>:<span class="time-s"><?php the_clip_seconds(get_the_ID()); ?></span></span>
         </div>
     </div>
     <div class="control-buttons-cntnr">

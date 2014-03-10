@@ -191,6 +191,26 @@
 	function the_next_clip( $clip_id ) {
 		echo get_next_clip( $clip_id );
 	}
+
+	function get_clip_seconds($clip_id) {
+		global $field_keys;
+		$duration = get_field($field_keys['clip_duration'], $clip_id);
+		$seconds = array_slice(explode(':', $duration),-1);
+		return sprintf('%02d', $seconds[0]);
+	}
+	function the_clip_seconds($clip_id) {
+		echo get_clip_seconds($clip_id);
+	}
+
+	function get_clip_minutes($clip_id) {
+		global $field_keys;
+		$duration = get_field($field_keys['clip_duration'], $clip_id);
+		$minutes = array_slice(explode(':', $duration),-2,1);
+		return sprintf('%d', $minutes[0]);
+	}
+	function the_clip_minutes($clip_id) {
+		echo get_clip_minutes($clip_id);
+	}
 	
 /*	==========================================================================
 	Users
@@ -430,6 +450,7 @@
         }
         
         function is_clip_queued($clip_id, $user_id, $toggle_type) {
+            global $queue_key, $toggle_type;
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
             // get_field returns array of post objects
             if ($queue) {
