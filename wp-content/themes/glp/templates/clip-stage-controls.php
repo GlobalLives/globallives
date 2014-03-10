@@ -4,7 +4,7 @@
             <a id="taggable-area" data-toggle="popover" data-placement="top" <?php if ( !is_user_logged_in() ) { echo 'class="disabled"'; } ?>>
                 <span><?php
                     if ( is_user_logged_in() ) : _e('(Click to tag or comment)', 'glp');
-                    //else: _e('Log in / Sign up to add comments', 'glp');
+                    else : _e('Log in / Sign up to tag or comment', 'glp');
                     endif;
                 ?></span>
             </a>
@@ -32,7 +32,7 @@
                         <div class="arrow"></div>
                         <div class="hide content">
                             <?php foreach ($items['comments'] as $comment): ?>
-                                <?php include(locate_template('templates/marker-comment.php')); //Keeps variable scope where get_template_part does not ?>
+                                <?php include(locate_template('templates/marker-comment.php')); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -42,9 +42,9 @@
             <div class="control-slider"></div>
         </div>
         <div class="control-time">
-            <span class="control-time-current"><span class="time-m"></span>:<span class="time-s"></span></span>
+            <span class="control-time-current"><span class="time-m">0</span>:<span class="time-s">00</span></span>
             <span class="control-time-sep">&#47;</span>
-            <span class="control-time-total"><span class="time-m"></span>:<span class="time-s"></span></span>
+            <span class="control-time-total"><span class="time-m">0</span>:<span class="time-s">00</span></span>
         </div>
     </div>
     <div class="control-buttons-cntnr">

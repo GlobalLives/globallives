@@ -472,13 +472,11 @@ $(function () {
 /* Participant - Single */
 
 	if ($('body.single-participant').length) { // Make sure we're on the Participant - Single page
-		console.log('good so far.');
 		var single_participant_id = $('article.participant').attr('data-participant_id');
 
 		$('#nav-themes').hide();
 
 		$('.participant-detail-map .handle').click(function() {
-			console.log('handle');
 			$('#mapview, #nav-themes').slideToggle();
 			$('.participant-detail-map .handle .btn span').toggle();
 		});

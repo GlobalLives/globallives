@@ -294,7 +294,6 @@ function videoUpdatePosition(event) {
 function autoShowComment(event) {
     var slider = $('#'+event.currentTarget.id).siblings('.participant-video-controls').find('.control-slider');
     var position = parseInt( $(slider).width() * ( ( slider.slider('value') + 1 ) / 1000 ), 10 ); // We add in a small buffer to show the comment just before the time marker is reached
-//    console.log(position);
     var marker_box = $('#marker-'+position);
     if (marker_box.length) {
         $("#taggable-area").setupPopover().showPopover(position);
@@ -361,14 +360,6 @@ $.fn.showPopover = function(xpos) {
     this.popover('show');
     var popover_box = this.next();
     var offset = xpos - ( popover_box.width() / 2 );
-
-//    console.log(xpos);
-//    console.log(percent);
-//    console.log(spos);
-//    console.log(m);
-//    console.log(s);
-//    console.log(offset);
-//    console.log(popover);
 
     $(popover_box).find('.comment-box').prepend( $('#marker-'+xpos+' .content').html() );
     $(popover_box).css('left', offset).find('.time').text( m + ':' +s);
@@ -478,8 +469,6 @@ function autoplay_video(event) {
 }
 
 function play_next_video(event) {
-
-    console.log('[LOADING] Current clip: '+event.data.clip_id+ ' Next: '+event.data.next_clip_id);
     if ( event.data.next_clip_id ) {
         $('#stage').slideUp().load(glpAjax.ajaxurl,
             { action: 'get_participant_clip', clip_id: event.data.next_clip_id },
