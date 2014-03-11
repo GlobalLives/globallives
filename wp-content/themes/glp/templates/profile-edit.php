@@ -85,13 +85,13 @@ enctype="multipart/form-data" id="user-<?php echo $profile->ID; ?>" class="profi
 					for ($i = 0; $i < $max_contact; $i++ ) :
 				?>
 					<div class="span4"><div class="row">
-					<select class="span2" name="user_contact[<?php echo $i; ?>][contact_channel]">
+					<select class="span1" name="user_contact[<?php echo $i; ?>][contact_channel]">
 					<option value=""><?php _e('- select -','glp'); ?></option>
 					<?php foreach($available_channels as $channel_option) : ?>
 						<option value="<?php echo $channel_option; ?>" <?php if ($user_contact[$i]['contact_channel'] == $channel_option) : ?> selected<?php endif; ?>><?php echo $channel_option; ?></option>
 					<?php endforeach; ?>
 					</select>
-					<input class="span1" name="user_contact[<?php echo $i; ?>][contact_information]" value="<?php if ($user_contact[$i]) { echo $user_contact[$i]['contact_information']; } ?>">
+					<input class="span2" name="user_contact[<?php echo $i; ?>][contact_information]" value="<?php if ($user_contact[$i]) { echo $user_contact[$i]['contact_information']; } ?>">
 					</div></div>
 				<?php endfor; ?>
 				</p>
