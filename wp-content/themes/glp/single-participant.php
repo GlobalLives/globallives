@@ -1,4 +1,4 @@
-<?php while (have_posts()) : the_post(); ?>
+<?php global $field_keys; while (have_posts()) : the_post(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('participant-detail'); ?> data-participant_id="<?php the_ID(); ?>">
 
 	<?php if ($participants = get_related_participants(get_the_ID())) : ?>
@@ -20,7 +20,7 @@
 
 	<div id="stage" class="participant-detail-video container">
 		<?php
-			if ( $summary_video = get_field('summary_video') ) {
+			if ( $summary_video = get_field($field_keys['participant_summary_video'], get_the_ID()) ) {
 				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID, 'posts_per_page' => 1 ));
 				get_template_part('templates/clip','stage');
 				wp_reset_query();
@@ -34,16 +34,17 @@
 	
 				<div class="span6">
 					<header>
-						<h2 class="participant-title"><span class="participant-name"><?php the_title(); ?> </span> &mdash; <span class="participant-location"><?php the_field('location'); ?></span></h2>
+						<h2 class="participant-title"><span class="participant-name"><?php the_title(); ?> </span> &mdash; <span class="participant-location"><?php the_field($field_keys['participant_location'], get_the_ID()); ?></span></h2>
 					</header>
 					<div class="participant-meta row">
 						<div class="span3">
-							<b><?php _e('Occupation','glp'); ?>:</b> <?php the_field('occupation'); ?><br>
-							<?php if ($dob = get_field('dob')) : ?><b><?php _e('Date of Birth','glp'); ?>:</b> <?php echo $dob; ?><?php endif; ?>
+							<b><?php _e('Occupation','glp'); ?>:</b> <?php the_field($field_keys['participant_occupation'], get_the_ID()); ?><br>
+							<?php if ($dob = get_field($field_keys['participant_dob'], get_the_ID())) : ?><b><?php _e('Date of Birth','glp'); ?>:</b> <?php echo $dob; ?><?php endif; ?>
 						</div>
 						<div class="span3">
-							<b><?php _e('Religion','glp'); ?>:</b> <?php the_field('religion'); ?><br>
-							<b><?php _e('Income','glp'); ?>:</b> <?php the_field('income'); ?>
+							<b><?php _e('Religion','glp'); ?>:</b> <?php the_field($field_keys['participant_religion'], get_the_ID()); ?><br>
+							<b><?php _e('Income','glp'); ?>:</b> <?php 
+							$incomes = get_field_object($field_keys['participant_income']); $income = get_field($field_keys['participant_income'], get_the_ID()); echo $incomes['choices'][$income]; ?>
 						</div>
 					</div>
 					<div class="participant-content">
@@ -61,13 +62,13 @@
 				
 				<div class="span6"><div class="row">
 					<div class="participant-clips span4">
-						<h3><?php _e('Footage','glp'); ?> (<?php echo count(get_field('clips')); ?>)</h3>
+						<h3><?php _e('Footage','glp'); ?> (<?php $clips = get_field($field_keys['participant_clips'], get_the_ID()); echo count($clips); ?>)</h3>
 						<div class="participant-clips-scrollbox">
-						<?php if (get_field('clips')) : ?>
+						<?php if ($clips) : ?>
 							<?php if (is_user_logged_in()) : global $current_user; get_currentuserinfo(); ?>
 							<a class="btn-toggle-all" data-list-id="<?php the_ID(); ?>" data-user-id="<?php echo $current_user->ID; ?>"><?php echo apply_filters('clip_toggle_queue_list_status', $text, $current_user->ID); ?></a>
 							<?php endif; ?>
-						<?php foreach( get_field('clips') as $clip_index => $clip ) : ?>
+						<?php foreach( $clips as $clip_index => $clip ) : ?>
 								<?php get_template_part('templates/clip','listing'); ?>
 						<?php endforeach; else : ?>
 								<p class="alert alert-error"><?php _e('No clips for this participant.','glp'); ?></p>
