@@ -91,6 +91,7 @@
 				</p>
 				<input type="hidden" name="redirect_to" value="<?php the_permalink(); ?>" />
 				<input type="hidden" name="rememberme" value="forever" />
+				<input type="hidden" name="wpe-login" value="globallives" />
 				<p class="submit">
 					<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php _e('Log In','glp'); ?>" />
 				</p>

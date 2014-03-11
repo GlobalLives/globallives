@@ -16,16 +16,8 @@
 	<div id="masthead" class="container">
 		<div class="row">
 			<h1 class="site-title span6"><a class="brand" href="<?php echo home_url(); ?>/"><?php bloginfo('name'); ?></a></h1>
-			<div class="site-tabs span6 tabs">
-				<div class="tab-content">
-				    <div class="tab-pane active" id="searchtab"><?php get_template_part('templates/form','search'); ?></div>
-				    <?php if (is_user_logged_in()) : ?>
-				    <div class="tab-pane" id="profiletab"><?php get_template_part('templates/nav','user'); ?></div>
-				    <?php else : ?>
-				    <div class="tab-pane" id="jointab"><?php get_template_part('templates/form','register'); ?></div>
-				    <div class="tab-pane" id="logintab"><?php get_template_part('templates/form','login'); ?></div>
-				    <?php endif; ?>
-				</div>
+			<div class="site-tabs span6">
+				<div class="tab-pane active" id="searchtab"><?php get_template_part('templates/form','search'); ?></div>
 			</div>
 		</div>
 	</div>
