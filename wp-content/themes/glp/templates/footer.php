@@ -80,7 +80,7 @@
 	<div class="modal-body row-fluid">
 		<div class="span6">
 			<h4><?php _e('Log in with email','glp'); ?></h4>
-			<form name="loginform" id="loginform" action="<?php echo wp_login_url(); ?>" method="post">
+			<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php?wpe-login=globallives', 'login_post'); ?>" method="post">
 				<p class="login-username">
 					<label for="user_login"><?php _e('Username','glp'); ?></label>
 					<input type="text" name="log" id="user_login" class="input" value="" size="20" />
@@ -91,7 +91,6 @@
 				</p>
 				<input type="hidden" name="redirect_to" value="<?php the_permalink(); ?>" />
 				<input type="hidden" name="rememberme" value="forever" />
-				<input type="hidden" name="wpe-login" value="globallives" />
 				<p class="submit">
 					<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php _e('Log In','glp'); ?>" />
 				</p>
