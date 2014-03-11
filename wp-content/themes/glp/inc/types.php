@@ -211,6 +211,15 @@
 	function the_clip_minutes($clip_id) {
 		echo get_clip_minutes($clip_id);
 	}
+
+	function get_clip_thumbnail($clip_id) {
+		global $field_keys;
+		$youtube_id = get_field($field_keys['clip_youtube_id'],$clip_id);
+		return "http://img.youtube.com/vi/" . $youtube_id . "/0.jpg";
+	}
+	function the_clip_thumbnail($clip_id) {
+		echo get_clip_thumbnail($clip_id);
+	}
 	
 /*	==========================================================================
 	Users

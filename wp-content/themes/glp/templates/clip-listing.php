@@ -2,7 +2,7 @@
 <article class="participant-clip-listing<?php echo strip_tags(get_the_term_list($clip->ID,'clip_tags',' ',' ')); ?>">
 	<div class="row">
 		<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>">
-			<img src="http://img.youtube.com/vi/<?php the_field('youtube_id', $clip->ID); ?>/default.jpg">
+			<img src="<?php the_clip_thumbnail($clip->ID); ?>">
 		</div>
 		<div class="">
 			<h5 class="clip-title"><?php the_title();?> <small>(<?php _e('Part ','glp'); echo $clip_index + 1; ?>)</small></h5>
