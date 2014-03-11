@@ -60,6 +60,18 @@
 			color: @grayDark;
 		}
 	}
+	.btn-highlight {
+		#gradient > .vertical(@orange,darken(@orange,10%));
+		color: @grayLighter;
+		text-shadow: 0 1px 1px @black;
+		font-family: @headingsFontFamily;
+		border: 1px solid @orange;
+		&:hover, &.active {
+			color: @white;
+			#gradient > .vertical(lighten(@orange,10%),@orange);
+			.transition(none);
+		}		
+	}
 	.modal-header {
 		color: @grayDark;
 	}
@@ -254,12 +266,6 @@
 		}
 		h4 {
 			margin: 2em 0 1em;
-		}
-		.btn {
-			color: @grayDark;
-			background: @white;
-			border: 1px solid @grayLight;
-			text-shadow: none;
 		}
 	}
 	#explore {
