@@ -363,21 +363,26 @@
 	function get_profile_collaborators ($profile_id) {
 		global $field_keys;
 
-		$participants = get_field($field_keys['user_shoots'], 'user_'.$profile_id);
 		$collaborators = array();
 		$collaborator_ids = array();
 
-		foreach ($participants as $participant) {
-			$collaborators += get_participant_crew_members($participant->ID);
-		}
+		$participants = get_field($field_keys['user_shoots'], 'user_'.$profile_id);
+		if ($participants) {
 
-		foreach ($collaborators as $collaborator) {
-			if ($collaborator->ID != $profile_id) {
+			foreach ($participants as $participant) {
+				$collaborators += get_participant_crew_members($participant->ID);
+			}
+	
+			foreach ($collaborators as $collaborator) {
 				$collaborator_ids[] = $collaborator->ID;
 			}
+
 		}
 
-		$collaborators = get_users(array('include' => array_unique($collaborator_ids)));
+		if ($collaborator_ids) { $collaborators = get_users(array(
+			'include' => array_unique($collaborator_ids),
+			'exclude' => $profile_id
+		)); }
 
 		return $collaborators;
 	}
