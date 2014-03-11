@@ -17,8 +17,7 @@
 							endif; ?>
 							</div>
 						</div>
-						<?php echo $theme->name; ?>
-
+						<a class="theme-name"><?php echo $theme->name; ?></a>
 					</li><?php endforeach; ?>
 				</div>
 			</ul>
