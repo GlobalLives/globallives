@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="wp-content/plugins/google-sitemap-plugin/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://globallives.dev/wp-content/plugins/google-sitemap-plugin/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://globallives.dev/</loc>
-    <lastmod>2013-09-17T18:51:01+00:00</lastmod>
+    <loc>http://globallives.dev/?lang=fr</loc>
+    <lastmod>2014-03-11T17:46:03+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
@@ -429,7 +429,7 @@
   </url>
   <url>
     <loc>http://globallives.dev/blog/crew-call/</loc>
-    <lastmod>2013-11-27T22:36:52+00:00</lastmod>
+    <lastmod>2014-02-21T19:36:34+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
