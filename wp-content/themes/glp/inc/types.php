@@ -280,6 +280,18 @@
 		$activities = array();
 		$user = get_userdata( $user_id );
 
+		// First get time that the user joined
+
+		$activity = array(
+			'activity_type' => 'join',
+			'activity_description' => __('joined ','glp'),
+			'activity_user' => $user_id,
+			'activity_content' => null,
+			'activity_timestamp' => strtotime($user->user_registered),
+			'activity_icon' => 'user'
+		);
+		$activities[] = $activity;		
+
 		// First get comments made by the user
 		$comments = get_comments(array( 'user_id' => $user_id, 'status' => 'approve' ));
 		foreach ($comments as $comment) {
