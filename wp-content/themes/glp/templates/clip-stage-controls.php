@@ -2,11 +2,7 @@
     <div class="control-slider-area-cntnr">
         <div class="control-slider-cntnr">
             <a id="taggable-area" data-toggle="popover" data-placement="top" <?php if ( !is_user_logged_in() ) { echo 'class="disabled"'; } ?>>
-                <span><?php
-                    if ( is_user_logged_in() ) : _e('(Click to tag or comment)', 'glp');
-                    else : _e('Log in / Sign up to tag or comment', 'glp');
-                    endif;
-                ?></span>
+                <span><?php if ( is_user_logged_in() ) { _e('(Click to tag or comment)', 'glp'); } ?></span>
             </a>
             <div class="popover-data hide">
                 <div class="title"><div class="inner">Comments/Tags (<span class="time"></span>)<a class="icon-remove-circle icon-white close"></a></div></div>

@@ -20,7 +20,7 @@
     "font-awesome": "~4.0.3"
   },
   "devDependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~2.1.0",
     "jquery-ui": "~1.10.3",
     "jquery-ui-touch-punch": "*",
     "jquery-cycle": "~3.0.3",

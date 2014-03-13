@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <meta name="google" value="notranslate">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.min.js"><\/script>')</script>
 
   <?php wp_head(); ?>
