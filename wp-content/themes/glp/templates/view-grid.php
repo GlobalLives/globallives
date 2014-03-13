@@ -12,7 +12,7 @@
 				<p>
 					<?php if ($themes = get_the_terms($participant->ID,'themes')) : ?>
 					<b><?php _e('Themes: ','glp'); ?></b>
-					<?php foreach ($themes as $theme) { echo $theme->name . ' '; } ?>
+					<?php $theme_names = array(); foreach($themes as $theme) { $theme_names[] = $theme->name; }; echo implode(', ', $theme_names); ?>
 					<? endif; ?>
 				</p>
 			</div>
