@@ -4,9 +4,7 @@ $(function() {
     $(window).bind("setup_players", setup_players);
     $(window).bind("setup_players", setup_popover);
 
-    // $(".controls").live('click', function() {
     $(document).on('click', '.controls', function() {
-        console.log('clicked: ' + this);
         var id = $(this).closest('.participant-clip').find('.participant-video-embed').attr('id');
         var player = players[id];
         var control = $(this).attr('data-control');
