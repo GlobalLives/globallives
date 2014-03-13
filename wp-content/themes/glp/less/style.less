@@ -313,21 +313,31 @@
 		}
 	}
 
-
 	.participant-clip {
 		position: relative;
-		padding-bottom: 72.25%;
-		padding-top: 0; height: 0;
+		margin: 50px 0 80px;
+		padding: 0 0 56.25%; // 16:9 ratio
+		height: 0;
 		iframe, object, embed, .participant-video-embed {
 			position: relative;
 			top: 0; left: 0;
-			width: 100%; height: 85%;
-			min-height: 350px;
+			width: 100%;
+		}
+
+		.participant-video-embed {
+			position: relative;
+			top: 0; left: 0;
+			height: 100%; width: 100%;
+		}
+		.participant-video-controls {
+			position: absolute;
+			bottom: -36px; left: 0;
 		}
 		.participant-video-buttons {
 			position: absolute;
-			bottom: 0; left: 0;
+			bottom: -72px; left: 0;
 		}
+
 		.btn-embed {
 			display: none;
 		}
@@ -762,7 +772,10 @@
 
 @media (max-width: 768px) {
 	#wrap {
-		padding: 0 10px;
+		padding: 0 0;
+		#content .container {
+			padding: 0 10px;
+		}
 	}
 	.page-explore #wrap {
 		padding: 0;

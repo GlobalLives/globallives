@@ -11,17 +11,27 @@
 		width: 100%;
 	}
 	#stage {
-		padding-bottom: 0;
 		.btn-embed {
 			display: inline;
 		}
-	}
-	.participant-video-embed {
-		min-height: 528px; // 940px container at 16:9 ratio
-		max-width: 100%;
-	}
-	.participant-video-buttons {
-		padding: 1em 0;
+		.participant-clip {
+			position: relative;
+			margin: 50px 0 80px;
+
+			.participant-video-embed {
+				position: relative;
+				top: 0; left: 0;
+				height: 100%; width: 100%;
+			}
+			.participant-video-controls {
+				position: absolute;
+				bottom: -36px; left: 0;
+			}
+			.participant-video-buttons {
+				position: absolute;
+				bottom: -72px; left: 0;
+			}
+		}
 	}
 	.participant-detail-content {
 		margin: 0 0;
