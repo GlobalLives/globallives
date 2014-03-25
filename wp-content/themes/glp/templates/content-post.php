@@ -1,4 +1,4 @@
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?><?php if (has_post_thumbnail()) : ?> data-bg="<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>"<?php endif; ?>>
+	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-bg="<?php the_featured_image_src($post->ID, 'large'); ?>">
 		<div class="entry-date"><?php echo get_the_date(); ?></div>
 		<header class="entry-header">
 			<h3 class="entry-category"><?php the_category(' '); ?></h3>

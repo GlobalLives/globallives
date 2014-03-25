@@ -399,7 +399,6 @@ $(function () {
 /* Blog */
 
 	if ($('.blog').length) { // Make sure we're on the blog page
-
 		var bg = $('.blog .post').first().data('bg');
 		if (bg) { set_background( bg, {to: '#262626'} ); }
 		$('.past-posts .post').each(function() {
