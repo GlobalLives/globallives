@@ -138,6 +138,7 @@ var t;
 (function() { // Closure, to not leak to the scope
     var s = document.createElement("script");
     s.src = (location.protocol == 'https:' ? 'https' : 'http') + "://www.youtube.com/player_api";
+    // s.src = 'https://www.youtube.com/player_api'; // Enforce https
     var before = document.getElementsByTagName("script")[0];
     before.parentNode.insertBefore(s, before);
 })();

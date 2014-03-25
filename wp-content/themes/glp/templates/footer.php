@@ -50,7 +50,7 @@
 	<div class="modal-body row-fluid">
 		<div class="span6">
 			<h4><?php _e('Sign up with email','glp'); ?></h4>
-			<form name="registerform" id="registerform" action="<?php echo wp_login_url(); ?>?action=register" method="post">
+			<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?wpe-login=globallives&action=register'); ?>" method="post">
 				<p>
 					<label for="user_email"><?php _e('Email Address','glp'); ?><br />
 					<input type="text" name="user_email" id="user_email" class="input" value="" size="25" /></label>

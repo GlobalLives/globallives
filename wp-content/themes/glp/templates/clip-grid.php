@@ -4,6 +4,6 @@
 		<h3><?php echo $participant->post_title; ?></h3>
 		<p><?php the_field('location',$participant->ID); ?></p>
 	</div>
-	<iframe class="participant-video-embed" id="participant-video-embed-<?php the_ID(); ?>" src="http://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?showinfo=0&modestbranding=1&rel=0&enablejsapi=1&controls=0&wmode=transparent&cc_load_policy=1" wmode="opaque" allowfullscreen="" frameborder="0"></iframe>
+	<iframe class="participant-video-embed" id="participant-video-embed-<?php the_ID(); ?>" src="https://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?enablejsapi=1&showinfo=0&modestbranding=1&rel=0&controls=0&wmode=transparent&cc_load_policy=1" wmode="opaque" allowfullscreen="" frameborder="0"></iframe>
 </article>
 <?php endwhile; ?>
