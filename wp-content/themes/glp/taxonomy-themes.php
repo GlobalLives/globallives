@@ -5,21 +5,23 @@
 	$download_urls = array();
 ?>
 
-<div class="theme-header container">
-	<div class="row">
-		<div class="theme-breadcrumb span8"><?php if($referral_id AND $referral = get_post($referral_id)) : ?><a href="<?php echo get_permalink($referral->ID); ?>">&larr;<?php _e('Return to','glp'); ?> <?php echo $referral->post_title; ?></a><?php endif; ?></div>
-		<div class="theme-filters span4 text-right">
-			<?php if($allthemes = get_terms('themes')) : ?>
-			<?php _e('Themes','glp'); ?>
-			<select name="theme" id="theme-select">
-				<?php foreach( $allthemes as $alltheme ) : ?>
+<div class="theme-header navbar">
+	<div class="nav-explore-inner navbar-inner container">
+		<ul class="nav">
+			<li class="theme-breadcrumb span8"><?php if($referral_id AND $referral = get_post($referral_id)) : ?><a href="<?php echo get_permalink($referral->ID); ?>">&larr;<?php _e('Return to','glp'); ?> <?php echo $referral->post_title; ?></a><?php endif; ?></li>
+			<li class="theme-filters span4 pull-right text-right">
+				<?php if ($allthemes = get_terms('themes')) : ?>
+				<?php _e('Themes','glp'); ?>
+				<select name="theme" id="theme-select">
+					<?php foreach( $allthemes as $alltheme ) : ?>
 					<option value="<?php echo $alltheme->slug; ?>"<?php if ($theme->slug == $alltheme->slug) : ?> selected="selected"<?php endif; ?>><?php echo $alltheme->name; ?></option>
-				<?php endforeach; ?>
-			</select>
-			<?php endif; ?>
-		</div>
+					<?php endforeach; ?>
+				</select>
+				<?php endif; ?>
+			</li>
+		</ul>
 	</div>
-</div>
+</div> 
 
 <div class="theme-videos container">
 	<div id="home" class="row">
