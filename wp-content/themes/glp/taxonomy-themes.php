@@ -47,27 +47,19 @@
 
 <div class="theme-details">
 	<div class="theme-details-inner container">
-		<div class="row">
-		<div class="span6">
-			<h4><?php _e('Featured Participants'); ?></h4>
-			<div class="row">
-			<?php foreach ( $participants as $participant ) : ?>
-				<div class="participant-mini span2"><a href="<?php echo get_permalink($participant->ID); ?>">
-					<div class="participant-thumbnail"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'thumbnail' ); ?>"></div>
-					<h5 class="participant-name"><?php echo $participant->post_title; ?></h5>
-					<p class="participant-location"><?php echo get_field('location',$participant->ID); ?></p>
-				</a></div>
-			<?php endforeach; ?>
-			</div>
-		</div>
-		<div class="span6">
-			<h4><?php _e('Comments'); ?></h4>
-			<?php
-				$wp_query->is_single = true;
-				$withcomments = 1;
-				comments_template();
-				$wp_query->is_single = false;
-			?>
+		<h4><?php _e('Featured Participants'); ?></h4>
+		<?php
+			$total_participants = count($participants);
+			$participants_per_row = 6;
+			foreach ( $participants as $i => $participant ) : ?>
+		<?php if ($i % $participants_per_row == 0) : ?><div class="row"><?php endif; ?>
+			<div class="participant-mini span2"><a href="<?php echo get_permalink($participant->ID); ?>">
+				<div class="participant-thumbnail"><img src="<?php the_participant_thumbnail_url( $participant->ID, 'thumbnail' ); ?>"></div>
+				<h5 class="participant-name"><?php echo $participant->post_title; ?></h5>
+				<p class="participant-location"><?php echo get_field('location',$participant->ID); ?></p>
+			</a></div>
+		<?php if ($i == $total_participants - 1 || $i % $participants_per_row == ($participants_per_row - 1)) : ?></div><?php endif; ?>
+		<?php endforeach; ?>
 		</div>
 	</div>
 </div>
