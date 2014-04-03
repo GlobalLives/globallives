@@ -136,7 +136,7 @@ $(function () {
 			$(participants).each(function() {
 				this.filtered = false;
 
-				if ($('select[name=series]').val() && $('select[name=series]').val() !== "All" && !($.inArray($('select[name=series]').val(),this.series) !== -1)) { this.filtered = true; }
+				if ($('select[name=series]').val() && $('select[name=series]').val() !== "All" && $.inArray($('select[name=series]').val(),this.series) == -1) { this.filtered = true; }
 				if ($('select[name=gender]').val() !== "All" && this.gender !== $('select[name=gender]').val() ) { this.filtered = true; }
 				if ($('select[name=income]').val() !== "All" && this.income !== $('select[name=income]').val() ) { this.filtered = true; }
 				if ($('select[name=age]').val()    !== "All" && this.age    !== $('select[name=age]').val() )    { this.filtered = true; }
@@ -158,11 +158,11 @@ $(function () {
  
 		$('#nav-themes li').hover(
 			function() {
-				$(this).siblings().children('.flyup').slideUp();
-				$(this).children('.flyup').slideDown();
+				$(this).siblings().find('.theme-link').hide();
+				$(this).find('.theme-link').slideDown();
 			},
 			function() {
-				$(this).children('.flyup').slideUp();
+				$(this).children('.theme-link').slideUp();
 			}
 		);
 		$('#nav-themes li').click(function() {
@@ -179,9 +179,10 @@ $(function () {
 			filterParticipants();
 			$(this).addClass('active').siblings().removeClass('active');
 		});
-		$('#nav-themes .flyup .thumbnails').cycle();
 
-		function filterParticipants() {
+		$('#nav-themes').find('.thumbnails').cycle({timeout: 250, speed: 250});
+
+		var filterParticipants = function () {
 			$(participants).each(function() {
 				if (this.filtered === true || this.filteredByTheme === true) {
 					$('#participant-' + this.id).addClass('filtered');
@@ -191,12 +192,12 @@ $(function () {
 					d3.selectAll('#marker-'+this.id).classed('filtered',false);
 				}
 			});
-		}
+		};
 	}
 
 	if ($('#mapview').length) { // For all pages that have a Map View
 
-		function showConnections(hub_id) {
+		var showConnections = function (hub_id) {
 
 			var hub_marker = map.select('#marker-' + hub_id),
 				hub_xy = [+hub_marker.attr('data-x'), +hub_marker.attr('data-y')],
@@ -228,9 +229,9 @@ $(function () {
 							.text(shared_themes);
 				}
 			});
-		}
+		};
 
-		function showConnection(hub_id, spoke_id) {
+		var showConnection = function (hub_id, spoke_id) {
 
 			var hub_marker = map.select('#marker-' + hub_id),
 				hub_xy = [+hub_marker.attr('data-x'), +hub_marker.attr('data-y')],
@@ -258,19 +259,19 @@ $(function () {
 						.attr('startOffset','25%')
 						.text(shared_themes);
 			}
-		}
+		};
 
-		function clearConnections() {
+		var clearConnections = function () {
 			map.selectAll('.edge, .edge-label').remove();
-		}
+		};
 
-		function shared(a, b) {
+		var shared = function (a, b) {
 			if (a.length > 0 && b.length > 0) {
-				return $.grep(a, function(i) { return a != '' ? $.inArray(i, b) > -1 : false; });
+				return $.grep(a, function(i) { return a !== '' ? $.inArray(i, b) > -1 : false; });
 			} else {
 				return false;
 			}
-		}
+		};
 
 
 		var single_participant_id = $('article.participant').attr('data-participant_id');
@@ -363,7 +364,8 @@ $(function () {
 
 		$('.overlay, .mapthumb:not(.single), .label, #popover').hide();
 
-		if (hub_id = $('article.participant').attr('data-participant_id')) {
+		var hub_id = $('article.participant').attr('data-participant_id');
+		if (hub_id) {
 			// Single participant - show all
 			showConnections(hub_id);
 			$('.marker').hover(
@@ -471,7 +473,6 @@ $(function () {
 /* Participant - Single */
 
 	if ($('body.single-participant').length) { // Make sure we're on the Participant - Single page
-		var single_participant_id = $('article.participant').attr('data-participant_id');
 
 		$('#nav-themes').hide();
 

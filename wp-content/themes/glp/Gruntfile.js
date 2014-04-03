@@ -5,8 +5,8 @@ module.exports = function(grunt) {
 
 		jshint: {
 			all: [
-				'Gruntfile.js'
-				// 'js/main.js',
+				'Gruntfile.js',
+				'js/main.js'
 				// 'js/video.js'
 			]
 		},
