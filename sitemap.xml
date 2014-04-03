@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="http://globallives.dev/wp-content/plugins/google-sitemap-plugin/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://globallives.dev/?lang=fr</loc>
+    <loc>http://globallives.dev/</loc>
     <lastmod>2014-03-11T17:46:03+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
@@ -442,12 +442,6 @@
   <url>
     <loc>http://globallives.dev/blog/aiga-redesign-award-2013/</loc>
     <lastmod>2013-11-27T22:35:11+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/update2013/</loc>
-    <lastmod>2013-12-02T22:22:56+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>

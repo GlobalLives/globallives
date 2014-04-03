@@ -252,17 +252,32 @@
 		echo get_fullname( $user_id );
 	}
 
-	function get_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
+	function get_profile_thumbnail_url( $profile_id, $size = 'thumbnail' ) {
 		global $field_keys;
-		$thumbnail = get_field($field_keys['user_avatar'],'user_'.$profile_id);
-		if ($thumbnail) {
-			return $thumbnail['sizes']['thumbnail'];
-		} else {
-			return get_bloginfo('template_directory') . '/img/logo-coda.png';
+
+		// Default
+		$profile_thumbnail_url = get_bloginfo('template_directory') . '/img/logo-coda.png';
+
+		// Then try Gravatar
+		if ($get_avatar = get_avatar($profile_id, $size)) {
+			preg_match("/src='(.*?)'/i", $get_avatar, $matches);
+			$profile_thumbnail_url = $matches[1];
 		}
+
+		// Then try Social Login
+		if ($social_login = get_usermeta($profile_id,'oa_social_login_user_picture')) {
+			$profile_thumbnail_url = $social_login;
+		}
+
+		// Then try the Profile page
+		if ($user_avatar = get_field($field_keys['user_avatar'],'user_'.$profile_id)) {
+			$profile_thumbnail_url = $user_avatar['sizes'][$size];
+		}
+
+		return $profile_thumbnail_url;
 	}
-	function the_profile_thumbnail_url( $profile_id, $thumbnail_size = 'thumbnail' ) {
-		echo get_profile_thumbnail_url( $profile_id, $thumbnail_size );
+	function the_profile_thumbnail_url( $profile_id, $size = 'thumbnail' ) {
+		echo get_profile_thumbnail_url( $profile_id, $size );
 	}
 
 	function is_profile_created( $user_id ) {
@@ -350,7 +365,7 @@
 		}		
 
 		// Add favorites, bookmarks
-		$favorites = get_field('favorites','user_'.$user_id);
+		$favorites = get_field($field_keys['user_favorites'],'user_'.$user_id);
 		foreach ($favorites as $favorite_id) {
 			$favorite = get_post($favorite_id);
 			$activity = array(
