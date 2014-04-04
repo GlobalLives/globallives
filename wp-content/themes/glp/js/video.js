@@ -451,10 +451,12 @@ function setup_volume_slider(event) {
 
 function turn_out_the_lights() {
     if ( $('#shadow').length ) {
+        $('.participant-video-embed').css('z-index',1);
         $('#shadow').fadeOut(500,function() { $(this).remove(); });
         $('.control-buttons-cntnr .dimmer').removeClass('active');
     }
     else {
+        $('.participant-video-embed').css('z-index',1070);
         $('body').append('<div id="shadow" class="hide"></div>');
         $('#shadow').fadeIn(500);
         $('.control-buttons-cntnr .dimmer').addClass('active');
