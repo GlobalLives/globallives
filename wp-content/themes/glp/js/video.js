@@ -55,7 +55,7 @@ $(function() {
             post_id:  $('.participant-video-embed').attr('id').replace('participant-video-embed-', '')
         },
         function(response) {
-            r = $.parseJSON(response);
+            var r = $.parseJSON(response);
             $('.comment-box').prepend(r.message).closest('form').find('input').val('');
             if (r.success) {
                 add_comment_to_marker_box(r.success, r.message);
@@ -108,14 +108,14 @@ $(function() {
             function(data) {
                 response = $.parseJSON(data);
                 $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
+                var st = function(status) {
+                    status = $.parseJSON(status);
+                    $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
+                };
                 for (var i in response.toggled){
                     clip_id = response.toggled[i];
                     $.post(glpAjax.ajaxurl,
-                        {action: 'clip_status', user_id: user_id, clip_id: clip_id },
-                        function(status) {
-                            status = $.parseJSON(status);
-                            $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
-                        }
+                        {action: 'clip_status', user_id: user_id, clip_id: clip_id }, st(status)
                     );
                 }
             }
@@ -451,7 +451,7 @@ function setup_volume_slider(event) {
 
 function turn_out_the_lights() {
     if ( $('#shadow').length ) {
-        $('.participant-video-embed').css('z-index',1);
+        $('.participant-video-embed').css('z-index',0);
         $('#shadow').fadeOut(500,function() { $(this).remove(); });
         $('.control-buttons-cntnr .dimmer').removeClass('active');
     }
