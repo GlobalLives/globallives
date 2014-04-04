@@ -20,8 +20,13 @@
 
 	<div id="stage" class="participant-detail-video container">
 		<?php
-			if ( $summary_video = get_field($field_keys['participant_summary_video'], get_the_ID()) ) {
-				query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID, 'posts_per_page' => 1 ));
+			if ($_GET['clip_id']) {
+				$clip_id = $_GET['clip_id'];
+			} elseif ($summary_video = get_field($field_keys['participant_summary_video'], get_the_ID())) {
+				$clip_id = $summary_video[0]->ID;
+			}
+			if ($clip_id) {
+				query_posts(array( 'post_type' => 'clip', 'p' => $clip_id, 'posts_per_page' => 1 ));
 				get_template_part('templates/clip','stage');
 				wp_reset_query();
 			}
