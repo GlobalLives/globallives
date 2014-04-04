@@ -16,7 +16,7 @@
 					<? endif; ?>
 				</p>
 			</div>
-			<img src="<?php the_participant_thumbnail_url( $participant->ID, 'medium' ); ?>">
+			<img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>">
 		</a></article>
 	<?php endforeach; ?>
 </div></div>
