@@ -35,11 +35,11 @@ var participants = [
 		name: '<?php echo $participant->post_title; ?>',
 		occupation: '<?php the_field($field_keys['participant_occupation'], $participant->ID); ?>',
 		location: '<?php the_field($field_keys['participant_location'], $participant->ID); ?>',
-		dob: '<?php the_field('dob', $participant->ID); ?>',
+		dob: '<?php the_field($field_keys['participant_dob'], $participant->ID); ?>',
 
 		latitude: <?php the_field($field_keys['participant_latitude'], $participant->ID); ?>,
 		longitude: <?php the_field($field_keys['participant_longitude'], $participant->ID); ?>,
-		continent: '<?php the_field('continent', $participant->ID); ?>',
+		continent: '<?php the_field($field_keys['participant_continent'], $participant->ID); ?>',
 
 		series: ['<?php echo implode("','",get_participant_taxonomy_slugs($participant->ID,'series')); ?>'],
 		series_labels: '<?php echo get_the_term_list($participant->ID,'series','',', '); ?>',

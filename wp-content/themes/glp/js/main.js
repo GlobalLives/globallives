@@ -283,7 +283,7 @@ $(function () {
 			});
 
 		var height = $('#mapview').height(),
-			width = Math.min($('#mapview').width(),$('.container').width());
+			width = height * 2; //Math.min($('#mapview').width(),$('.container').width());
 
 		// D3 Functions
 		var	projection = d3.geo.mercator()
