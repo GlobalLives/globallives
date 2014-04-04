@@ -11,7 +11,7 @@
 	    <footer>
 	    	<div class="entry-share">
 	    		<div class="comment-counter"><a href="<?php the_permalink(); ?>"><i class="icon icon-white icon-comment"></i> <?php echo get_comments_number(); ?></a></div>
-	    		<div class="addthis_toolbox">
+	    		<div class="addthis_toolbox" addthis:title="<?php the_title(); ?>" addthis:url="<?php the_permalink(); ?>">
 					<a class="addthis_counter_twitter"></a>
 					<a class="addthis_counter_facebook"></a>
 				</div>
