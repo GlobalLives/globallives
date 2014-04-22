@@ -200,6 +200,10 @@ function setup_players() {
         var clip_id = $('#participant-clip').data('clip-id'),
             next_clip_id = $('#participant-clip').data('next-clip-id');
 
+        if ($('#'+frameID).height() < 1) { // Handle Firefox iframe bug
+            $('#'+frameID).height($('.participant-clip').outerHeight());
+        }
+
         if (frameID) {
             players[frameID] = new YT.Player(frameID, {
                 events: {
