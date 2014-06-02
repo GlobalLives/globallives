@@ -18,7 +18,7 @@ $(function () {
 
 		bg.src = src;
 		bg.onload = function() {
-			var gradient = '('+fade_from+' 0, '+fade_to+' '+this.height+'px)';
+			var gradient = '('+fade_from+' 75%, '+fade_to+' 100%)';
 			var bg_url = 'url('+this.src+')';
 			if (bg.src) {
 				$('#wrap').css('background-image', '-webkit-linear-gradient' + gradient + ', ' + bg_url);
