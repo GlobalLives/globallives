@@ -1,13 +1,8 @@
 <?php
 
-/**
- * todo
- * - Support for Authorization header?
- * - Enforce maximum expiration?
- * - MVC pattern?
- * - support for JSONP
- * - API wrappers
- */
+if(!class_exists('GFForms')){
+    die();
+}
 
 
 if (!defined('GFWEBAPI_REQUIRE_SIGNATURE'))
@@ -343,6 +338,8 @@ if (class_exists("GFForms")) {
 
         public function handle_page_request() {
 
+            global $HTTP_RAW_POST_DATA;
+
             $route = get_query_var(GFWEBAPI_ROUTE_VAR);
             if (false == $route)
                 return;
@@ -355,8 +352,10 @@ if (class_exists("GFForms")) {
 
             $settings = get_option('gravityformsaddon_gravityformswebapi_settings');
 
-            if (empty($settings))
+            if (empty($settings)){
                 $this->die_not_authorized();
+            }
+
             $account_id = $settings["impersonate_account"];
             wp_set_current_user($account_id);
 
@@ -396,8 +395,18 @@ if (class_exists("GFForms")) {
                 do_action("gform_webapi_" . strtolower($method) . "_" . $collection . "_" . $collection2, $id, $id2, $format, $args);
             }
 
-            $raw_body = file_get_contents("php://input");
-            $data = json_decode($raw_body, true);
+            if (!isset($HTTP_RAW_POST_DATA)) {
+                $HTTP_RAW_POST_DATA = file_get_contents('php://input');
+            }
+
+            GFCommon::log_debug("WebAPI: HTTP_RAW_POST_DATA = " . $HTTP_RAW_POST_DATA);
+
+
+            $data = json_decode($HTTP_RAW_POST_DATA, true);
+
+
+            // todo: tidy up this mess
+
             switch ($collection) {
                 case "forms" :
                     switch ($collection2) {
@@ -508,7 +517,7 @@ if (class_exists("GFForms")) {
                             break;
                         case 'PUT' :
                             switch ($collection2) {
-                                case "properties" : // route = /entries/{id}/fields/{id2}
+                                case "properties" : // route = /entries/{id}/properties/{id2}
                                     $this->put_entry_properties($data, $id);
                                     break;
                                 case "" :
@@ -777,19 +786,29 @@ if (class_exists("GFForms")) {
         public function put_entry_properties($property_values, $entry_id){
             $this->authorize("gravityforms_edit_entries");
 
-            foreach($property_values as $key => $property_value){
-                $result = GFAPI::update_entry_property($entry_id, $key, $property_value);
-                if(is_wp_error($result)){
-                    break;
+            if(is_array($property_values)){
+                foreach($property_values as $key => $property_value){
+                    $result = GFAPI::update_entry_property($entry_id, $key, $property_value);
+                    if(is_wp_error($result)){
+                        break;
+                    }
                 }
-            }
 
-            if (is_wp_error($result)) {
-                $response = $this->get_error_response($result);
-                $status   = $this->get_error_status($result);
+                if (is_wp_error($result)) {
+                    $response = $this->get_error_response($result);
+                    $status   = $this->get_error_status($result);
+                } else {
+                    $status   = 200;
+                    $response = __("Success", "gravityforms");
+                }
+
             } else {
-                $status   = 200;
-                $response = __("Success", "gravityforms");
+                $status   = 400;
+                if(empty($property_values)){
+                    $response = __("No property values were found in the request body", "gravityforms");
+                } else {
+                    $response = __("Property values should be sent as an array", "gravityforms");
+                }
             }
 
             $this->end($status, $response);
@@ -897,6 +916,9 @@ if (class_exists("GFForms")) {
                 $sort_key = isset($_GET["sorting"]["key"]) && !empty($_GET["sorting"]["key"]) ? $_GET["sorting"]["key"] : "id";
                 $sort_dir = isset($_GET["sorting"]["direction"]) && !empty($_GET["sorting"]["direction"]) ? $_GET["sorting"]["direction"] : "DESC";
                 $sorting  = array('key' => $sort_key, 'direction' => $sort_dir);
+                if(isset($_GET["sorting"]["is_numeric"])){
+                    $sorting["is_numeric"] = $_GET["sorting"]["is_numeric"];
+                }
 
                 //paging parameters
                 $page_size = isset($_GET["paging"]["page_size"]) ? intval($_GET["paging"]["page_size"]) : 10;
@@ -1371,7 +1393,7 @@ if (class_exists("GFForms")) {
             if (time() >= $expires)
                 return false;
 
-            $is_valid = $signature == $calculated_sig;
+            $is_valid = $signature == $calculated_sig || $signature == rawurlencode($calculated_sig);
 
             return $is_valid;
         }

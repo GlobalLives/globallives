@@ -3,15 +3,15 @@ Contributors: deconf
 Donate link: http://deconf.com/donate/
 Tags: google,analytics,google analytics,dashboard,analytics dashboard,google analytics dashboard,google analytics widget,tracking,realtime,wpmu,multisite
 Requires at least: 2.8
-Tested up to: 3.7.1
-Stable tag: 4.2.6
+Tested up to: 3.9.1
+Stable tag: 4.2.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Google Analytics Dashboard for WP will display Google Analytics data and statistics inside your WordPress Blog.
+Displays Google Analytics Reports and Real-Time Statistics in your Dashboard. Automatically inserts the tracking code in every page of your website.
 
 == Description ==
-Using a widget, [Google Analytics Dashboard](http://deconf.com/google-analytics-dashboard-wordpress/) displays detailed analytics info and statistics about: number of visits, number of visitors, bounce rates, organic searches, pages per visit directly on your Admin Dashboard.
+Using a widget, [Google Analytics Dashboard](http://deconf.com/google-analytics-dashboard-wordpress/) displays detailed analytics info and statistics about: number of visits, number of visitors, bounce rates, organic searches, pages per visit directly on your Administration Dashboard.
 
 Authorized users can also view statistics like Views, UniqueViews and top searches, on frontend, at the end of each article.
 
@@ -21,17 +21,15 @@ Using this plugin, your analytics data is collected in a fast and secure manner 
 
 - you can access all websites statistics in a single widget (websites within same Google Account)
 - real-time feature, displays real-time visitors, real-time sources and per page real-time traffic details
-- cache feature, this improves loading speed up to 7 times and avoids dailyLimitExceeded, usageLimits.userRateLimitExceededUnreg, userRateLimitExceeded errors from Google Analytics API
-- two themes: Blue Theme and Light Theme
-- main dash access level settings and lock profile feature
-- access level settings for Backend statistics and analytics reports
-- access level settings for Frontend analytics data and reports
+- option to choose a default color for your charts, graphs and maps
 - option to display top 24 pages, referrers and searches (sortable by columns)
 - option to display Visitors by Country on Geo Map
 - local websites and business have an option to display cities, instead of countries, on a regional map
 - option to display Traffic Overview in Pie Charts
+- user access level settings for Backend statistics and analytics reports
+- user access level settings for Frontend analytics data and reports
 - option to display Google Analytics statistics on frontend, at the end of each article
-- simple Authorization process
+- frontend widget with website's analytics stats and analytics data anonymization feature
 - has multilingual support, a POT file is available for translations. If you have a complete translation, send me the translation file or upload it to our forum and will be included in next release.
 
 = Google Analytics Tracking =
@@ -40,8 +38,10 @@ Using this plugin, your analytics data is collected in a fast and secure manner 
 - switch between universal analytics and classic analytics tracking methods
 - supports analytics.js tracking for comaptibility with Universal Analytics web property  
 - supports ga.js tracking for comaptibility with Classic Analytics web property
-- track single domain, domain and all subdomains, multiple TLD domains
+- automatically generates the tracking code; the user can also define a custom code
 - IP address anonymization feature
+- enhanced link attribution feature
+- remarketing, demographics and interests tracking
 - track events feature: track downloads, emails and outbound links (supported for both tracking methods: classic tracking and universal tracking)
 - exclude traffic based on user level access
  
@@ -49,40 +49,36 @@ Using this plugin, your analytics data is collected in a fast and secure manner 
 
 * My [Google Analytics Dashboard](http://deconf.com/google-analytics-dashboard-wordpress/) homepage
 * Other [WordPress Plugins](http://deconf.com/wordpress/) by same author
-* [Google Analytics Dashboard](http://forum.deconf.com/wordpress-plugins-f182/) translations and support 
+* [Google Analytics Dashboard](http://deconf.com/ask/) translations and support 
 
 == Installation ==
 
 1. Upload the full directory into your wp-content/plugins directory
 2. Activate the plugin at the plugin administration page
-3. Open the plugin configuration page, which is located under Settings -> GA Dashboard (optionally enter your API Key, Client Secret and Client ID).
-4. Authorize the application using the 'Authorize Application' button
-5. Go back to the plugin configuration page, which is located under Settings -> GA Dashboard to update the final settings.
+3. Open the plugin configuration page, which is located under "Google Analytics" menu (optionally enter your API Key, Client Secret and Client ID).
+4. Authorize the plugin using the 'Authorize Plugin' button
+5. Go back to the plugin configuration page, which is located under "Google Analytics" menu to update/set your settings.
 6. Use Google Analytics Tracking options to configure/enable/disable tracking
 
-A step by step tutorial is available here: [Google Analytics Dashboard video tutorial](http://deconf.com/google-analytics-dashboard-wordpress/)
+A tutorial and a short demo is available here: [Google Analytics Dashboard video tutorial](http://deconf.com/google-analytics-dashboard-wordpress/)
 
 == Frequently Asked Questions == 
-
-= Where can I find my Google API Key, Client Secret, Client ID? =
-
-Follow this step by step video tutorial: [Google Analytics Dashboard ](http://deconf.com/google-analytics-dashboard-wordpress/)
 
 = I have several wordpress websites do I need an API Project for each one? =
 
 No, you don't. You can use the same API Project (same API Key, Client Secret and Client ID) for all your websites.
 
-= Some settings are missing from your video tutorial ... =
+= Some settings are missing in your video tutorial ... =
 
 We are constantly improving our plugin, sometimes the video tutorial may be a little outdated.
 
 = More Questions? =
 
-A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins Support](http://forum.deconf.com/wordpress-plugins-f182/)
+A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins Support](http://deconf.com/ask/)
 
 == Screenshots ==
 
-1. Google Analytics Dashboard Blue Theme
+1. Google Analytics Dashboard Blue Color
 2. Google Analytics Dashboard Real-Time
 3. Google Analytics Dashboard Settings
 4. Google Analytics Dashboard Geo Map
@@ -90,12 +86,108 @@ A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins 
 6. Google Analytics Dashboard Traffic Overview
 7. Google Analytics Dashboard statistics per page on Frontend
 8. Google Analytics Dashboard cities on region map
+9. Google Analytics Dashboard Widget
 
 == License ==
 
 This plugin it's released under the GPLv2, you can use it free of charge on your personal or commercial website.
 
 == Changelog ==
+
+= 31.05.2014 - v4.2.20 =
+- bugfix: russian country map is not working
+- bugfix: only administrator can see stats while using a cache plugin
+- bugfix: division by zero on frontend widget
+- added german translation
+- added spanish translation
+
+= 28.04.2014 - v4.2.19 =
+- added portuguese translation
+- frontend widget CSS fix
+- added remarketing, demographics and interests tracking support
+- universal analytics is now the default tracking method
+- CSS fix for dashboard widgets
+
+= 04.04.2014 - v4.2.18 =
+- translations bugfix
+- menu display tweaks
+- removed debugging log file
+- permissions fix for WPMU
+- URI fix for frontend filters (top pages and top searches)
+- exclude frontend stats in preview mode
+- updated download filters
+- by default administrators are not excluded from tracking
+- bugfix for refresh_profiles() method 
+
+= 01.04.2014 - v4.2.17 =
+- fixed on/off toggle bug for frontend settings
+
+= 30.03.2014 - v4.2.16 =
+- properly nonce verification
+
+= 28.03.2014 - v4.2.15 =
+- force token reset procedure when failing to authenticate
+- deleting refresh token transient on uninstall
+- trying to catch all possible exceptions in gapi
+- no token reset on network connection errors
+- fixed screen options bug
+- added capability to select each role for access levels and exclude tracking
+- added links to top pages table
+- added links to top referrers table
+- added option to display Chart&Totals/Chart/Totals to frontend widget
+- retrieving realtime analytics with wp ajax
+- switching to default jquery-ui-tooltip wordpress library
+- fixed settings link not displayed in plugins page
+
+= 23.03.2014 - v4.2.14 =
+- bugfix for error reporting
+- custom API credential are now saved before starting the authorization procedure
+- hiding additional info in log data
+
+= 23.03.2014 - v4.2.13 =
+- bugfix for I18n
+- implemented a basic debugging log
+- CURL required error messages
+- option to hide all other properties/views from Select Domain list
+- added periodical _transient_timeout cleanup
+- fixed bug in property refresh method
+- disable hide option when none or a single property is available
+- better handling errors when a user authorizes without actually having a Google Analytics account
+- fixed bug in token revoke method
+- fixed bug in token refresh method
+- additional validations on frontend features
+
+
+= 10.03.2014 - v4.2.12 =
+- refreshing charts when the time interval changes
+- saving last selection
+- minimizing requests by using same query serial for frontend and backend queries
+- fixed bug in dashboard's switch options for non-admins
+- fixed Notice: Undefined index: ga_dash_frontend_stats for new installs
+- no more queries if there is no token
+ 
+= 09.03.2014 - v4.2.11 =
+- added support for enhanced link attribution
+- bugfix on classic tracking code
+
+= 08.03.2014 - v4.2.10 =
+- using predefined color for pie charts 
+
+= 24.02.2014 - v4.2.9b =
+- refresh token handles additional uncaught exceptions
+- partially resolved conflicts with other analytics plugins
+
+= 23.02.2014 - v4.2.8b =
+- checkboxes replaced with switch on/off buttons
+- multiple bug fixes
+
+= 16.02.2014 - v4.2.7b =
+- plugin code rewritten from scratch
+- new enhanced, user friendly interface
+- added custom tracking code
+- added a new frontend widget
+- cache improvements, loading speeds optimization, less GAPI queries
+- responsive design
 
 = 20.01.2014 - v4.2.6 =
 - google analytics api token refresh bugfix

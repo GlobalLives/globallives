@@ -1,16 +1,16 @@
 === Social Login ===
 Contributors: ClaudeSchlesser
-Tags: social login, social connect, facebook, linkedin, livejournal, google, yahoo, twitter, openid, paypal, google, hyves, widget, plugin, social network login, comments
+Tags: social login, social connect, facebook, linkedin, livejournal, google, yahoo, twitter, openid, paypal, google, instagram, widget, plugin, social network login, comments
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 4.4
+Tested up to: 3.9.1
+Stable tag: 4.6
 
-Allow your visitors to comment and login with social networks like Twitter, Facebook, Paypal, LinkedIn, LiveJournal, OpenID, VKontakte, Google, Yahoo
+Allow your visitors to comment and login with social networks like Twitter, Facebook, Paypal, LinkedIn, Instagram, OpenID, VKontakte, Google, Yahoo
 
 == Description ==
 
 Social Login is a professionally developed and free Wordpress (BuddyPress compatible) plugin that allows your visitors to comment, 
-login and register with 20+ Social Networks like for example Facebook, Twitter, Google, LinkedIn, PayPal, LiveJournal, Hyves, Вконтакте and Yahoo.<br /><br />
+login and register with 25+ Social Networks like for example Facebook, Twitter, Google, LinkedIn, PayPal, LiveJournal, Instagram, Вконтакте and Yahoo.<br /><br />
 <strong>Make your blog social!</strong><br />
 
 <strong>Choose where to add the Social Login Plugin:</strong>
@@ -29,28 +29,32 @@ login and register with 20+ Social Networks like for example Facebook, Twitter, 
 
 <strong>Select the Social Networks/Providers:</strong>
 <ul>
- <li>Facebook</li>
- <li>Twitter</li>
- <li>Google</li>
- <li>LinkedIn</li>
- <li>PayPal</li>
- <li>Yahoo</li>
- <li>Github.com</li>
- <li>Foursquare</li>
- <li>Skyrock.com</li>
- <li>OpenID</li>
- <li>LiveJournal</li>
- <li>Wordpress.com</li>
- <li>Windows Live</li>
- <li>StackExchange</li>
+ <li>Amazon</li>
  <li>Blogger</li>
  <li>Disqus</li>
- <li>Steam</li>
- <li>YouTube</li>
- <li>Hyves</li>
+ <li>Facebook</li>
+ <li>Foursquare</li>
+ <li>Github.com</li>
+ <li>Google</li>
+ <li>Instagram</li>
+ <li>LinkedIn</li>
+ <li>LiveJournal</li>
  <li>Mail.ru</li>
- <li>Odnoklassniki.ru</li>
- <li>VKontakte (Вконтакте)</li>
+ <li>Odnoklassniki</li>
+ <li>OpenID</li>
+ <li>PayPal</li>
+ <li>Reddit</li>
+ <li>Skyrock.com</li>		
+ <li>StackExchange</li>
+ <li>Steam</li>
+ <li>Twitch.tv</li>
+ <li>Twitter</li>
+ <li>Vimeo</li>
+ <li>VKontakte</li>
+ <li>Windows Live</li>
+ <li>WordPress.com</li>
+ <li>Yahoo</li>
+ <li>YouTube</li>
 </ul>
  
 
@@ -130,6 +134,26 @@ http://docs.oneall.com/plugins/guide/social-login-wordpress/
 5. **Login** - Login formular with small buttons (Social Network Buttons are included)
 
 == Changelog ==
+
+= 4.6 =
+* Asynchronous JavaScript
+* Social Network "Instagram" added
+* Social Network "Vimeo" added
+* Social Network "Reddit" added
+* Social Network "Amazon" added
+* French Translation Added
+* Missing text domains added
+* BuddyPress Avatars fixed
+* Better WPEngine compatibility
+* Email filter fixed
+
+= 4.5 =
+* Social Network "Twitch" added
+* User Biography is now imported
+* Better API Connection detection
+* Many hooks and filters added
+* Port detection improved
+* WP Nonce added for Social Link
 
 = 4.4 =
 * Social Network "Xing" added

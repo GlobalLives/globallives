@@ -36,6 +36,7 @@ var tribe_events_bar_action;
 
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date'),
+            $tribe_events = $('#tribe-events'),
 			$tribebarselect = $('select[name=tribe-bar-view]');
 
 		/**
@@ -55,7 +56,7 @@ var tribe_events_bar_action;
 			} else {
 				$tribebar.removeClass('tribe-bar-full').addClass('tribe-bar-mini');
 			}
-			if (tribeBarWidth < 670) {
+			if (tribeBarWidth < 728) {
 				$tribebar.removeClass('tribe-bar-mini').addClass('tribe-bar-collapse');
 			} else {
 				$tribebar.removeClass('tribe-bar-collapse');
@@ -69,13 +70,35 @@ var tribe_events_bar_action;
 		});
 
 		if (!$('.tribe-events-week-grid').length) {
-			// includes temporary check for map view, as it currently has the grid view body class
-			if (!$('.events-gridview').length || tt.map_view()) {
+
+			if (ts.view !== 'month') {
+
+                // begin display date formatting
+
+                var date_format = 'yyyy-mm-dd';
+
+                if(ts.datepicker_format !== '0'){
+
+                    // we are not using the default query date format, lets grab it from the data array
+
+                    date_format = td.datepicker_formats.main[ts.datepicker_format];
+
+                    var url_date = tf.get_url_param('tribe-bar-date');
+
+                    // if url date is set and datepicker format is different from query format
+                    // we need to fix the input value to emulate that before kicking in the datepicker
+
+                    if(url_date)
+                        $tribedate.val(tribeDateFormat(url_date, ts.datepicker_format));
+                    else if(ts.view === 'day' && $tribedate.val().length !== 0) {
+                        $tribedate.val(tribeDateFormat($tribedate.val(), ts.datepicker_format));
+                    }
+                }
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
 				td.datepicker_opts = {
-					format: 'yyyy-mm-dd',
+					format: date_format,
 					autoclose: true
 				};
 
@@ -158,6 +181,20 @@ var tribe_events_bar_action;
 
 			} 
 		});
+		
+		// change views with select (for skeleton styles)
+		$tribebar.on('change', '.tribe-bar-views-select', function(e) {
+			e.preventDefault();
+			var $this = $("option:selected", this);
+
+			var target = $this.data('view');
+
+			ts.cur_url = $('option[data-view='+ target +']').val();
+			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
+			tribe_events_bar_action = 'change_view';
+			tribe_events_bar_change_view();
+
+		});
 
 		$tribebar.on('click', '#tribe-bar-collapse-toggle', function () {
 			$(this).toggleClass('tribe-bar-filters-open');
@@ -171,12 +208,17 @@ var tribe_events_bar_action;
 		$('#tribe-bar-filters').before($('#tribe-bar-dates'));
 
 		$(te).on("tribe_ev_serializeBar", function () {
-			$('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {
+			$('form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence').each(function () {
 				var $this = $(this);
 				if ($this.is('#tribe-bar-date')) {
 					if ($this.val().length) {
-						ts.params[$this.attr('name')] = $this.val();
-						ts.url_params[$this.attr('name')] = $this.val();
+                        if(ts.view === 'month'){
+                            ts.params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
+                            ts.url_params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
+                        } else {
+                            ts.params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
+                            ts.url_params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
+                        }
 					} else if($this.is('.placeholder') && $this.is('.bd-updated')){
 						ts.url_params[$this.attr('name')] = $this.attr('data-oldDate');
 					} else {
@@ -215,11 +257,21 @@ var tribe_events_bar_action;
 			tribe_events_bar_action = 'change_view';
 
 			if (ts.view === 'month' && $tribedate.length) {
-				var dp_date = $tribedate.val();
-				if (dp_date.length === 7) {
-					$tribedate.val(dp_date + tf.get_day());
+				var dp_date = $tribedate.val(),
+                    day = tf.get_day();
 
-				}
+                if(ts.datepicker_format !== '0'){
+                    if(day.length){
+                        dp_date = tribeDateFormat($tribedate.bootstrapDatepicker('getDate'), 'tribeMonthQuery');
+                        $tribedate.val(dp_date + day);
+                    } else {
+                        $tribedate.val('');
+                    }
+
+                } else {
+                    if (dp_date.length === 7)
+                        $tribedate.val(dp_date + day);
+                }
 
 			}
 
@@ -227,16 +279,22 @@ var tribe_events_bar_action;
 
 			$(te).trigger('tribe_ev_preCollectBarParams');
 
-			$('#tribe-bar-form input').each(function () {
+			$('#tribe-bar-form input, #tribe-bar-form select').each(function () {
 				var $this = $(this);
 				if ($this.val().length && !$this.hasClass('tribe-no-param')) {
-					if ($this.is(':checkbox')) {
-						if ($this.is(':checked')) {
-							ts.url_params[$this.attr('name')] = $this.val();
-						}
-					} else {
-						ts.url_params[$this.attr('name')] = $this.val();
-					}
+                    if (ts.view !== 'month' && ts.datepicker_format !== '0' && $this.is($tribedate)) {
+
+                        ts.url_params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), 'tribeQuery');
+
+                    } else {
+                        if ($this.is(':checkbox')) {
+                            if ($this.is(':checked')) {
+                                ts.url_params[$this.attr('name')] = $this.val();
+                            }
+                        } else {
+                            ts.url_params[$this.attr('name')] = $this.val();
+                        }
+                    }
 				}
 			});
 

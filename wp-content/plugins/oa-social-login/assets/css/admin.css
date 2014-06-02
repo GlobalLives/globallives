@@ -155,7 +155,7 @@
   display: inline-block;
 }
 
-.oa_social_login_provider_aol {
+.oa_social_login_provider_vimeo {
   background-position: -2px -1px;
 }
 
@@ -175,7 +175,7 @@
   background-position: -150px -1px;
 }
 
-.oa_social_login_provider_hyves {
+.oa_social_login_provider_reddit {
   background-position: -187px -1px;
 }
 
@@ -257,4 +257,11 @@
 
 .oa_social_login_provider_twitch {
   background-position: -1112px -1px;
+}
+.oa_social_login_provider_amazon {
+  background-position: -1149px -1px;
+}
+
+.oa_social_login_provider_instagram {
+  background-position: -1186px -1px;
 }

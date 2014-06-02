@@ -1,5 +1,9 @@
 <?php
 
+if(!class_exists('GFForms')){
+    die();
+}
+
 Class GFNotification {
 
 	private static $supported_fields = array("checkbox", "radio", "select", "text", "website", "textarea", "email", "hidden", "number", "phone", "multiselect", "post_title",
@@ -29,6 +33,9 @@ Class GFNotification {
             $notification_id = rgpost("gform_notification_id");
 
         $form = RGFormsModel::get_form_meta($form_id);
+
+        $form = apply_filters("gform_form_notification_page_{$form_id}", apply_filters("gform_form_notification_page", $form, $notification_id), $notification_id);
+
         $notification = !$notification_id ? array() : self::get_notification($form, $notification_id);
 
         // added second condition to account for new notifications with errors as notification ID will
@@ -40,12 +47,18 @@ Class GFNotification {
         if(rgpost("save")){
 
             check_admin_referer('gforms_save_notification', 'gforms_save_notification');
+            
+            //clear out notification because it could have legacy data populated
+            $notification = array();
 
             $is_update = true;
 
             if($is_new_notification){
                 $notification_id = uniqid();
                 $notification["id"] = $notification_id;
+            }
+            else {
+				$notification["id"] = $notification_id;
             }
 
             $notification["name"] = rgpost("gform_notification_name");

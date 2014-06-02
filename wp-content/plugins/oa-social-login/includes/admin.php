@@ -127,29 +127,47 @@ function oa_social_login_admin_autodetect_api_connection_handler ()
 	//Check AJAX Nonce
 	check_ajax_referer ('oa_social_login_ajax_nonce');
 
-	//Check CURL HTTPS - Port 443
-	if (oa_social_login_check_curl (true) === true)
+	//Check if CURL is available
+	if (oa_social_login_check_curl_available ())
 	{
-		echo 'success_autodetect_api_curl_https';
-		die ();
+		//Check CURL HTTPS - Port 443
+		if (oa_social_login_check_curl (true) === true)
+		{
+			echo 'success_autodetect_api_curl_https';
+			die ();
+		}
+		//Check CURL HTTP - Port 80
+		elseif (oa_social_login_check_curl (false) === true)
+		{
+			echo 'success_autodetect_api_curl_http';
+			die ();
+		}
+		else
+		{
+			echo 'error_autodetect_api_curl_ports_blocked';
+			die ();
+		}
 	}
-	//Check CURL HTTP - Port 80
-	elseif (oa_social_login_check_curl (false) === true)
+	//Check if FSOCKOPEN is available
+	elseif (oa_social_login_check_fsockopen_available())
 	{
-		echo 'success_autodetect_api_curl_http';
-		die ();
-	}
-	//Check FSOCKOPEN HTTPS - Port 443
-	elseif (oa_social_login_check_fsockopen (true) == true)
-	{
-		echo 'success_autodetect_api_fsockopen_https';
-		die ();
-	}
-	//Check FSOCKOPEN HTTP - Port 80
-	elseif (oa_social_login_check_fsockopen (false) == true)
-	{
-		echo 'success_autodetect_api_fsockopen_http';
-		die ();
+		//Check FSOCKOPEN HTTPS - Port 443
+		if (oa_social_login_check_fsockopen (true) == true)
+		{
+			echo 'success_autodetect_api_fsockopen_https';
+			die ();
+		}
+		//Check FSOCKOPEN HTTP - Port 80
+		elseif (oa_social_login_check_fsockopen (false) == true)
+		{
+			echo 'success_autodetect_api_fsockopen_http';
+			die ();
+		}
+		else
+		{
+			echo 'error_autodetect_api_fsockopen_ports_blocked';
+			die ();
+		}
 	}
 
 	//No working handler found
@@ -297,8 +315,10 @@ function oa_social_login_admin_js ($hook)
 				'oa_admin_js_116' => __ ('Connection handler does not work, try using the Autodetection', 'oa_social_login'),
 				'oa_admin_js_201a' => __ ('Detected CURL on Port 443 - do not forget to save your changes!', 'oa_social_login'),
 				'oa_admin_js_201b' => __ ('Detected CURL on Port 80 - do not forget to save your changes!', 'oa_social_login'),
+				'oa_admin_js_201c' => __ ('CURL is available but both ports (80, 443) are blocked for outbound requests', 'oa_social_login'),
 				'oa_admin_js_202a' => __ ('Detected FSOCKOPEN on Port 443 - do not forget to save your changes!', 'oa_social_login'),
 				'oa_admin_js_202b' => __ ('Detected FSOCKOPEN on Port 80 - do not forget to save your changes!', 'oa_social_login'),
+				'oa_admin_js_202c' => __ ('FSOCKOPEN is available but both ports (80, 443) are blocked for outbound requests', 'oa_social_login'),
 				'oa_admin_js_211' => sprintf (__ ('Autodetection Error - our <a href="%s" target="_blank">documentation</a> helps you fix this issue.', 'oa_social_login'), 'http://docs.oneall.com/plugins/guide/social-login-wordpress/#help')
 			));
 	}
@@ -366,6 +386,7 @@ function oa_social_login_settings_validate ($settings)
 			'api_connection_handler',
 			'api_connection_use_https',
 			'api_subdomain',
+		  'asynchronous_javascript',
 			'api_key',
 			'api_secret',
 			'providers'
@@ -427,6 +448,9 @@ function oa_social_login_settings_validate ($settings)
 
 			$sanitzed_settings ['api_subdomain'] = $api_subdomain;
 		}
+
+		//Sanitize Synchronous Flag
+		$sanitzed_settings ['asynchronous_javascript'] = (empty ($sanitzed_settings ['asynchronous_javascript']) ? 0 : 1);
 
 		//Done
 		return $sanitzed_settings;
@@ -517,7 +541,7 @@ function oa_social_login_settings_validate ($settings)
 		}
 
 		//Redirection Settings: Form Login
-		$sanitzed_settings ['plugin_login_form_redirect'] = (in_array ($sanitzed_settings ['plugin_login_form_redirect'], array ('dashboard','homepage','custom')) ? $sanitzed_settings ['plugin_login_form_redirect'] : 'homepage');
+		$sanitzed_settings ['plugin_login_form_redirect'] = (in_array ($sanitzed_settings ['plugin_login_form_redirect'], array ('current','dashboard','homepage','custom')) ? $sanitzed_settings ['plugin_login_form_redirect'] : 'homepage');
 		if ($sanitzed_settings ['plugin_login_form_redirect'] == 'custom')
 		{
 			if (empty ($sanitzed_settings ['plugin_login_form_redirect_custom_url']))
@@ -532,7 +556,7 @@ function oa_social_login_settings_validate ($settings)
 
 
 		//Redirection Settings: Form Registration
-		$sanitzed_settings ['plugin_registration_form_redirect'] = (in_array ($sanitzed_settings ['plugin_registration_form_redirect'], array ('dashboard','homepage','custom')) ? $sanitzed_settings ['plugin_registration_form_redirect'] : 'dashboard');
+		$sanitzed_settings ['plugin_registration_form_redirect'] = (in_array ($sanitzed_settings ['plugin_registration_form_redirect'], array ('current','dashboard','homepage','custom')) ? $sanitzed_settings ['plugin_registration_form_redirect'] : 'dashboard');
 		if ($sanitzed_settings ['plugin_registration_form_redirect'] == 'custom')
 		{
 			if (empty ($sanitzed_settings ['plugin_registration_form_redirect_custom_url']))
@@ -564,7 +588,7 @@ function oa_display_social_login_setup ()
 	?>
 		<div class="wrap">
 			<div id="oa_social_login_page" class="oa_social_login_setup">
-				<h2>OneAll Social Login</h2>
+				<h2>OneAll Social Login <?php echo (defined ('OA_SOCIAL_LOGIN_VERSION') ? OA_SOCIAL_LOGIN_VERSION : ''); ?></h2>
 				<h2 class="nav-tab-wrapper">
           <a class="nav-tab nav-tab-active" href="admin.php?page=oa_social_login_setup"><?php _e ('Setup', 'oa_social_login'); ?></a>
           <a class="nav-tab" href="admin.php?page=oa_social_login_settings"><?php _e ('Settings', 'oa_social_login'); ?></a>
@@ -574,7 +598,7 @@ function oa_display_social_login_setup ()
 					{
 						?>
 							<p>
-								<?php _e ('Allow your visitors to comment, login and register with 20+ Social Networks like for example Twitter, Facebook, LinkedIn, Hyves, VKontakte, Google or Yahoo.', 'oa_social_login'); ?>
+								<?php _e ('Allow your visitors to comment, login and register with 20+ Social Networks like for example Twitter, Facebook, LinkedIn, Instagram, VKontakte, Google or Yahoo.', 'oa_social_login'); ?>
 								<strong><?php _e ('Draw a larger audience and increase your user engagement in a  few simple steps.', 'oa_social_login'); ?> </strong>
 							</p>
 							<div class="oa_social_login_box" id="oa_social_login_box_status">
@@ -590,7 +614,7 @@ function oa_display_social_login_setup ()
 									<a class="button-secondary" href="https://app.oneall.com/signup/" target="_blank"><strong><?php _e ('Click here to setup your free account', 'oa_social_login'); ?></strong></a>
 								</p>
 								<h3>
-									<?php printf (__ ('You are in good company! This plugin is used on more than %s websites!', 'oa_social_login'), '150,000'); ?>
+									<?php printf (__ ('You are in good company! This plugin is used on more than %s websites!', 'oa_social_login'), '250,000'); ?>
 								</h3>
 							</div>
 						<?php
@@ -736,6 +760,56 @@ function oa_display_social_login_setup ()
 							</td>
 						</tr>
 					</table>
+
+					<table class="form-table oa_social_login_table">
+						<tr class="row_head">
+							<th colspan="2"><?php _e ('JavaScript Settings', 'oa_social_login'); ?>
+							</th>
+						</tr>
+						<?php
+
+						  //We dont have a value yet
+						  if ( ! isset ($settings['asynchronous_javascript']))
+						  {
+						    //No subdomain, this is probably a new installation.
+						    if ( ! isset ($settings ['api_subdomain']))
+						    {
+						      //Enable asynchronous JavaScript.
+						      $asynchronous_javascript = 1;
+						    }
+						    //We have a subdomain, this is probably an updated version of the plugin.
+						    else
+						    {
+						      //Disable asynchronous JavaScript.
+						      $asynchronous_javascript = 0;
+						    }
+						  }
+						  //We have a value.
+						  else
+						  {
+						    $asynchronous_javascript = ( ! empty ($settings ['asynchronous_javascript']) ? 1 : 0);
+						  }
+
+						?>
+						<tr class="row_even">
+							<td rowspan="2" class="row_multi" style="width:200px">
+								<label><?php _e ('JavaScript Usage', 'oa_social_login'); ?>:</label>
+							</td>
+							<td>
+								<input type="radio" id="oa_social_login_asynchronous_javascript_1" name="oa_social_login_settings[asynchronous_javascript]" value="1" <?php echo ( ! empty ($asynchronous_javascript) ? 'checked="checked"' : ''); ?> />
+								<label for="oa_social_login_asynchronous_javascript_1"><?php _e ('Asynchronous JavaScript', 'oa_social_login'); ?> <strong>(<?php _e ('Default', 'oa_social_login') ?>)</strong></label><br />
+								<span class="description"><?php _e ('Background loading without interfering with the display and behavior of the existing page.', 'oa_social_login'); ?></span>
+							</td>
+						</tr>
+						<tr class="row_even">
+							<td>
+								<input type="radio" id="oa_social_login_asynchronous_javascript_0" name="oa_social_login_settings[asynchronous_javascript]" value="0" <?php echo (empty ($asynchronous_javascript) ? 'checked="checked"' : ''); ?> />
+								<label for="oa_social_login_asynchronous_javascript_0"><?php _e ('Synchronous JavaScript', 'oa_social_login'); ?> </label><br />
+								<span class="description"><?php _e ('Real-time loading when the page is being rendered by the browser.', 'oa_social_login'); ?></span>
+							</td>
+						</tr>
+					</table>
+
 					<table class="form-table oa_social_login_table">
 						<tr class="row_head">
 							<th colspan="2">
@@ -787,7 +861,7 @@ function oa_display_social_login_settings ()
 	?>
 		<div class="wrap">
 			<div id="oa_social_login_page" class="oa_social_login_settings">
-				<h2>OneAll Social Login</h2>
+				<h2>OneAll Social Login <?php echo (defined ('OA_SOCIAL_LOGIN_VERSION') ? OA_SOCIAL_LOGIN_VERSION : ''); ?></h2>
 				<h2 class="nav-tab-wrapper">
           <a class="nav-tab" href="admin.php?page=oa_social_login_setup"><?php _e ('Setup', 'oa_social_login'); ?></a>
           <a class="nav-tab nav-tab-active" href="admin.php?page=oa_social_login_settings"><?php _e ('Settings', 'oa_social_login'); ?></a>
@@ -833,7 +907,7 @@ function oa_display_social_login_settings ()
 						<tr class="row_even">
 							<td>
 								<?php
-									$plugin_caption = (isset ($settings ['plugin_caption']) ? $settings ['plugin_caption'] : _e ('Connect with:', 'oa_social_login'));
+									$plugin_caption = (isset ($settings ['plugin_caption']) ? $settings ['plugin_caption'] : __ ('Connect with:', 'oa_social_login'));
 								?>
 								<input type="text" name="oa_social_login_settings[plugin_caption]" size="90" value="<?php echo htmlspecialchars ($plugin_caption); ?>" />
 							</td>
@@ -1035,9 +1109,10 @@ function oa_display_social_login_settings ()
 						<tr class="row_even">
 							<td>
 								<?php
-									$plugin_login_form_redirect = ((isset ($settings ['plugin_login_form_redirect']) AND in_array ($settings ['plugin_login_form_redirect'], array ('homepage','dashboard','custom'))) ? $settings ['plugin_login_form_redirect'] : 'homepage');
+									$plugin_login_form_redirect = ((isset ($settings ['plugin_login_form_redirect']) AND in_array ($settings ['plugin_login_form_redirect'], array ('current','homepage','dashboard','custom'))) ? $settings ['plugin_login_form_redirect'] : 'homepage');
 									$plugin_login_form_redirect_custom_url = (isset ($settings ['plugin_login_form_redirect_custom_url']) ? $settings ['plugin_login_form_redirect_custom_url'] : '');
 								?>
+								<input type="radio" name="oa_social_login_settings[plugin_login_form_redirect]" value="current" <?php echo ($plugin_login_form_redirect == 'current' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users back to the current page', 'oa_social_login'); ?><br />
 								<input type="radio" name="oa_social_login_settings[plugin_login_form_redirect]" value="homepage" <?php echo ($plugin_login_form_redirect == 'homepage' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to the homepage of my blog', 'oa_social_login'); ?> <strong>(<?php _e ('Default', 'oa_social_login') ?>)</strong><br />
 								<input type="radio" name="oa_social_login_settings[plugin_login_form_redirect]" value="dashboard" <?php echo ($plugin_login_form_redirect == 'dashboard' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to their account dashboard', 'oa_social_login'); ?><br />
 								<input type="radio" name="oa_social_login_settings[plugin_login_form_redirect]" value="custom" <?php echo ($plugin_login_form_redirect == 'custom' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to the following url', 'oa_social_login'); ?>:<br />
@@ -1073,9 +1148,10 @@ function oa_display_social_login_settings ()
 						<tr class="row_even">
 							<td>
 								<?php
-									$plugin_registration_form_redirect = ((isset ($settings ['plugin_registration_form_redirect']) AND in_array ($settings ['plugin_registration_form_redirect'], array ('homepage','dashboard','custom'))) ? $settings ['plugin_registration_form_redirect'] : 'dashboard');
+									$plugin_registration_form_redirect = ((isset ($settings ['plugin_registration_form_redirect']) AND in_array ($settings ['plugin_registration_form_redirect'], array ('current','homepage','dashboard','custom'))) ? $settings ['plugin_registration_form_redirect'] : 'dashboard');
 									$plugin_registration_form_redirect_custom_url = (isset ($settings ['plugin_registration_form_redirect_custom_url']) ? $settings ['plugin_registration_form_redirect_custom_url'] : '');
 								?>
+								<input type="radio" name="oa_social_login_settings[plugin_registration_form_redirect]" value="current" <?php echo ($plugin_registration_form_redirect == 'current' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users back to the current page', 'oa_social_login'); ?><br />
 								<input type="radio" name="oa_social_login_settings[plugin_registration_form_redirect]" value="homepage" <?php echo ($plugin_registration_form_redirect == 'homepage' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to the homepage of my blog', 'oa_social_login'); ?><br />
 								<input type="radio" name="oa_social_login_settings[plugin_registration_form_redirect]" value="dashboard" <?php echo ($plugin_registration_form_redirect == 'dashboard' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to their account dashboard', 'oa_social_login'); ?> <strong>(<?php _e ('Default', 'oa_social_login') ?>)</strong><br />
 								<input type="radio" name="oa_social_login_settings[plugin_registration_form_redirect]" value="custom" <?php echo ($plugin_registration_form_redirect == 'custom' ? 'checked="checked"' : ''); ?> /> <?php _e ('Redirect users to the following url', 'oa_social_login'); ?>:<br />

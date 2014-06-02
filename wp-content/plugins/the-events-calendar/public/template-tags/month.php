@@ -47,6 +47,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		do_action('tribe_events_after_show_month');
 
+		$month_class->shutdown_view();
+
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {
@@ -225,13 +227,14 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime(date('Y-m-01'), current_time('timestamp')) );
-		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
+		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
+			$date = $_REQUEST["tribe-bar-date"] . '-01';
+		} else if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
 			$date = $_REQUEST["eventDate"] . '-01';
 		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
-			$date = $wp_query->query_vars['eventDate'];
+			$date = $wp_query->query_vars['eventDate'].'-01';
 		}
-
 		return apply_filters( 'tribe_get_month_view_date', $date );
 	}
 
@@ -247,7 +250,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$url = tribe_get_previous_month_link();
 		$date = TribeEvents::instance()->previousMonth( tribe_get_month_view_date() );
 		$text = tribe_get_previous_month_text();
-		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="prev">&laquo; '. $text .' </a>';
+		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="prev"><span>&laquo;</span> '. $text .' </a>';
 		echo apply_filters('tribe_events_the_previous_month_link', $html);
 	}
 
@@ -264,7 +267,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		try {
 			$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
 			$text = tribe_get_next_month_text();
-			$html = '<a data-month="'. $date .'" href="' . $url . '" rel="next">'. $text .' &raquo;</a>';
+			$html = '<a data-month="'. $date .'" href="' . $url . '" rel="next">'. $text .' <span>&raquo;</span></a>';
 		} catch ( OverflowException $e ) {
 			$html = '';
 		}

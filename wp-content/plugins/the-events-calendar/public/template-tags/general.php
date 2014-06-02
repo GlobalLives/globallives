@@ -55,11 +55,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $slug
 	 * @param null|string $name
+	 * @param array $data optional array of vars to inject into the template part
 	 * @uses TribeEventsTemplates::getTemplateHierarchy
 	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
-	function tribe_get_template_part( $slug, $name = null ) {
+	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 		// Execute code for this part
 		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
@@ -73,6 +74,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// Allow template parts to be filtered
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
+		// Make any provided variables available in the template's symbol table
+		if ( is_array( $data ) ) extract( $data );
 
 		// loop through templates, return first one found.
 		foreach( $templates as $template ) {
@@ -166,6 +169,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
+		if ( empty ( $args['eventDisplay'] ) ) {
+			$args['eventDisplay'] = 'custom';
+		}
 		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
 	}
 
@@ -405,7 +411,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
-		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
+		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
+		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
 		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events-calendar').'" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
@@ -423,48 +430,70 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
-		$after = '<div class="tribe-events-after-html">'. stripslashes( shortcode_unautop( $after ) ) .'</div>';
+		$after = do_shortcode( stripslashes( shortcode_unautop( $after ) ) );
+		$after = '<div class="tribe-events-after-html">' . $after . '</div>';
 
 		echo apply_filters( 'tribe_events_after_html', $after );
 	}
 
 	/**
-	 * Prints out classes on an event wrapper
+	 * Prints out or returns classes on an event wrapper
 	 *
-	 * @return void
+	 * @param $event|0 post id or object
+	 * @param $echo|true
+	 * @return void or string
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes() {
-	    global $post, $wp_query;
+	function tribe_events_event_classes( $event = 0, $echo = true ) {
+		global $post, $wp_query;
 
 		// May be called when the global $post object does not exist - ie during ajax loads of various views
 		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
-		if ( ! is_object( $post ) ) $post = (object) array( 'ID' => 0 );
 
-	    $classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
-	    $tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
+		if ( is_a( 'WP_Post', $event ) ) {
+			$event_id = $event->ID;
+		} elseif ( $event !== 0 ) {
+			$event_id = $event;
+		} else {
+			$event_id = $post->ID;
+		}
 
-	    foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
-	        $classes[] = 'tribe-events-category-'. $tribe_cat_slug;
-	    }
-	    if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
-	        $classes[] = 'tribe-events-venue-'. $venue_id;
-	    }
-	    if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
-	        $classes[] = 'tribe-events-organizer-'. $organizer_id;
-	    }
-	    // added first class for css
-	    if ( ( $wp_query->current_post == 0 ) && !tribe_is_day() ) {
-	        $classes[] = 'tribe-events-first';
-	    }
-	    // added last class for css
-	    if ( $wp_query->current_post == $wp_query->post_count-1 ) {
-	        $classes[] = 'tribe-events-last';
-	        }
+		if ( ! $event_id ) {
+			return '';
+		}
 
-	    $classes = apply_filters('tribe_events_event_classes', $classes);
-	    echo implode(' ', $classes);
+		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
+
+		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
+			if ( ! empty( $tribe_cat_slug ) ) {
+				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
+			}
+		}
+		if ( $venue_id = tribe_get_venue_id( $event_id ) ) {
+			$classes[] = 'tribe-events-venue-' . $venue_id;
+		}
+		if ( $organizer_id = tribe_get_organizer_id( $event_id ) ) {
+			$classes[] = 'tribe-events-organizer-' . $organizer_id;
+		}
+		// added first class for css
+		if ( ( $wp_query->current_post == 0 ) && ! tribe_is_day() ) {
+			$classes[] = 'tribe-events-first';
+		}
+		// added last class for css
+		if ( $wp_query->current_post == $wp_query->post_count - 1 ) {
+			$classes[] = 'tribe-events-last';
+		}
+
+		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		if ( $echo ) {
+			echo implode( ' ', $classes );
+		} else {
+			return implode( ' ', $classes );
+		}
 	}
+
 	/**
 	 * Prints out data attributes used in the template header tags
 	 *
@@ -492,6 +521,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 				}
 			break;
 		}
+
+		if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
+			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
+		}
+
 		$attrs = apply_filters('tribe_events_header_attributes', $attrs, $current_view);
 		foreach ($attrs as $attr => $value) {
 			echo " $attr=".'"'.$value.'"';
@@ -544,7 +578,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_events_admin_show_cost_field(){
-		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		$modules = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost = empty( $modules ) ||
 					 class_exists( 'Event_Tickets_PRO' ) ||
@@ -573,15 +607,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$cost = esc_html( $cost );
 		}
 
-		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
-			$currency = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
-			if ( ! $currency ) $currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
-
-			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
-			if ( ! $reverse_position ) $reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
-			else $reverse_position = ( 'suffix' === $reverse_position );
-
-			$cost = $reverse_position ? $cost . $currency : $currency . $cost;
+		// check if the currency symbol is desired, and it's just a number in the field
+		// be sure to account for european formats in decimals, and thousands separators
+		if ( $withCurrencySymbol && is_numeric( str_replace(array(',','.'), '', $cost))) {
+			$cost = tribe_format_currency( $cost );
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
@@ -598,6 +627,42 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_formatted_cost( $postId = null ) {
 		return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
+	}
+
+	/**
+	 * Receives a float and formats it with a currency symbol
+	 *
+	 * @param $cost pricing to format
+	 */
+	function tribe_format_currency( $cost, $postId = null, $currency_symbol = null, $reverse_position = null ) {
+
+		$postId = TribeEvents::postIdHelper( $postId );
+
+		// if no currency symbol was passed, and we're looking at a particular event,
+		// let's check if there was a currency symbol set on that event
+		if ( $postId && $currency_symbol == null ) {
+			$currency_symbol = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
+		}
+
+		// if no currency symbol was passed, or we're not looking at a particular event,
+		// let's get the default currency symbol
+		if ( ! $postId || ! $currency_symbol ) {
+			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+		}
+
+		if ( $postId && $reverse_position == null ) {
+			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
+			$reverse_position = ( 'suffix' === $reverse_position );
+		}
+
+		if ( ! $reverse_position || ! $postId ) {
+			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
+		}
+
+		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+
+		return $cost;
+
 	}
 
 	/**
@@ -723,77 +788,65 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.0
 	 * @param int     $post_id
 	 * @param string  $size
+	 * @param bool $link
 	 * @return string
 	 */
-	function tribe_event_featured_image( $post_id = null, $size = 'full' ) {
+	function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true ) {
 		if ( is_null( $post_id ) )
 			$post_id = get_the_ID();
 		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
 		$featured_image = '';
-		if ( !empty( $image_src ) ) {
+		
+		//if link is not specifically excluded, then include <a>
+		if ( !empty( $image_src ) && $link ) {
 			$featured_image .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></a></div>';
+		} elseif ( !empty( $image_src ) ) {
+			$featured_image .= '<div class="tribe-events-event-image"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></div>';
 		}
 		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size, $image_src );
 	}
 
 	/**
-	 * show the recurring event info in a tooltip
+	 * Get the date format specified in the tribe options
 	 *
-	 * return the details of the start/end date/time
+	 * @param bool $with_year
 	 *
-	 * @since  3.0
-	 * @param int     $post_id
-	 * @return string
+	 * @return mixed
 	 */
-	function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
-		if ( is_null( $post_id ) )
-			$post_id = get_the_ID();
-		$tooltip = '';
-		if ( class_exists( 'TribeEventsPro' ) ) { // should this be a template tag?
-			if ( tribe_is_recurring_event( $post_id ) ) {
-				$tooltip .= '<div class="recurringinfo">';
-				$tooltip .= '<div class="event-is-recurring">';
-				$tooltip .= '<span class="tribe-events-divider">|</span>';
-				$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
-				$tooltip .= sprintf(' <a href="%s">%s</a>',
-					tribe_all_occurences_link( $post_id, false ),
-					__( '(See all)', 'tribe-events-calendar' )
-					);
-				$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
-				$tooltip .= '<div class="tribe-events-event-body">';
-				$tooltip .= tribe_get_recurrence_text( $post_id );
-				$tooltip .= '</div>';
-				$tooltip .= '<span class="tribe-events-arrow"></span>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-			}
+	function tribe_get_date_format( $with_year = false ) {
+		if ( $with_year ) {
+			$format = tribe_get_option( 'dateWithYearFormat', get_option('date_format') );
+		} else {
+			$format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
 		}
-		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
+
+		return apply_filters( 'tribe_date_format', $format );
+
+	}
+
+	/**
+	 * @param bool $with_year
+	 *
+	 * @return mixed|void
+	 */
+	function tribe_get_datetime_format( $with_year = false ) {
+		$format = tribe_get_date_format( $with_year );
+		$format .= tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$format .= get_option( 'time_format' );
+
+		return apply_filters( 'tribe_datetime_format', $format );
+
 	}
 
 	/**
 	 * Return the details of the start/end date/time.
 	 *
-	 * The highest level means of customizing this function's output is simply to adjust the WordPress date and time
-	 * formats (via the General Settings admin screen). Beyond that however there are two filters which can be used to
-	 * exercise further control here.
+	 * The highest level means of customizing this function's output is simply to adjust the date format settings under
+	 * Events > Settings > Display, and WordPress time formats (via the General Settings admin screen).
+	 * Beyond that, however, there are two filters which can be used to exercise further control here.
 	 *
 	 * The first is 'tribe_events_event_schedule_details_formatting' which allows an array of format settings to be
 	 * altered - it's basic make-up is as a simple set of key:value pairs as follows.
-	 *
-	 * "datetime_separator": this is inserted between the date and the time and defaults to an ampersat @ character.
-	 *     Note that if you modify this you should ordinarily be careful to include leading and trailing spaces (an
-	 *     example might be ' at ').
-	 *
-	 * "same_year_format": if an event starts and ends in the same year it's assumed that including the year in the
-	 *     output is superfluous. That being the case the function changes the date format, by default, to 'F j'. This
-	 *     may not be ideal in all locales so an alternative can be provided here. Do note that this substitution is
-	 *     only ever made if A) the event starts and ends in the same year and B) the date format does not include any
-	 *     time formatting characters.
-	 *
-	 *     This can also effectively be used to turn off the assumption that the year should be omitted, simply by
-	 *     setting it to the value of the 'date_format' option, for example.
 	 *
 	 * "show_end_time": for single day events only (not including all day events) it may not always be desirable to
 	 *     include the end time. In that situation, this setting can be set to false and the end time will not be
@@ -808,8 +861,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 * @param int|null $event
 	 * @return string
+	 * @TODO use tribe_get_datetime_format() and related functions if possible
 	 */
-	function tribe_events_event_schedule_details( $event = null ) {
+	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -818,16 +872,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( is_numeric( $event ) )
 			$event = get_post( $event );
 
-		$schedule = '';
+		$schedule = '<span class="date-start dtstart">';
 		$format = '';
-		$date_format = get_option( 'date_format' );
+		$date_without_year_format = tribe_get_date_format();
+		$date_with_year_format = tribe_get_date_format( true );
 		$time_format = get_option( 'time_format' );
+		$datetime_separator = tribe_get_option('dateTimeSeparator', ' @ ');
+		$time_range_separator = tribe_get_option('timeRangeSeparator', ' - ');
 		$microformatStartFormat = tribe_get_start_date( $event, false, 'Y-m-dTh:i' );
 		$microformatEndFormat = tribe_get_end_date( $event, false, 'Y-m-dTh:i' );
 
 		$settings = array(
-			'datetime_separator' => ' @ ',
-			'same_year_format' => 'F j',
 			'show_end_time' => true,
 			'time' => true,
 		);
@@ -836,79 +891,57 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( ! $settings['time'] ) $settings['show_end_time'] = false;
 		extract($settings);
 
-		// If the date format will result in the year being shown but does *not* include any time formatting...
-		if ( TribeDateUtils::formatContainsYear( $date_format ) && ! TribeDateUtils::formatContainsTime( $date_format ) ) {
-			// ... and it starts and ends in the current year then there is no need to display the year
-			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) )
-				$format = $same_year_format;
+		$format = $date_with_year_format;
+
+		// if it starts and ends in the current year then there is no need to display the year
+		if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+			$format = $date_without_year_format;
 		}
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
 			$format2ndday = $format;
 
-			// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
-			if ( get_option( 'date_format' ) == TribeDateUtils::DATEONLYFORMAT ) {
-				//If it's all day and the end date is in the same month and year, just show the day.
-				if ( tribe_event_is_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
-					$format2ndday = 'j';
-				}
+			//If it's all day and the end date is in the same month and year, just show the day.
+			if ( tribe_event_is_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
+				$format2ndday = 'j';
 			}
 
 			if ( tribe_event_is_all_day( $event ) ) {
-				// If the multi-day event begins and ends in the same month, just show the month once.
-				if ( tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
-					$schedule .= '<span class="date-start dtstart">';
-					$schedule .= tribe_get_start_date( $event, true, $format );
-					$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-					$schedule .= '</span> - ';
-					$schedule .= '<span class="date-end dtend">';
-					$schedule .= tribe_get_end_date( $event, true, $format2ndday );
-					$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-					$schedule .= '</span>';
-				} else {
-					$schedule .= '<span class="date-start dtstart">';
-					$schedule .= tribe_get_start_date( $event, true, $format );
-					$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-					$schedule .= '</span> - ';
-					$schedule .= '<span class="date-end dtend">';
-					$schedule .= tribe_get_end_date( $event, true, $format2ndday );
-					$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-					$schedule .= '</span>';
-				}
+				$schedule .= tribe_get_start_date( $event, true, $format );
+				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+				$schedule .= '</span>'.$time_range_separator;
+				$schedule .= '<span class="date-end dtend">';
+				$schedule .= tribe_get_end_date( $event, true, $format2ndday );
+				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 			} else {
-				$schedule .= '<span class="date-start dtstart">';
 				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-				$schedule .= '</span> - ';
+				$schedule .= '</span>'.$time_range_separator;
 				$schedule .= '<span class="date-end dtend">';
 				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-				$schedule .= '</span>';
 			}
-
 
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
-			$schedule .= '<span class="date-start dtstart">';
 			$schedule .=  tribe_get_start_date( $event, true, $format );
 			$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-			$schedule .= '</span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
-				$schedule .= '<span class="date-start dtstart">';
 				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-				$schedule .= '</span>';
 			} else { // defined start/end time
-				$schedule .= '<span class="date-start dtstart">';
 				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-				$schedule .= '</span>' . ( $show_end_time ? ' - ' : '' );
+				$schedule .= '</span>' . ( $show_end_time ? $time_range_separator : '' );
 				$schedule .= '<span class="end-time dtend">';
 				$schedule .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-				$schedule .= '</span>';
 			}
 		}
+
+		$schedule .= '</span>';
+
+		$schedule = $before . $schedule . $after;
 
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}
@@ -918,18 +951,128 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $start_date
 	 * @param string $end_date
+	 * @param string|bool $day_cutoff
 	 * @return int
 	 * @author Modern Tribe
-	 * @see TribeEventsQuery::dateDiff()
+	 * @see TribeDateUtils::dateDiff()
 	 **/
-	function tribe_get_days_between( $start_date, $end_date ) {
+	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
+		if ( $day_cutoff === false ) {
+			$day_cutoff = '00:00';
+		} elseif ( $day_cutoff === true ) {
+			$day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+		}
 
 		$start_date = new DateTime( $start_date );
-		$end_date   = new DateTime( $end_date );
+		if ( $start_date < new DateTime( $start_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$start_date->modify('-1 day');
+		}
+		$end_date = new DateTime( $end_date );
+		if ( $end_date <= new DateTime( $end_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$end_date->modify('-1 day');
+		}
 		//      This doesn't work on php 5.2
 		//  $interval = $start_date->diff($end_date);
 
-		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d '.$day_cutoff ), $end_date->format( 'Y-m-d '.$day_cutoff ) );
+	}
+
+	/**
+	 * Function to prepare content for use as a value in a json encoded string destined for storage on a html data attribute.
+	 * Hence the double quote fun, especially in case they pass html encoded &quot; along. Any of those getting through to the data att will break jquery's parseJSON method.
+	 * Themers can use this function to prepare data they may want to send to tribe_events_template_data() in the templates, and we use it in that function ourselves.
+	 *
+	 * @since  3.3
+	 * @param $string
+	 * @return string
+	 * @author Modern Tribe
+	 */
+
+	function tribe_prepare_for_json( $string ){
+
+		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
+		$value = str_replace( '&quot;', '"', $value );
+
+		return $value;
+	}
+
+	/**
+	 * Returns json for javascript templating functions throughout the plugin.
+	 *
+	 * @since 3.3
+	 * @param $event
+	 * @param $additional
+	 * @author Modern Tribe
+	 * @return string
+	 */
+	function tribe_events_template_data( $event, array $additional = null ) {
+		$has_image = false;
+		$start_time = '';
+		$end_time = '';
+		$image_src = '';
+		$image_tool_src = '';
+
+		// @TODO use tribe_events_event_schedule_details()
+		$date_format = tribe_get_date_format( true );
+		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+
+		$date_time_separator = tribe_get_option('dateTimeSeparator', ' @ ');
+
+		if ( ! empty( $event->EventStartDate ) ) {
+			$start_time .= date_i18n( $date_format, strtotime( $event->EventStartDate ) );
+		}
+
+		if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+			$start_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventStartDate ) );
+
+		if ( ! empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+			if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
+
+				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+			} else {
+				$end_time .= date_i18n( $date_format, strtotime( $event->EventEndDate ) );
+
+				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$end_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+			}
+		}
+
+		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
+			$has_image = true;
+			$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
+			$image_src = $image_arr[0];
+		}
+
+		if ( $has_image ) {
+			$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
+			$image_tool_src = $image_tool_arr[0];
+		}
+
+		if ( has_excerpt( $event->ID ) ) $excerpt = $event->post_excerpt;
+		else $excerpt = $event->post_content;
+		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
+
+		$category_classes = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+
+		$json = array(
+			'eventId'         => $event->ID,
+			'title'           => tribe_prepare_for_json( $event->post_title ),
+			'permalink'       => tribe_get_event_link( $event->ID ),
+			'imageSrc'        => $image_src,
+			'startTime'       => $start_time,
+			'endTime'         => $end_time,
+			'imageTooltipSrc' => $image_tool_src,
+			'excerpt'         => $excerpt,
+			'categoryClasses' => $category_classes,
+		);
+
+		if ( $additional ) {
+			$additional = array_map( 'tribe_prepare_for_json', $additional );
+			$json = array_merge( (array) $json, (array) $additional );
+		}
+
+		return json_encode( $json );
 	}
 
 	/**
@@ -1180,5 +1323,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_get_the_excerpt() {
 		if ( ! defined('DOING_AJAX' ) || ! DOING_AJAX ) return get_the_excerpt();
 		return preg_replace( '#\[.+\]#U', '', get_the_excerpt() );
+	}
+
+	/**
+	 * Get the breakpoint for switching to mobile styles
+	 *
+	 * @param int $breakpoint The default width (in pixels) at which to break into mobile styles
+	 *
+	 * @return int
+	 * @author Jessica Yazbek
+	 * @since  3.5
+	 */
+	function tribe_get_mobile_breakpoint( $default = 768 ) {
+		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 	}
 }

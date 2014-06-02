@@ -5,18 +5,46 @@
  */
 function oa_social_login_add_javascripts ()
 {
-	if (!wp_script_is ('oa_social_library', 'registered'))
-	{
-		//Read settings
-		$settings = get_option ('oa_social_login_settings');
+	//Read the plugin settings.
+	$settings = get_option ('oa_social_login_settings');
 
-		if (!empty ($settings ['api_subdomain']))
-		{
-			//Include in header, without having the version appended
-			wp_register_script ('oa_social_library', ((oa_social_login_https_on () ? 'https' : 'http') . '://' . $settings ['api_subdomain'] . '.api.oneall.com/socialize/library.js'), array (), null, false);
-		}
-	}
-	wp_print_scripts ('oa_social_library');
+	//Without the subdomain we can't include the libary.
+	if (!empty ($settings ['api_subdomain']))
+	{
+	  //Forge library path.
+	  $oneall_js_library = ((oa_social_login_https_on () ? 'https' : 'http') . '://' . $settings ['api_subdomain'] . '.api.oneall.com/socialize/library.js');
+
+	  // Synchronous JavaScript: This is the default to stay compatible with existing installations.
+	  if (empty ($settings ['asynchronous_javascript']))
+	  {
+	    //Make sure the library has not yet been included.
+	    if (!wp_script_is ('oa_social_library', 'registered'))
+	    {
+	       //Include in header, without having the version appended
+	       wp_register_script ('oa_social_library', $oneall_js_library, array (), null, false);
+	    }
+	    wp_print_scripts ('oa_social_library');
+	  }
+	  // Asynchronous JavaScript.
+	  else
+	  {
+  		//JavaScript Method Reference: http://docs.oneall.com/api/javascript/library/methods/
+  		$output = array();
+  		$output[] = '';
+  		$output[] = " <!-- OneAll.com / Social Login for WordPress / v" . constant ('OA_SOCIAL_LOGIN_VERSION') . " -->";
+  		$output[] = '<script type="text/javascript">';
+  		$output[] = " (function() {";
+  		$output[] = "  var oa = document.createElement('script'); oa.type = 'text/javascript';";
+  		$output[] = "  oa.async = true; oa.src = '".$oneall_js_library."'";
+  		$output[] = "  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oa, s);";
+  		$output[] = " })();";
+  		$output[] = "</script>";
+  		$output[] = '';
+
+ 		  //Display
+ 		  echo implode ("\n", $output);
+	  }
+  }
 }
 
 //This is for Social Login
@@ -38,34 +66,34 @@ add_action ('show_user_profile', 'oa_social_login_add_javascripts');
  */
 function oa_social_login_render_link_form ($source, $user)
 {
-	//Data returned
+	//Store the data being returned.
 	$output = '';
 
 	if (is_object ($user) AND property_exists ($user, 'data') AND !empty ($user->data->ID))
 	{
-		//Only show if the user is viewing his own profile
+		//Only show Social Link if the user is viewing his own profile.
 		if ($user->data->ID == get_current_user_id ())
 		{
-			//Identifier of the current user
+			//Identifier of the current user.
 			$userid = $user->data->ID;
 
-			//Read settings
+			//Read Social Login settings.
 			$settings = get_option ('oa_social_login_settings');
 
 			//Is Social Link enabled?
 			if (!isset ($settings ['plugin_profile_show']) OR !empty ($settings ['plugin_profile_show']))
 			{
-				//Import providers
-				GLOBAL $oa_social_login_providers;
-
-				//Parse API Settings
+				//Parse API Settings.
 				$api_connection_handler = ((!empty ($settings ['api_connection_handler']) AND $settings ['api_connection_handler'] == 'fsockopen') ? 'fsockopen' : 'curl');
 				$api_connection_use_https = ((!isset ($settings ['api_connection_use_https']) OR $settings ['api_connection_use_https'] == '1') ? true : false);
 				$api_subdomain = (!empty ($settings ['api_subdomain']) ? $settings ['api_subdomain'] : '');
 				$api_key = (!empty ($settings ['api_key']) ? $settings ['api_key'] : '');
 				$api_secret = (!empty ($settings ['api_secret']) ? $settings ['api_secret'] : '');
 
-				//Setup API Providers
+				//Import the available social networks.
+				GLOBAL $oa_social_login_providers;
+
+				//Setup the selected social networks.
 				$api_providers = array ();
 				if (is_array ($settings ['providers']))
 				{
@@ -78,29 +106,29 @@ function oa_social_login_render_link_form ($source, $user)
 					}
 				}
 
-				//The Subdomain is required
+				//The API subdomain is required.
 				if (!empty ($api_subdomain))
 				{
-					//No providers selected
+					//No providers have been selected.
 					if (count ($api_providers) == 0)
 					{
 						$output = '<div style="color:white;background-color:red;">[Social Login] ' . __ ('Please enable at least one social network!', 'oa_social_login') . '</div>';
 					}
-					//Providers selected
+					//At least one providers has been selected.
 					else
 					{
-						//Error Message
+						//Message Storage.
 						$error_message = '';
 						$success_message = '';
 
-						//Callback Handler
+						//Callback Handler.
 						if (isset ($_POST) AND !empty ($_POST ['oa_action']) AND $_POST ['oa_action'] == 'social_link' AND !empty ($_POST ['connection_token']))
 						{
 							//More info here: https://docs.oneall.com/api/resources/connections/read-connection-details/
 							$api_resource_url = ($api_connection_use_https ? 'https' : 'http') . '://' . $api_subdomain . '.api.oneall.com/connections/' . $_POST ['connection_token'] . '.json';
 
 							//Get connection details
-							$result = oa_social_login_do_api_request ($api_connection_handler, $api_resource_url, array ('api_key' => $api_key, 'api_secret' => $api_secret), 15);
+							$result = oa_social_login_do_api_request ($api_connection_handler, $api_resource_url, array ('api_key' => $api_key, 'api_secret' => $api_secret));
 
 							//Parse result
 							if (is_object ($result) AND property_exists ($result, 'http_code') AND property_exists ($result, 'http_data') AND $result->http_code == 200)
@@ -137,7 +165,7 @@ function oa_social_login_render_link_form ($source, $user)
 
 													//Update new provider list
 													$identity_providers = array (
-															trim ($data->user->identity->source->name)
+														trim ($data->user->identity->source->name)
 													);
 													foreach ($meta_identity_providers AS $meta_identity_provider)
 													{
@@ -266,6 +294,9 @@ function oa_social_login_render_link_form ($source, $user)
 							}
 						}
 
+						//Custom CSS
+						$css_theme_uri = apply_filters ('oa_social_login_link_css', $css_theme_uri);
+
 						//OneAll user_token
 						$token = strval (oa_social_login_get_token_by_userid ($userid));
 
@@ -273,28 +304,51 @@ function oa_social_login_render_link_form ($source, $user)
 						$rand = mt_rand (99999, 9999999);
 
 						//Callback URI
-						$callback_uri = oa_social_login_get_current_url () . '?oa_social_login_source='.$source.'#oa_social_link';
+						$callback_uri = oa_social_login_get_current_url ();
+						$callback_uri .= (strlen (parse_url ($callback_uri, PHP_URL_QUERY)) == 0 ? '?' : '&') . 'oa_social_login_source=' . $source . '#oa_social_link';
+
+						//Setup Social Container
+						$containerid = 'oneall_social_login_providers_' . mt_rand (99999, 9999999);
+
 
 						//Setup Social Link
 						$social_link = array ();
 						$social_link [] = '<div class="oneall_social_link">';
-						$social_link [] = ' <div class="oneall_social_login_providers" id="oneall_social_login_providers_' . $rand . '"></div>';
+						$social_link [] = ' <div class="oneall_social_login_providers" id="'.$containerid.'"></div>';
 						$social_link [] = ' <script type="text/javascript">';
-						$social_link [] = '  oneall.api.plugins.social_link.build("oneall_social_login_providers_' . $rand . '", {';
-						$social_link [] = '   "providers": ["' . implode ('","', $api_providers) . '"], ';
-						$social_link [] = '   "user_token": "' . $token . '", ';
-						$social_link [] = '   "callback_uri": "' . $callback_uri . '", ';
-						$social_link [] = '  });';
-						$social_link [] = ' </script>';
+
+						//Synchronous JavaScript: This is the default to stay compatible with existing installations.
+						if (empty ($settings ['asynchronous_javascript']))
+						{
+						  $social_link [] = '  oneall.api.plugins.social_link.build("' . $containerid . '", {';
+						  $social_link [] = '   "providers": ["' . implode ('","', $api_providers) . '"], ';
+						  $social_link [] = '   "user_token": "' . $token . '", ';
+						  $social_link [] = '   "callback_uri": "' . $callback_uri . '", ';
+						  $social_link [] = '  });';
+						}
+						//Asynchronous JavaScript.
+						else
+						{
+						  //JavaScript Method Reference: http://docs.oneall.com/api/javascript/library/methods/
+  						$social_link [] = "  var _oneall = _oneall || [];";
+  						$social_link [] = "  _oneall.push(['social_link', 'set_providers', ['".implode ("','", $api_providers)."']]);";
+  						$social_link [] = "  _oneall.push(['social_link', 'set_user_token', '".$token."']);";
+  						$social_link [] = "  _oneall.push(['social_link', 'set_callback_uri', '".$callback_uri."']);";
+  						$social_link [] = "  _oneall.push(['social_link', 'set_custom_css_uri', '".$css_theme_uri."']);";
+  						$social_link [] = "  _oneall.push(['social_link', 'do_render_ui', '".$containerid."']);";
+						}
+
+						$social_link [] = " </script>";
 						$social_link [] = '</div>';
 						$social_link = implode ("\n", $social_link);
 
+
 						//Setup Output
-						$output .= '<h3 id="oa_social_link"> '. __('Connect your account to one or more social networks', 'oa_social_login') .'</h3>';
+						$output .= '<h3 id="oa_social_link"> ' . __ ('Connect your account to one or more social networks', 'oa_social_login') . '</h3>';
 						$output .= '<table class="form-table">';
-						$output .= (empty ($success_message) ? '' : '<tr><td><span style="color:green;font-weight:bold"> '.$success_message. '</span></td></tr>');
-						$output .= (empty ($error_message) ? '' : '<tr><td><span style="color:red;font-weight:bold">'. $error_message .'</span></td></tr>');
-						$output .= '<tr><td>'. $social_link .'</td></tr>';
+						$output .= (empty ($success_message) ? '' : '<tr><td><span style="color:green;font-weight:bold"> ' . $success_message . '</span></td></tr>');
+						$output .= (empty ($error_message) ? '' : '<tr><td><span style="color:red;font-weight:bold">' . $error_message . '</span></td></tr>');
+						$output .= '<tr><td>' . $social_link . '</td></tr>';
 						$output .= '</table>';
 					}
 				}
@@ -322,8 +376,8 @@ function oa_social_login_link_shortcode_handler ($args)
 {
 	if (is_user_logged_in ())
 	{
-		$user = wp_get_current_user();
-		if ( ! empty ($user->data->ID))
+		$user = wp_get_current_user ();
+		if (!empty ($user->data->ID))
 		{
 			return oa_social_login_render_link_form ('shortcode', $user);
 		}
@@ -341,15 +395,14 @@ function oa_social_login_link_action_handler ()
 	//Social Link works only with logged in users
 	if (is_user_logged_in ())
 	{
-		$user = wp_get_current_user();
-		if ( is_object ($user) AND ! empty ($user->data->ID))
+		$user = wp_get_current_user ();
+		if (is_object ($user) AND !empty ($user->data->ID))
 		{
 			echo oa_social_login_render_link_form ('custom', $user);
 		}
 	}
 }
 add_action ('oa_social_link', 'oa_social_login_link_action_handler');
-
 
 
 /**
@@ -364,13 +417,60 @@ add_action ('oa_social_link', 'oa_social_login_link_action_handler');
  */
 function oa_social_login_shortcode_handler ($args)
 {
-	if ( ! is_user_logged_in ())
+	if (!is_user_logged_in ())
 	{
 		return oa_social_login_render_login_form ('shortcode');
 	}
 	return '';
 }
 add_shortcode ('oa_social_login', 'oa_social_login_shortcode_handler');
+
+
+/**
+ * Social Login Shortcode Tests
+ *
+ * [oa_social_login_test is_social_login_user="true"]
+ *		This content is displayed for Social Login users
+ * [oa_social_login_test]
+ *
+ * [oa_social_login_test is_social_login_user="false"]
+ *		This content is displayed for users that aren't Social Login users
+ * [oa_social_login_test]
+ *
+ */
+function oa_social_login_shortcode_test ($args, $content = null)
+{
+	if (is_array ($args))
+	{
+		$user = wp_get_current_user ();
+		$is_social_login_user = false;
+
+		if (!empty ($user->data->ID))
+		{
+			$identity_providers = trim (strval (get_user_meta ($user->data->ID, 'oa_social_login_identity_provider', true)));
+			$is_social_login_user = (strlen ($identity_providers) > 0);
+		}
+
+		if (!empty ($args ['is_social_login_user']))
+		{
+			if ($args ['is_social_login_user'] == 'true')
+			{
+				if ($is_social_login_user)
+				{
+					return do_shortcode ($content);
+				}
+			}
+			elseif ($attr ['is_social_login_user'] == 'false')
+			{
+				if ( ! $is_social_login_user)
+				{
+					return do_shortcode ($content);
+				}
+			}
+		}
+	}
+}
+add_shortcode ('oa_social_login_test', 'oa_social_login_shortcode_test');
 
 
 /**
@@ -387,7 +487,7 @@ function oa_social_login_bp_custom_fetch_avatar ($text, $args)
 	}
 
 	//Check if avatars are enabled
-	if ( ! empty ($oa_social_login_avatars))
+	if (!empty ($oa_social_login_avatars))
 	{
 		//Check arguments
 		if (is_array ($args))
@@ -401,33 +501,41 @@ function oa_social_login_bp_custom_fetch_avatar ($text, $args)
 					//Retrieve user
 					if (($user_data = get_userdata ($args ['item_id'])) !== false)
 					{
-						//Read the avatar
-						$user_meta_thumbnail = get_user_meta ($args ['item_id'], 'oa_social_login_user_thumbnail', true);
-						$user_meta_picture = get_user_meta ($args ['item_id'], 'oa_social_login_user_picture', true);
+						//Fetch BuddyPress avatar for this user
+						$bp_user_avatar = strval (bp_core_fetch_avatar (array( 'item_id' => $args ['item_id'], 'no_grav' => true,'html'=> false)));
+						$bp_default_avatar = strval (bp_core_avatar_default());
 
-						//Use the picture if possible
-						if ($oa_social_login_avatars == 2)
+						//Only replace if it's the default one (this will keep uploaded avatars)
+						if (empty ($bp_user_avatar) OR empty ($bp_default_avatar) OR ($bp_user_avatar == $bp_default_avatar))
 						{
-							$user_picture = (! empty ($user_meta_picture) ? $user_meta_picture : $user_meta_thumbnail);
-						}
-						//Use the thumbnail if possible
-						else
-						{
-							$user_picture = (! empty ($user_meta_thumbnail) ? $user_meta_thumbnail : $user_meta_picture);
-						}
+							//Read the avatar
+							$user_meta_thumbnail = get_user_meta ($args ['item_id'], 'oa_social_login_user_thumbnail', true);
+							$user_meta_picture = get_user_meta ($args ['item_id'], 'oa_social_login_user_picture', true);
 
-						//Avatar found?
-						if ($user_picture !== false AND strlen (trim ($user_picture)) > 0)
-						{
-							//Build Image tags
-							$img_alt = (!empty ($args ['alt']) ? 'alt="' . oa_social_login_esc_attr ($args ['alt']) . '" ' : '');
-							$img_alt = sprintf ($img_alt, htmlspecialchars ($user_data->user_login));
-							$img_class = ('class="' . (!empty ($args ['class']) ? ($args ['class'] . ' ') : '') . 'avatar-social-login" ');
-							$img_width = (!empty ($args ['width']) ? 'width="' . $args ['width'] . '" ' : '');
-							$img_height = (!empty ($args ['height']) ? 'height="' . $args ['height'] . '" ' : '');
+							//Use the picture if possible
+							if ($oa_social_login_avatars == 2)
+							{
+								$user_picture = (!empty ($user_meta_picture) ? $user_meta_picture : $user_meta_thumbnail);
+							}
+							//Use the thumbnail if possible
+							else
+							{
+								$user_picture = (!empty ($user_meta_thumbnail) ? $user_meta_thumbnail : $user_meta_picture);
+							}
 
-							//Replace
-							$text = preg_replace ('#<img[^>]+>#i', '<img data-social-login="bp-d1" src="' . $user_picture . '" ' . $img_alt . $img_class . $img_height . $img_width . '/>', $text);
+							//Avatar found?
+							if ($user_picture !== false AND strlen (trim ($user_picture)) > 0)
+							{
+								//Build Image tags
+								$img_alt = (!empty ($args ['alt']) ? 'alt="' . oa_social_login_esc_attr ($args ['alt']) . '" ' : '');
+								$img_alt = sprintf ($img_alt, htmlspecialchars ($user_data->user_login));
+								$img_class = ('class="' . (!empty ($args ['class']) ? ($args ['class'] . ' ') : '') . 'avatar-social-login" ');
+								$img_width = (!empty ($args ['width']) ? 'width="' . $args ['width'] . '" ' : '');
+								$img_height = (!empty ($args ['height']) ? 'height="' . $args ['height'] . '" ' : '');
+
+								//Replace
+								$text = preg_replace ('#<img[^>]+>#i', '<img data-social-login="bp-d1" src="' . $user_picture . '" ' . $img_alt . $img_class . $img_height . $img_width . '/>', $text);
+							}
 						}
 					}
 				}
@@ -453,7 +561,7 @@ function oa_social_login_custom_avatar ($avatar, $mixed, $size, $default, $alt =
 	}
 
 	//Check if social avatars are enabled
-	if ( ! empty ($oa_social_login_avatars))
+	if (!empty ($oa_social_login_avatars))
 	{
 		//Check if we have an user identifier
 		if (is_numeric ($mixed) AND $mixed > 0)
@@ -473,31 +581,52 @@ function oa_social_login_custom_avatar ($avatar, $mixed, $size, $default, $alt =
 		//None found
 		else
 		{
-		  $user_id = null;
+			$user_id = null;
 		}
 
 		//User found?
 		if (!empty ($user_id))
 		{
-			//Read the avatar
-			$user_meta_thumbnail = get_user_meta ($user_id, 'oa_social_login_user_thumbnail', true);
-			$user_meta_picture = get_user_meta ($user_id, 'oa_social_login_user_picture', true);
+			//Override current avatar ?
+			$override_avatar = true;
 
-			//Use the picture if possible
-			if ($oa_social_login_avatars == 2)
+			//BuddyPress (Thumbnails in the default WordPress toolbar)
+			if (function_exists ('bp_core_fetch_avatar') AND function_exists ('bp_core_avatar_default'))
 			{
-				$user_picture = (! empty ($user_meta_picture) ? $user_meta_picture : $user_meta_thumbnail);
-			}
-			//Use the thumbnail if possible
-			else
-			{
-				$user_picture = (! empty ($user_meta_thumbnail) ? $user_meta_thumbnail : $user_meta_picture);
+				//Fetch the BuddyPress user avatar
+				$bp_user_avatar = bp_core_fetch_avatar (array( 'item_id' => $user_id, 'no_grav' => true, 'html'=> false));
+
+				//Do not override if it's not the default avatar
+				if ( ! empty ($bp_user_avatar) AND $bp_user_avatar <> bp_core_avatar_default())
+				{
+					//User has probably upladed an avatar
+					$override_avatar = false;
+				}
 			}
 
-			//Avatar found?
-			if ($user_picture !== false AND strlen (trim ($user_picture)) > 0)
+			//Show avatar?
+			if ($override_avatar)
 			{
-				return '<img alt="' . oa_social_login_esc_attr ($alt) . '" src="' . $user_picture . '" class="avatar avatar-social-login avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />';
+				//Read the avatar
+				$user_meta_thumbnail = get_user_meta ($user_id, 'oa_social_login_user_thumbnail', true);
+				$user_meta_picture = get_user_meta ($user_id, 'oa_social_login_user_picture', true);
+
+				//Use the picture if possible
+				if ($oa_social_login_avatars == 2)
+				{
+					$user_picture = (!empty ($user_meta_picture) ? $user_meta_picture : $user_meta_thumbnail);
+				}
+				//Use the thumbnail if possible
+				else
+				{
+					$user_picture = (!empty ($user_meta_thumbnail) ? $user_meta_thumbnail : $user_meta_picture);
+				}
+
+				//Avatar found?
+				if ($user_picture !== false AND strlen (trim ($user_picture)) > 0)
+				{
+					return '<img alt="' . oa_social_login_esc_attr ($alt) . '" src="' . $user_picture . '" class="avatar avatar-social-login avatar-' . $size . ' photo" height="' . $size . '" width="' . $size . '" />';
+				}
 			}
 		}
 	}
@@ -577,11 +706,9 @@ function oa_social_login_render_login_form_registration ()
 		}
 	}
 }
-//WordPress Registration Form
-add_action ('register_form', 'oa_social_login_render_login_form_registration');
 
 //WordPress Signup Form
-add_action( 'after_signup_form', 'oa_social_login_render_login_form_registration');
+add_action ('after_signup_form', 'oa_social_login_render_login_form_registration');
 
 //BuddyPress Registration
 add_action ('bp_before_account_details_fields', 'oa_social_login_render_login_form_registration');
@@ -601,8 +728,6 @@ function oa_social_login_render_login_form_login ()
 		echo oa_social_login_render_login_form ('login');
 	}
 }
-//WordPress Registration
-add_action ('login_form', 'oa_social_login_render_login_form_login');
 
 //WordPress Profile Builder
 add_action ('wppb_before_login', 'oa_social_login_render_login_form_login');
@@ -612,6 +737,82 @@ add_action ('bp_before_sidebar_login_form', 'oa_social_login_render_login_form_l
 
 //Appthemes Vantage Theme
 add_action ('va_after_admin_bar_login_form', 'oa_social_login_render_login_form_login');
+
+//Sidebar Login
+add_action ('sidebar_login_widget_logged_out_content_end', 'oa_social_login_render_login_form_login');
+
+
+/**
+ * Display the provider grid for login - with a specific callback_uri
+ */
+function oa_social_login_render_login_form_wp_login ()
+{
+	//Read settings
+	$settings = get_option ('oa_social_login_settings');
+
+	//Display buttons only if option not set or enabled
+	if (!isset ($settings ['plugin_display_in_login_form']) OR !empty ($settings ['plugin_display_in_login_form']))
+	{
+		//Additional arguments for the login icons
+		$args = array ();
+
+		//Only on the login page
+		if (strpos (oa_social_login_get_current_url (), 'wp-login.php') !== false)
+		{
+			//This is the default WordPress login url
+			$args ['callback_uri'] = site_url ('wp-login.php', 'login_post');
+
+			//Add our query argument
+			$args ['callback_uri'] = add_query_arg (array ('oa_social_login_source' => 'login'), $args ['callback_uri']);
+
+			//Allow others to customize the callback uri
+			$args ['callback_uri'] = apply_filters ('oa_social_login_filter_wp_login_callback_uri', $args ['callback_uri']);
+		}
+
+		//Include it as parameter
+		echo oa_social_login_render_login_form ('login', $args);
+	}
+}
+//WordPress Login Form
+add_action ('login_form', 'oa_social_login_render_login_form_wp_login');
+
+
+/**
+ * Display the provider grid for registration - with a specific callback_uri
+ */
+function oa_social_login_render_login_form_wp_registration ()
+{
+	//Users may register
+	if (get_option ('users_can_register') === '1')
+	{
+		//Read settings
+		$settings = get_option ('oa_social_login_settings');
+
+		//Display buttons if option not set or enabled
+		if (!isset ($settings ['plugin_display_in_registration_form']) OR !empty ($settings ['plugin_display_in_registration_form']))
+		{
+			//Additional arguments for the icon builder
+			$args = array ();
+
+			//Only on the registration page
+			if (strpos (oa_social_login_get_current_url (), 'wp-login.php') !== false)
+			{
+				//This is the default WordPress registration url
+				$args ['callback_uri'] = site_url ('wp-login.php?action=register', 'login_post');
+
+				//Add our query argument
+				$args ['callback_uri'] = add_query_arg (array ('oa_social_login_source' => 'registration'), $args ['callback_uri']);
+
+				//Others may use this hook
+				$args ['callback_uri'] = apply_filters ('oa_social_login_filter_wp_registration_callback_uri', $args ['callback_uri']);
+			}
+
+			echo oa_social_login_render_login_form ('registration', $args);
+		}
+	}
+}
+//WordPress Registration Form
+add_action ('register_form', 'oa_social_login_render_login_form_wp_registration');
 
 
 /**
@@ -645,6 +846,9 @@ function oa_social_login_render_login_form ($source, $args = array ())
 {
 	//Import providers
 	GLOBAL $oa_social_login_providers;
+
+	//Parse args
+	$args = (is_array ($args) ? $args : array ());
 
 	//Container for returned value
 	$output = '';
@@ -706,6 +910,15 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			$css_theme_uri = apply_filters ('oa_social_login_default_css', $css_theme_uri);
 		}
 
+		//Build Callback URI
+		if (array_key_exists ('callback_uri', $args) AND !empty ($args ['callback_uri']))
+		{
+			$callback_uri = "'" . $args ['callback_uri'] . "'";
+		}
+		else
+		{
+			$callback_uri = "(window.location.href + ((window.location.href.split('?')[1] ? '&amp;': '?') + \"oa_social_login_source=" . $source . "\"))";
+		}
 
 		//No providers selected
 		if (count ($providers) == 0)
@@ -715,11 +928,10 @@ function oa_social_login_render_login_form ($source, $args = array ())
 		//Providers selected
 		else
 		{
-			//Random integer
-			$rand = mt_rand (99999, 9999999);
 
 			//Setup output
 			$output = array ();
+			$output [] = " <!-- OneAll.com / Social Login for WordPress / v" . constant ('OA_SOCIAL_LOGIN_VERSION') . " -->";
 			$output [] = '<div class="oneall_social_login">';
 
 			//Add the caption?
@@ -729,16 +941,31 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			}
 
 			//Add the Plugin
-			$output [] = ' <div class="oneall_social_login_providers" id="oneall_social_login_providers_' . $rand . '"></div>';
+			$containerid = 'oneall_social_login_providers_' . mt_rand (99999, 9999999);
+			$output [] = ' <div class="oneall_social_login_providers" id="'.$containerid.'"></div>';
 			$output [] = ' <script type="text/javascript">';
-			$output [] = '  oneall.api.plugins.social_login.build("oneall_social_login_providers_' . $rand . '", {';
-			$output [] = '   "providers": ["' . implode ('","', $providers) . '"], ';
-			//$output [] = '   "same_window": true, ';
-			$output [] = '   "callback_uri": (window.location.href + ((window.location.href.split(\'?\')[1] ? \'&amp;\':\'?\') + "oa_social_login_source=' . $source . '")), ';
-			$output [] = '   "css_theme_uri": "' . $css_theme_uri . '" ';
-			$output [] = '  });';
-			$output [] = ' </script>';
-			$output [] = ' <!-- OneAll.com / Social Login for WordPress / v' . constant ('OA_SOCIAL_LOGIN_VERSION') . ' -->';
+
+			//Synchronous JavaScript: This is the default to stay compatible with existing installations.
+			if (empty ($settings ['asynchronous_javascript']))
+			{
+        $output [] = "  oneall.api.plugins.social_login.build('" . $containerid . "', {";
+			  $output [] = "   'providers': ['" . implode ("','", $providers) . "'], ";
+			  $output [] = "   'callback_uri': (window.location.href + ((window.location.href.split('?')[1] ? '&amp;' : '?') + 'oa_social_login_source=" . $source . "')), ";
+			  $output [] = "   'css_theme_uri': '" . $css_theme_uri . "' ";
+			  $output [] = "  });";
+			}
+			//Asynchronous JavaScript.
+			else
+			{
+			  //JavaScript Method Reference: http://docs.oneall.com/api/javascript/library/methods/
+  			$output [] = "  var _oneall = _oneall || [];";
+  			$output [] = "  _oneall.push(['social_login', 'set_providers', ['".implode ("','", $providers)."']]);";
+  			$output [] = "  _oneall.push(['social_login', 'set_callback_uri', (window.location.href + ((window.location.href.split('?')[1] ? '&amp;' : '?') + 'oa_social_login_source=".$source . "'))]);";
+  			$output [] = "  _oneall.push(['social_login', 'set_custom_css_uri', '".$css_theme_uri."']);";
+  			$output [] = "  _oneall.push(['social_login', 'do_render_ui', '".$containerid."']);";
+			}
+
+  		$output [] = " </script>";
 			$output [] = '</div>';
 
 			//Done
@@ -794,6 +1021,8 @@ function oa_social_login_request_email ()
 				if ($_POST ['oa_social_login_action'] == 'confirm_email')
 				{
 					$user_email = (empty ($_POST ['oa_social_login_email']) ? '' : trim ($_POST ['oa_social_login_email']));
+					$user_email = apply_filters ('oa_social_login_filter_user_request_email', $user_email, $user_id);
+
 					if (empty ($user_email))
 					{
 						$message = __ ('Please enter your email address', 'oa_social_login');
@@ -811,9 +1040,26 @@ function oa_social_login_request_email ()
 						}
 						else
 						{
-							wp_update_user (array ('ID' => $user_id, 'user_email' => $user_email));
-							delete_user_meta ($user_id, 'oa_social_login_request_email');
-							$display_modal = false;
+							//Read user
+							$user_data = get_userdata ($user_id);
+							if ($user_data !== false)
+							{
+								//Store old email
+								$old_user_email = $user_data->user_email;
+
+								//Update user
+								wp_update_user (array ('ID' => $user_data->ID, 'user_email' => $user_email));
+								delete_user_meta ($user_data->ID, 'oa_social_login_request_email');
+
+								//Set new email for hook
+								$user_data->user_email = $user_email;
+
+								//Hook after having updated the email
+								do_action('oa_social_login_action_on_user_enter_email', $user_id, $user_data, $old_user_email);
+
+								//No longer needed
+								$display_modal = false;
+							}
 						}
 					}
 				}
@@ -842,17 +1088,17 @@ function oa_social_login_request_email ()
 							<div class="oa_social_login_modal_inner">
 			 					<div class="oa_social_login_modal_title">
 			 						<?php
-			 							printf (__ ('You have successfully connected with %s!', 'oa_social_login'), '<strong>' . $oa_social_login_identity_provider . '</strong>');
-			 						?>
+											printf (__ ('You have successfully connected with %s!', 'oa_social_login'), '<strong>' . $oa_social_login_identity_provider . '</strong>');
+									 ?>
 			 					</div>
 			 					<?php
-									if (strlen (trim ($caption)) > 0)
-									{
-								 		?>
-			 								<div class="oa_social_login_modal_notice"><?php echo str_replace ('%s', $oa_social_login_identity_provider, $caption); ?></div>
-			 							<?php
-									}
-								?>
+										if (strlen (trim ($caption)) > 0)
+										{
+								 			?>
+			 									<div class="oa_social_login_modal_notice"><?php echo str_replace ('%s', $oa_social_login_identity_provider, $caption); ?></div>
+			 								<?php
+										 }
+									?>
 			 					<div class="oa_social_login_modal_body">
 				 					<div class="oa_social_login_modal_subtitle">
 				 						<?php _e ('Please enter your email address', 'oa_social_login'); ?>:
@@ -868,7 +1114,7 @@ function oa_social_login_request_email ()
 											</div>
 											<div class="oa_social_login_buttons">
 												<input class="oa_social_login_button_confirm" type="submit" value="<?php _e ('Confirm', 'oa_social_login'); ?>" />
-												<input class="oa_social_login_button_cancel" type="button" value="<?php _e ('Cancel', 'oa_social_login'); ?>" onclick="window.location.href='<?php echo esc_url(wp_logout_url(oa_social_login_get_current_url()));?>'" />
+												<input class="oa_social_login_button_cancel" type="button" value="<?php _e ('Cancel', 'oa_social_login'); ?>" onclick="window.location.href='<?php echo esc_url (wp_logout_url (oa_social_login_get_current_url ())); ?>'" />
 											</div>
 										</fieldset>
 									</form>
@@ -881,6 +1127,5 @@ function oa_social_login_request_email ()
 		}
 	}
 }
-
 add_action ('wp_footer', 'oa_social_login_request_email');
 add_action ('admin_footer', 'oa_social_login_request_email');

@@ -1720,7 +1720,7 @@ function LoadCustomChoices(){
             if(!gform_custom_choices.hasOwnProperty(key))
                 continue;
 
-            str += "<li class='bulk_custom_choice'><a href='#' onclick='SelectCustomChoice(\"" + key + "\");' class='bulk-choice bulk_custom_choice'>" + key + "</a></li>";
+            str += "<li class='bulk_custom_choice'><a href='javascript:void(0);' onclick='SelectCustomChoice(\"" + key + "\");' class='bulk-choice bulk_custom_choice'>" + key + "</a></li>";
         }
         str += "<li class='choice_section_header'>Predefined Choices</li>";
         jQuery("#bulk_items").prepend(str);
@@ -1769,7 +1769,7 @@ function InsertBulkChoices(choices){
     }
 
     LoadFieldChoices(field);
-    UpdateFieldChoices(field.type);
+    UpdateFieldChoices( GetInputType( field ) );
 }
 
 function InitBulkCustomPanel(){

@@ -4,7 +4,7 @@ Plugin Name: Really Simple Twitter Feed Widget
 Plugin URI: http://www.whiletrue.it/
 Description: Displays your public Twitter messages in the sidbar of your blog. Simply add your username and all your visitors can see your tweets!
 Author: WhileTrue
-Version: 2.4.11
+Version: 2.5.2
 Author URI: http://www.whiletrue.it/
 */
 /*
@@ -64,6 +64,12 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'skip_retweets',		'label'	=> __( 'Skip retweets', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false	),
 			array(
+				'code' => '<h2>'.__( 'Advanced Options', 'rstw' ).' 
+              <button class="button" style="margin-left:20px;" onclick="javascript:jQuery(\'.rstw_advanced\').toggle(); return false;">'.__('Click to show / hide', 'rstw' ).'</button>
+            </h2>
+            <div class="rstw_advanced" style="display:none;">',
+				'type'	=> 'separator'			),
+			array(
 				'label' => __( 'Widget Title', 'rstw' ),
 				'type'	=> 'separator'			),
 			array(
@@ -100,12 +106,6 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'linked',		'label'	=> __( 'Show this linked text at the end of each Tweet', 'rstw' ),
 				'type'	=> 'text',	'default' => ''			),
 			array(
-				'name'	=> 'update',	'label'	=> __( 'Show timestamps', 'rstw' ),
-				'type'	=> 'checkbox',	'default' => true			),
-			array(
-				'name'	=> 'date_format',	'label'	=> __( 'Timestamp format (e.g. M j )', 'rstw' ).' <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">?</a>',
-				'type'	=> 'text',	'default' => 'M j'			),
-			array(
 				'name'	=> 'thumbnail',	'label'	=> __( 'Include thumbnail before tweets', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),			
 			array(
@@ -124,6 +124,18 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				'name'	=> 'link_target_blank',	'label'	=> __( 'Create links on new window / tab', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
 			array(
+				'label' => __( 'Timestamp', 'rstw' ),
+				'type'	=> 'separator',	),
+			array(
+				'name'	=> 'update',	'label'	=> __( 'Show timestamps', 'rstw' ),
+				'type'	=> 'checkbox',	'default' => true			),
+			array(
+				'name'	=> 'date_link',	'label'	=> __( 'Link timestamp to the actual tweet', 'rstw' ),
+				'type'	=> 'checkbox',	'default' => false			),
+			array(
+				'name'	=> 'date_format',	'label'	=> __( 'Timestamp format (e.g. M j )', 'rstw' ).' <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">?</a>',
+				'type'	=> 'text',	'default' => 'M j'			),
+			array(
 				'label' => __( 'Debug', 'rstw' ),
 				'type'	=> 'separator',		'notes' => 	__('Use them only for a few minutes, when having issues', 'rstw')	),
 			array(
@@ -135,6 +147,9 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			array(
 				'name'	=> 'encode_utf8',	'label'	=> __( 'Force UTF8 Encode', 'rstw' ),
 				'type'	=> 'checkbox',	'default' => false			),
+			array(
+				'code' => '</div>', // CLOSE ADVANCED OPTIONS DIV
+				'type'	=> 'separator'			),
 			array(
 				'type'	=> 'donate'			),
 		);
@@ -219,6 +234,8 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			if ($val['type']=='separator') {
 				if (isset($val['label']) && $val['label']!='') {
 					echo '<h3>'.$val['label'].'</h3>';
+				} else if (isset($val['code']) && $val['code']!='') {
+					echo $val['code'];
 				} else {
 					echo '<hr />';
 				}
@@ -248,7 +265,7 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 		echo '
 			</div>
 			<style>
-			.rstw_form h3, .rstw_form .description { text-align:center; margin-top:1.2em; margin-bottom:0.6em; }
+			.rstw_form h2, .rstw_form h3, .rstw_form .description { text-align:center; margin-top:1em; margin-bottom:0.5em; }
 			.rstw_form input[type="text"], .rstw_form input[type="password"] { float:left; width:200px; }
 			.rstw_form .rstw_checkbox { float:left; width:200px; text-align:right; }
 			.rstw_form label { width:270px; padding-left:5px; }
@@ -418,8 +435,7 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			}
 		}
 
-
-		if (empty($twitter_data) or count($twitter_data)<1) {
+		if (!is_array($twitter_data) || empty($twitter_data) || count($twitter_data)<1) {
 		    return __('No public tweets','rstw');
 		}
 		$link_target = ($options['link_target_blank']) ? ' target="_blank" ' : '';
@@ -489,7 +505,7 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 				$msg = preg_replace('/([\.|\,|\:|\¡|\¿|\>|\{|\(]?)@{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href=\"http://twitter.com/$2\" class=\"twitter-user\" ".$link_target.">@$2</a>$3 ", $msg);
 			}
           					
-			$link = 'http://twitter.com/#!/'.$options['username'].'/status/'.$message['id_str'];
+			$link = 'http://twitter.com/'.$options['username'].'/status/'.$message['id_str'];
 			if($options['linked'] == 'all')  { 
 				$msg = '<a href="'.$link.'" class="twitter-link" '.$link_target.'>'.$msg.'</a>';  // Puts a link to the status of each tweet 
 			} else if ($options['linked'] != '') {
@@ -500,6 +516,9 @@ class ReallySimpleTwitterWidget extends WP_Widget {
 			if($options['update']) {				
 				$time = strtotime($message['created_at']);
 				$h_time = ( ( abs( time() - $time) ) < 86400 ) ? sprintf( __('%s ago', 'rstw'), human_time_diff( $time )) : date($options['date_format'], $time);
+        if ($options['date_link']) {
+          $h_time = '<a href="'.$link.'" target="_blank">'. $h_time . '</a>';
+        }
 				$out .= '<span class="rstw_comma">,</span> <span class="twitter-timestamp" title="' . date(__('Y/m/d H:i', 'rstw'), $time) . '">' . $h_time . '</span>';
 			}          
                   

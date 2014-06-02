@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=10&product_id=13
 Tags: sitemap, google sitemap, google api, google webmaster tools, stmap, gogle sitemap, sitemp, google api sitemap, api sitemap, webmaster sitemap, webmaster tols, google stmp
 Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: 2.8.7
+Tested up to: 3.8.2
+Stable tag: 2.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,7 +52,7 @@ We can fix some things for free for the users who provide translation of our plu
 2. Activate the plugin via the 'Plugins' menu in WordPress.
 3. The site settings are available in "BWS Plugins"->"Google Sitemap".
 
-<a href="http://bestwebsoft.com/wp-content/uploads/manual/wp_plugin/google_sitemap/Google_Sitemap_Installation_step-by-step_instruction.pdf" target="_blank">View a PDF version of Step-by-step Instruction on Google Sitemap Installation</a>.
+<a href="https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/edit" target="_blank">View a Step-by-step Instruction on Google Sitemap Installation</a>.
 
 http://www.youtube.com/watch?v=NKlAnFTzNrQ
 
@@ -90,7 +90,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: http://bestwebsoft.com/wp-content/uploads/manual/wp_plugin/general/System_Status.pdf
+4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
 
 == Screenshots ==
 
@@ -99,6 +99,13 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 3. Google Sitemap Extra Settings page.
 
 == Changelog ==
+
+= V2.8.9 - 11.04.2014 =
+* Update : We updated all functionality for wordpress 3.8.2.
+* Budfix : Bug related on the sitemap link in the robots.txt was fixed.
+
+= V2.8.8 - 12.03.2014 =
+* Budfix : Plugin optimization is done.
 
 = V2.8.7 - 31.01.2014 =
 * Update : We updated all functionality for wordpress 3.8.1.
@@ -195,6 +202,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 * New: Ability to add site in google webmaster tools, verify it and add sitemap file was added.
 
 == Upgrade Notice ==
+
+= V2.8.9 =
+We updated all functionality for wordpress 3.8.2. Bug related on the sitemap link in the robots.txt was fixed.
+
+= V2.8.8 =
+Plugin optimization is done.
 
 = V2.8.7 =
 We updated all functionality for wordpress 3.8.1. Bug related on host name with HTTPS was fixed.

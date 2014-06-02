@@ -5,13 +5,13 @@
  */
 function oa_social_login_init ()
 {
-	//Localization
+	//Add language file.
 	if (function_exists ('load_plugin_textdomain'))
 	{
 		load_plugin_textdomain ('oa_social_login', false, OA_SOCIAL_LOGIN_BASE_PATH . '/languages/');
 	}
 
-	//Callback Handler
+	//Launch the callback handler.
 	oa_social_login_callback ();
 }
 
@@ -82,13 +82,17 @@ function oa_social_login_user_notification ($user_id, $user_identity_provider)
 	//The blogname option is escaped with esc_html on the way into the database
 	$blogname = wp_specialchars_decode (get_option ('blogname'), ENT_QUOTES);
 
-	//Setup Message
-	$message = sprintf (__ ('New user registration on your site %s:', 'oa_social_login'), $blogname) . "\r\n\r\n";
-	$message .= sprintf (__ ('Username: %s', 'oa_social_login'), $user_login) . "\r\n\r\n";
-	$message .= sprintf (__ ('Social Network: %s', 'oa_social_login'), $user_identity_provider) . "\r\n";
+	//Setup Mail Header
+	$recipient = get_bloginfo ('admin_email');
+	$subject = '[Social Login] ' . sprintf (__ ('[%s] New User Registration', 'oa_social_login'), $blogname);
 
-	//Send Message
-	@wp_mail (get_option ('admin_email'), '[Social Login] ' . sprintf (__ ('[%s] New User Registration', 'oa_social_login'), $blogname), $message);
+	//Setup Mail Body
+	$body = sprintf (__ ('New user registration on your site %s:', 'oa_social_login'), $blogname) . "\r\n\r\n";
+	$body .= sprintf (__ ('Username: %s', 'oa_social_login'), $user_login) . "\r\n\r\n";
+	$body .= sprintf (__ ('Social Network: %s', 'oa_social_login'), $user_identity_provider) . "\r\n";
+
+	//Send Mail
+	@wp_mail ($recipient, $subject, $body);
 }
 
 
@@ -97,17 +101,43 @@ function oa_social_login_user_notification ($user_id, $user_identity_provider)
  */
 function oa_social_login_get_current_url ()
 {
-	//Get request URI - Should work on Apache + IIS
-	$request_uri = ((!isset ($_SERVER ['REQUEST_URI'])) ? $_SERVER ['PHP_SELF'] : $_SERVER ['REQUEST_URI']);
-	$request_port = ((!empty ($_SERVER ['SERVER_PORT']) AND $_SERVER ['SERVER_PORT'] <> '80') ? (":" . $_SERVER ['SERVER_PORT']) : '');
-	$request_protocol = (oa_social_login_https_on () ? 'https' : 'http') . "://";
-	$redirect_to = $request_protocol . $_SERVER ['SERVER_NAME'] . $request_port . $request_uri;
+	//Extract parts
+	$request_uri = (isset ($_SERVER ['REQUEST_URI']) ? $_SERVER ['REQUEST_URI'] : $_SERVER ['PHP_SELF']);
+	$request_protocol = (oa_social_login_https_on () ? 'https' : 'http');
+	$request_host = (isset ($_SERVER ['HTTP_X_FORWARDED_HOST']) ? $_SERVER ['HTTP_X_FORWARDED_HOST'] : (isset ($_SERVER ['HTTP_HOST']) ? $_SERVER ['HTTP_HOST'] : $_SERVER ['SERVER_NAME']));
+
+	//Port of this request
+	$request_port = '';
+
+	//We are using a proxy
+	if (isset ($_SERVER ['HTTP_X_FORWARDED_PORT']))
+	{
+		// SERVER_PORT is usually wrong on proxies, don't use it!
+		$request_port = intval ($_SERVER ['HTTP_X_FORWARDED_PORT']);
+	}
+	//Does not seem like a proxy
+	elseif (isset ($_SERVER ['SERVER_PORT']))
+	{
+		$request_port = intval ($_SERVER ['SERVER_PORT']);
+	}
+
+	// Remove standard ports
+	$request_port = (!in_array ($request_port, array (80, 443)) ? $request_port : '');
+
+	//Add your own filters
+	$request_port = apply_filters ('oa_social_login_filter_current_url_port', $request_port);
+	$request_protocol = apply_filters ('oa_social_login_filter_current_url_protocol', $request_protocol);
+	$request_host = apply_filters ('oa_social_login_filter_current_url_host', $request_host);
+	$request_uri = apply_filters ('oa_social_login_filter_current_url_uri', $request_uri);
+
+	//Build url
+	$current_url = $request_protocol . '://' . $request_host . ( ! empty ($request_port) ? (':'.$request_port) : '') . $request_uri;
 
 	//Remove the oa_social_login_source argument
-	if (strpos ($redirect_to, 'oa_social_login_source') !== false)
+	if (strpos ($current_url, 'oa_social_login_source') !== false)
 	{
 		//Break up url
-		list($url_part, $query_part) = array_pad (explode ('?', $redirect_to), 2, '');
+		list($url_part, $query_part) = array_pad (explode ('?', $current_url), 2, '');
 		parse_str ($query_part, $query_vars);
 
 		//Remove oa_social_login_source argument
@@ -117,10 +147,33 @@ function oa_social_login_get_current_url ()
 		}
 
 		//Build new url
-		$redirect_to = $url_part . ((is_array ($query_vars) AND count ($query_vars) > 0) ? ('?' . http_build_query ($query_vars)) : '');
+		$current_url = $url_part . ((is_array ($query_vars) AND count ($query_vars) > 0) ? ('?' . http_build_query ($query_vars)) : '');
 	}
 
-	return $redirect_to;
+	//Apply filters
+	$current_url = apply_filters ('oa_social_login_filter_current_url', $current_url);
+
+	//Done
+	return $current_url;
+}
+
+
+/**
+ * Return the list of disabled functions.
+ */
+function oa_social_login_get_disabled_functions ()
+{
+	$disabled_functions = trim (ini_get ('disable_functions'));
+	if (strlen ($disabled_functions) == 0)
+	{
+		$disabled_functions = array ();
+	}
+	else
+	{
+		$disabled_functions = explode (',', $disabled_functions);
+		$disabled_functions = array_map ('trim', $disabled_functions);
+	}
+	return $disabled_functions;
 }
 
 
@@ -183,8 +236,14 @@ function oa_social_login_create_rand_email ()
 {
 	do
 	{
+		//Create a random email.
 		$email = md5 (uniqid (wp_rand (10000, 99000))) . "@example.com";
+
+		//Allow it to be customized.
+		$email = apply_filters ('oa_social_login_filter_create_random_email', $email);
 	}
 	while (email_exists ($email));
+
+	//Done
 	return $email;
 }

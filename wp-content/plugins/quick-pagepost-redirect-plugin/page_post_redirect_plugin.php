@@ -6,66 +6,61 @@ Description: Redirect Pages, Posts or Custom Post Types to another location quic
 Author: Don Fischer
 Author URI: http://www.fischercreativemedia.com/
 Donate link: http://www.fischercreativemedia.com/donations/
-Version: 5.0.3
+Version: 5.0.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Version info:
-See change log in readme.txt file.
-Version 3.2.4 to 4.0.1 are testing versions only
+ * Copyright (C) 2009-2014 Donald J. Fischer <dfischer [at] fischercreativemedia [dot] com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the [GNU General Public License](http://wordpress.org/about/gpl/)
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * on an "AS IS", but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see [GNU General Public Licenses](http://www.gnu.org/licenses/),
+ * or write to the Free Software Foundation, Inc., 51 Franklin Street,
+ * Fifth Floor, Boston, MA 02110-1301, USA.
+ 
+==========
+You can use the following action hooks with this plugin:
 
-    Copyright (C) 2009-2012 Donald J. Fischer
+*** Quick Rediects function: use to take over redirect
+add_action('qppr_redirect','some_callback_function',10,2);
+		arg 1. is Redirect URL
+		arg 2. is Redirect Type
+*******************************
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+*** Page/Post Redirects function: use to take over redirect
+add_action('qppr_do_redirect','some_callback_function2',10,2);
+		arg 1. is Redirect URL
+		arg 2. is Redirect Type
+*******************************
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-	
-	if (!function_exists('esc_attr')) {
-	// For WordPress < 2.8 function compatibility
-		function esc_attr($attr){return attribute_escape( $attr );}
-		function esc_url($url){return clean_url( $url );}
-	}
-	add_action('init','start_ppr_class',0);
-
-//you can use the following action hooks with this plugin:
-// *** Quick Rediects function: use to take over redirect
-// add_action('qppr_redirect','some_callback_function',10,2);
-//		arg 1. is Redirect URL
-//		arg 2. is Redirect Type
-// *******************************
-// *** Page/Post Redirects function: use to take over redirect
-// add_action('qppr_do_redirect','some_callback_function2',10,2);
-//		arg 1. is Redirect URL
-//		arg 2. is Redirect Type
-// *******************************
-// *** Meta Redirect Action: Used for Meta Redirect Page Headers (so you can add meta tag)
-//add_action('ppr_meta_head_hook','some_callback',10,3);
-//      arg 1. URL site
-//		arg 2. Meta Redirect Time in Seconds
-//		arg 3. Meta Message to display
-// Example:
-/***
+*** Meta Redirect Action: Used for Meta Redirect Page Headers (so you can add meta tag)
+add_action('ppr_meta_head_hook','some_callback',10,3);
+       arg 1. URL site
+		arg 2. Meta Redirect Time in Seconds
+		arg 3. Meta Message to display
+Example:
 	add_action('ppr_meta_head_hook','override_ppr_metahead',10,3);
 	function override_ppr_metahead($refresh_url='',$refresh_secs=0,$messages=''){
         echo '<meta http-equiv="refresh" content="'.$refresh_secs.'; URL='.$refresh_url.'" />'."\n";
         echo '<div id="ppr_custom_message">'. $messages.'</div>'."\n";
         return;
 	}
-**/
-// *******************************
-// *** Meta Redirect Filter: Used for Meta Redirect Page Headers (so you can add meta and message, etc.)
-//add_filter('ppr_meta_head_hook_filter','some_callback2',10,2);
-//		arg 1. Meta Tag (fully generated)
-//		arg 2. Page HTML Message (wrapped in a <div> tag)
-// Example:
+*******************************
+
+*** Meta Redirect Filter: Used for Meta Redirect Page Headers (so you can add meta and message, etc.)
+add_filter('ppr_meta_head_hook_filter','some_callback2',10,2);
+		arg 1. Meta Tag (fully generated)
+		arg 2. Page HTML Message (wrapped in a <div> tag)
+Example:
 	add_filter('ppr_meta_head_hook_filter','override_ppr_metahead_new');
 	function override_ppr_metahead_new($meta_tag='',$meta_message=''){
         $meta = $meta_tag;
@@ -75,8 +70,14 @@ Version 3.2.4 to 4.0.1 are testing versions only
       	add_filter('get_title',$function2,100,1);
         return $meta;
 	}
-// *******************************
-
+*******************************
+*/
+global $newqppr, $redirect_plugin;
+start_ppr_class();
+if (!function_exists('esc_attr')) { // For WordPress < 2.8 function compatibility
+	function esc_attr($attr){return attribute_escape( $attr );}
+	function esc_url($url){return clean_url( $url );}
+}
 	
 //=======================================
 // Main Redirect Class.
@@ -113,200 +114,82 @@ class quick_page_post_reds {
 	public $pprptypes_ok;
 	
 	function __construct() {
-		$this->ppr_curr_version 	= '5.0.3';
-		$this->ppr_nofollow 		= array();
-		$this->ppr_newindow 		= array();
-		$this->ppr_url 				= array();
-		$this->ppr_url_rewrite 		= array();
-		$this->thepprversion 		= get_option( 'ppr_version');
-		$this->thepprmeta 			= get_option( 'ppr_meta_clean');
-		$this->quickppr_redirects 	= get_option( 'quickppr_redirects');
-		$this->quickppr_redirectsmeta= get_option('quickppr_redirects_meta');
-		$this->homelink 			= get_option( 'home');
-		$this->pproverride_nofollow = get_option( 'ppr_override-nofollow' );
-		$this->pproverride_newwin 	= get_option( 'ppr_override-newwindow' );
-		$this->ppruse_jquery	 	= get_option( 'ppr_use-jquery' );
-		$this->pprptypes_ok			= array();
-		$this->pproverride_type 	= get_option( 'ppr_override-redirect-type' );
-		$this->pproverride_active 	= get_option( 'ppr_override-active' );
-		$this->pproverride_URL 		= get_option( 'ppr_override-URL' );
-		$this->pproverride_rewrite	= get_option( 'ppr_override-rewrite' );
-		$this->pprmeta_message		= get_option( 'ppr_meta-message' );
-		$this->pprmeta_seconds		= get_option( 'ppr_meta-seconds' );
-		$this->pproverride_casesensitive	= get_option( 'ppr_override-casesensitive' );
-		$this->adminlink 			= admin_url('/', 'admin');
-		$this->fcmlink				= 'http://www.fischercreativemedia.com/plugins';
-		$this->ppr_metaurl			= '';
-		$this->quickppr_jquerycache	= ''; //get_option( 'qppr_jQuery_cache' );
-		$this->updatemsg			= '';
+		$this->ppr_curr_version 		= '5.0.6';
+		$this->ppr_nofollow 			= array();
+		$this->ppr_newindow 			= array();
+		$this->ppr_url 					= array();
+		$this->ppr_url_rewrite 			= array();
+		$this->thepprversion 			= get_option( 'ppr_version');
+		$this->thepprmeta 				= get_option( 'ppr_meta_clean');
+		$this->quickppr_redirects 		= get_option( 'quickppr_redirects');
+		$this->quickppr_redirectsmeta	= get_option('quickppr_redirects_meta');
+		$this->homelink 				= get_option( 'home');
+		$this->pproverride_nofollow 	= get_option( 'ppr_override-nofollow' );
+		$this->pproverride_newwin 		= get_option( 'ppr_override-newwindow' );
+		$this->ppruse_jquery	 		= get_option( 'ppr_use-jquery' );
+		$this->pprptypes_ok				= array();
+		$this->pproverride_type 		= get_option( 'ppr_override-redirect-type' );
+		$this->pproverride_active 		= get_option( 'ppr_override-active' );
+		$this->pproverride_URL 			= get_option( 'ppr_override-URL' );
+		$this->pproverride_rewrite		= get_option( 'ppr_override-rewrite' );
+		$this->pprmeta_message			= get_option( 'ppr_meta-message' );
+		$this->pprmeta_seconds			= get_option( 'ppr_meta-seconds' );
+		$this->pproverride_casesensitive= get_option( 'ppr_override-casesensitive' );
+		$this->adminlink 				= admin_url('/', 'admin');
+		$this->fcmlink					= 'http://www.fischercreativemedia.com/plugins';
+		$this->ppr_metaurl				= '';
+		$this->quickppr_jquerycache		= ''; //get_option( 'qppr_jQuery_cache' );
+		$this->updatemsg				= '';
 		if($this->pprmeta_seconds==''){$this->pprmeta_seconds='0';}
 		
 		//these are for all the time - even if there are overrides
-		add_action( 'init', array($this,'ppr_init_check_version'), 1 );				// checks version of plugin in DB and updates if needed.
-		add_action(	'save_post', array($this,'ppr_save_metadata'),20,2 ); 			// save the custom fields
-	  	add_action( 'wp',array($this,'ppr_parse_request') );						// parse query vars
-	  	add_action( 'init',array($this,'ppr_parse_request_new') );					// parse query vars
-		//add_action( 'wp_enqueue_scripts',array($this,'ppr_do_jQuery'), 1, 2);		// do the jQuery in site header
-		add_action( 'admin_menu', array($this,'ppr_add_menu') ); 					// add the menu items needed
-		add_action( 'admin_menu', array($this,'ppr_add_metabox') ); 				// add the metaboxes where needed
+		add_action( 'init', array( $this,'ppr_init_check_version'), 1 );			// checks version of plugin in DB and updates if needed.
+	  	add_action( 'init', array( $this,'ppr_parse_request_new') );				// parse query vars
+		add_action(	'save_post', array( $this,'ppr_save_metadata'), 11, 2 ); 		// save the custom fields
+	  	add_action( 'wp', array( $this, 'ppr_parse_request') );						// parse query vars
+		add_action( 'admin_menu', array( $this,'ppr_add_menu' ) ); 					// add the menu items needed
+		add_action( 'admin_menu', array( $this,'ppr_add_metabox' ) ); 				// add the metaboxes where needed
 		add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array($this,'ppr_filter_plugin_actions') );
-		add_filter( 'query_vars',array($this,'ppr_queryhook') ); 
-		add_filter( 'plugin_row_meta',  array($this,'ppr_filter_plugin_links'), 10, 2 );
-		//add_filter( 'wp_feed_cache_transient_lifetime','ppr_wp_feed_options',10, 2);
+		add_filter( 'query_vars', array( $this,'ppr_queryhook' ) ); 
+		add_filter( 'plugin_row_meta',  array( $this,'ppr_filter_plugin_links' ), 10, 2 );
+		add_action( 'admin_enqueue_scripts' , array( $this,'qppr_admin_scripts' ) );
+		//add_filter( 'wp_feed_cache_transient_lifetime',array($this,'ppr_wp_feed_options',10, 2));
 
-		if($this->pproverride_active!='1' && !is_admin()){ 								// don't run these if override active is set
-			add_action( 'init', array($this,'redirect'), 1 ); 							// add the 301 redirect action, high priority
-			add_action( 'init', array($this,'redirect_post_type'), 1 ); 				// add the normal redirect action, high priority
-			add_action( 'template_redirect',array($this,'ppr_do_redirect'), 1, 2);		// do the redirects
-			add_filter( 'wp_get_nav_menu_items',array($this,'ppr_new_nav_menu_fix'),1,1 );
-			add_filter( 'wp_list_pages',array($this,'ppr_fix_targetsandrels') );
-			add_filter( 'page_link',array($this,'ppr_filter_page_links'),20, 2 );
-			add_filter( 'post_link',array($this,'ppr_filter_page_links'),20, 2 );
-			add_filter( 'post_type_link', array($this, 'ppr_filter_page_links'), 20, 2 );
-			add_filter( 'get_permalink', array($this, 'ppr_filter_links'), 20, 2 );
+		if( $this->pproverride_active!='1' && !is_admin() ){ 							// don't run these if override active is set
+			add_action( 'init', array( $this, 'redirect' ), 1 ); 						// add the 301 redirect action, high priority
+			add_action( 'init', array( $this, 'redirect_post_type' ), 1 ); 				// add the normal redirect action, high priority
+			add_action( 'template_redirect', array( $this, 'ppr_do_redirect' ), 1, 2);	// do the redirects
+			add_filter( 'wp_get_nav_menu_items', array( $this, 'ppr_new_nav_menu_fix' ), 1, 1 );
+			add_filter( 'wp_list_pages', array( $this, 'ppr_fix_targetsandrels' ) );
+			add_filter( 'page_link', array( $this, 'ppr_filter_page_links' ), 20, 2 );
+			add_filter( 'post_link', array( $this, 'ppr_filter_page_links'), 20, 2 );
+			add_filter( 'post_type_link', array( $this, 'ppr_filter_page_links' ), 20, 2 );
+			add_filter( 'get_permalink', array( $this, 'ppr_filter_links' ), 20, 2 );
 		}
-		if (isset( $_POST['submit_301']) ) {$this->quickppr_redirects = $this->save_redirects($_POST['quickppr_redirects']);$this->updatemsg ='Quick Redirects Updated.';} //if submitted, process the data
-		if (isset( $_REQUEST['settings-updated'] ) &&  $_REQUEST['settings-updated']=='true'){/*$this->updatemsg ='Settings Updated.';*/}
+		add_action('admin_init', array($this,'save_quick_redirects_fields'));
 	}
-	
+	function save_quick_redirects_fields(){
+		if( isset( $_POST['submit_301'] ) ) {
+			if(check_admin_referer( 'add_qppr_redirects' )){
+				$this->quickppr_redirects = $this->save_redirects( $_POST['quickppr_redirects'] );
+				$this->updatemsg ='Quick Redirects Updated.';
+			}
+		} //if submitted and verified, process the data
+	}
 	function ppr_add_menu(){
-		add_menu_page('Redirect Options', 'Redirect Options', 'administrator', 'redirect-options', array($this,'ppr_settings_page'),plugins_url( 'settings-16-icon.png' , __FILE__));
+		add_menu_page( 'Redirect Options', 'Redirect Options', 'administrator', 'redirect-options', array($this,'ppr_settings_page'),plugins_url( 'settings-16-icon.png' , __FILE__));
 		add_submenu_page( 'redirect-options', 'Quick Redirects', 'Quick Redirects', 'manage_options', 'redirect-updates', array($this,'ppr_options_page') );
 		add_submenu_page( 'redirect-options', 'Redirect Summary', 'Redirect Summary', 'manage_options', 'redirect-summary', array($this,'ppr_summary_page') );
 		add_submenu_page( 'redirect-options', 'FAQs/Help', 'FAQs/Help', 'manage_options', 'redirect-faqs', array($this,'ppr_faq_page') );
 		add_action( 'admin_init', array($this,'register_pprsettings') );
 	}
-	
-	function ppr_do_jQuery($wphead){
-		$this->build_jQueryCache();
-	    wp_enqueue_script( 'pprjquery', get_bloginfo('url').'/', array('jquery'), 'pprjq1');
-	}
-	
-	function build_jQueryCache(){
+	function qppr_admin_scripts($hook){
+		if(in_array($hook, array('edit.php','post.php'))){
+			wp_enqueue_script( 'qppr_admin_meta_script', plugins_url('/qppr_admin_script.js', __FILE__ ) , array('jquery'),'5.0.6');
+			wp_enqueue_style( 'qppr_admin_meta_style', plugins_url('/qppr_admin_style.css', __FILE__ ) , null ,'5.0.6' );
+		}
 		return;
-		$redirects = $this->quickppr_redirects;
-		$redirectsmeta = $this->quickppr_redirectsmeta;
-		$ppr_newWindowArray = array();
-		$ppr_noFollowArray = array();
-		$ppr_newwin = $this->ppr_newwindow;
-		$ppr_nofoll = $this->ppr_nofollow;
-		
-		//quick redirects
-		if (!empty($redirects)) {
-			foreach ($redirects as $request => $destination) {
-				if($redirectsmeta[$request]['nofollow'] == '1' || $this->pproverride_nofollow =='1'){$ppr_noFollowArray[] = str_replace(array(get_bloginfo('url'),'/'),array('',''),$request);}
-				if($redirectsmeta[$request]['newwindow'] == '1' || $this->pproverride_newwin =='1'){$ppr_newWindowArray[] = str_replace(array(get_bloginfo('url'),'/'),array('',''),$request);}
-			}
-		}
-
-		//New Window Array
-		if (!empty($ppr_newwin)) {
-			foreach ($ppr_newwin as $request) {
-				if($ppr_newwin != ''){$ppr_newWindowArray[] = str_replace(array(get_bloginfo('url'),'/'),array('',''),$request);}
-			}
-		}
-		
-		//No Follow Array
-		if (!empty($ppr_nofoll)) {
-			foreach ($ppr_nofoll as $request) {
-				if($ppr_nofoll != ''){$ppr_noFollowArray[] = str_replace(array(get_bloginfo('url'),'/'),array('',''),$request);}
-			}
-		}
-		
-		$newWin = implode('", "',$ppr_newWindowArray);
-		if($newWin!=''){$newWin = '"'.$newWin.'"';}
-		$newFoll = implode('", "',$ppr_noFollowArray);
-		if($newFoll!=''){$newFoll = '"'.$newFoll.'"';}
-		$pprextrajqrw = '0';
-		$pprextrajqurl = '';
-		if($this->pproverride_rewrite == '1'){
-			$pprextrajqrw = '1';
-			$pprextrajqurl = $this->pproverride_URL;
-		}
-		$theScript ="
-jQuery(document).ready(function() {
-	var pprrewrite = '".$pprextrajqrw."';
-	var pprrewriteurl = '".$pprextrajqurl."';
-	var pprNoFollArr = new Array(".$newFoll.");
-	var pprNewWinArr = new Array(".$newWin.");
-	var pprchechhref = '';
-	var pprchechhref2 = '';
-	var pprspoturl	= '".get_bloginfo('url')."';
-	var tempdf = '';
-	var jqvers = parseFloat(jQuery().jquery, 3);
-	//this checks for jQuery version and serves correct script (i.e., prop vs attr)
-	//alert(jqvers);
-	if(jqvers >= 1.6){
-		jQuery('a').each(function (i) {
-			var tempfga = jQuery(this).attr('href');
-			if(tempfga == '' || typeof tempfga == 'undefined' || tempfga === undefined ){
-				// do nothing
-			}else{
-				var tempfg 	= tempfga.replace(pprspoturl,'');
-				var tempfg2 = tempfg.replace(/\//gi,'');
-				var tempfg3 = tempfga.replace(/\//gi,'');
-				var tempfh 	= jQuery(this).prop('rel');
-				var tempfi 	= jQuery(this).prop('target');
-				if(pprrewrite == '1'){
-					//pprnewurl = jQuery(this).attr('href',pprrewriteurl);
-					// Temp Remove as it causes the all links to be redirected in 5.0.1
-				}	
-				if(jQuery.inArray(tempfg2, pprNoFollArr) >= 0 || jQuery.inArray(tempfg3, pprNoFollArr) >= 0){
-					if(tempfh =='' || tempfh =='undefined' || tempfh === undefined || typeof tempfh == 'undefined' ){
-						jQuery(this).prop('rel','nofollow');
-					}else{
-						if(tempfh != 'nofollow' && tempfh.indexOf('nofollow') == -1){
-							jQuery(this).prop('rel','nofollow '+tempfh);
-						}
-					}
-					jQuery(this).addClass('qppr-nf');
-				}
-				if(jQuery.inArray(tempfg2,pprNewWinArr) >= 0 || jQuery.inArray(tempfg3, pprNewWinArr) >= 0){
-					jQuery(this).addClass('qppr-nw');
-					if(tempfi =='' || tempfi =='undefined' || tempfi === undefined || typeof tempfi == 'undefined'){jQuery(this).prop('target','_blank');}
-				}
-			}
-		});
-	}else{
-		jQuery('a').each(function (i) {
-			var tempfga = jQuery(this).attr('href');
-			if(tempfga == '' || typeof tempfga == 'undefined' || tempfga === undefined ){
-				// do nothing
-			}else{
-				var tempfg 	= tempfga.replace(pprspoturl,'');
-				var tempfg2 = tempfg.replace(/\//gi,'');
-				var tempfg3 = tempfga.replace(/\//gi,'');
-				var tempfh 	= jQuery(this).attr('rel');
-				var tempfi 	= jQuery(this).attr('target');
-				if(pprrewrite == '1'){
-					//pprnewurl = jQuery(this).attr('href',pprrewriteurl);
-					// Temp Remove as it causes the all links to be redirected in 5.0.1
-				}	
-				if(jQuery.inArray(tempfg2, pprNoFollArr) >= 0 || jQuery.inArray(tempfg3, pprNoFollArr) >= 0){
-					if(tempfh =='' || tempfh =='undefined' || tempfh === undefined ||  typeof tempfh == 'undefined' ){
-						jQuery(this).attr('rel','nofollow');
-					}else{
-						if(tempfh != 'nofollow' && tempfh.indexOf('nofollow') == -1){
-							jQuery(this).attr('rel','nofollow '+tempfh);
-						}
-					}
-					jQuery(this).addClass('qppr-nf');
-				}
-				if(jQuery.inArray(tempfg2,pprNewWinArr) >= 0 || jQuery.inArray(tempfg3, pprNewWinArr) >= 0){
-					jQuery(this).addClass('qppr-nw');
-					if(tempfi =='' || tempfi =='undefined' || tempfi === undefined || typeof tempfi == 'undefined' ){jQuery(this).attr('target','_blank');}
-				}
-			}
-		});
-	}
-});
-		";
-		//temp fix until this is resolved:
-		$theScript = '';
-		update_option('qppr_jQuery_cache',$theScript);
-		$this->quickppr_jquerycache = get_option('qppr_jQuery_cache');
-	}
-	
+	}	
 	function register_pprsettings() {
 		register_setting( 'ppr-settings-group', 'ppr_use-custom-post-types' );
 		register_setting( 'ppr-settings-group', 'ppr_override-nofollow' );
@@ -417,7 +300,6 @@ jQuery(document).ready(function() {
 			$tempReportArray = array();
 			$tempa = array();
 			$tempQTReportArray = array();
-			$this->build_jQueryCache();
 			if( !empty( $this->quickppr_redirects)){
 				foreach($this->quickppr_redirects as $key=>$redir){
 					$tempQTReportArray = array('url'=>$key,'destinaition'=>$redir);
@@ -653,9 +535,9 @@ jQuery(document).ready(function() {
 	        <tr valign="top">
 	        	<td><label><span style="color:#FF0000;font-weight:bold;font-size:100%;margin-left:0px;">Hide</span> meta box for following Post Types:</label><?php echo $ptypeHTML;?></td>
 	        </tr>
-	        <tr valign="top">
-	        	<td><label>Use with jQuery? <i><font size="2" color="#FF0000">(unavailable at this time)</font></i></label> <!--input type="checkbox" name="ppr_use-jquery" value="1"<?php if(get_option('ppr_use-jquery')=='1'){echo ' checked="checked" ';} ?>/--> <input type="checkbox" name="ppr_use-jquery" value="0" disabled /><span>disabled in current version<!--Increases effectiveness of plugin. If you have a jQuery conflict, try turning this off.--></span></td>
-	        </tr>
+	        <!--tr valign="top">
+	        	<td><label>Use with jQuery? <i><font size="2" color="#FF0000">(unavailable at this time)</font></i></label> <input type="checkbox" name="ppr_use-jquery" value="1"<?php if(get_option('ppr_use-jquery')=='1'){echo ' checked="checked" ';} ?>/> <input type="checkbox" name="ppr_use-jquery" value="0" disabled /><span>disabled in current version<!--Increases effectiveness of plugin. If you have a jQuery conflict, try turning this off.></span></td>
+	        </tr-->
 	        <tr valign="top">
 	        	<td><label>Meta Refresh Time (in seconds):</label> <input type="text" size="5" name="ppr_meta-seconds" value="<?php echo get_option('ppr_meta-seconds');?>" /> <span>Only needed for Meta Refresh. 0=default (instant)</span></td>
 	        </tr>
@@ -678,10 +560,10 @@ jQuery(document).ready(function() {
 	        	<td><label>Make ALL Redirects this type: </label>
 	        	<select name="ppr_override-redirect-type">
 	        		<option value="0">Use Individual Settings</option>
-	        		<option value="301" <?php if( get_option('ppr_override-redirect-type')=='301') {echo ' selected="selected" ';} ?>/>301 Permanant Redirect</option>
-	        		<option value="302" <?php if( get_option('ppr_override-redirect-type')=='302') {echo ' selected="selected" ';} ?>/>302 Temporary Redirect</option>
-	        		<option value="307" <?php if( get_option('ppr_override-redirect-type')=='307') {echo ' selected="selected" ';} ?>/>307 Temporary Redirect</option>
-	        		<option value="meta" <?php if(get_option('ppr_override-redirect-type')=='meta'){echo ' selected="selected" ';} ?>/>Meta Refresh Redirect</option>
+	        		<option value="301" <?php if( get_option('ppr_override-redirect-type')=='301') {echo ' selected="selected" ';} ?>>301 Permanant Redirect</option>
+	        		<option value="302" <?php if( get_option('ppr_override-redirect-type')=='302') {echo ' selected="selected" ';} ?>>302 Temporary Redirect</option>
+	        		<option value="307" <?php if( get_option('ppr_override-redirect-type')=='307') {echo ' selected="selected" ';} ?>>307 Temporary Redirect</option>
+	        		<option value="meta" <?php if(get_option('ppr_override-redirect-type')=='meta'){echo ' selected="selected" ';} ?>>Meta Refresh Redirect</option>
 	        	</select>
 	        	<span> (Quick 301 Redirects will always be 301)</span></td>
 	        </tr>
@@ -713,7 +595,6 @@ jQuery(document).ready(function() {
 		?>
 		<div class="wrap">
 		<div class="icon32" style="<?php echo 'background: url('.plugins_url( 'settings-icon.png' , __FILE__ ).') no-repeat transparent;';?>"><br></div>
-		<!--script type="text/javascript">jQuery(document).ready(function() { var mainurl = '<?php echo get_bloginfo('url');?>'; jQuery(".delete-qppr").click(function(){ var thepprdel = jQuery(this).attr('id'); if(confirm('Are you sure you want to delete this redirect?')){ jQuery.ajax({ url: mainurl+"/",data : "pprd="+thepprdel+"&scid=<?php echo md5($tohash);?>", success: function(data){ jQuery('#row'+thepprdel).remove(); }, complete: function(){ jQuery(".pprnewwin").each(function (i) { jQuery(this).attr('name','quickppr_redirects[newwindow]['+jQuery(".pprnewwin").index(this)+']'); }); jQuery(".pprnofoll").each(function (i) { jQuery(this).attr('name','quickppr_redirects[nofollow]['+jQuery(".pprnofoll").index(this)+']'); }); } }); return false; }else{ return false; } }); jQuery("#hidepprjqmessage").click(function(){ jQuery.ajax({ url: mainurl+"/",data : "pprhidemessage=1", success: function(data){ jQuery('#usejqpprmessage').remove(); } }); return false; }); jQuery("#hidepprjqmessage2").click(function(){ jQuery.ajax({ url: mainurl+"/",data : "pprhidemessage=2", success: function(data){ jQuery('#usejqpprmessage2').remove(); } }); return false; }); });</script-->
 		<script type="text/javascript">jQuery(document).ready(function() { var mainurl = '<?php echo site_url('/', 'admin') ;?>'; jQuery(".delete-qppr").click(function(){ var thepprdel = jQuery(this).attr('id'); if(confirm('Are you sure you want to delete this redirect?')){ jQuery.ajax({ url: mainurl,data : "pprd="+thepprdel+"&scid=<?php echo md5($tohash);?>", success: function(data, textStatus){ jQuery('#row'+thepprdel).remove(); }, complete: function(){ jQuery(".pprnewwin").each(function (i) { jQuery(this).attr('name','quickppr_redirects[newwindow]['+jQuery(".pprnewwin").index(this)+']'); }); jQuery(".pprnofoll").each(function (i) { jQuery(this).attr('name','quickppr_redirects[nofollow]['+jQuery(".pprnofoll").index(this)+']'); }); } }); return false; }else{ return false; } }); jQuery("#hidepprjqmessage").click(function(){ jQuery.ajax({ url: mainurl,data : "pprhidemessage=1", success: function(data){ jQuery('#usejqpprmessage').remove(); } }); return false; }); jQuery("#hidepprjqmessage2").click(function(){ jQuery.ajax({ url: mainurl,data : "pprhidemessage=2", success: function(data){ jQuery('#usejqpprmessage2').remove(); } }); return false; }); });</script>
 		<style type="text/css">div.info{background-color:#dceff8;border-color:#c00;margin: 5px 0 15px;padding: 5px;border:1px solid #2e92c1;border-radius: 3px;}div.info a{color:#2e92c1;}.usejqpprmessage{overflow:hidden;}.hidepprjqmessage{float:right;font-size:11px;}.delete-qppr{border: 1px solid #FFBBBB;display: inline-block;font-weight: bold;padding: 0 5px;text-decoration: none;text-transform: uppercase;}</style>
 		<h2>Quick 301 Redirects</h2>
@@ -749,6 +630,7 @@ jQuery(document).ready(function() {
 			
 		</ol>
 		<form method="post" action="admin.php?page=redirect-updates">
+       <?php wp_nonce_field( 'add_qppr_redirects' ); ?>
 		<table>
 			<tr>
 				<th align="left">Request</th>
@@ -786,21 +668,20 @@ jQuery(document).ready(function() {
 		$redirects = array();
 		$redirectsmeta = array();
 		for($i = 0; $i < sizeof($data['request']); ++$i) {
-			$request 		= trim($data['request'][$i]);
-			$destination 	= trim($data['destination'][$i]);
-			$newwin 		= trim($data['newwindow'][$i]);
-			$nofoll 		= trim($data['nofollow'][$i]);
+			$request 		= sanitize_text_field(trim($data['request'][$i]));
+			$destination 	= sanitize_text_field(trim($data['destination'][$i]));
+			$newwin 		= sanitize_text_field(trim($data['newwindow'][$i]));
+			$nofoll 		= sanitize_text_field(trim($data['nofollow'][$i]));
 			if(strpos($request,'/',0) !== 0 && strpos($request,'http',0) !== 0){$request = '/'.$request;} // adds root marker to front if not there
 			if((strpos($request,'.') === false && strpos($request,'?') === false) && strpos($request,'/',strlen($request)-1) === false){$request = $request.'/';} // adds end folder marker if not a file end
 			if (($request == '' || $request == '/') && $destination == '') { continue;} elseif($request != '' && $request != '/' && $destination == '' ){$redirects[$request] = $this->homelink.'/';}else { $redirects[$request] = $destination; }
-			$redirectsmeta[$request]['newwindow'] = $newwin;
-			$redirectsmeta[$request]['nofollow'] = $nofoll;
+			$redirectsmeta[$request]['newwindow'] = ($newwin == '1' || $newwin =='0') ? $newwin : '0' ;
+			$redirectsmeta[$request]['nofollow'] = ($nofoll == '1' || $nofoll == '0') ? $nofoll : '0' ;
 		}
-		update_option('quickppr_redirects', $redirects);
-		update_option('quickppr_redirects_meta', $redirectsmeta);
+		update_option('quickppr_redirects', sanitize_option('quickppr_redirects',$redirects));
+		update_option('quickppr_redirects_meta', sanitize_option('quickppr_redirects_meta',$redirectsmeta));
 		$this->quickppr_redirectsmeta = get_option('quickppr_redirects_meta');
 		$this->quickppr_redirects = get_option('quickppr_redirects');
-		$this->build_jQueryCache();
 		return $redirects;
 	}
 	
@@ -816,8 +697,8 @@ jQuery(document).ready(function() {
 				if($noFollow == '1'){$noChecked = ' checked="checked"';}else{$noChecked = '';}
 				$output .= '
 				<tr id="rowpprdel-'.$ww.'">
-					<td><input type="text" name="quickppr_redirects[request][]" value="'.$request.'" style="width:27em" />&nbsp;&raquo;&nbsp;</td>
-					<td><input type="text" name="quickppr_redirects[destination][]" value="'.$destination.'" style="width:27em;" /></td>
+					<td><input type="text" name="quickppr_redirects[request][]" value="'.esc_attr($request).'" style="width:27em" />&nbsp;&raquo;&nbsp;</td>
+					<td><input type="text" name="quickppr_redirects[destination][]" value="'.esc_attr($destination).'" style="width:27em;" /></td>
 					<td align="center"><input class="pprnewwin" type="checkbox" name="quickppr_redirects[newwindow]['.($ww - 1).']" value="1"'.$newChecked.' title="open in a New Window" /></td>
 					<td align="center"><input class="pprnofoll" type="checkbox" name="quickppr_redirects[nofollow]['.($ww - 1).']" value="1"'.$noChecked.' title="add No Follow" /></td>
 					<td align="center">&nbsp;&nbsp;<a href="javascript:void();" id="pprdel-'.$ww.'" class="delete-qppr">X</a>&nbsp;</td>
@@ -918,7 +799,7 @@ jQuery(document).ready(function() {
 				if(!isset($theArray[$key->post_id]['_pprredirect_url'])){$theArray[$key->post_id]['_pprredirect_url']					= '';}
 				if(!isset($theArray[$key->post_id]['_pprredirect_type'] )){$theArray[$key->post_id]['_pprredirect_type']				= 302;}
 				if(!isset($theArray[$key->post_id]['_pprredirect_relnofollow'])){$theArray[$key->post_id]['_pprredirect_relnofollow']	= 0;}
-				if(!isset($theArray[$key->post_id]['_pprredirect_newwindow'] ))	{$theArray[$key->post_id]['_pprredirect_newwindow']	= 0;}
+				if(!isset($theArray[$key->post_id]['_pprredirect_newwindow'] ))	{$theArray[$key->post_id]['_pprredirect_newwindow']		= 0;}
 				if(!isset($theArray[$key->post_id]['_pprredirect_active'] )){$theArray[$key->post_id]['_pprredirect_active']			= 0;}
 				
 				if($theArray[$key->post_id]['_pprredirect_newwindow']!= '0' || $this->pproverride_newwin =='1'){
@@ -937,71 +818,7 @@ jQuery(document).ready(function() {
 	}
 	
 	function get_value($theval='none'){
-		if($theval==''){return;}
-		switch($theval){
-			case 'ppr_all_redir_array':
-				return $this->ppr_all_redir_array;
-				break;
-			case 'ppr_nofollow':
-				return $this->ppr_all_redir_array;
-				break;
-			case 'ppr_newindow':
-				return $this->ppr_newindow;
-				break;
-			case 'ppr_url':
-				return $this->ppr_url;
-				break;
-			case 'ppr_url_rewrite':
-				return $this->ppr_url_rewrite;
-				break;
-			case 'ppr_type':
-				return $this->ppr_type;
-				break;
-			case 'ppr_curr_version':
-				return $this->ppr_curr_version;
-				break;
-			case 'ppr_metaurlnew':
-				return $this->ppr_metaurlnew;
-				break;
-			case 'ppr_casesensitive':
-				return $this->pproverride_casesensitive;
-				break;
-			case 'hepprversion':
-				return $this->hepprversion;
-				break;
-			case 'thepprmeta':
-				return $this->thepprmeta;
-				break;
-			case 'quickppr_redirects':
-				return $this->quickppr_redirects;
-				break;
-			case 'tohash':
-				return $this->tohash;
-				break;
-			case 'fcmlink':
-				return $this->fcmlink;
-				break;
-			case 'adminlink':
-				return $this->adminlink;
-				break;
-			case 'homelink':
-				return $this->homelink;
-				break;
-			case 'updatemsg':
-				return $this->updatemsg;
-				break;
-			case 'pprmeta_seconds':
-				return $this->pprmeta_seconds;
-				break;
-			case 'pprmeta_message':
-				return $this->pprmeta_message;
-				break;
-			case 'none':
-				return 0;
-				break;
-		}
-
-		return '';
+		return isset($this->$theval) ? $this->$theval : 0;
 	}
 	
 	function ppr_addmetatohead_theme(){
@@ -1112,7 +929,7 @@ jQuery(document).ready(function() {
 							foreach($text as $nl){
 								if($nl!=''){
 									$elem = explode('|',$nl);
-									$newfile1['quickppr_redirects'][$elem[0]] = $elem[1];
+									$newfile1['quickppr_redirects'][sanitize_text_field($elem[0])] = sanitize_text_field($elem[1]);
 									$nw = isset($elem[2]) && $elem[2] == '1' ? '1' : '';
 									$nf = isset($elem[3]) && $elem[3] == '1' ? '1' : '';
 									$newfile1['quickppr_redirects_meta'][$elem[0]]['newwindow'] = $nw;
@@ -1150,7 +967,6 @@ jQuery(document).ready(function() {
 				exit;
 			} else {
 				$config_file = file_get_contents( $_FILES['qppr_file_add']['tmp_name'] );
-				//------------
 				if ( strpos($config_file,'|') === false ) {
 					wp_die('This does not look like the file is in the correct format - it is possibly damaged or corrupt.<br/>be sure the redirects are 1 per line and the redirect and destination are seperated by a PIPE (|).<br/>Example:<br/><br/><code>redirect|destination</code>', 'ERROR - Not a valid File',array('response'=>'200','back_link'=>'1'));
 					exit;
@@ -1163,7 +979,7 @@ jQuery(document).ready(function() {
 							if($qrtoadd != '' && strpos($qrtoadd,'|') !== false){
 								$item = explode('|',str_replace(array("\r","\n"), array('',''),$qrtoadd));	
 								if(is_array($item) && !empty($item)){
-									$tempArr[$item[0]] = $item[1];
+									$tempArr[sanitize_text_field($item[0])] = sanitize_text_field($item[1]);
 									if(isset( $item[2]) || isset( $item[3])){
 										$newwin = (isset($item[2]) && ($item[2] != '' && $item[2] != '0')) ? 1 : '';
 										$nofoll = (isset($item[3]) && ($item[3] != '' && $item[3] != '0')) ? 1 : '';
@@ -1195,7 +1011,6 @@ jQuery(document).ready(function() {
 						exit;
 					endif;
 				}
-				//-------------
 			}
 		}		return;
 	}
@@ -1219,26 +1034,12 @@ jQuery(document).ready(function() {
 				} // end if
 				update_option('quickppr_redirects',$quickppr_redirects);
 				update_option('quickppr_redirects_meta',$quickppr_redirectsmeta);
-				$this->build_jQueryCache();
 				echo 1;
 				exit;
 			}else{
 				echo 0;
 				exit;
 			}
-		}elseif(array_key_exists('ver', $wp->query_vars)){
-			if( $wp->query_vars['ver'] =='pprjq1'){
-				if($this->ppruse_jquery == '1'){
-					$pprscript = get_option('qppr_jQuery_cache');
-				}else{
-					$pprscript = '//not set';
-				}
-				if($pprscript == ''){$pprscript = $this->build_jQueryCache();}
-				header('Content-type: text/javascript');
-				echo $pprscript;
-				exit;
-			}
-			return;
 		}elseif(array_key_exists('pprhidemessage', $wp->query_vars)){
 			if( $wp->query_vars['pprhidemessage'] =='1'){
 				update_option('qppr_jQuery_hide_message','1');
@@ -1299,19 +1100,18 @@ jQuery(document).ready(function() {
 		$ppr_option5='';
 		// Use nonce for verification ... ONLY USE ONCE!
 		wp_nonce_field( 'pprredirect_noncename', 'pprredirect_noncename', false, true );
-
 		// The actual fields for data entry
-		echo '<label for="pprredirect_active" style="padding:2px 0;"><input type="checkbox" name="pprredirect_active" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_active',true),0).' />&nbsp;Make Redirect <b>Active</b>. (check to turn on)</label><br />';
-		echo '<label for="pprredirect_newwindow" style="padding:2px 0;"><input type="checkbox" name="pprredirect_newwindow" id="pprredirect_newwindow" value="_blank" '. checked('_blank',get_post_meta($post->ID,'_pprredirect_newwindow',true),0).'>&nbsp;Open redirect link in a <b>new window.</b></label><br />';
-		echo '<label for="pprredirect_relnofollow" style="padding:2px 0;"><input type="checkbox" name="pprredirect_relnofollow" id="pprredirect_relnofollow" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_relnofollow',true),0).'>&nbsp;Add <b>rel=\"nofollow\"</b> to redirect link.</label><br />';
-		echo '<label for="pprredirect_rewritelink" style="padding:2px 0;"><input type="checkbox" name="pprredirect_rewritelink" id="pprredirect_rewritelink" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_rewritelink',true),0).'>&nbsp;<b>Show</b> the Redirect URL below in the link instead of this page URL. <b>NOTE: You may have to use the <u>FULL</u> URL below!</b></label><br /><br />';
+		$pprredirecttype = get_post_meta($post->ID, '_pprredirect_type', true) !='' ? get_post_meta($post->ID, '_pprredirect_type', true) : "";
+		$pprredirecturl =  get_post_meta($post->ID, '_pprredirect_url', true)!='' ? get_post_meta($post->ID, '_pprredirect_url', true) : "";
+		echo '<label for="pprredirect_active" style="padding:2px 0;"><input type="checkbox" name="pprredirect_active" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_active',true),0).' />&nbsp;Make Redirect <b>Active</b>.<span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help">Check to turn on or redirect will not work.</span></span></label><br />';
+		echo '<label for="pprredirect_newwindow" style="padding:2px 0;"><input type="checkbox" name="pprredirect_newwindow" id="pprredirect_newwindow" value="_blank" '. checked('_blank',get_post_meta($post->ID,'_pprredirect_newwindow',true),0).'>&nbsp;Open redirect link in a <b>new window.</b><span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help">May not work in all cases.</span></span></label><br />';
+		echo '<label for="pprredirect_relnofollow" style="padding:2px 0;"><input type="checkbox" name="pprredirect_relnofollow" id="pprredirect_relnofollow" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_relnofollow',true),0).'>&nbsp;Add <b>rel="nofollow"</b> to redirect link.<span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help">May not work in all cases.</span></span></label><br />';
+		echo '<label for="pprredirect_rewritelink" style="padding:2px 0;"><input type="checkbox" name="pprredirect_rewritelink" id="pprredirect_rewritelink" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_rewritelink',true),0).'>&nbsp;<b>Show</b> the Redirect URL instead of original URL. <span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help">May not always work and will only show the link - <strong><em>but NOT in the Address bar, just the link itself.</em></strong></span></span></label><br /><br />';
 		//echo '<label for="pprredirect_casesensitive" style="padding:2px 0;"><input type="checkbox" name="pprredirect_casesensitive" id="pprredirect_casesensitive" value="1" '. checked('1',get_post_meta($post->ID,'_pprredirect_casesensitive',true),0).'>&nbsp;Make the Redirect Case Insensitive.</label><br /><br />';
 		echo '<label for="pprredirect_url"><b>Redirect URL:</b></label><br />';
-		if(get_post_meta($post->ID, '_pprredirect_url', true)!=''){$pprredirecturl=get_post_meta($post->ID, '_pprredirect_url', true);}else{$pprredirecturl="";}
-		echo '<input type="text" style="width:75%;margin-top:2px;margin-bottom:2px;" name="pprredirect_url" value="'.$pprredirecturl.'" /><br />(i.e., <code>http://example.com</code> or <code>/somepage/</code> or <code>p=15</code> or <code>155</code>. Use <b>FULL URL</b> <i>including</i> <code>http://</code> for all external <i>and</i> meta redirects. )<br /><br />';
-	
-		echo '<label for="pprredirect_type">Type of Redirect:</label> ';
-		if(get_post_meta($post->ID, '_pprredirect_type', true)!=''){$pprredirecttype=get_post_meta($post->ID, '_pprredirect_type', true);}else{$pprredirecttype="";}
+		echo '<input type="text" style="width:75%;margin-top:2px;margin-bottom:2px;" name="pprredirect_url" value="'.$pprredirecturl.'" /><span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help"><br />(i.e., <strong>http://example.com</strong> or <strong>/somepage/</strong> or <strong>p=15</strong> or <strong>155</strong>. Use <b>FULL URL</b> <i>including</i> <strong>http://</strong> for all external <i>and</i> meta redirects.)</span></span><br /><br />';
+		echo '<label for="pprredirect_type"><b>Type of Redirect:</b></label><br />';
+		
 		switch($pprredirecttype):
 			case "":
 				$ppr_option2=" selected";//default
@@ -1330,51 +1130,103 @@ jQuery(document).ready(function() {
 				break;
 		endswitch;
 		
-		echo '<select style="margin-top:2px;margin-bottom:2px;width:40%;" name="pprredirect_type"><option value="301" '.$ppr_option1.'>301 Permanent</option><option value="302" '.$ppr_option2.'>302 Temporary</option><option value="307" '.$ppr_option3.'>307 Temporary</option><option value="meta" '.$ppr_option5.'>Meta Redirect</option></select> (Default is 302)<br /><br />';
-		echo '<b>NOTE:</b> For This Option to work, the page or post needs to be published for the redirect to happen <i><b>UNLESS</b></i> you publish it first, then save it as a Draft. If you want to add a redirect without adding a page/post or having it published, use the <a href="./admin.php?page=redirect-updates">Quick Redirects</a> method.';
+		echo '
+		<select style="margin-top:2px;margin-bottom:2px;width:40%;" name="pprredirect_type">
+		<option value="301" '.$ppr_option1.'>301 Permanent</option>
+		<option value="302" '.$ppr_option2.'>302 Temporary</option>
+		<option value="307" '.$ppr_option3.'>307 Temporary</option>
+		<option value="meta" '.$ppr_option5.'>Meta Redirect</option>
+		</select><span class="qppr_meta_help_wrap"><span class="qppr_meta_help_icon">?</span><span class="qppr_meta_help">Default is 302 (Temporary Redirect). </span></span><br /><br />
+		';
+		echo '<b>NOTE:</b> For a Page or Post (or Custom Post) Redirect to work, it may need to be published first and then saved again as a Draft. If you do not already have a page/post created you can add a \'Quick\' redirect using the <a href="./admin.php?page=redirect-updates">Quick Redirects</a> method.';
+	}
+	function appip_parseURI($url){
+		/*
+		[scheme]
+		[host]
+		[user]
+		[pass]
+		[path]
+		[query]
+		[fragment]
+		*/
+		$strip_protocol = 0;
+		$tostrip = '';
+		//if($url == '' || $url == 'http://' || $url == 'https://' ){ return $url;}
+		
+		if(substr($url,0,2) == 'p=' || substr($url,0,8) == 'page_id='){ // page or post id
+			$url = network_site_url().'/?'.$url;
+		}elseif(is_numeric($url)){ // page or post id
+			$url = network_site_url().'/?'.$url;
+		}elseif($url == "/" ){ // root
+			$url = network_site_url().'/';
+		}elseif(substr($url,0,1) == '/' ){ // relative to root
+			$url =  network_site_url().$url;
+			$strip_protocol = 1;
+			$tostrip = network_site_url(); 
+		}elseif(substr($url,0,7) != 'http://' && substr($url,0,8) != 'https://' ){ // no protocol so add it
+			//$url = "http://".$url;
+			//desided not to add it automatically.
+		}
+		$info = @parse_url($url);
+		if($strip_protocol == 1 && $tostrip != '' ){
+			$info['url'] = str_replace($tostrip, '', $url);
+		}else{
+			$info['url'] = $url;
+		}
+		return $info;
+	}
+	
+	function isOne_none($val=''){ //true (1) or false =''
+		if($val == '_blank'){
+			return $val;
+		}elseif($val == '1' || $val == 'true' || $val === true ){
+			return 1;
+		}
+		return '';
 	}
 	
 	function ppr_save_metadata($post_id, $post) {
-		
 		if($post->post_type == 'revision'){return;}
-		if(isset($_REQUEST['pprredirect_noncename']) && (isset($_POST['pprredirect_active']) || isset($_POST['pprredirect_url']) || isset($_POST['pprredirect_type']) || isset($_POST['pprredirect_newwindow']) || isset($_POST['pprredirect_relnofollow']))):
-			unset($my_meta_data);
-			$my_meta_data = array();
-			// verify authorization
-			if(isset($_POST['pprredirect_noncename'])){
-				if ( !wp_verify_nonce( $_REQUEST['pprredirect_noncename'], 'pprredirect_noncename' )) {
-					return $post_id;
-				}
+		// verify authorization
+		if(isset($_POST['pprredirect_noncename'])){
+			if ( !wp_verify_nonce( $_REQUEST['pprredirect_noncename'], 'pprredirect_noncename' )) {
+				return $post_id;
 			}
-			// check allowed to editing
-			if ( !(current_user_can('edit_page', $post_id ) || current_user_can( 'edit_post', $post_id ))){
-					return $post_id;
-			}
-			
+		}
+		// check allowed to editing
+		if ( !current_user_can('edit_posts', $post_id)){
+				return $post_id;
+		}
+		if(!empty($my_meta_data)){unset($my_meta_data);}
+		$my_meta_data = array();
+		if(isset($_POST['pprredirect_active']) || isset($_POST['pprredirect_url']) || isset($_POST['pprredirect_type']) || isset($_POST['pprredirect_newwindow']) || isset($_POST['pprredirect_relnofollow'])):
 			// find & save the form data & put it into an array
-			$my_meta_data['_pprredirect_active'] 		= isset($_REQUEST['pprredirect_active']) 		? $_REQUEST['pprredirect_active'] 	: '';
-			$my_meta_data['_pprredirect_newwindow'] 	= isset($_REQUEST['pprredirect_newwindow']) 	? $_REQUEST['pprredirect_newwindow'] 	: '';
-			$my_meta_data['_pprredirect_relnofollow'] 	= isset($_REQUEST['pprredirect_relnofollow']) 	? $_REQUEST['pprredirect_relnofollow'] 	: '';
-			$my_meta_data['_pprredirect_type'] 			= isset($_REQUEST['pprredirect_type']) 			? $_REQUEST['pprredirect_type'] 		: '';
-			$my_meta_data['_pprredirect_rewritelink'] 	= isset($_REQUEST['pprredirect_rewritelink']) 	? $_REQUEST['pprredirect_rewritelink'] 	: '';
-			$my_meta_data['_pprredirect_url']    		= isset($_REQUEST['pprredirect_url']) 			? $_REQUEST['pprredirect_url'] 		: ''; 
-		  //$my_meta_data['_pprredirect_casesensitive'] = isset($_REQUEST['pprredirect_casesensitive']) ? $_REQUEST['pprredirect_casesensitive']: ''; 
-			
-			if ( 0 === strpos($my_meta_data['_pprredirect_url'], 'www.'))
-				$my_meta_data['_pprredirect_url'] = 'http://' . $my_meta_data['_pprredirect_url'] ; // Starts with www., so add http://
+			$my_meta_data['_pprredirect_active'] 		= isset($_REQUEST['pprredirect_active']) 		? sanitize_meta( '_pprredirect_active', $this->isOne_none(intval( $_REQUEST['pprredirect_active'])), 'post' ) : '';
+			$my_meta_data['_pprredirect_newwindow'] 	= isset($_REQUEST['pprredirect_newwindow']) 	? sanitize_meta( '_pprredirect_newwindow', $this->isOne_none( $_REQUEST['pprredirect_newwindow']), 'post' ) 	: '';
+			$my_meta_data['_pprredirect_relnofollow'] 	= isset($_REQUEST['pprredirect_relnofollow']) 	? sanitize_meta( '_pprredirect_relnofollow', $this->isOne_none(intval( $_REQUEST['pprredirect_relnofollow'])), 'post' ) 	: '';
+			$my_meta_data['_pprredirect_type'] 			= isset($_REQUEST['pprredirect_type']) 			? sanitize_meta( '_pprredirect_type', sanitize_text_field( $_REQUEST['pprredirect_type'] ), 'post' )		: '';
+			$my_meta_data['_pprredirect_rewritelink'] 	= isset($_REQUEST['pprredirect_rewritelink']) 	? sanitize_meta( '_pprredirect_rewritelink', $this->isOne_none(intval( $_REQUEST['pprredirect_rewritelink'])), 'post' )	: '';
+			$my_meta_data['_pprredirect_url']    		= isset($_REQUEST['pprredirect_url']) 			? sanitize_meta( '_pprredirect_url', ( $_REQUEST['pprredirect_url'] ), 'post' )			: ''; 
 
-			if($my_meta_data['_pprredirect_url'] == ''){
+			$info = $this->appip_parseURI($my_meta_data['_pprredirect_url']);
+			//$my_meta_data['_pprredirect_url'] = esc_url_raw($info['url']);
+			$my_meta_data['_pprredirect_url'] = $info['url'];
+
+			if($my_meta_data['_pprredirect_url'] == 'http://' || $my_meta_data['_pprredirect_url'] == 'https://' || $my_meta_data['_pprredirect_url'] == ''){
+				$my_meta_data['_pprredirect_url'] 		= ''; //reset to nothing
 				$my_meta_data['_pprredirect_type'] 		= NULL; //clear Type if no URL is set.
 				$my_meta_data['_pprredirect_active'] 	= NULL; //turn it off if no URL is set
+				$my_meta_data['_pprredirect_rewritelink'] = NULL;  //turn it off if no URL is set
+				$my_meta_data['_pprredirect_newwindow']	= NULL; //turn it off if no URL is set
+				$my_meta_data['_pprredirect_relnofollow'] = NULL; //turn it off if no URL is set
 			}
 			
 			// Add values of $my_meta_data as custom fields
 			if(count($my_meta_data)>0){
-				foreach ($my_meta_data as $key => $value) { //Let's cycle through the $my_meta_data array!
-					if( $post->post_type == 'revision' ){ return; } //don't store custom data twice
-					$value = implode(',', (array)$value); //if $value is an array, make it a CSV (unlikely)
-					
-					if($value=='' || $value == NULL){ 
+				foreach ($my_meta_data as $key => $value) { 
+					$value = implode(',', (array)$value);
+					if($value == '' || $value == NULL || $value == ','){ 
 						delete_post_meta($post->ID, $key); 
 					}else{
 						if(get_post_meta($post->ID, $key, true) != '') {
@@ -1386,7 +1238,6 @@ jQuery(document).ready(function() {
 				}
 			}
 		endif;
-		$this->build_jQueryCache();
 	}
 	
 	function ppr_fix_targetsandrels($pages) {
@@ -1494,7 +1345,6 @@ jQuery(document).ready(function() {
 				$useURLQS = array();
 				if(count($_GET) >= 1){
 					foreach($_GET as $key => $value){$useURLQS[] = $key.'='.$value;}
-					//TODO: Make this an option?
 					$finalQS = '?'.implode('&',$useURLQS);
 					$userrequest = preg_replace('/\?.*/', '', $userrequest);
 				}
@@ -1524,12 +1374,14 @@ jQuery(document).ready(function() {
 				if($val) {
 					$useURL = $this->pproverride_URL != '' ? $this->pproverride_URL : $val;
 					$useURL .= $finalQS; //add QS back
-					do_action('qppr_redirect',$useURL,$this->pproverride_type);
-					if($this->pproverride_type == 'meta'){
+					//$this->pproverride_type = 301;
+					$qpprRedType = 301;
+					do_action('qppr_redirect',$useURL,$qpprRedType);
+					if($qpprRedType == 'meta'){
 						$this->ppr_metaurl = $useURL;
 						add_action('wp_head', array($this,'ppr_addmetatohead_theme'),1);
 					}else{
-						wp_redirect($useURL,$this->pproverride_type);
+						wp_redirect($useURL,$qpprRedType);
 						exit();
 					}
 				}	
@@ -1560,7 +1412,6 @@ jQuery(document).ready(function() {
 					}else{	// we assume they are using the permalink / page name??
 						$urlsite=$this->homelink.'/'.$redrurl;
 					}
-					
 					// check if override is set for all redirects to go to one URL
 					if($this->pproverride_URL !=''){$urlsite=$this->pproverride_URL;} 
 					if($this->pproverride_type!='0' && $this->pproverride_type!=''){$redrtype = $this->pproverride_type;} //override check
@@ -1615,6 +1466,7 @@ jQuery(document).ready(function() {
 // END Main Redirect Class.
 //=======================================
 function start_ppr_class(){
-	$redirect_plugin = new quick_page_post_reds(); // call our class
+	global $newqppr, $redirect_plugin;
+	$redirect_plugin = $newqppr = new quick_page_post_reds(); // call our class
 }
 ?>

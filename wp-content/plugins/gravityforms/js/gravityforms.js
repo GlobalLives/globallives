@@ -306,40 +306,55 @@ function gformGetFieldId(element){
 
 }
 
-function gformCalculateProductPrice(formId, productFieldId){
-    var price = gformGetBasePrice(formId, productFieldId);
+function gformCalculateProductPrice(form_id, productFieldId){
 
-    var suffix = "_" + formId + "_" + productFieldId;
+    var price = gformGetBasePrice(form_id, productFieldId);
+
+    var suffix = "_" + form_id + "_" + productFieldId;
+
 
     //Drop down auto-calculating labels
-    jQuery(".gfield_option" + suffix + ", .gfield_shipping_" + formId).find("select").each(function(){
-        var selected_price = gformGetPrice(jQuery(this).val());
-        var fieldId = gformGetFieldId(this);
-        jQuery(this).children("option").each(function(){
-            var label = gformGetOptionLabel(this, jQuery(this).val(), selected_price, formId, fieldId);
-            jQuery(this).html(label);
+    jQuery(".gfield_option" + suffix + ", .gfield_shipping_" + form_id).find("select").each(function(){
+
+        var dropdown_field = jQuery(this);
+        var selected_price = gformGetPrice(dropdown_field.val());
+        var field_id = dropdown_field.attr("id").split("_")[2];
+        dropdown_field.children("option").each(function(){
+            var choice_element = jQuery(this);
+            var label = gformGetOptionLabel(choice_element, choice_element.val(), selected_price, form_id, field_id);
+            choice_element.html(label);
         });
     });
 
+
     //Checkboxes labels with prices
     jQuery(".gfield_option" + suffix).find(".gfield_checkbox").find("input").each(function(){
-        var fieldId = gformGetFieldId(jQuery(this).parents(".gfield_checkbox"));
-        var element = jQuery(this).next();
-        var label = gformGetOptionLabel(element, jQuery(this).val(), 0, formId, fieldId);
-        element.html(label);
+        var checkbox_item = jQuery(this);
+        var id = checkbox_item.attr("id");
+        var field_id = id.split("_")[2];
+        var label_id = id.replace("choice_", "#label_");
+        var label_element = jQuery(label_id);
+        var label = gformGetOptionLabel(label_element, checkbox_item.val(), 0, form_id, field_id);
+        label_element.html(label);
     });
 
+
     //Radio button auto-calculating lables
-    jQuery(".gfield_option" + suffix + ", .gfield_shipping_" + formId).find(".gfield_radio").each(function(){
+    jQuery(".gfield_option" + suffix + ", .gfield_shipping_" + form_id).find(".gfield_radio").each(function(){
         var selected_price = 0;
-        var selected_value = jQuery(this).find("input:checked").val();
-        var fieldId = gformGetFieldId(this);
+        var radio_field = jQuery(this);
+        var id = radio_field.attr("id");
+        var fieldId = id.split("_")[2];
+        var selected_value = radio_field.find("input:checked").val();
+
         if(selected_value)
             selected_price = gformGetPrice(selected_value);
 
         jQuery(this).find("input").each(function(){
-            var label_element = jQuery(this).next();
-            var label = gformGetOptionLabel(label_element, jQuery(this).val(), selected_price, formId, fieldId);
+            var radio_item = jQuery(this);
+            var label_id = radio_item.attr("id").replace("choice_", "#label_");
+            var label_element = jQuery(label_id);
+            var label = gformGetOptionLabel(label_element, radio_item.val(), selected_price, form_id, fieldId);
             label_element.html(label);
         });
     });
@@ -349,7 +364,7 @@ function gformCalculateProductPrice(formId, productFieldId){
             price += gformGetPrice(jQuery(this).val());
     });
 
-    var quantity = gformGetProductQuantity( formId, productFieldId );
+    var quantity = gformGetProductQuantity( form_id, productFieldId );
 
     //setting global variable if quantity is more than 0 (a product was selected). Will be used when calculating total
     if(quantity > 0)
@@ -823,15 +838,14 @@ var GFCalc = function(formId, formulaFields){
         }
         else {
 
-            var decimalSeparator, thousandSeparator;
-            if(formulaField.numberFormat == "decimal_comma"){
+            var decimalSeparator = ".";
+            var thousandSeparator = ",";
+
+            if(numberFormat == "decimal_comma"){
                 decimalSeparator = ",";
                 thousandSeparator = ".";
             }
-            else if(formulaField.numberFormat == "decimal_dot"){
-                decimalSeparator = ".";
-                thousandSeparator = ",";
-            }
+
             result = gformFormatNumber(result, !gformIsNumber(formulaField.rounding) ? -1 : formulaField.rounding, decimalSeparator, thousandSeparator);
         }
 
@@ -1122,10 +1136,12 @@ var gform = {
                 }
 
             });
-            $(document).bind("gform_post_conditional_logic", function(e,formID){
-                $.each(gfMultiFileUploader.uploaders, function(i, uploader){
-                    uploader.refresh();
-                });
+            $(document).bind("gform_post_conditional_logic", function(e,formID, fields, isInit){
+                if(!isInit){
+                    $.each(gfMultiFileUploader.uploaders, function(i, uploader){
+                        uploader.refresh();
+                    });
+                }
             });
         }
     });
@@ -1152,7 +1168,9 @@ var gform = {
         });
 
         gfMultiFileUploader.toggleDisabled = function (settings, disabled){
-            $("#" + settings.browse_button).prop("disabled", disabled);
+
+            var button = typeof settings.browse_button == "string" ? $("#" + settings.browse_button) : $(settings.browse_button);
+            button.prop("disabled", disabled);
         }
 
         function addMessage(messagesID, message){
@@ -1236,7 +1254,8 @@ var gform = {
 
         uploader.bind('Error', function(up, err) {
             if(err.code === plupload.FILE_EXTENSION_ERROR){
-                addMessage(up.settings.gf_vars.message_id, err.file.name + " - " + strings.invalid_file_extension + " " + up.settings.filters[0].extensions);
+                var extensions = typeof up.settings.filters.mime_types != 'undefined' ? up.settings.filters.mime_types[0].extensions /* plupoad 2 */ : up.settings.filters[0].extensions;
+                addMessage(up.settings.gf_vars.message_id, err.file.name + " - " + strings.invalid_file_extension + " " + extensions);
             } else if (err.code === plupload.FILE_SIZE_ERROR) {
                 addMessage(up.settings.gf_vars.message_id, err.file.name + " - " + strings.file_exceeds_limit);
             } else {
@@ -1276,13 +1295,11 @@ var gform = {
             var fieldID = up.settings.multipart_params["field_id"];
 
             if(file.percent == 100){
-                var inputName = getInputName(fieldID),
-                    tempFileName = uniqueID + "_" + inputName + "_" + file.target_name;
-                if(response.data.uploaded_filename === file.name)
+                if(response.status && response.status == 'ok'){
                     addFile(fieldID, response.data);
-                else
-                    addMessage(up.settings.gf_vars.message_id, strings.unknown_error)
-
+                }  else {
+                    addMessage(up.settings.gf_vars.message_id, strings.unknown_error);
+                }
             }
 
         });

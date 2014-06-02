@@ -44,6 +44,13 @@ jQuery(document).ready(function($) {
 				radio_use_http_0.attr("checked", "checked");					
 				message_string = objectL10n.oa_admin_js_201b;
 			}				
+			/* CURL detected, ports closed */
+			else if (response == 'error_autodetect_api_curl_ports_blocked')
+			{
+				is_success = false;
+				radio_curl.attr("checked", "checked");			
+				message_string = objectL10n.oa_admin_js_201c;
+			}												
 			/* FSOCKOPEN detected, HTTPS */
 			else if (response == 'success_autodetect_api_fsockopen_https')
 			{
@@ -60,6 +67,15 @@ jQuery(document).ready(function($) {
 				radio_use_http_0.attr("checked", "checked");	
 				message_string = objectL10n.oa_admin_js_202b;
 			}			
+			/* FSOCKOPEN detected, ports closed */
+			else if (response == 'error_autodetect_api_fsockopen_ports_blocked')
+			{
+				is_success = false;
+				radio_fsockopen.attr("checked", "checked");			
+				message_string = objectL10n.oa_admin_js_202c;
+			}	
+			
+			
 			/* No handler detected */
 			else
 			{

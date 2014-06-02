@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Google Sitemap
-Plugin URI:  http://bestwebsoft.com/plugin/
+Plugin URI: http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in Google Webmaster Tools account.
 Author: BestWebSoft
-Version: 2.8.7
+Version: 2.8.9
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -26,12 +26,50 @@ License: GPLv2 or later
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* Function for adding page in admin menu */
-require_once( dirname( __FILE__ ) . '/bws_menu/bws_menu.php' );
-
 /*============================================ Function for adding menu and submenu ====================*/
-if ( ! function_exists( 'gglstmp_add_pages' ) ) {
-	function gglstmp_add_pages() {
+if ( ! function_exists( 'gglstmp_admin_menu' ) ) {
+	function gglstmp_admin_menu() {
+		global $bstwbsftwppdtplgns_options, $wpmu, $bstwbsftwppdtplgns_added_menu;
+		$bws_menu_version = '1.2.6';
+		$base = plugin_basename(__FILE__);
+
+		if ( ! isset( $bstwbsftwppdtplgns_options ) ) {
+			if ( 1 == $wpmu ) {
+				if ( ! get_site_option( 'bstwbsftwppdtplgns_options' ) )
+					add_site_option( 'bstwbsftwppdtplgns_options', array(), '', 'yes' );
+				$bstwbsftwppdtplgns_options = get_site_option( 'bstwbsftwppdtplgns_options' );
+			} else {
+				if ( ! get_option( 'bstwbsftwppdtplgns_options' ) )
+					add_option( 'bstwbsftwppdtplgns_options', array(), '', 'yes' );
+				$bstwbsftwppdtplgns_options = get_option( 'bstwbsftwppdtplgns_options' );
+			}
+		}
+
+		if ( isset( $bstwbsftwppdtplgns_options['bws_menu_version'] ) ) {
+			$bstwbsftwppdtplgns_options['bws_menu']['version'][ $base ] = $bws_menu_version;
+			unset( $bstwbsftwppdtplgns_options['bws_menu_version'] );
+			update_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options, '', 'yes' );
+			require_once( dirname( __FILE__ ) . '/bws_menu/bws_menu.php' );
+		} else if ( ! isset( $bstwbsftwppdtplgns_options['bws_menu']['version'][ $base ] ) || $bstwbsftwppdtplgns_options['bws_menu']['version'][ $base ] < $bws_menu_version ) {
+			$bstwbsftwppdtplgns_options['bws_menu']['version'][ $base ] = $bws_menu_version;
+			update_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options, '', 'yes' );
+			require_once( dirname( __FILE__ ) . '/bws_menu/bws_menu.php' );
+		} else if ( ! isset( $bstwbsftwppdtplgns_added_menu ) ) {
+			$plugin_with_newer_menu = $base;
+			foreach ( $bstwbsftwppdtplgns_options['bws_menu']['version'] as $key => $value ) {
+				if ( $bws_menu_version < $value && is_plugin_active( $base ) ) {
+					$plugin_with_newer_menu = $key;
+				}
+			}
+			$plugin_with_newer_menu = explode( '/', $plugin_with_newer_menu );
+			$wp_content_dir = defined( 'WP_CONTENT_DIR' ) ? basename( WP_CONTENT_DIR ) : 'wp-content';
+			if ( file_exists( ABSPATH . $wp_content_dir . '/plugins/' . $plugin_with_newer_menu[0] . '/bws_menu/bws_menu.php' ) )
+				require_once( ABSPATH . $wp_content_dir . '/plugins/' . $plugin_with_newer_menu[0] . '/bws_menu/bws_menu.php' );
+			else
+				require_once( dirname( __FILE__ ) . '/bws_menu/bws_menu.php' );
+			$bstwbsftwppdtplgns_added_menu = true;			
+		}
+
 		add_menu_page( __( 'BWS Plugins', 'sitemap' ), __( 'BWS Plugins', 'sitemap' ), 'manage_options', 'bws_plugins', 'bws_add_menu_render', plugins_url( 'images/px.png', __FILE__ ), 1001 );
 		add_submenu_page( 'bws_plugins', __( 'Google Sitemap Settings', 'sitemap' ), __( 'Google Sitemap', 'sitemap' ), 'manage_options', "google-sitemap-plugin.php", 'gglstmp_settings_page' );
 		
@@ -40,6 +78,65 @@ if ( ! function_exists( 'gglstmp_add_pages' ) ) {
 		$url				=	urlencode( $url_home );
 		$url_send			=	"https://www.google.com/webmasters/tools/feeds/sites/";
 		$url_send_sitemap	=	"https://www.google.com/webmasters/tools/feeds/";
+	}
+}
+
+/* Function adds language files */
+if ( ! function_exists( 'gglstmp_init' ) ) {
+	function gglstmp_init() {
+		load_plugin_textdomain( 'sitemap', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );		
+	}
+}
+
+if ( ! function_exists( 'gglstmp_admin_init' ) ) {
+	function gglstmp_admin_init() {
+		global $bws_plugin_info, $gglstmp_plugin_info;
+
+		$gglstmp_plugin_info = get_plugin_data( __FILE__ );	
+
+		if ( isset( $bws_plugin_info ) || empty( $bws_plugin_info ) )
+			$bws_plugin_info = array( 'id' => '83', 'version' => $gglstmp_plugin_info["Version"] );
+
+		gglstmp_plugin_version_check();
+
+		if ( isset( $_GET['page'] ) && "google-sitemap-plugin.php" == $_GET['page'] )
+			gglstmp_register_settings();
+	}
+}
+
+/*============================================ Function for register of the plugin settings on init core ====================*/
+if ( ! function_exists( 'gglstmp_register_settings' ) ) {
+	function gglstmp_register_settings() {
+		global $wpmu, $gglstmp_settings, $gglstmp_plugin_info;
+
+		$gglstmp_option_defaults = array( 'page', 'post' );
+
+		if ( 1 == $wpmu ) {
+			if ( ! get_site_option( 'gglstmp_settings' ) )
+				add_site_option( 'gglstmp_settings', $gglstmp_option_defaults );
+			
+			$gglstmp_settings = get_site_option( 'gglstmp_settings' );
+		} else {
+			if ( ! get_option( 'gglstmp_settings' ) )
+				add_option( 'gglstmp_settings', $gglstmp_option_defaults );
+			
+			$gglstmp_settings = get_option( 'gglstmp_settings' );
+		}
+	}
+}
+
+/* Function check if plugin is compatible with current WP version  */
+if ( ! function_exists ( 'gglstmp_plugin_version_check' ) ) {
+	function gglstmp_plugin_version_check() {
+		global $wp_version, $gglstmp_plugin_info;
+		$require_wp		=	"3.0"; /* Wordpress at least requires version */
+		$plugin			=	plugin_basename( __FILE__ );
+	 	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
+			if ( is_plugin_active( $plugin ) ) {
+				deactivate_plugins( $plugin );
+				wp_die( "<strong>" . $gglstmp_plugin_info['Name'] . " </strong> " . __( 'requires', 'sitemap' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'sitemap') . "<br /><br />" . __( 'Back to the WordPress', 'sitemap') . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', 'sitemap') . "</a>." );
+			}
+		}
 	}
 }
 
@@ -95,49 +192,13 @@ if ( ! function_exists( 'gglstmp_sitemapcreate' ) ) {
 	}
 }
 
-/*============================================ Function for register of the plugin settings on init core ====================*/
-if ( ! function_exists( 'register_gglstmp_settings' ) ) {
-	function register_gglstmp_settings() {
-		global $wpmu, $gglstmp_settings, $bws_plugin_info;
-
-		if ( function_exists( 'get_plugin_data' ) && ( ! isset( $bws_plugin_info ) || empty( $bws_plugin_info ) ) ) {
-			$plugin_info = get_plugin_data( __FILE__ );	
-			$bws_plugin_info = array( 'id' => '83', 'version' => $plugin_info["Version"] );
-		}
-
-		$gglstmp_option_defaults = array( 'page', 'post' );
-
-		if ( 1 == $wpmu ) {
-			if ( ! get_site_option( 'gglstmp_settings' ) )
-				add_site_option( 'gglstmp_settings', $gglstmp_option_defaults );
-			$gglstmp_settings = get_site_option( 'gglstmp_settings' );
-		} else {
-			if ( ! get_option( 'gglstmp_settings' ) )
-				add_option( 'gglstmp_settings', $gglstmp_option_defaults );
-			$gglstmp_settings = get_option( 'gglstmp_settings' );
-		}
-	}
-}
-
-/*============================================ Function for delete of the plugin settings on register_activation_hook ====================*/
-if ( ! function_exists( 'gglstmp_delete_settings' ) ) {
-	function gglstmp_delete_settings() {
-		delete_site_option( 'gglstmp_settings' );
-		delete_option( 'gglstmp_settings' );
-		delete_site_option( 'gglstmp_robots' );
-		delete_option( 'gglstmp_robots' );
-	}
-}
-
 /*============================================ Function for creating setting page ====================*/
 if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 	function gglstmp_settings_page() {
-		global $url_home, $gglstmp_settings, $url, $wpdb, $wp_version;
-		$message = "";
-		$error = "";
+		global $url_home, $gglstmp_settings, $url, $wp_version, $gglstmp_plugin_info;
+		$message = $error = "";
 		$gglstmp_robots = get_option( 'gglstmp_robots' );
 		$url_robot = ABSPATH . "robots.txt";
-		$plugin_info = get_plugin_data( __FILE__ );
 
 		if ( is_multisite() ) {
 			$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', str_replace( 'https://', '', home_url() ) ) );
@@ -219,7 +280,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 			foreach ( $httpResponseAr as $i => $rVal ) {
 				if ( false !== strpos( $rVal, "=" ) ) {
 					list( $qKey, $qVal ) = explode ( "=", $rVal );
-					$httpParsedResponseAr[$qKey] = $qVal;
+					$httpParsedResponseAr[ $qKey ] = $qVal;
 				}
 			}
 			$au = isset( $httpParsedResponseAr["Auth"] ) ? $httpParsedResponseAr["Auth"] : false;
@@ -228,19 +289,9 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 		}
 		/* GO PRO */
 		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
-			global $wpmu;
+			global $bstwbsftwppdtplgns_options;
 
 			$bws_license_key = ( isset( $_POST['bws_license_key'] ) ) ? trim( $_POST['bws_license_key'] ) : "";
-			$bstwbsftwppdtplgns_options_defaults = array();
-			if ( 1 == $wpmu ) {
-				if ( !get_site_option( 'bstwbsftwppdtplgns_options' ) )
-					add_site_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options_defaults, '', 'yes' );
-				$bstwbsftwppdtplgns_options = get_site_option( 'bstwbsftwppdtplgns_options' );
-			} else {
-				if ( !get_option( 'bstwbsftwppdtplgns_options' ) )
-					add_option( 'bstwbsftwppdtplgns_options', $bstwbsftwppdtplgns_options_defaults, '', 'yes' );
-				$bstwbsftwppdtplgns_options = get_option( 'bstwbsftwppdtplgns_options' );
-			}
 
 			if ( isset( $_POST['bws_license_submit'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'bws_license_nonce_name' ) ) {
 				if ( '' != $bws_license_key ) { 
@@ -256,10 +307,9 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 						}	
 
 						/* download Pro */
-						if ( !function_exists( 'get_plugins' ) )
+						if ( !function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active_for_network' ))
 							require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-						if ( ! function_exists( 'is_plugin_active_for_network' ) )
-							require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+
 						$all_plugins = get_plugins();
 						$active_plugins = get_option( 'active_plugins' );
 						
@@ -292,7 +342,6 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 											}
 										}
 										if ( '' == $error ) {
-											global $wpmu;																					
 											$bstwbsftwppdtplgns_options[ $bws_license_plugin ] = $bws_license_key;
 
 											$url = 'http://bestwebsoft.com/wp-content/plugins/paid-products/plugins/downloads/?bws_first_download=' . $bws_license_plugin . '&bws_license_key=' . $bws_license_key . '&download_from=5';
@@ -347,8 +396,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 		 			$error = __( "Please, enter Your license key", 'sitemap' );
 		 		}
 		 	}
-		}
-		?>
+		} ?>
 		<div class="wrap">
 			<div class="icon32 icon32-bws" id="icon-options-general"></div>
 			<h2><?php _e( "Google Sitemap", 'sitemap' ); ?></h2>
@@ -364,10 +412,18 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 				<form action="admin.php?page=google-sitemap-plugin.php" method='post' id="gglstmp_auth" name="gglstmp_auth">
 					<?php /*=============================== Creating sitemap file ====================================*/
 					if ( file_exists( $url_sitemap ) ) {
-						echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "The Sitemap file", 'sitemap' ) . "</a> " . __( "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
+						if ( is_multisite() ) {
+							echo '<p><a href="' . $url_home . "sitemap_" . $home_url . '.xml" target="_new">' . __( "The Sitemap file", 'sitemap' ) . "</a> " . __( "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
+						} else {		
+							echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "The Sitemap file", 'sitemap' ) . "</a> " . __( "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file.", 'sitemap' ) . "</p>";
+						}
 					} else {
 						gglstmp_sitemapcreate();
-						echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "Your Sitemap file", 'sitemap' ) . "</a> " . __( "is created in the site root directory.", 'sitemap' ) . "</p>";
+						if ( is_multisite() ) {
+							echo '<p><a href="' . $url_home . "sitemap_" . $home_url . '.xml" target="_new">' . __( "Your Sitemap file", 'sitemap' ) . "</a> " . __( "is created in the site root directory.", 'sitemap' ) . "</p>";
+						} else {
+							echo '<p><a href="' . $url_home . 'sitemap.xml" target="_new">' . __( "Your Sitemap file", 'sitemap' ) . "</a> " . __( "is created in the site root directory.", 'sitemap' ) . "</p>";
+						}
 					}
 					/*========================================== Recreating sitemap file ====================================*/
 					if ( is_multisite() ) {
@@ -407,33 +463,38 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 							</td>
 						</tr>
 					</table>
-
-
-					<table class="form-table bws_pro_version">
-						<tr valign="top">
-							<th><?php _e( 'XML Sitemap "Change Frequency" parameter', 'sitemap_pro' ); ?></th>
-							<td>
-								<select name="gglstmppr_sitemap_change_frequency">
-									<option value="always"><?php _e( 'Always', 'sitemap_pro' ); ?></option>
-									<option value="hourly"><?php _e( 'Hourly', 'sitemap_pro' ); ?></option>
-									<option value="daily"><?php _e( 'Daily', 'sitemap_pro' ); ?></option>
-									<option value="weekly"><?php _e( 'Weekly', 'sitemap_pro' ); ?></option>
-									<option value="monthly"><?php _e( 'Monthly', 'sitemap_pro' ); ?></option>
-									<option value="yearly"><?php _e( 'Yearly', 'sitemap_pro' ); ?></option>
-									<option value="never"><?php _e( 'Never', 'sitemap_pro' ); ?></option>
-								</select><br />
-								<span style="color: #888888;font-size: 10px;"><?php _e( 'This value is used in the sitemap file and provides general information to search engines. The sitemap itself is generated once and will be re-generated when you create or update any post or page.', 'sitemap_pro' ); ?></span>
-							</td>
-						</tr>
-						<tr class="bws_pro_version_tooltip">
-							<th scope="row" colspan="2">
-								<?php _e( 'This functionality is available in the Pro version of the plugin. For more details, please follow the link', 'sitemap' ); ?> 
-								<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro">
-									Google Sitemap Pro
-								</a>
-							</th>
-						</tr>					
-					</table>
+					<div class="bws_pro_version_bloc">
+						<div class="bws_pro_version_table_bloc">	
+							<div class="bws_table_bg"></div>											
+							<table class="form-table bws_pro_version">
+								<tr valign="top">
+									<th><?php _e( 'XML Sitemap "Change Frequency" parameter', 'sitemap_pro' ); ?></th>
+									<td>
+										<select name="gglstmppr_sitemap_change_frequency">
+											<option value="always"><?php _e( 'Always', 'sitemap_pro' ); ?></option>
+											<option value="hourly"><?php _e( 'Hourly', 'sitemap_pro' ); ?></option>
+											<option value="daily"><?php _e( 'Daily', 'sitemap_pro' ); ?></option>
+											<option value="weekly"><?php _e( 'Weekly', 'sitemap_pro' ); ?></option>
+											<option value="monthly"><?php _e( 'Monthly', 'sitemap_pro' ); ?></option>
+											<option value="yearly"><?php _e( 'Yearly', 'sitemap_pro' ); ?></option>
+											<option value="never"><?php _e( 'Never', 'sitemap_pro' ); ?></option>
+										</select><br />
+										<span style="color: #888888;font-size: 10px;"><?php _e( 'This value is used in the sitemap file and provides general information to search engines. The sitemap itself is generated once and will be re-generated when you create or update any post or page.', 'sitemap_pro' ); ?></span>
+									</td>
+								</tr>			
+							</table>	
+						</div>
+						<div class="bws_pro_version_tooltip">
+							<div class="bws_info">
+								<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'sitemap' ); ?> 
+								<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro"><?php _e( 'Learn More', 'sitemap' ); ?></a>				
+							</div>
+							<a class="bws_button" href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>#purchase" target="_blank" title="Google Sitemap Pro">
+								<?php _e( 'Go', 'sitemap' ); ?> <strong>PRO</strong>
+							</a>	
+							<div class="clear"></div>					
+						</div>
+					</div>
 					<table class="form-table">
 						<?php if ( ! function_exists( 'curl_init' ) ) { ?>
 							<tr valign="top">
@@ -457,7 +518,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 									<label><input type='radio' name='gglstmp_menu' value="inf" /> <?php _e( "I want to get info about this site in Google Webmaster Tools", 'sitemap' ); ?></label><br />
 									<span style="color: #888888;font-size: 10px;">
 										<?php _e( 'In case you failed to add a sitemap to Google automatically using this plugin, it is possible to do it manually', 'sitemap' ); ?>: 
-										<a href="http://bestwebsoft.com/wp-content/uploads/manual/wp_plugin/google_sitemap/Adding_your_site_to_Google_Webmaster_resource.pdf"><?php _e( 'View a PDF version of Instruction', 'sitemap' ); ?></a>
+										<a href="https://docs.google.com/document/d/1VOJx_OaasVskCqi9fsAbUmxfsckoagPU5Py97yjha9w/edit"><?php _e( 'View the Instruction', 'sitemap' ); ?></a>
 									</span>
 								</td>
 							</tr>
@@ -472,7 +533,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 				<?php if ( isset( $au ) && false !== $au && ( $_POST['gglstmp_email'] ) && ( $_POST['gglstmp_passwd'] ) ) {
 					if ( "inf" == $_POST['gglstmp_menu'] ) {
 						gglstmp_info_site( $au );/* Getting info about the site in google webmaster tools account */
-					} else if ( "ad" == $_POST['gglstmp_menu']) {
+					} else if ( "ad" == $_POST['gglstmp_menu'] ) {
 						gglstmp_add_site( $au ); /* Adding site and verifying its ownership */
 						gglstmp_add_sitemap( $au );/* Adding sitemap file to the google webmaster tools account */
 					} else if ( "del" == $_POST['gglstmp_menu'] ) {
@@ -491,39 +552,46 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 					</div>
 				</div>
 			<?php } elseif ( 'extra' == $_GET['action'] ) { ?>
-				<table class="form-table bws_pro_version">
-					<tr valign="top">
-						<td colspan="2">
-							<?php _e( 'Please choose the necessary post types the links to which are to be added to the sitemap:', 'sitemap' ); ?>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td colspan="2">
-							<label>
-								<input disabled="disabled" checked="checked" id="gglstmppr_jstree_url" type="checkbox" name="gglstmppr_jstree_url" value="1" />
-								<?php _e( "Show URL for pages", 'sitemap' );?>
-							</label>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td colspan="2">
-							<img src="<?php echo plugins_url( 'images/pro_screen_1.png', __FILE__ ); ?>" alt="<?php _e( "Example of site pages' tree", 'sitemap' ); ?>" title="<?php _e( "Example of site pages' tree", 'sitemap' ); ?>" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td colspan="2">
-							<input disabled="disabled" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'sitemap' ); ?>" />
-						</td>
-					</tr>
-					<tr class="bws_pro_version_tooltip">
-						<th scope="row" colspan="2">
-							<?php _e( 'This functionality is available in the Pro version of the plugin. For more details, please follow the link', 'sitemap' ); ?> 
-							<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro">
-								Google Sitemap Pro
-							</a>
-						</th>
-					</tr>					
-				</table>
+				<div class="bws_pro_version_bloc">
+					<div class="bws_pro_version_table_bloc">	
+						<div class="bws_table_bg"></div>											
+						<table class="form-table bws_pro_version">
+							<tr valign="top">
+								<td colspan="2">
+									<?php _e( 'Please choose the necessary post types the links to which are to be added to the sitemap:', 'sitemap' ); ?>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td colspan="2">
+									<label>
+										<input disabled="disabled" checked="checked" id="gglstmppr_jstree_url" type="checkbox" name="gglstmppr_jstree_url" value="1" />
+										<?php _e( "Show URL for pages", 'sitemap' );?>
+									</label>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td colspan="2">
+									<img src="<?php echo plugins_url( 'images/pro_screen_1.png', __FILE__ ); ?>" alt="<?php _e( "Example of site pages' tree", 'sitemap' ); ?>" title="<?php _e( "Example of site pages' tree", 'sitemap' ); ?>" />
+								</td>
+							</tr>
+							<tr valign="top">
+								<td colspan="2">
+									<input disabled="disabled" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'sitemap' ); ?>" />
+								</td>
+							</tr>				
+						</table>	
+					</div>
+					<div class="bws_pro_version_tooltip">
+						<div class="bws_info">
+							<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'sitemap' ); ?> 
+							<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro"><?php _e( 'Learn More', 'sitemap' ); ?></a>				
+						</div>
+						<a class="bws_button" href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>#purchase" target="_blank" title="Google Sitemap Pro">
+							<?php _e( 'Go', 'sitemap' ); ?> <strong>PRO</strong>
+						</a>	
+						<div class="clear"></div>					
+					</div>
+				</div>
 			<?php } elseif ( 'go_pro' == $_GET['action'] ) { ?>
 				<?php if ( isset( $pro_plugin_is_activated ) && true === $pro_plugin_is_activated ) { ?>
 					<script type="text/javascript">
@@ -540,7 +608,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 					<form method="post" action="admin.php?page=google-sitemap-plugin.php&amp;action=go_pro">
 						<p>
 							<?php _e( 'You can download and activate', 'sitemap' ); ?> 
-							<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro">PRO</a> 
+							<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=28d4cf0b4ab6f56e703f46f60d34d039&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Google Sitemap Pro">PRO</a> 
 							<?php _e( 'version of this plugin by entering Your license key.', 'sitemap' ); ?><br />
 							<span style="color: #888888;font-size: 10px;">
 								<?php _e( 'You can find your license key on your personal page Client area, by clicking on the link', 'sitemap' ); ?> 
@@ -580,13 +648,11 @@ if ( ! function_exists( 'gglstmp_robots_add_sitemap' ) ) {
 			return $output;
 		} else {
 			if ( false === strpos( $output, 'Sitemap' ) ) {
-				$site_url = parse_url( site_url() );
-				$path = ( ! empty( $site_url['path'] ) ) ? $site_url['path'] : '';
 				if ( is_multisite() ) {
 					$home_url = preg_replace( "/[^a-zA-ZА-Яа-я0-9\s]/", "_", str_replace( 'http://', '', str_replace( 'https://', '', home_url() ) ) );
-					$output .= "Sitemap: " . $path . "sitemap_" . $home_url . ".xml";
+					$output .= "Sitemap: " . home_url( "/" ) . "sitemap_" . $home_url . ".xml";
 				} else {
-					$output .= "Sitemap: " . $path . "sitemap.xml";
+					$output .= "Sitemap: " . home_url( "/" ) . "sitemap.xml";
 				}
 				return $output;
 			}
@@ -597,55 +663,8 @@ if ( ! function_exists( 'gglstmp_robots_add_sitemap' ) ) {
 /*============================================ Function for adding style ====================*/
 if ( ! function_exists( 'gglstmp_add_plugin_stylesheet' ) ) {
 	function gglstmp_add_plugin_stylesheet() {
-		global $wp_version;
-		if ( $wp_version < 3.8 )
-			wp_enqueue_style( 'google-sitemap-StyleSheets', plugins_url( 'css/style_wp_before_3.8.css', __FILE__ ) );	
-		else
-			wp_enqueue_style( 'google-sitemap-StyleSheets', plugins_url( 'css/style.css', __FILE__ ) );
-	}
-}
-
-if ( ! function_exists('gglstmp_admin_js') ) {
-	function gglstmp_admin_js() {
-		if ( isset( $_GET['page'] ) && "google-sitemap-plugin.php" == $_GET['page'] ) {
-			/* add notice about changing in the settings page */
-			?>
-			<script type="text/javascript">
-				(function($) {
-					$(document).ready( function() {
-						$( '#gglstmp_auth input' ).bind( "change click select", function() {
-							if ( $( this ).attr( 'type' ) == 'checkbox' ) {
-								$( '.updated.fade' ).css( 'display', 'none' );
-								$( '#gglstmp_settings_notice' ).css( 'display', 'block' );
-							};
-						});
-					});
-				})(jQuery);
-			</script>
-		<?php }
-	}
-}
-
-/* Function adds language files */
-if ( ! function_exists( 'gglstmp_plugin_init' ) ) {
-	function gglstmp_plugin_init() {
-		load_plugin_textdomain( 'sitemap', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
-}
-
-/* Function check if plugin is compatible with current WP version  */
-if ( ! function_exists ( 'gglstmp_plugin_version_check' ) ) {
-	function gglstmp_plugin_version_check() {
-		global $wp_version;
-		$plugin_data	=	get_plugin_data( __FILE__, false );
-		$require_wp		=	"3.0"; /* Wordpress at least requires version */
-		$plugin			=	plugin_basename( __FILE__ );
-	 	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
-			if ( is_plugin_active( $plugin ) ) {
-				deactivate_plugins( $plugin );
-				wp_die( "<strong>" . $plugin_data['Name'] . " </strong> " . __( 'requires', 'sitemap' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'sitemap') . "<br /><br />" . __( 'Back to the WordPress', 'sitemap') . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', 'sitemap') . "</a>." );
-			}
-		}
+		if ( isset( $_GET['page'] ) && "google-sitemap-plugin.php" == $_GET['page'] )
+			wp_enqueue_script( 'gglstmp_script', plugins_url( 'js/script.js' , __FILE__ ) );
 	}
 }
 
@@ -785,8 +804,10 @@ if ( ! function_exists( 'gglstmp_add_sitemap' ) ) {
 if ( ! function_exists( 'gglstmp_update_sitemap' ) ) {
 	function gglstmp_update_sitemap( $post_id ) {
 		if ( ! wp_is_post_revision( $post_id ) ) {
-			if ( 'publish' == get_post_status( $post_id ) || 'trash' == get_post_status( $post_id ) || 'future' == get_post_status( $post_id ) )
+			if ( 'publish' == get_post_status( $post_id ) || 'trash' == get_post_status( $post_id ) || 'future' == get_post_status( $post_id ) ) {
+				gglstmp_register_settings();
 				gglstmp_sitemapcreate();
+			}
 		}
 	}
 }
@@ -821,10 +842,15 @@ if ( ! function_exists( 'gglstmp_links' ) ) {
 if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 	function gglstmp_plugin_banner() {
 		global $hook_suffix;	
-		if ( $hook_suffix == 'plugins.php' ) {   
+		if ( $hook_suffix == 'plugins.php' ) {  
 			$banner_array = array(
 				array( 'pdtr_hide_banner_on_plugin_page', 'updater/updater.php', '1.12' ),
-				array( 'cntctfrmtdb_hide_banner_on_plugin_page', 'contact-form-to-db/contact_form_to_db.php', '1.2' ),
+				array( 'cntctfrmtdb_hide_banner_on_plugin_page', 'contact-form-to-db/contact_form_to_db.php', '1.2' ),		
+				array( 'gglmps_hide_banner_on_plugin_page', 'bws-google-maps/bws-google-maps.php', '1.2' ),		
+				array( 'fcbkbttn_hide_banner_on_plugin_page', 'facebook-button-plugin/facebook-button-plugin.php', '2.29' ),
+				array( 'twttr_hide_banner_on_plugin_page', 'twitter-plugin/twitter.php', '2.34' ),
+				array( 'pdfprnt_hide_banner_on_plugin_page', 'pdf-print/pdf-print.php', '1.7.1' ),
+				array( 'gglplsn_hide_banner_on_plugin_page', 'google-one/google-plus-one.php', '1.1.4' ),
 				array( 'gglstmp_hide_banner_on_plugin_page', 'google-sitemap-plugin/google-sitemap-plugin.php', '2.8.4' ),
 				array( 'cntctfrmpr_for_ctfrmtdb_hide_banner_on_plugin_page', 'contact-form-pro/contact_form_pro.php', '1.14' ),
 				array( 'cntctfrm_for_ctfrmtdb_hide_banner_on_plugin_page', 'contact-form-plugin/contact_form.php', '3.62' ),
@@ -832,23 +858,29 @@ if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 				array( 'cptch_hide_banner_on_plugin_page', 'captcha/captcha.php', '3.8.4' ),
 				array( 'gllr_hide_banner_on_plugin_page', 'gallery-plugin/gallery-plugin.php', '3.9.1' )				
 			);
-			$plugin_info = get_plugin_data( __FILE__ );
+			global $gglstmp_plugin_info;
+
 			if ( ! function_exists( 'is_plugin_active_for_network' ) )
-				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 			$active_plugins = get_option( 'active_plugins' );			
 			$all_plugins = get_plugins();
 			$this_banner = 'gglstmp_hide_banner_on_plugin_page';
 			foreach ( $banner_array as $key => $value ) {
 				if ( $this_banner == $value[0] ) {
-					global $wp_version;
-					echo '<div class="updated" style="padding: 0; margin: 0; border: none; background: none;">
-			       		<script type="text/javascript" src="' . plugins_url( 'js/c_o_o_k_i_e.js', __FILE__ ) . '"></script>
-						<script type="text/javascript">		
+					global $wp_version, $bstwbsftwppdtplgns_cookie_add;
+					if ( ! isset( $bstwbsftwppdtplgns_cookie_add ) ) {
+						echo '<script type="text/javascript" src="' . plugins_url( 'js/c_o_o_k_i_e.js', __FILE__ ) . '"></script>';
+						$bstwbsftwppdtplgns_cookie_add = true;
+					} ?>
+					<script type="text/javascript">		
 							(function($) {
 								$(document).ready( function() {		
 									var hide_message = $.cookie( "gglstmp_hide_banner_on_plugin_page" );
 									if ( hide_message == "true") {
 										$( ".gglstmp_message" ).css( "display", "none" );
+									} else {
+										$( ".gglstmp_message" ).css( "display", "block" );
 									};
 									$( ".gglstmp_close_icon" ).click( function() {
 										$( ".gglstmp_message" ).css( "display", "none" );
@@ -856,18 +888,23 @@ if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 									});	
 								});
 							})(jQuery);				
-						</script>					                      
-						<div class="gglstmp_message">
-							<a class="button gglstmp_button" target="_blank" href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=8fbb5d23fd00bdcb213d6c0985d16ec5&pn=83&v=' . $plugin_info["Version"] . '&wp_v=' . $wp_version . '">Learn More</a>				
-							<div class="gglstmp_text">
-								' . __( "It's time to upgrade your <strong>Google Sitemap plugin</strong> to <strong>PRO</strong> version", 'sitemap' ) . '!<br />
-								<span>' . __( 'Extend standard plugin functionality with new great options', 'sitemap' ) . '.</span>
-							</div> 					
-							<img class="gglstmp_close_icon" title="" src="' . plugins_url( 'images/close_banner.png', __FILE__ ) . '" alt=""/>
-							<img class="gglstmp_icon" title="" src="' . plugins_url( 'images/banner.png', __FILE__ ) . '" alt=""/>	
+						</script>	
+					<div class="updated" style="padding: 0; margin: 0; border: none; background: none;">				                      
+						<div class="gglstmp_message bws_banner_on_plugin_page" style="display: none;">
+							<img class="gglstmp_close_icon close_icon" title="" src="<?php echo plugins_url( 'images/close_banner.png', __FILE__ ); ?>" alt=""/>
+							<div class="button_div">
+								<a class="button" target="_blank" href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=8fbb5d23fd00bdcb213d6c0985d16ec5&pn=83&v=<?php echo $gglstmp_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>"><?php _e( 'Learn More', 'sitemap' ); ?></a>				
+							</div>
+							<div class="text">
+								<?php _e( "It's time to upgrade your <strong>Google Sitemap plugin</strong> to <strong>PRO</strong> version", 'sitemap' ); ?>!<br />
+								<span><?php _e( 'Extend standard plugin functionality with new great options', 'sitemap' ); ?>.</span>
+							</div> 		
+							<div class="icon">			
+								<img title="" src="<?php echo plugins_url( 'images/banner.png', __FILE__ ); ?>" alt=""/>
+							</div>	
 						</div>  
-					</div>';
-					break;
+					</div>
+					<?php break;
 				}
 				if ( isset( $all_plugins[ $value[1] ] ) && $all_plugins[ $value[1] ]["Version"] >= $value[2] && ( 0 < count( preg_grep( '/' . str_replace( '/', '\/', $value[1] ) . '/', $active_plugins ) ) || is_plugin_active_for_network( $value[1] ) ) && ! isset( $_COOKIE[ $value[0] ] ) ) {
 					break;
@@ -877,13 +914,23 @@ if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 	}
 }
 
-add_action( 'admin_menu', 'gglstmp_add_pages' );
-add_action( 'init', 'register_gglstmp_settings' );
-add_action( 'admin_init', 'gglstmp_plugin_init' );
-add_action( 'admin_init', 'gglstmp_plugin_version_check' );
+/*============================================ Function for delete of the plugin settings on register_activation_hook ====================*/
+if ( ! function_exists( 'gglstmp_delete_settings' ) ) {
+	function gglstmp_delete_settings() {
+		delete_site_option( 'gglstmp_settings' );
+		delete_option( 'gglstmp_settings' );
+		delete_site_option( 'gglstmp_robots' );
+		delete_option( 'gglstmp_robots' );
+	}
+}
+
+add_action( 'admin_menu', 'gglstmp_admin_menu' );
+
+add_action( 'init', 'gglstmp_init' );
+add_action( 'admin_init', 'gglstmp_admin_init' );
+
 add_action( 'admin_enqueue_scripts', 'gglstmp_add_plugin_stylesheet' );
-add_action( 'admin_head', 'gglstmp_admin_js' );
-/*add_action( 'wp_enqueue_scripts', 'gglstmp_add_plugin_stylesheet' );*/
+
 add_action( 'save_post', 'gglstmp_update_sitemap' );
 add_action( 'trashed_post ', 'gglstmp_update_sitemap' );
 

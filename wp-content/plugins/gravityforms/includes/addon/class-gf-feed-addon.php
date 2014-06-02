@@ -1,4 +1,9 @@
 <?php
+
+if(!class_exists('GFForms')){
+    die();
+}
+
 /**
  * Specialist Add-On class designed for use by Add-Ons that require form feed settings
  * on the form settings tab.
@@ -186,11 +191,6 @@ abstract class GFFeedAddOn extends GFAddOn {
     public function get_feeds( $form_id = null ){
         global $wpdb;
 
-        $cache_key = implode( '_', array_filter( array( $this->_slug, 'get_feeds', $form_id ) ) );
-        $feeds = GFCache::get( $cache_key );
-        if( is_array( $feeds ) )
-            return $feeds;
-
         $form_filter = is_numeric($form_id) ? $wpdb->prepare("AND form_id=%d", absint($form_id)) : "";
 
         $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}gf_addon_feed
@@ -200,8 +200,6 @@ abstract class GFFeedAddOn extends GFAddOn {
         foreach($results as &$result){
             $result["meta"] = json_decode($result["meta"], true);
         }
-
-        GFCache::set( $cache_key, $results );
 
         return $results;
     }
@@ -874,6 +872,7 @@ class GFAddOnFeedsTable extends WP_List_Table {
     }
 
     function column_default($item, $column) {
+
         if (is_callable($this->_column_value_callback)) {
             $value = call_user_func($this->_column_value_callback, $item, $column);
         }

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: google-sitemap-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-31 10:40+0300\n"
-"PO-Revision-Date: 2014-01-31 10:40+0300\n"
+"POT-Creation-Date: 2014-04-11 14:06+0300\n"
+"PO-Revision-Date: 2014-04-11 14:06+0300\n"
 "Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -16,370 +16,381 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: google-sitemap-plugin.php:35
+#: google-sitemap-plugin.php:73
 msgid "BWS Plugins"
 msgstr "Плагіни BWS"
 
-#: google-sitemap-plugin.php:36
+#: google-sitemap-plugin.php:74
 #, fuzzy
 msgid "Google Sitemap Settings"
 msgstr "Опції карти сайту Google"
 
-#: google-sitemap-plugin.php:36
-#: google-sitemap-plugin.php:354
+#: google-sitemap-plugin.php:74
+#: google-sitemap-plugin.php:402
 msgid "Google Sitemap"
 msgstr "Карта сайту Google"
 
-#: google-sitemap-plugin.php:150
+#: google-sitemap-plugin.php:137
+msgid "requires"
+msgstr "потребує"
+
+#: google-sitemap-plugin.php:137
+msgid "or higher, that is why it has been deactivated! Please upgrade WordPress and try again."
+msgstr "чи вище, тому він був деактивований! Будь ласка, оновіть WordPress та спробуйте ще раз."
+
+#: google-sitemap-plugin.php:137
+msgid "Back to the WordPress"
+msgstr "Повернутися до WordPress на"
+
+#: google-sitemap-plugin.php:137
+msgid "Plugins page"
+msgstr "Сторінку плагінів"
+
+#: google-sitemap-plugin.php:211
 msgid "Your Sitemap file is created in the site root directory."
 msgstr "Карта сайту для вашого сайту створена у корені основної директорії."
 
-#: google-sitemap-plugin.php:157
-#: google-sitemap-plugin.php:186
+#: google-sitemap-plugin.php:218
+#: google-sitemap-plugin.php:247
 msgid "Settings saved."
 msgstr "Опції збережено."
 
-#: google-sitemap-plugin.php:197
+#: google-sitemap-plugin.php:258
 #, fuzzy
 msgid "Please enter your login and password for remote work with Google Webmaster Tools"
 msgstr "Установки для віддаленої роботи з google webmaster tools"
 
-#: google-sitemap-plugin.php:199
+#: google-sitemap-plugin.php:260
 #, fuzzy
 msgid "You should choose at least one action for remote work with Google Webmaster Tools"
 msgstr "Установки для віддаленої роботи з google webmaster tools"
 
-#: google-sitemap-plugin.php:227
+#: google-sitemap-plugin.php:288
 msgid "Login and password do not match. Please try again"
 msgstr "Логін та пароль не співпадають. Будь ласка, спробуйте ще раз"
 
-#: google-sitemap-plugin.php:248
-#: google-sitemap-plugin.php:287
+#: google-sitemap-plugin.php:299
+#: google-sitemap-plugin.php:337
 msgid "Wrong license key"
 msgstr ""
 
-#: google-sitemap-plugin.php:280
+#: google-sitemap-plugin.php:330
 msgid "Something went wrong. Try again later. If the error will appear again, please, contact us <a href=http://support.bestwebsoft.com>BestWebSoft</a>. We are sorry for inconvenience."
 msgstr ""
 
-#: google-sitemap-plugin.php:289
+#: google-sitemap-plugin.php:339
 msgid "This license key is bind to another site"
 msgstr ""
 
-#: google-sitemap-plugin.php:291
-#: google-sitemap-plugin.php:559
+#: google-sitemap-plugin.php:341
+#: google-sitemap-plugin.php:619
 msgid "Unfortunately, you have exceeded the number of available tries per day. Please, upload the plugin manually."
 msgstr ""
 
-#: google-sitemap-plugin.php:309
+#: google-sitemap-plugin.php:358
 msgid "Failed to open the zip archive. Please, upload the plugin manually"
 msgstr ""
 
-#: google-sitemap-plugin.php:315
+#: google-sitemap-plugin.php:364
 msgid "Your server does not support either ZipArchive or Phar. Please, upload the plugin manually"
 msgstr ""
 
-#: google-sitemap-plugin.php:319
-#: google-sitemap-plugin.php:328
+#: google-sitemap-plugin.php:368
+#: google-sitemap-plugin.php:377
 msgid "Failed to download the zip archive. Please, upload the plugin manually"
 msgstr ""
 
-#: google-sitemap-plugin.php:332
+#: google-sitemap-plugin.php:381
 msgid "Something went wrong. Try again later or upload the plugin manually. We are sorry for inconvienience."
 msgstr ""
 
-#: google-sitemap-plugin.php:347
+#: google-sitemap-plugin.php:396
 #, fuzzy
 msgid "Please, enter Your license key"
 msgstr "Будт ласка, введіть логін та пароль"
 
-#: google-sitemap-plugin.php:356
-#: google-sitemap-plugin.php:802
-#: google-sitemap-plugin.php:813
+#: google-sitemap-plugin.php:404
+#: google-sitemap-plugin.php:815
+#: google-sitemap-plugin.php:826
 msgid "Settings"
 msgstr "Установки"
 
-#: google-sitemap-plugin.php:357
+#: google-sitemap-plugin.php:405
 #, fuzzy
 msgid "Extra settings"
 msgstr "Установки"
 
-#: google-sitemap-plugin.php:358
+#: google-sitemap-plugin.php:406
 msgid "Go PRO"
 msgstr ""
 
-#: google-sitemap-plugin.php:360
+#: google-sitemap-plugin.php:408
 msgid "Notice:"
 msgstr "Повідомлення:"
 
-#: google-sitemap-plugin.php:360
+#: google-sitemap-plugin.php:408
 msgid "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button."
 msgstr "Установки плагіну було змінено. Щоб зберегти їх, будь ласка, не забудьте натиснути кнопку \"Зберегти зміни\"."
 
-#: google-sitemap-plugin.php:367
+#: google-sitemap-plugin.php:415
 #, fuzzy
 msgid "The Sitemap file"
 msgstr "Файл карти сайту:"
 
-#: google-sitemap-plugin.php:367
+#: google-sitemap-plugin.php:415
 #, fuzzy
 msgid "already exists. If you would like to replace it with a new one, please choose the necessary box below. All other actions will overwrite the existing file."
 msgstr "Карта уже існує. Якщо ви хочете замінити її на нову карту сайту, виберіть відповідну дію внизу. Усі інші дії перезапишуть файл, що снує."
 
-#: google-sitemap-plugin.php:370
+#: google-sitemap-plugin.php:418
 #, fuzzy
 msgid "Your Sitemap file"
 msgstr "Файл карти сайту:"
 
-#: google-sitemap-plugin.php:370
+#: google-sitemap-plugin.php:418
 #, fuzzy
 msgid "is created in the site root directory."
 msgstr "Карта сайту для вашого сайту створена у корені основної директорії."
 
-#: google-sitemap-plugin.php:374
-#: google-sitemap-plugin.php:376
+#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:424
 msgid "If you do not want a sitemap file to be added to Google Webmaster Tools automatically, you can do it using"
 msgstr "Якщо ви не хочете додати файл карти сайту автоматично до Google Webmaster Tools, ви можете зробити це через"
 
-#: google-sitemap-plugin.php:374
-#: google-sitemap-plugin.php:376
+#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:424
 msgid "this"
 msgstr "це"
 
-#: google-sitemap-plugin.php:374
-#: google-sitemap-plugin.php:376
+#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:424
 msgid "link - sign in, choose the necessary site, go to 'Sitemaps' and fill out the mandatory field"
 msgstr "посилання - авторизуйтеся, виберіть сайт, виберіть 'Sitemaps' та заповніть обов’язкове поле"
 
-#: google-sitemap-plugin.php:381
+#: google-sitemap-plugin.php:429
 msgid "I want to create a new sitemap file or update the existing one"
 msgstr "Я хочу створити нову карту сайту або оновити ту, що вже існує"
 
-#: google-sitemap-plugin.php:387
+#: google-sitemap-plugin.php:435
 msgid "I want to add sitemap file path in robots.txt"
 msgstr "Я хочу додати карту сайту до robots.txt"
 
-#: google-sitemap-plugin.php:388
+#: google-sitemap-plugin.php:436
 msgid "Since you are using multisiting, the plugin does not allow to add a sitemap to robots.txt"
 msgstr "Оскільки ви використовуєте мультисайтинг, плагін не доволяє додати карту сайту до robots.txt"
 
-#: google-sitemap-plugin.php:394
+#: google-sitemap-plugin.php:442
 #, fuzzy
 msgid "I want to add sitemap file path in"
 msgstr "Я хочу додати карту сайту до robots.txt"
 
-#: google-sitemap-plugin.php:399
-#: google-sitemap-plugin.php:497
+#: google-sitemap-plugin.php:447
+#: google-sitemap-plugin.php:553
 msgid "Please choose the necessary post types the links to which are to be added to the sitemap:"
 msgstr "Будь ласка, виберіть такі типи записів, посилання на які буде додано до карти сайту:"
 
-#: google-sitemap-plugin.php:414
+#: google-sitemap-plugin.php:463
 msgid "XML Sitemap \"Change Frequency\" parameter"
 msgstr ""
 
-#: google-sitemap-plugin.php:417
+#: google-sitemap-plugin.php:466
 msgid "Always"
 msgstr ""
 
-#: google-sitemap-plugin.php:418
+#: google-sitemap-plugin.php:467
 msgid "Hourly"
 msgstr ""
 
-#: google-sitemap-plugin.php:419
+#: google-sitemap-plugin.php:468
 msgid "Daily"
 msgstr ""
 
-#: google-sitemap-plugin.php:420
+#: google-sitemap-plugin.php:469
 msgid "Weekly"
 msgstr ""
 
-#: google-sitemap-plugin.php:421
+#: google-sitemap-plugin.php:470
 msgid "Monthly"
 msgstr ""
 
-#: google-sitemap-plugin.php:422
+#: google-sitemap-plugin.php:471
 msgid "Yearly"
 msgstr ""
 
-#: google-sitemap-plugin.php:423
+#: google-sitemap-plugin.php:472
 msgid "Never"
 msgstr ""
 
-#: google-sitemap-plugin.php:425
+#: google-sitemap-plugin.php:474
 msgid "This value is used in the sitemap file and provides general information to search engines. The sitemap itself is generated once and will be re-generated when you create or update any post or page."
 msgstr ""
 
-#: google-sitemap-plugin.php:430
-#: google-sitemap-plugin.php:520
-msgid "This functionality is available in the Pro version of the plugin. For more details, please follow the link"
+#: google-sitemap-plugin.php:481
+#: google-sitemap-plugin.php:578
+msgid "Unlock premium options by upgrading to a PRO version."
 msgstr ""
 
-#: google-sitemap-plugin.php:441
+#: google-sitemap-plugin.php:482
+#: google-sitemap-plugin.php:579
+#: google-sitemap-plugin.php:888
+msgid "Learn More"
+msgstr ""
+
+#: google-sitemap-plugin.php:485
+#: google-sitemap-plugin.php:582
+msgid "Go"
+msgstr ""
+
+#: google-sitemap-plugin.php:494
 msgid "This hosting does not support сURL, so you cannot add a sitemap file automatically."
 msgstr "Ваш хостінг не підтримує сURL, отже ви не можете додати карту сайту до Google акаунту автоматично."
 
-#: google-sitemap-plugin.php:447
+#: google-sitemap-plugin.php:500
 msgid "Please enter your Google account login and password in order to add or delete a site and a sitemap file automatically or get information about this site in Google Webmaster Tools."
 msgstr "Введіть сюди ваш логін та пароль для Google акаунту, щоб мати можливість додавати або видаляти сайт та карту сайту автоматично до вашого акаунту або отримати інформацію про цей сайт з Google Webmaster Tools."
 
-#: google-sitemap-plugin.php:451
+#: google-sitemap-plugin.php:504
 #, fuzzy
 msgid "Settings for remote work with Google Webmaster Tools"
 msgstr "Установки для віддаленої роботи з google webmaster tools"
 
-#: google-sitemap-plugin.php:453
+#: google-sitemap-plugin.php:506
 msgid "Login"
 msgstr "Логін"
 
-#: google-sitemap-plugin.php:454
+#: google-sitemap-plugin.php:507
 msgid "Password"
 msgstr "Пароль"
 
-#: google-sitemap-plugin.php:455
+#: google-sitemap-plugin.php:508
 msgid "I want to add this site to Google Webmaster Tools"
 msgstr "Я хочу додати цей сайт до Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:456
+#: google-sitemap-plugin.php:509
 msgid "I want to delete this site from Google Webmaster Tools"
 msgstr "Я хочу видалити цей сайт з Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:457
-#: google-sitemap-plugin.php:690
+#: google-sitemap-plugin.php:510
+#: google-sitemap-plugin.php:701
 msgid "I want to get info about this site in Google Webmaster Tools"
 msgstr "Я хочу отримувати інформацію про цей сайт з Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:459
+#: google-sitemap-plugin.php:512
 msgid "In case you failed to add a sitemap to Google automatically using this plugin, it is possible to do it manually"
 msgstr ""
 
-#: google-sitemap-plugin.php:460
-msgid "View a PDF version of Instruction"
+#: google-sitemap-plugin.php:513
+msgid "View the Instruction"
 msgstr ""
 
-#: google-sitemap-plugin.php:468
-#: google-sitemap-plugin.php:515
+#: google-sitemap-plugin.php:521
+#: google-sitemap-plugin.php:571
 msgid "Save Changes"
 msgstr "Зберегти зміни"
 
-#: google-sitemap-plugin.php:485
+#: google-sitemap-plugin.php:538
 msgid "If you enjoy our plugin, please give it 5 stars on WordPress"
 msgstr "Якщо Вам сподобався наш плагін, будь ласка, поставте йому п’ять зірок на сайті WordPress"
 
-#: google-sitemap-plugin.php:486
+#: google-sitemap-plugin.php:539
 msgid "Rate the plugin"
 msgstr "Оцінити плагін"
 
-#: google-sitemap-plugin.php:489
+#: google-sitemap-plugin.php:542
 msgid "If there is something wrong about it, please contact us"
 msgstr "Якщо у вас виникли питання, будь ласка, зв’яжіться з нами"
 
-#: google-sitemap-plugin.php:504
+#: google-sitemap-plugin.php:560
 msgid "Show URL for pages"
 msgstr ""
 
-#: google-sitemap-plugin.php:510
+#: google-sitemap-plugin.php:566
 msgid "Example of site pages' tree"
 msgstr ""
 
-#: google-sitemap-plugin.php:534
+#: google-sitemap-plugin.php:594
 msgid "Congratulations! The PRO version of the plugin is successfully download and activated."
 msgstr ""
 
-#: google-sitemap-plugin.php:536
+#: google-sitemap-plugin.php:596
 msgid "Please, go to"
 msgstr ""
 
-#: google-sitemap-plugin.php:536
+#: google-sitemap-plugin.php:596
 msgid "the setting page"
 msgstr ""
 
-#: google-sitemap-plugin.php:537
+#: google-sitemap-plugin.php:597
 msgid "You will be redirected automatically in 5 seconds."
 msgstr ""
 
-#: google-sitemap-plugin.php:542
+#: google-sitemap-plugin.php:602
 msgid "You can download and activate"
 msgstr ""
 
-#: google-sitemap-plugin.php:544
+#: google-sitemap-plugin.php:604
 #, fuzzy
 msgid "version of this plugin by entering Your license key."
 msgstr "Будт ласка, введіть логін та пароль"
 
-#: google-sitemap-plugin.php:546
+#: google-sitemap-plugin.php:606
 msgid "You can find your license key on your personal page Client area, by clicking on the link"
 msgstr ""
 
-#: google-sitemap-plugin.php:548
+#: google-sitemap-plugin.php:608
 msgid "(your username is the email you specify when purchasing the product)."
 msgstr ""
 
-#: google-sitemap-plugin.php:556
-#: google-sitemap-plugin.php:566
+#: google-sitemap-plugin.php:616
+#: google-sitemap-plugin.php:626
 msgid "Go!"
 msgstr ""
 
-#: google-sitemap-plugin.php:646
-msgid "requires"
-msgstr "потребує"
-
-#: google-sitemap-plugin.php:646
-msgid "or higher, that is why it has been deactivated! Please upgrade WordPress and try again."
-msgstr "чи вище, тому він був деактивований! Будь ласка, оновіть WordPress та спробуйте ще раз."
-
-#: google-sitemap-plugin.php:646
-msgid "Back to the WordPress"
-msgstr "Повернутися до WordPress на"
-
-#: google-sitemap-plugin.php:646
-msgid "Plugins page"
-msgstr "Сторінку плагінів"
-
-#: google-sitemap-plugin.php:692
+#: google-sitemap-plugin.php:703
 msgid "This site is not added to the Google Webmaster Tools account"
 msgstr "Даний сайт не додано до акаунту Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:712
+#: google-sitemap-plugin.php:723
 msgid "Site URL:"
 msgstr "URL сайту:"
 
-#: google-sitemap-plugin.php:713
+#: google-sitemap-plugin.php:724
 msgid "Site verification:"
 msgstr "Верифікація сайту:"
 
-#: google-sitemap-plugin.php:715
+#: google-sitemap-plugin.php:726
 msgid "verified"
 msgstr "верифіковано"
 
-#: google-sitemap-plugin.php:717
+#: google-sitemap-plugin.php:728
 msgid "not verified"
 msgstr "не верифіковано"
 
-#: google-sitemap-plugin.php:718
+#: google-sitemap-plugin.php:729
 msgid "Sitemap file:"
 msgstr "Файл карти сайту:"
 
-#: google-sitemap-plugin.php:720
+#: google-sitemap-plugin.php:731
 msgid "added"
 msgstr "додано"
 
-#: google-sitemap-plugin.php:722
+#: google-sitemap-plugin.php:733
 msgid "not added"
 msgstr "не додано"
 
-#: google-sitemap-plugin.php:814
+#: google-sitemap-plugin.php:827
 msgid "FAQ"
 msgstr "Часті питання"
 
-#: google-sitemap-plugin.php:815
+#: google-sitemap-plugin.php:828
 msgid "Support"
 msgstr "Тех.підтримка"
 
-#: google-sitemap-plugin.php:863
+#: google-sitemap-plugin.php:891
 msgid "It's time to upgrade your <strong>Google Sitemap plugin</strong> to <strong>PRO</strong> version"
 msgstr ""
 
-#: google-sitemap-plugin.php:864
+#: google-sitemap-plugin.php:892
 msgid "Extend standard plugin functionality with new great options"
 msgstr ""
 

@@ -1,5 +1,9 @@
 <?php
 
+if(!class_exists('GFForms')){
+    die();
+}
+
 if (!class_exists("GFResults")) {
 
     class GFResults {
@@ -21,21 +25,32 @@ if (!class_exists("GFResults")) {
 
         public function init() {
 
-            if (!GFCommon::current_user_can_any($this->_capabilities))
+            if( ! GFCommon::current_user_can_any( $this->_capabilities ) )
                 return;
 
-            //add top toolbar menu item
-            add_filter("gform_toolbar_menu", array($this, 'add_toolbar_menu_item'), 10, 2);
-            //add custom form action
-            add_filter("gform_form_actions", array($this, 'add_form_action'), 10, 2);
-            //add the results view
-            add_action("gform_entries_view", array($this, 'add_view'), 10, 2);
+            // is any GF page
+            if( GFForms::is_gravity_page() ) {
 
-            add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+                // add top toolbar menu item
+                add_filter( 'gform_toolbar_menu', array( $this, 'add_toolbar_menu_item' ), 10, 2 );
 
-            require_once(GFCommon::get_base_path() . "/tooltips.php");
+                // add custom form action
+                add_filter( 'gform_form_actions', array($this, 'add_form_action' ), 10, 2 );
 
-            add_filter('gform_tooltips', array($this, 'add_tooltips'));
+            }
+
+            // is results page
+            if( rgget( 'view' ) == "gf_results_{$this->_slug}" ) {
+
+                // add the results view
+                add_action( 'gform_entries_view', array( $this, 'add_view' ), 10, 2 );
+                add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+
+                // tooltips
+                require_once( GFCommon::get_base_path() . '/tooltips.php' );
+                add_filter( 'gform_tooltips', array( $this, 'add_tooltips' ) );
+
+            }
 
         }
 
@@ -92,7 +107,7 @@ if (!class_exists("GFResults")) {
                     $link_class = "gf_toolbar_disabled";
                 else if (rgget("page") == "gf_entries" && rgget("view") == "gf_results_" . $this->_slug)
                     $link_class = "gf_toolbar_active";
-                    
+
                 $id = rgget("id");
                 if (empty($id)){
 					//on the form list page, do not use icons
@@ -102,7 +117,7 @@ if (!class_exists("GFResults")) {
                 	$icon = $this->_icon;
 			        if (empty($icon)){
 						$icon = '<i class="fa fa-bar-chart-o fa-lg"></i>';
-			        }			        
+			        }
 				}
 
                 $sub_menu_items   = array();
@@ -287,9 +302,9 @@ if (!class_exists("GFResults")) {
 
                                         <div id="gresults-results-filter-buttons">
                                             <input type="submit" id="gresults-results-filter-submit-button"
-                                                   class="button button-primary button-large" value="Apply filters">
+                                                   class="button button-primary button-large" value="<?php _e('Apply filters', 'gravityforms'); ?>">
                                             <input type="button" id="gresults-results-filter-clear-button"
-                                                   class="button button-secondary button-large" value="Clear"
+                                                   class="button button-secondary button-large" value="<?php _e('Clear', 'gravityforms'); ?>"
                                                    onclick="gresults.clearFilterForm();">
 
                                             <div class="gresults-filter-loading"
@@ -841,6 +856,6 @@ if (!class_exists("GFResults")) {
 
             return $field_results;
 
-        } 
+        }
     }
 }

@@ -149,7 +149,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'tribe_settings_below_tabs', array( $this, 'displaySuccess' ) );
 			add_action( 'shutdown', array( $this, 'deleteOptions' ) );
-			add_action( 'tribe_settings_save_field', array( $this, 'maybeFlushPermalinks' ) );
 		}
 
 		/**
@@ -160,7 +159,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			if ( !is_multisite() || ( is_multisite() && TribeEvents::getNetworkOption( 'allSettingsTabsHidden', '0' ) == '0' ) ) {
+			if ( !is_multisite() || ( is_multisite() && TribeEvents::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' ) == '0' ) ) {
 				$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 			}
 		}
@@ -524,38 +523,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			delete_option( 'tribe_settings_major_error' );
 			delete_option( 'tribe_settings_sent_data' );
 		}
-
-
-		/**
-		 * Flushes permalinks when one of the slug related settings is changed
-		 * Uses a static var to only flush once if more than a field changes
-		 * Uses a filter to allow plugins to extend the validation
-		 *
-		 * @param $field_id
-		 * @param $value
-		 * @param $validated_field
-		 */
-		public function maybeFlushPermalinks( $field_id, $value = null, $validated_field = null ) {
-
-			static $done;
-
-			// If we already flushed on this pageload
-			if ( $done )
-				return;
-
-			// Only monitor these fields
-			$flush_if_changed = apply_filters( 'tribe_settings_flush_permalinks_if_changed', array( 'eventsSlug', 'singleEventSlug' ) );
-			if ( ! in_array( $field_id, $flush_if_changed ) )
-				return;
-
-			global $wp_rewrite;
-	    $wp_rewrite->flush_rules();
-
-			$done = true;
-
-			return;
-		}
-
 
 	} // end class
 } // endif class_exists
