@@ -32,15 +32,6 @@
 	</div>
 </footer>
 
-<?php if (GOOGLE_ANALYTICS_ID) : ?>
-<script>
-  var _gaq=[['_setAccount','<?php echo GOOGLE_ANALYTICS_ID; ?>'],['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-<?php endif; ?>
-
 <?php if (!is_user_logged_in()) : ?>
 <div id="signup-modal" class="modal hide">
 	<div class="modal-header">
@@ -103,5 +94,12 @@
 	</div>
 </div>
 <?php endif; ?>
+
+<script>
+  var _gaq=[['_setAccount','<?php echo GOOGLE_ANALYTICS_ID ? GOOGLE_ANALYTICS_ID : 'UA-2159509-3'; ?>'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
 
 <?php wp_footer(); ?>
