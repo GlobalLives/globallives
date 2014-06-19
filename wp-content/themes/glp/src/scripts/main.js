@@ -79,11 +79,12 @@ $(function () {
 /* Banner Modals */
 
 	function popModal(el) {
+		$('.modal').modal('hide');
 		$(el).modal('show');
 	}
 
-	$('#signup-tab').click(function(ev){ ev.preventDefault(); popModal('#signup-modal'); });
-	$('#login-tab').click(function(ev){ ev.preventDefault(); popModal('#login-modal'); });
+	$('#register-tab, .register-toggle').click(function(ev){ ev.preventDefault(); popModal('#modal-register'); });
+	$('#login-tab, .login-toggle').click(function(ev){ ev.preventDefault(); popModal('#modal-login'); });
 
 /* Front Page */
 
@@ -153,9 +154,9 @@ $(function () {
 			return false;
 		});
 	}
- 
+
 	if ($('#nav-themes').length) { // Make sure the Themes navbar is on the page
- 
+
 		$('#nav-themes li').hover(
 			function() {
 				$(this).siblings().find('.theme-link').hide();

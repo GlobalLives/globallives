@@ -13,7 +13,7 @@
 	Base
 	========================================================================== */
 
-	html { 
+	html {
 		height: auto;
 		background: @grayDark;
 	}
@@ -27,7 +27,7 @@
 		background-size: cover;
 		font-weight: 200;
 	}
-	
+
 	hr {
 		width: 100%;
 		border: 0;
@@ -36,7 +36,7 @@
 	img {
 		max-width: 100%;
 	}
-		
+
 	#wrap {
 	}
 
@@ -71,7 +71,7 @@
 			color: @white;
 			#gradient > .vertical(lighten(@orange,10%),@orange);
 			.transition(none);
-		}		
+		}
 	}
 	.modal-header {
 		color: @grayDark;
@@ -79,18 +79,18 @@
 	.text-center {
 		text-align: center;
 	}
-		
+
 /*	==========================================================================
 	Header & Nav Menus
 	========================================================================== */
-	
+
 	/* Header */
 	@import "nav-main";
 	@import "nav-utility";
 	@import "nav-user";
 
 	@import "banner-donate";
-	
+
 	/* Pages */
 	@import "nav-local";
 	@import "nav-featured";
@@ -99,6 +99,7 @@
 
 	/* Footer */
 	@import "nav-modules";
+	@import "modal-login";
 
 	#banner {
 		position: relative;
@@ -305,7 +306,7 @@
 			}
 		}
 		.participant-location {
-			font-family: "Montreal Serial Light", @headingsFontFamily;		
+			font-family: "Montreal Serial Light", @headingsFontFamily;
 			font-weight: lighter;
 		}
 		.btn-favorite {
@@ -351,7 +352,7 @@
 
 	@import "view-grid";
 	@import "view-map";
-	
+
 	.page-explore {
 		#content {
 			position: relative;
@@ -370,7 +371,7 @@
 	========================================================================== */
 
 	@import "profile";
-	
+
 /*	==========================================================================
 	Blog
 	========================================================================== */
@@ -398,7 +399,7 @@
 		background-image: url('../img/logo-blog.png');
 	}
 	/* Every post */
-	
+
 	.entry-date {
 		display: inline-block;
 		padding: 10px;
@@ -436,9 +437,9 @@
 	.entry-share {
 		overflow: hidden;
 	}
-	
+
 	/* Customize Top Post & Past Posts */
-	
+
 	.top-post .post {
 		clear: both;
 		margin: 10em 0 3em;
@@ -586,7 +587,7 @@
 	========================================================================== */
 
 	@import "events";
-	
+
 /*	==========================================================================
 	Search
 	========================================================================== */
@@ -626,23 +627,23 @@
 			margin-bottom: 0;
 		}
 	}
-	
+
 /*	==========================================================================
 	Series
 	========================================================================== */
-	
+
 	@import "tax-series";
 
 /*	==========================================================================
 	Themes
 	========================================================================== */
-	
+
 	@import "tax-themes";
 
 /*	==========================================================================
 	Footer
 	========================================================================== */
-	
+
 	#content-info {
 		padding: 2em 0 5em;
 		background: black url('../img/edges.jpg') no-repeat;
@@ -844,9 +845,9 @@
 		.featured-thumbnail { height: 75px; }
 	}
 	.menu-social-media-icons-container {
-		display: none;	
+		display: none;
 	}
-	
+
 	#content-info {
 		.span3 {
 			margin-top: 2em;
@@ -866,7 +867,7 @@
 	#banner #nav-main, #banner #nav-featured {
 		display: block;
 	}
-	
+
    	#gridview {
 		.participant-grid {
 			// height: 120px;

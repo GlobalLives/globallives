@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 				tasks: ['jshint','uglify']
 			},
 			styles: {
-				files: 'src/scripts/*.less',
+				files: 'src/styles/*.less',
 				tasks: ['less','autoprefixer']
 			}
 		},
