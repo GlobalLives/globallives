@@ -24,6 +24,7 @@
     "d3": "3.4.8",
     "font-awesome": "4.1.0",
     "mocha": "1.20.0",
-    "chai": "1.9.1"
+    "chai": "1.9.1",
+    "jquery-geocomplete": "~1.5.1"
   }
 }

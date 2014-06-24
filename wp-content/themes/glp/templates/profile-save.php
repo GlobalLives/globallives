@@ -9,11 +9,7 @@
 	);
 	foreach($wp_fields as $field) {
 		if (isset($_POST[$field])) {
-			update_user_meta(
-				$profile->ID,
-				$field,
-				$_POST[$field]
-			);
+			update_user_meta($profile->ID, $field, $_POST[$field]);
 		}
 	}
 
@@ -21,20 +17,29 @@
 		'user_location',
 		'user_occupation',
 		'user_skills',
-		'user_languages',
-		'user_contact'
+		'user_contact',
+		'user_sources',
+		'user_subscribe'
 	);
 	foreach($acf_fields as $field) {
 		if (isset($_POST[$field])) {
-			update_field(
-				$field_keys[$field],
-				$_POST[$field],
-				'user_'.$profile->ID
-			);
+			update_field($field_keys[$field], $_POST[$field], 'user_'.$profile->ID);
 		}
 	}
+	if (isset($_POST['user_languages'])) {
+		$submitted_languages = $_POST['user_languages'];
+		$half = count($submitted_languages) / 2;
+		$user_languages = array();
+		for ($i = 0; $i < $half; $i++) {
+			$user_languages[$i] = array(
+				'language_name' => $submitted_languages[$i]['language_name'],
+				'language_level' => $submitted_languages[$i + $half]['language_level']
+			);
+		}
+		update_field($field_keys['user_languages'], $user_languages, 'user_'.$profile->ID);
+	}
 
-	if ($_FILES) {
+	if ($_FILES["file"]["error"] != 0) {
 		foreach ($_FILES as $file => $array) {
 	        $attachment_id = insert_attachment($file, $profile->ID);
     	    update_field($field_keys['user_avatar'], $attachment_id, 'user_'.$profile->ID);

@@ -1,51 +1,90 @@
 .page-profile, .author {
 
-	.profile-form {
-		margin-bottom: 5em;
-		padding-bottom: 5em;
-		background: @white url('../img/logo-coda.png') bottom center no-repeat;
-		.border-radius(@borderRadiusLarge);
-	}
-	.gform_wrapper {
-		margin: 0;
-	}
-		
-		.profile-header {
-			position: relative;
-			color: @white;
-			background: @orange;
-			.border-radius(@borderRadiusLarge @borderRadiusLarge 0 0);
-			.profile-header-inner {
-				padding: 10px;
-			}
-			.profile-location {
-				font: @fontSizeLarge @headingsFontFamily;
-			}
-			.profile-name {
-				margin: 0; padding: 0 200px 0 0;
-				font-family: "Montreal Serial", @headingsFontFamily;
-				font-weight: normal;
-				font-size: @fontSizeLarge*2;
-			}
-			.profile-username {
-				position: absolute;
-				bottom: 10px; right: 10px;
-				color: darken(@orange,15%);
-				font-size: @fontSizeLarge;
-			}
-			.edit-profile {
-				position: absolute;
-				top: 10px; right: 10px;
-				color: @white;
-				background: transparent;
-				text-shadow: none;
-			}
+	// Create Modals
 
+	.pac-container { // Geocomplete
+		z-index: @zindexModal;
+	}
+
+	#form-profile {
+		input, textarea {
+			max-width: 100%;
 		}
+		.user_thumbnail {
+			width: 100%;
+			height: auto;
+		}
+	}
+	.profile-sidebar {
+		padding: 2em 0;
+		ul, li { list-style: none; margin: 0; padding: 0; }
+		.edit-profile {
+			float: right;
+		}
+
+	}
+
+	.profile-header {
+		position: relative;
+		margin: 2em 2em 0 0;
+		height: 20em;
+		background: @gray center no-repeat;
+		background-size: cover;
+		.profile-thumbnail {
+			position: absolute;
+			top: 0; left: 0;
+			width: 100%;
+			height: auto;
+		}
+		.profile-location {
+			position: absolute;
+			padding: 10px;
+			width: auto;
+			bottom: 50px; left: 10px;
+			color: black;
+			background: white;
+			font: @fontSizeSmall @headingsFontFamily;
+		}
+		.profile-name {
+			position: absolute;
+			display: block;
+			max-width: 90%;
+			margin: 10px;
+			padding: 10px;
+			bottom: 0; left: 0;
+			color: white;
+			background: @green;
+			font-size: 2em;
+			box-sizing: border-box;
+			small {
+				font-size: 0.5em;
+			}
+		}
+		.profile-username {
+			position: absolute;
+			bottom: 10px; right: 10px;
+			color: white;
+		}
+		.edit-profile {
+			position: absolute;
+			top: 10px; right: 10px;
+			color: @white;
+			background: transparent;
+			text-shadow: none;
+		}
+	}
+	.profile-library {
+		color: white;
+		background: @grayDark;
+		margin: 0 2em 0 0;
+		border-radius: 0 0 @borderRadiusLarge @borderRadiusLarge;
+	}
+
 		.profile-container {
-			margin-bottom: 5em;
+			margin-bottom: 3em;
+			padding-bottom: 5em;
 			background: @white url('../img/logo-coda.png') bottom center no-repeat;
-			.border-radius(@borderRadiusLarge 0 @borderRadiusLarge @borderRadiusLarge);
+			.border-radius(@borderRadiusLarge);
 			.profile-sidebar-inner {
 				margin: 0; padding: 2em 0;
 				ul {
@@ -55,20 +94,10 @@
 					list-style: none;
 					clear: left;
 				}
-				.participant-thumbnail {
-					float: left; clear: left;
-					margin: 0 1em 1em 0;
-					height: 50px; width: 50px;
-					.border-radius(50%);
-					overflow: hidden;
-					img {
-						height: 100%; width: 100%;
-						
-					}
-				}
 				.skill_name {
+					margin: 0;
+					padding: 0;
 					display: inline-block;
-					width: 50%;
 				}
 				.skill_level {
 					color: @blue;
@@ -81,15 +110,6 @@
 				}
 				.participant-location {
 					font-size: @fontSizeMini;
-				}
-			}
-			.profile-thumbnail {
-				margin: 0 0 1em 0;
-				height: 200px; width: 100%;
-				overflow: hidden;
-				img {					
-					width: 100%;
-					height: auto;
 				}
 			}
 			.profile-body-inner {
@@ -148,7 +168,7 @@
 				}
 			}
 		}
-		
+
 		.profile-edit-form {
 			input,textarea {
 				// display: block;

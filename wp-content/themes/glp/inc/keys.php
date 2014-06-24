@@ -51,6 +51,8 @@ $field_keys = array(
 	'user_favorites'				=> 'field_52f17cb980e31',
 	'user_bookmarks'				=> 'field_52f17cf180e32',
 	'user_avatar'					=> 'field_530fab0f25592',
+	'user_sources'					=> 'field_53a8a8a7d30ce',
+	'user_subscribe'				=> 'field_53a9afd8a7588',
 
 # Series
 

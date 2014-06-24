@@ -42,6 +42,7 @@ module.exports = function(grunt) {
 						'bower_components/jquery-ui/ui/jquery.ui.slider.js',
 						'bower_components/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
 						'bower_components/jquery-cycle/jquery.cycle.lite.js',
+						'bower_components/jquery-geocomplete/jquery.geocomplete.js',
 					// Theme JS
 						'src/scripts/main.js',
 						'src/scripts/video.js'

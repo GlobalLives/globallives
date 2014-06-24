@@ -1,6 +1,6 @@
 <?php
 	global $field_keys;
-	
+
 /*	==========================================================================
 	User
 	========================================================================== */
@@ -24,26 +24,24 @@
 	function get_profile_thumbnail_url( $profile_id, $size = 'thumbnail' ) {
 		global $field_keys;
 
-		// Default
-		$profile_thumbnail_url = get_bloginfo('template_directory') . '/img/logo-coda.png';
+		// First try the Profile page
+		if ($user_avatar = get_field($field_keys['user_avatar'], 'user_'.$profile_id)) {
+			if ($user_avatar['sizes'][$size] != '') { return $user_avatar['sizes'][$size]; }
+		}
+
+		// Then try Social Login
+		if ($social_login = get_usermeta($profile_id, 'oa_social_login_user_picture')) {
+			return $social_login;
+		}
 
 		// Then try Gravatar
 		if ($get_avatar = get_avatar($profile_id, $size)) {
 			preg_match("/src='(.*?)'/i", $get_avatar, $matches);
-			$profile_thumbnail_url = $matches[1];
+			return $matches[1];
 		}
 
-		// Then try Social Login
-		if ($social_login = get_usermeta($profile_id,'oa_social_login_user_picture')) {
-			$profile_thumbnail_url = $social_login;
-		}
-
-		// Then try the Profile page
-		if ($user_avatar = get_field($field_keys['user_avatar'],'user_'.$profile_id)) {
-			$profile_thumbnail_url = $user_avatar['sizes'][$size];
-		}
-
-		return $profile_thumbnail_url;
+		// Finally, give the default
+		return get_bloginfo('template_directory') . '/img/logo-coda.png';
 	}
 	function the_profile_thumbnail_url( $profile_id, $size = 'thumbnail' ) {
 		echo get_profile_thumbnail_url( $profile_id, $size );
@@ -85,7 +83,7 @@
 			'activity_timestamp' => strtotime($user->user_registered),
 			'activity_icon' => 'user'
 		);
-		$activities[] = $activity;		
+		$activities[] = $activity;
 
 		// First get comments made by the user
 		$comments = get_comments(array( 'user_id' => $user_id, 'status' => 'approve' ));
@@ -131,7 +129,7 @@
 				);
 				$activities[] = $activity;
 			}
-		}		
+		}
 
 		// Add favorites, bookmarks
 		$favorites = get_field($field_keys['user_favorites'],'user_'.$user_id);
@@ -157,7 +155,7 @@
 	function active_profile_compare($a, $b) {
 		return get_profile_last_active($b->ID) - get_profile_last_active($a->ID);
 	}
-	
+
 	function get_profile_last_active( $user_id ) {
 		$activities = get_profile_activities( $user_id );
 		if ($activities) {
@@ -179,7 +177,7 @@
 			foreach ($participants as $participant) {
 				$collaborators += get_participant_crew_members($participant->ID);
 			}
-	
+
 			foreach ($collaborators as $collaborator) {
 				$collaborator_ids[] = $collaborator->ID;
 			}
@@ -193,7 +191,7 @@
 
 		return $collaborators;
 	}
-        
+
         add_filter('clip_toggle_response', 'clip_toggle_queue_response', 1, 3);
         function clip_toggle_queue_response($response, $toggled_on, $toggle_type) {
             if ( 'queue' != $toggle_type ) return $response;
@@ -205,7 +203,7 @@
 
             return $response;
         }
-        
+
         add_filter('clip_toggle_response', 'clip_toggle_favorite_response', 1, 3);
         function clip_toggle_favorite_response($response, $toggled_on, $toggle_type) {
             if ( 'favorite' != $toggle_type ) return $response;
@@ -217,7 +215,7 @@
 
             return $response;
         }
-        
+
         add_filter('clip_toggle_response', 'clip_toggle_bookmark_response', 1, 3);
         function clip_toggle_bookmark_response($response, $toggled_on, $toggle_type) {
             if ( 'bookmark' != $toggle_type ) return $response;
@@ -229,7 +227,7 @@
 
             return $response;
         }
-        
+
         add_filter('clip_toggle_list_response', 'clip_toggle_list_response', 1, 3);
         function clip_toggle_list_response($response, $all_queued, $toggle_type) {
             if ( 'queue' != $toggle_type ) return $response;
@@ -248,28 +246,28 @@
             $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'queue' );
             return $response;
         }
-        
+
         add_filter( 'clip_toggle_favorite_status', 'clip_toggle_favorite_status', 1, 3 );
         function clip_toggle_favorite_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'favorite');
             $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'favorite' );
             return $response;
         }
-        
+
         add_filter( 'clip_toggle_bookmark_status', 'clip_toggle_bookmark_status', 1, 3 );
         function clip_toggle_bookmark_status($response, $clip_id, $user_id) {
             $queued = is_clip_queued($clip_id, $user_id, 'bookmark');
             $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'bookmark' );
             return $response;
         }
-        
+
         add_filter( 'clip_toggle_queue_list_status', 'clip_toggle_queue_list_status', 1, 3 );
         function clip_toggle_queue_list_status($response, $user_id) {
             $clips = get_field('clips');
             $response = apply_filters( 'clip_toggle_list_response', $response, is_list_queued($clips, $user_id), 'queue' );
             return $response;
         }
-        
+
         function is_clip_queued($clip_id, $user_id, $toggle_type) {
             global $queue_key, $toggle_type;
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
@@ -281,7 +279,7 @@
                 }
             }
         }
-        
+
         function is_list_queued($clip_list, $user_id, $queue_key = 'queue') {
             $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
             if ($queue) {
@@ -292,13 +290,13 @@
                     }
                 }
             }
-            
+
             if ( empty($clip_list) )
                 return true;
-            else 
+            else
                 return $clip_list;
         }
-        
+
         // Need to save relationship type fields as an array of post_ids rather than post objects.
         add_filter('clean_queue', 'clean_relationship_type_queue');
         function clean_relationship_type_queue($queue) {

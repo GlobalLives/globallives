@@ -13,7 +13,7 @@
 				<p><input type="text" name="user_login" id="user_login" class="input" value="" size="20" placeholder="Username" /></label></p>
 				<p id="reg_passmail"><?php _e('A password will be emailed to you.','glp'); ?></p>
 				<p><input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php _e('Create my account','glp'); ?>" /></p>
-				<input type="hidden" name="redirect_to" value="<?php the_permalink(); ?>" />
+				<input type="hidden" name="redirect_to" value="<?php echo site_url('/profile'); ?>" />
 			</form>
 		</div>
 		<div class="span6">

@@ -399,6 +399,39 @@ $(function () {
 		});
 	}
 
+/* Profiles */
+
+	var checkComplete = function () {
+		var modal = $(this).parents('.modal'),
+			incomplete = false;
+		modal.find('input[required]').each(function () {
+			if ($(this).val() === '') { incomplete = true; }
+		});
+		modal.find('.btn').attr('disabled', incomplete).toggleClass('disabled', incomplete);
+	};
+	$('#form-profile input').on('blur change', checkComplete);
+
+	$('#form-profile .next').click(function () {
+		var nextModal = $(this).parents('.modal').attr('data-next');
+		$('.modal').modal('hide');
+		$('#'+nextModal).modal('show');
+	});
+	$('#form-profile #add-language-btn').click(function () {
+		var addedLanguage = $('#add-language').val(),
+			slug = addedLanguage.toLowerCase().replace(/[^\w]+/g,'-') + '-name';
+		$('#form-profile #available-languages').append('<label class="checkbox"><input id="' + slug + '" type="checkbox" name="user_languages[][language_name]" value="' + addedLanguage + '"> ' + addedLanguage + '</label>');
+		$('#add-language').val('');
+		$('#form-profile #available-languages #' + slug).click();
+	});
+	$('#form-profile #available-languages').on('click', 'input', function () {
+		var target = $(this),
+			slug = target.val().toLowerCase().replace(/[^\w]+/g,'-');
+		if (target.is(':checked')) {
+			$('#form-profile #spoken-languages').append('<label class="select inline" id="' + slug + '">' + target.val() + ' <select name="user_languages[][language_level]"><option value="n">N - Native</option><option value="5">5 - Professional</option><option value="4">4 - Near Native</option><option value="3">3 - Advanced</option><option value="2">2 - Intermediate</option><option value="1">1 - Basic</option></select></label>');
+		}
+		else { $('#form-profile #spoken-languages').find('#' + slug).remove(); }
+	});
+
 /* Blog */
 
 	if ($('.blog').length) { // Make sure we're on the blog page
