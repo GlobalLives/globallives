@@ -4,6 +4,8 @@
 	<div class="profile-container row">
 
 		<div class="profile-sidebar span3">
+			<?php if ($can_edit) { ?><a href="#modal-profile-1" data-toggle="modal" class="edit-profile"><i class="fa fa-edit"></i></a><?php } ?>
+
 			<h4><?php _e('Hello!','glp'); ?></h4>
 			<p><?php echo $profile->description; ?></p>
 
@@ -78,20 +80,10 @@
 				<div class="profile-username">
 					@<?php echo $profile->user_login; ?>
 				</div>
-				<?php if ($can_edit) { ?><a href="#modal-profile-1" data-toggle="modal" class="edit-profile"><i class="fa fa-edit"></i></a><?php } ?>
-
 			</div>
 
 			<div class="profile-library">
-				<div class="profile-library-header row-fluid">
-					<h4 class="span6"><?php _e('My Library', 'glp'); ?></h4>
-					<div class="profile-library-buttons span6">
-						<i class="fa fa-download"></i> All Clips
-						<i class="fa fa-play"></i> Play All
-						Show by: <select></select>
-					</div>
-				<hr>
-				<code>[My Library]</code>
+				<?php include(locate_template('templates/profile-library.php')); ?>
 			</div>
 		</div>
 

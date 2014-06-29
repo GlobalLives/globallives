@@ -28,6 +28,7 @@
 					<div id="available-languages">
 <?php
 	$user_languages = get_field($field_keys['user_languages'], 'user_' . $user_id);
+	$user_languages_obj = get_field_object($field_keys['user_languages'], 'user_' . $user_id);
 	foreach ($user_languages as $user_language) {
 		$name = $user_language['language_name'];
 ?>
@@ -66,12 +67,13 @@
 ?>
 						<label class="select inline" id="<?php echo $slug; ?>"><?php echo $name ?>
 						<select name="user_languages[][language_level]">
-							<option value="n"<?php if ($level == 'n') : ?> selected<?php endif; ?>>N - Native</option>
-							<option value="5"<?php if ($level == '5') : ?> selected<?php endif; ?>>5 - Professional</option>
-							<option value="4"<?php if ($level == '4') : ?> selected<?php endif; ?>>4 - Near Native</option>
-							<option value="3"<?php if ($level == '3') : ?> selected<?php endif; ?>>3 - Advanced</option>
-							<option value="2"<?php if ($level == '2') : ?> selected<?php endif; ?>>2 - Intermediate</option>
-							<option value="1"<?php if ($level == '1') : ?> selected<?php endif; ?>>1 - Basic</option>
+<?php
+		foreach($user_languages_obj['sub_fields'][1]['choices'] as $language_level_choice) {
+?>
+							<option value="<?php echo $language_level_choice; ?>"<?php if ($level == $language_level_choice) : ?> selected<?php endif; ?>><?php echo $language_level_choice; ?></option>
+<?php
+		}
+?>
 						</select>
 						</label>
 <?php

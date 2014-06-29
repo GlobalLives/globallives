@@ -427,10 +427,45 @@ $(function () {
 		var target = $(this),
 			slug = target.val().toLowerCase().replace(/[^\w]+/g,'-');
 		if (target.is(':checked')) {
-			$('#form-profile #spoken-languages').append('<label class="select inline" id="' + slug + '">' + target.val() + ' <select name="user_languages[][language_level]"><option value="n">N - Native</option><option value="5">5 - Professional</option><option value="4">4 - Near Native</option><option value="3">3 - Advanced</option><option value="2">2 - Intermediate</option><option value="1">1 - Basic</option></select></label>');
+			$('#form-profile #spoken-languages').append('<label class="select inline" id="' + slug + '">' + target.val() + ' <select name="user_languages[][language_level]"><option value="Native">Native</option><option value="Professional">Professional</option><option value="Near Native">Near Native</option><option value="Advanced">Advanced</option><option value="Intermediate">Intermediate</option><option value="Basic">Basic</option></select></label>');
 		}
 		else { $('#form-profile #spoken-languages').find('#' + slug).remove(); }
 	});
+
+	$('.library-participant-header h4').click(function(ev) {
+		$(ev.target).parents('.library-participant').toggleClass('open');
+	});
+
+	$('.library-participant .toggle-meta').click(function(ev) {
+		ev.preventDefault();
+		var meta = $(ev.target).parents('.library-participant').find('.participant-meta'),
+			hidden = meta.hasClass('hide');
+		meta.toggleClass('hide');
+		$(ev.target).html(function () { return hidden ? 'Hide info' : 'Show info'; });
+	});
+
+	$('.library-filters .filter').click(function () {
+		if ($('.library-filters .filter').length === $('.library-filters .filter.active').length) {
+			$(this).siblings('.filter').removeClass('active');
+		} else {
+			$(this).toggleClass('active');
+		}
+		filterClips();
+	});
+	$('.library-filters .clear-filters').click(function () {
+		$('.library-filters .filter').addClass('active');
+		filterClips();
+	});
+	function filterClips() {
+		var tags = [];
+		$('.library-filters .filter.active').each(function () {
+			tags.push($(this).data('tag'));
+		});
+		$('.library-clip').hide();
+		$.each(tags, function (i, tag) {
+			$('.library-clip.'+tag).show();
+		});
+	}
 
 /* Blog */
 

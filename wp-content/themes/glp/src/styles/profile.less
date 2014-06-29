@@ -21,13 +21,13 @@
 		.edit-profile {
 			float: right;
 		}
-
 	}
 
 	.profile-header {
 		position: relative;
-		margin: 2em 2em 0 0;
-		height: 20em;
+		margin: 0;
+		height: 0;
+		padding-bottom: 56.25%;
 		background: @gray center no-repeat;
 		background-size: cover;
 		.profile-thumbnail {
@@ -40,18 +40,18 @@
 			position: absolute;
 			padding: 10px;
 			width: auto;
-			bottom: 50px; left: 10px;
+			bottom: 4em; left: 2%;
 			color: black;
 			background: white;
 			font: @fontSizeSmall @headingsFontFamily;
 		}
 		.profile-name {
 			position: absolute;
+			left: 2%;
+			right: 2%;
+			bottom: 5%;
 			display: block;
-			max-width: 90%;
-			margin: 10px;
 			padding: 10px;
-			bottom: 0; left: 0;
 			color: white;
 			background: @green;
 			font-size: 2em;
@@ -62,7 +62,8 @@
 		}
 		.profile-username {
 			position: absolute;
-			bottom: 10px; right: 10px;
+			bottom: 5%; right: 2%;
+			padding: 10px;
 			color: white;
 		}
 		.edit-profile {
@@ -76,15 +77,141 @@
 	.profile-library {
 		color: white;
 		background: @grayDark;
-		margin: 0 2em 0 0;
-		border-radius: 0 0 @borderRadiusLarge @borderRadiusLarge;
+		margin: 0;
+		padding: 0 2em;
+		overflow: hidden;
+		.library-header {
+			border-bottom: 1px solid white;
+		}
+		.library-container {
+			padding: 1em 0;
+			overflow-y: scroll;
+		}
+		.library-participant {
+			.library-participant-header {
+				border-top: 1px dotted white;
+				cursor: pointer;
+			}
+			.participant-meta {
+				padding-bottom: 1em;
+			}
+			&:first-child .library-participant-header {
+				border-top: none;
+			}
+			.toggle-meta {
+				display: none;
+				float: right;
+				color: white;
+				font-size: @fontSizeSmall;
+				padding-top: 1em;
+			}
+			&.open {
+				margin-bottom: 1em;
+				padding: 0 1em;
+				background: @gray;
+				border-radius: @borderRadiusLarge;
+				.library-participant-header {
+					border: none;
+				}
+				.library-clips,
+				.toggle-meta {display: block;}
+				.library-clips {
+					border-top: 1px dotted white;
+				}
+			}
+		}
+		.library-clips {
+			display: none;
+			margin: 0;
+			padding: 1em 0;
+			border-bottom: 1px dotted @gray;
+			font-size: @fontSizeMini;
+			.row {
+				margin: 0;
+				padding: 1em 0;
+			}
+			&.active .row {
+				background: @grayDark;
+				.border-radius(@borderRadiusSmall);
+			}
+			a {
+				color: @white;
+				text-decoration: none;
+			}
+			.clip-title {
+				margin: 0;
+			}
+			.clip-duration {
+				margin: 0;
+			}
+			.clip-thumbnail {
+				position: relative;
+				cursor: pointer;
+				margin: 0 10px;
+				padding-bottom: 16.666%;
+				border: 3px solid @white;
+				overflow: hidden;
+				img {
+					position: absolute;
+					top: 0; bottom: 0; left: 0; right: 0;
+					margin: auto;
+					width: 100%;
+				}
+				&:after {
+					position: absolute;
+					top: 40%; left: 40%;
+					color: @white;
+					font-size: 36px;
+					content: '►';
+				}
+			}
+		}
+		.library-filters {
+			padding: 0.75em;
+			background: @grayDarker;
+			.border-radius(@borderRadiusLarge);
+			.box-shadow(0 2px 2px @black inset);
+			h4 {
+				font-size: @baseFontSize;
+			}
+			h5 {
+				color: @gray;
+			}
+			a {
+				display: inline-block;
+				margin: 0 1em 1em 0;
+				max-width: 100%;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				clear: both;
+				line-height: 1em;
+				padding: 0.5em 1em;
+				color: @white;
+				.border-radius(1em);
+				background: @gray;
+				font-size: @fontSizeMini;
+				cursor: pointer;
+				border: none;
+				opacity: 0.25;
+				transition: 0.5s opacity;
+				&.active {
+					opacity: 1;
+				}
+				&:hover {
+					text-decoration: none;
+					#gradient > .vertical(@grayLighter,@gray);
+					opacity: .75;
+				}
+			}
+		}
 	}
 
 		.profile-container {
 			margin-bottom: 3em;
-			padding-bottom: 5em;
-			background: @white url('../img/logo-coda.png') bottom center no-repeat;
+			background: @white;
 			.border-radius(@borderRadiusLarge);
+			overflow: hidden;
 			.profile-sidebar-inner {
 				margin: 0; padding: 2em 0;
 				ul {

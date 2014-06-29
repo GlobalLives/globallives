@@ -10,9 +10,9 @@ function truncate( $text, $limit = 75, $ellipsis = '&hellip;') {
 	return $text;
 }
 
-function create_zip( $files = array(), $destination = '', $overwrite = false ) {	
+function create_zip( $files = array(), $destination = '', $overwrite = false ) {
 	if (file_exists($destination) && !$overwrite) { return false; }
-	
+
 	$valid_files = array();
 
 	if (is_array($files)) {
@@ -35,7 +35,7 @@ function create_zip( $files = array(), $destination = '', $overwrite = false ) {
 		}
 
 		$zip->close();
-		
+
 		return file_exists($destination);
 	}
 	else

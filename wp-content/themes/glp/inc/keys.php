@@ -44,15 +44,14 @@ $field_keys = array(
 
 	'user_occupation'				=> 'field_52d5ad041bb67',
 	'user_location'					=> 'field_85',
+	'user_avatar'					=> 'field_530fab0f25592',
+	'user_contact'					=> 'field_52f160e0a10dc',
 	'user_skills'					=> 'field_52e80ab4afa99',
 	'user_languages'				=> 'field_52e835fd16fb3',
-	'user_shoots'					=> 'field_88',
-	'user_contact'					=> 'field_52f160e0a10dc',
-	'user_favorites'				=> 'field_52f17cb980e31',
-	'user_bookmarks'				=> 'field_52f17cf180e32',
-	'user_avatar'					=> 'field_530fab0f25592',
 	'user_sources'					=> 'field_53a8a8a7d30ce',
 	'user_subscribe'				=> 'field_53a9afd8a7588',
+	'user_library'					=> 'field_52f17cf180e32',
+	'user_shoots'					=> 'field_88',
 
 # Series
 

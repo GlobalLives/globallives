@@ -192,133 +192,190 @@
 		return $collaborators;
 	}
 
-        add_filter('clip_toggle_response', 'clip_toggle_queue_response', 1, 3);
-        function clip_toggle_queue_response($response, $toggled_on, $toggle_type) {
-            if ( 'queue' != $toggle_type ) return $response;
+	function get_library_participants($user_id) {
+		global $field_keys;
+		$library = get_field($field_keys['user_library'], 'user_'.$user_id);
+		$participants = array();
+		foreach ($library as $clip) {
+			$participant = get_posts(array(
+				'post_type' => 'participant',
+				'posts_per_page' => 1,
+				'meta_query' => array(array(
+					'key' => 'clips',
+					'value' => '"' . $clip->ID . '"',
+					'compare' => 'LIKE'
+				))
+			));
+			if ($participant && !in_array($participant[0], $participants)) { $participants[] = $participant[0]; }
+		}
+		return $participants;
+	}
 
-            if ($toggled_on)
-                $response = __('&#45; Queue', 'glp');
-            else
-                $response = __('&#43; Queue', 'glp');
+	function get_library_participant_clips($user_id, $participant_id) {
+		global $field_keys;
+		$library = get_field($field_keys['user_library'], 'user_'.$user_id);
+		$participant_clips = get_field($field_keys['participant_clips'], $participant_id);
+		$clips = array();
+		foreach ($library as $clip) {
+			if (in_array($clip, $participant_clips)) { $clips[] = $clip; }
+		}
+		return $clips;
+	}
+	function get_library_clip_tags($user_id) {
+		global $field_keys;
+		$clip_tags = array();
+		if ($clips = get_field($field_keys['user_library'], 'user_'.$user_id)) {
+			foreach($clips as $clip) {
+				if ($this_clip_tags = get_the_terms($clip->ID, 'clip_tags')) {
+					$clip_tags += $this_clip_tags;
+				}
+			}
+			return $clip_tags;
+		} else {
+			return false;
+		}
+	}
 
-            return $response;
-        }
+		add_filter('clip_toggle_response', 'clip_toggle_queue_response', 1, 3);
+		function clip_toggle_queue_response($response, $toggled_on, $toggle_type) {
+			if ( 'library' != $toggle_type ) return $response;
 
-        add_filter('clip_toggle_response', 'clip_toggle_favorite_response', 1, 3);
-        function clip_toggle_favorite_response($response, $toggled_on, $toggle_type) {
-            if ( 'favorite' != $toggle_type ) return $response;
+			if ($toggled_on)
+				$response = __('&#45; Library', 'glp');
+			else
+				$response = __('&#43; Library', 'glp');
 
-            if ($toggled_on)
-                $response = __('&hearts; Unfavorite', 'glp');
-            else
-                $response = __('&hearts; Favorite', 'glp');
+			return $response;
+		}
 
-            return $response;
-        }
+		add_filter('clip_toggle_response', 'clip_toggle_favorite_response', 1, 3);
+		function clip_toggle_favorite_response($response, $toggled_on, $toggle_type) {
+			if ( 'favorite' != $toggle_type ) return $response;
 
-        add_filter('clip_toggle_response', 'clip_toggle_bookmark_response', 1, 3);
-        function clip_toggle_bookmark_response($response, $toggled_on, $toggle_type) {
-            if ( 'bookmark' != $toggle_type ) return $response;
+			if ($toggled_on)
+				$response = __('&hearts; Unfavorite', 'glp');
+			else
+				$response = __('&hearts; Favorite', 'glp');
 
-            if ($toggled_on)
-                $response = __('&#45; Remove from Bookmarks', 'glp');
-            else
-                $response = __('&#43; Add to Bookmarks', 'glp');
+			return $response;
+		}
 
-            return $response;
-        }
+		add_filter('clip_toggle_response', 'clip_toggle_bookmark_response', 1, 3);
+		function clip_toggle_bookmark_response($response, $toggled_on, $toggle_type) {
+			if ( 'bookmark' != $toggle_type ) return $response;
 
-        add_filter('clip_toggle_list_response', 'clip_toggle_list_response', 1, 3);
-        function clip_toggle_list_response($response, $all_queued, $toggle_type) {
-            if ( 'queue' != $toggle_type ) return $response;
+			if ($toggled_on)
+				$response = __('&#45; Remove from Bookmarks', 'glp');
+			else
+				$response = __('&#43; Add to Bookmarks', 'glp');
 
-            if (true === $all_queued)
-                $response = __('&#45; All from Queue', 'glp');
-            else
-                $response = __('&#43; All to Queue', 'glp');
+			return $response;
+		}
 
-            return $response;
-        }
+		add_filter('clip_toggle_list_response', 'clip_toggle_list_response', 1, 3);
+		function clip_toggle_list_response($response, $all_queued, $toggle_type) {
+			if ( 'library' != $toggle_type ) return $response;
 
-        add_filter( 'clip_toggle_queue_status', 'clip_toggle_queue_status', 1, 3 );
-        function clip_toggle_queue_status($response, $clip_id, $user_id) {
-            $queued = is_clip_queued($clip_id, $user_id, 'queue');
-            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'queue' );
-            return $response;
-        }
+			if (true === $all_queued)
+				$response = __('&#45; All from Library', 'glp');
+			else
+				$response = __('&#43; All to Library', 'glp');
 
-        add_filter( 'clip_toggle_favorite_status', 'clip_toggle_favorite_status', 1, 3 );
-        function clip_toggle_favorite_status($response, $clip_id, $user_id) {
-            $queued = is_clip_queued($clip_id, $user_id, 'favorite');
-            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'favorite' );
-            return $response;
-        }
+			return $response;
+		}
 
-        add_filter( 'clip_toggle_bookmark_status', 'clip_toggle_bookmark_status', 1, 3 );
-        function clip_toggle_bookmark_status($response, $clip_id, $user_id) {
-            $queued = is_clip_queued($clip_id, $user_id, 'bookmark');
-            $response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'bookmark' );
-            return $response;
-        }
+		add_filter( 'clip_toggle_queue_status', 'clip_toggle_queue_status', 1, 3 );
+		function clip_toggle_queue_status($response, $clip_id, $user_id) {
+			// $queued = is_clip_queued($clip_id, $user_id, 'library');
+			$in_library = is_clip_in_library($clip_id, $user_id);
+			$response = apply_filters( 'clip_toggle_response', $response, $in_library, 'library' );
+			return $response;
+		}
 
-        add_filter( 'clip_toggle_queue_list_status', 'clip_toggle_queue_list_status', 1, 3 );
-        function clip_toggle_queue_list_status($response, $user_id) {
-            $clips = get_field('clips');
-            $response = apply_filters( 'clip_toggle_list_response', $response, is_list_queued($clips, $user_id), 'queue' );
-            return $response;
-        }
+		add_filter( 'clip_toggle_favorite_status', 'clip_toggle_favorite_status', 1, 3 );
+		function clip_toggle_favorite_status($response, $clip_id, $user_id) {
+			$queued = is_clip_queued($clip_id, $user_id, 'favorite');
+			$response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'favorite' );
+			return $response;
+		}
 
-        function is_clip_queued($clip_id, $user_id, $toggle_type) {
-            global $queue_key, $toggle_type;
-            $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
-            // get_field returns array of post objects
-            if ($queue) {
-                foreach ( $queue as $k => $clip) {
-                    if ( $clip_id == $clip->ID )
-                        return $k;
-                }
-            }
-        }
+		add_filter( 'clip_toggle_bookmark_status', 'clip_toggle_bookmark_status', 1, 3 );
+		function clip_toggle_bookmark_status($response, $clip_id, $user_id) {
+			$queued = is_clip_queued($clip_id, $user_id, 'bookmark');
+			$response = apply_filters( 'clip_toggle_response', $response, isset($queued), 'bookmark' );
+			return $response;
+		}
 
-        function is_list_queued($clip_list, $user_id, $queue_key = 'queue') {
-            $queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
-            if ($queue) {
-                foreach ($queue as $clip) {
-                    $queued = array_search($clip, $clip_list);
-                    if ( is_int( $queued ) )  {
-                        unset($clip_list[$queued]);
-                    }
-                }
-            }
+		add_filter( 'clip_toggle_queue_list_status', 'clip_toggle_queue_list_status', 1, 3 );
+		function clip_toggle_queue_list_status($response, $user_id) {
+			$clips = get_field('clips');
+			$response = apply_filters( 'clip_toggle_list_response', $response, is_list_queued($clips, $user_id), 'library' );
+			return $response;
+		}
 
-            if ( empty($clip_list) )
-                return true;
-            else
-                return $clip_list;
-        }
+		function is_clip_queued($clip_id, $user_id, $toggle_type) {
+			global $queue_key, $toggle_type;
+			$queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
+			// get_field returns array of post objects
+			if ($queue) {
+				foreach ( $queue as $k => $clip) {
+					if ( $clip_id == $clip->ID )
+						return $k;
+				}
+			}
+		}
+		function is_clip_in_library($clip_id, $user_id) {
+			global $field_keys;
+			if ($library = get_field($field_keys['user_library'], 'user_'.$user_id)) {
+				foreach ($library as $clip) {
+					if ($clip_id === $clip->ID) { return true; }
+				}
+			}
+			return false;
+		}
 
-        // Need to save relationship type fields as an array of post_ids rather than post objects.
-        add_filter('clean_queue', 'clean_relationship_type_queue');
-        function clean_relationship_type_queue($queue) {
-            foreach ($queue as $k => $v) {
-                if ( is_object($v) && ('WP_Post' == get_class($v) ) )
-                    $queue[$k] = $v->ID;
-            }
-            return $queue;
-        }
+		function is_list_queued($clip_list, $user_id, $queue_key = 'library') {
+			$queue = get_field( apply_filters('queue_key', $queue_key, $toggle_type), 'user_'.$user_id );
+			if ($queue) {
+				foreach ($queue as $clip) {
+					$queued = array_search($clip, $clip_list);
+					if ( is_int( $queued ) )  {
+						unset($clip_list[$queued]);
+					}
+				}
+			}
 
-        add_filter('queue_key', 'get_queue_key', 1, 2);
-        function get_queue_key($queue_key, $toggle_type) {
-            switch ($toggle_type) {
-                case 'queue':
-                    $queue_key = 'field_117';
-                    break;
-                case 'favorite':
-                    $queue_key = 'field_52f17cb980e31';
-                    break;
-                case 'bookmark':
-                    $queue_key = 'field_52f17cf180e32';
-                    break;
-            }
-            return $queue_key;
-        }
+			if ( empty($clip_list) )
+				return true;
+			else
+				return $clip_list;
+		}
+
+		// Need to save relationship type fields as an array of post_ids rather than post objects.
+		add_filter('clean_queue', 'clean_relationship_type_queue');
+		function clean_relationship_type_queue($queue) {
+			foreach ($queue as $k => $v) {
+				if ( is_object($v) && ('WP_Post' == get_class($v) ) )
+					$queue[$k] = $v->ID;
+			}
+			return $queue;
+		}
+
+		add_filter('queue_key', 'get_queue_key', 1, 2);
+		function get_queue_key($queue_key, $toggle_type) {
+			switch ($toggle_type) {
+				case 'library':
+					$queue_key = 'field_52f17cf180e32';
+					break;
+				case 'queue':
+					$queue_key = 'field_117';
+					break;
+				case 'favorite':
+					$queue_key = 'field_52f17cb980e31';
+					break;
+				case 'bookmark':
+					$queue_key = 'field_52f17cf180e32';
+					break;
+			}
+			return $queue_key;
+		}

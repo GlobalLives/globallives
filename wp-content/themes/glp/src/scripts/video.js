@@ -110,7 +110,7 @@ $(function() {
                 $("[data-list-id='" + post_id + "'][data-user-id='" + user_id + "']").html(response.text);
                 var st = function(status) {
                     status = $.parseJSON(status);
-                    $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='queue']").html(status.status);
+                    $("[data-clip-id='" + status.clip_id + "'][data-toggle-type='library']").html(status.status);
                 };
                 for (var i in response.toggled){
                     clip_id = response.toggled[i];
@@ -277,7 +277,7 @@ function onReady(frameID, identifier) {
     return function (event) {
         var player = players[frameID];
 
-        // Special case for handling browser opted in at http://www.youtube.com/html5. 
+        // Special case for handling browser opted in at http://www.youtube.com/html5.
         // getDuration doesn't work on html5 embeds until the video has been initialised, which only happens on play.
         // Need to find a solution/workaround to this.
         var isHtml5Player = !player.cueVideoByFlashvars;

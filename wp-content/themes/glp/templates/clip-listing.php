@@ -1,4 +1,4 @@
-<?php global $clip_index, $clip; ?>
+<?php global $clip_index, $clip; setup_postdata($clip); ?>
 <article class="participant-clip-listing<?php echo strip_tags(get_the_term_list($clip->ID,'clip_tags',' ',' ')); ?>">
 	<div class="row">
 		<div class="clip-thumbnail span2" data-clip-id="<?php echo $clip->ID; ?>">
