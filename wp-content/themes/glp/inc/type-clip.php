@@ -44,8 +44,7 @@
             	)
             )
         ));
-
-		return $participant[0];
+		if ($participant) { return $participant[0]; } else { return false; }
 	}
 	function get_clip_position($clip_id, $clips = null) {
 		global $field_keys;
@@ -118,8 +117,10 @@
 
 	function get_clip_tags($clip_id) {
 		$tags = array();
-		foreach (get_the_terms($clip_id, 'clip_tags') as $clip_tag) {
-			$tags[] = $clip_tag->name;
+		if ($clip_tags = get_the_terms($clip_id, 'clip_tags')) {
+			foreach ($clip_tags as $clip_tag) {
+				$tags[] = $clip_tag->name;
+			}
 		}
 		return $tags;
 	}

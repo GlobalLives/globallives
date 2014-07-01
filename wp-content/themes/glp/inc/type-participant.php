@@ -38,6 +38,20 @@
 			)
 		));
 	}
+
+	add_action('acf/save_post','update_participant_fields', 20);
+	function update_participant_fields($participant_id) {
+		global $field_keys;
+		// Auto update fields based on other fields
+	}
+	function get_participant_field($field, $participant_id) {
+		global $field_keys;
+		return get_field($field_keys['participant_'.$field], $participant_id);
+	}
+	function the_participant_field($field, $participant_id) {
+		echo get_participant_field($field, $participant_id);
+	}
+
 	function get_participant_thumbnail_url( $participant_id, $thumbnail_size = 'thumbnail' ) {
 		$participant = get_post( $participant_id );
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($participant->ID), $thumbnail_size );
@@ -71,9 +85,8 @@
 		}
 	}
 	function get_participant_themes( $participant_id, $limit = 5 ) {
-		global $field_keys;
 		$themes = array();
-		if ($clips = get_field($field_keys['participant_clips'], $participant_id)) {
+		if ($clips = get_participant_field('clips', $participant_id)) {
 			foreach ($clips as $clip) {
 				foreach(get_clip_tags($clip->ID) as $clip_tag) {
 					if (array_key_exists($clip_tag, $themes)) {
@@ -89,9 +102,9 @@
 			return false;
 		}
 	}
-	function the_participant_themes( $participant_id ) {
+	function the_participant_themes( $participant_id, $separator = ", " ) {
 		$themes = get_participant_themes($participant_id);
-		echo implode(', ', $themes);
+		echo implode($separator, $themes);
 	}
 
 	function get_participant_crew_members( $participant_id ) {

@@ -1,13 +1,24 @@
 <?php
 	global $profile, $field_keys;
 
-	$wp_fields = array( # WordPress built-in fields
+	$wp_fields = array(
+		'user_url'
+	);
+	foreach($wp_fields as $field) {
+		if (isset($_POST[field])) {
+			wp_update_user(array(
+				'ID' => $profile->ID,
+				$field => $_POST[$field]
+			));
+		}
+	}
+	$wp_meta_fields = array( # WordPress built-in fields
 		'first_name',
 		'last_name',
 		'description',
 		'user_url'
 	);
-	foreach($wp_fields as $field) {
+	foreach($wp_meta_fields as $field) {
 		if (isset($_POST[$field])) {
 			update_user_meta($profile->ID, $field, $_POST[$field]);
 		}
@@ -19,7 +30,8 @@
 		'user_skills',
 		'user_contact',
 		'user_sources',
-		'user_subscribe'
+		'user_subscribe',
+		'user_connections'
 	);
 	foreach($acf_fields as $field) {
 		if (isset($_POST[$field])) {

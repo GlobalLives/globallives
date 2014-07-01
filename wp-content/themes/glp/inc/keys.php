@@ -52,6 +52,7 @@ $field_keys = array(
 	'user_subscribe'				=> 'field_53a9afd8a7588',
 	'user_library'					=> 'field_52f17cf180e32',
 	'user_shoots'					=> 'field_88',
+	'user_connections'				=> 'field_52f160e0a10dc',
 
 # Series
 

@@ -490,11 +490,35 @@ $(function () {
 
 /* Search */
 
-	$('.search-sidebar :checkbox').change(function(){
-		var post_type = $(this).val();
-		$('.search-result.'+post_type).slideToggle('',function() {
-			$('.results-found').html( $('.search-result:visible').length );
+	$('body#search .filter-group input').change(function() {
+		var unfiltered = $('.result');
+		$('.filter-group').each(function () {
+			var group = [];
+			$(this).find(':checked').each(function () {
+				var filter = $(this).attr('name'),
+					value = $(this).val();
+				switch (filter) {
+					case 'post_type':
+						$.merge(group, $('.result-' + value));
+						break;
+					case 'theme':
+						$.merge(group, $('.result:not(.result-participant), .theme-' + value));
+						break;
+					default:
+						$.merge(group, $('.result:not(.result-participant), .result[data-' + filter + '="' + value + '"]'));
+				}
+			});
+			unfiltered = $.grep(unfiltered, function (result) { return $.inArray(result, group) > -1; });
 		});
+		$('.result').hide();
+		$(unfiltered).show();
+	});
+
+	$('body#search .toggle-clips').click(function (ev) {
+		var participant = $(ev.target).parents('.result-participant'),
+			participant_id = participant.attr('id').split('-')[1];
+		participant.toggleClass('open');
+		$('.result-clip[data-participant="'+participant_id+'"]').slideToggle();
 	});
 
 /* Series */

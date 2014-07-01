@@ -20,7 +20,7 @@
 	    	<b><?php _e('Income','glp'); ?>:</b> <?php $incomes = get_field_object($field_keys['participant_income']); $income = get_field($field_keys['participant_income'], $participant_id); echo $incomes['choices'][$income]; ?>
 	    </div>
 	    <div>
-	    	<?php _e('Themes:'); ?> <?php the_participant_themes($participant_id); ?>
+	    	<b><?php _e('Themes:'); ?></b> <?php the_participant_themes($participant_id); ?>
 	    </div>
 	</div>
 	<div class="library-clips">

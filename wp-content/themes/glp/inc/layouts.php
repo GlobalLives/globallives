@@ -9,6 +9,9 @@
 function main_template_path() {
   return GLP_Wrapper::$main_template;
 }
+function main_template_base() {
+  echo GLP_Wrapper::$base;
+}
 
 class GLP_Wrapper {
 
@@ -31,7 +34,7 @@ class GLP_Wrapper {
 
     return locate_template($templates);
   }
-  
+
 }
 add_filter('template_include', array('GLP_Wrapper', 'wrap'), 99);
 

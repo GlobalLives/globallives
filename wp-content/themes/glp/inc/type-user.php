@@ -68,6 +68,13 @@
 			return false;
 		}
 	}
+	function get_profile_field($field, $user_id) {
+		global $field_keys;
+		return get_field($field_keys['user_' . $field], 'user_' . $user_id);
+	}
+	function the_profile_field($field, $user_id) {
+		echo get_profile_field($field, $user_id);
+	}
 
 	function get_profile_activities( $user_id ) {
 		$activities = array();

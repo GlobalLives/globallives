@@ -1,5 +1,5 @@
 <?php get_template_part('templates/head'); ?>
-<body <?php body_class(); ?>>
+<body id="<?php main_template_base(); ?>" <?php body_class(); ?>>
 
 	<?php get_template_part('templates/header'); ?>
 
