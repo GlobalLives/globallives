@@ -141,9 +141,6 @@ class GFAPI {
         if (false === $result)
             return new WP_Error("error_updating_form", __("Error updating form", "gravityforms"), $wpdb->last_error);
 
-        if (0 === $result)
-            return new WP_Error("not_found", sprintf(__("Form with id %s not found", "gravityforms"), $form_id), $form_id);
-
         //updating form title and is_active flag
         $is_active = rgar($form_meta, "is_active") ? "1" : "0";
         $result    = $wpdb->query($wpdb->prepare("UPDATE $form_table_name SET title=%s, is_active=%s WHERE id=%d", $form_meta["title"], $is_active, $form_meta["id"]));

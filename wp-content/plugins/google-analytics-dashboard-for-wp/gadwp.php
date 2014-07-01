@@ -4,9 +4,11 @@
  * Plugin URI: http://deconf.com 
  * Description: Displays Google Analytics Reports and Real-Time Statistics in your Dashboard. Automatically inserts the tracking code in every page of your website.  
  * Author: Alin Marcu 
- * Version: 4.2.20 
+ * Version: 4.2.21 
  * Author URI: http://deconf.com
  */  
+
+define ( 'GADWP_CURRENT_VERSION', '4.2.21' );
 
 /*
  * Include Install
@@ -35,7 +37,6 @@ add_action ( 'plugins_loaded', 'ga_dash_load_i18n' );
 function ga_dash_load_i18n() {
 	load_plugin_textdomain ( 'ga-dash', false, basename(dirname ( __FILE__ )) . '/languages' );
 }
-
 
 if (is_admin()){
 	add_action( 'plugins_loaded', 'gadash_admin_init');

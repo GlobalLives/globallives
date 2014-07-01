@@ -1,0 +1,306 @@
+# Copyright (C) 2014 Autoptimize
+# This file is distributed under the same license as the Autoptimize package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Autoptimize 1.8.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/autoptimize\n"
+"POT-Creation-Date: 2014-01-17 18:16:35+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-01-25 10:20+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: autoptimize.php:117
+msgid ""
+"Thank you for installing and activating Autoptimize. Please configure it "
+"under \"Settings\" -> \"Autoptimize\" to start improving your site's "
+"performance."
+msgstr ""
+"Vielen Dank für die Installation und Aktivierung von Autoptimize. Bitte "
+"konfiguriere das Plugin unter \"Einstellungen\" -> \"Autoptimize\" um die "
+"Performance deiner Webseite zu verbessern."
+
+#: autoptimize.php:123
+msgid ""
+"Autoptimize has just been updated. Please <strong>test your site now</"
+"strong> and adapt Autoptimize config if needed."
+msgstr ""
+"Autoptimize wurde aktualisiert. Bitte <strong>teste nun deine Seite</strong> "
+"und passe gegebenenfalls die Einstellungen von Autoptimize an."
+
+#: classes/autoptimizeConfig.php:56
+msgid "Autoptimize Settings"
+msgstr "Autoptimize Einstellungen"
+
+#: classes/autoptimizeConfig.php:62 classes/autoptimizeConfig.php:68
+msgid "Show advanced settings"
+msgstr "Erweiterte Einstellungen einblenden"
+
+#: classes/autoptimizeConfig.php:63 classes/autoptimizeConfig.php:69
+msgid "Hide advanced settings"
+msgstr "Erweiterte Einstellungen ausblenden"
+
+#: classes/autoptimizeConfig.php:77
+msgid "HTML Options"
+msgstr "HTML Optionen"
+
+#: classes/autoptimizeConfig.php:80
+msgid "Optimize HTML Code?"
+msgstr "HTML Code optimieren?"
+
+#: classes/autoptimizeConfig.php:84
+msgid "Keep HTML comments?"
+msgstr "HTML Kommentare beibehalten?"
+
+#: classes/autoptimizeConfig.php:86
+msgid ""
+"Enable this if you want HTML comments to remain in the page, needed for e.g. "
+"AdSense to function properly."
+msgstr ""
+"Aktiviere diese Option, wenn HTML Kommentare erhalten bleiben sollen, "
+"beispielsweise um AdSense einwandfrei zu kennzeichnen."
+
+#: classes/autoptimizeConfig.php:90
+msgid "JavaScript Options"
+msgstr "JavaScript Optionen"
+
+#: classes/autoptimizeConfig.php:93
+msgid "Optimize JavaScript Code?"
+msgstr "JavaScript Code optimieren?"
+
+#: classes/autoptimizeConfig.php:97
+msgid "Force JavaScript in &lt;head&gt;?"
+msgstr "Erzwinge JavaScript in &lt;head&gt;?"
+
+#: classes/autoptimizeConfig.php:99
+msgid ""
+"For performance reasons it is better to include JavaScript at the bottom of "
+"HTML, but this sometimes breaks things. Especially useful for jQuery-based "
+"themes."
+msgstr ""
+"Aus Performance-Gründen ist es besser, JavaScript am Ende des HTML-Codes "
+"einzufügen. Dies kann in manchen Fällen allerdings zu Problemen führen, "
+"beispielsweise wenn Themes auf jQuery basieren."
+
+#: classes/autoptimizeConfig.php:102
+msgid "Look for scripts only in &lt;head&gt;?"
+msgstr "Nach Skripten nur in &lt;head&gt; suchen?"
+
+#: classes/autoptimizeConfig.php:104
+msgid ""
+"Mostly usefull in combination with previous option when using jQuery-based "
+"templates, but might help keeping cache size under control."
+msgstr ""
+"Oft in Kombination mit den vorhergehenden Optionen nützlich, wenn "
+"beispielsweise jQuery basierte Themes benutzt werden. Kann aber auch helfen "
+"die Größe des Caches unter Kontrolle zu halten."
+
+#: classes/autoptimizeConfig.php:107
+msgid "Exclude scripts from Autoptimize:"
+msgstr "Folgende Skripte von Autoptimize ausschließen:"
+
+#: classes/autoptimizeConfig.php:109
+msgid ""
+"A comma-seperated list of scripts you want to exclude from being optimized, "
+"for example 'whatever.js, another.js' (without the quotes) to exclude those "
+"scripts from being aggregated and minimized by Autoptimize."
+msgstr ""
+"Eine Komma getrennte Liste mit Skripten die von der Optimierung durch "
+"Autoptimized ausgeschlossen werden sollen. Beispiel:  'whatever.js, another."
+"js' (ohne Anführungszeichen)"
+
+#: classes/autoptimizeConfig.php:112
+msgid "Add try-catch wrapping?"
+msgstr "Try-Catch Block hinzufügen?"
+
+#: classes/autoptimizeConfig.php:114
+msgid ""
+"If your scripts break because of an script error, you might want to try this."
+msgstr ""
+"Wenn das Laden der Skripte aufgrund eines Skriptfehlers unterbrochen wird, "
+"kannst du diese Option ausprobieren."
+
+#: classes/autoptimizeConfig.php:118
+msgid "CSS Options"
+msgstr "CSS Optionen"
+
+#: classes/autoptimizeConfig.php:121
+msgid "Optimize CSS Code?"
+msgstr "CSS Code optimieren?"
+
+#: classes/autoptimizeConfig.php:125
+msgid "Generate data: URIs for images?"
+msgstr "data: URIs für Bilder generieren?"
+
+#: classes/autoptimizeConfig.php:127
+msgid ""
+"Enable this to include small background-images in the CSS itself instead of "
+"as seperate downloads."
+msgstr ""
+"Aktiviere diese Option um kleine Bilder als Hintergrundbilder direkt in CSS "
+"einzufügen. Dadurch werden Anfragen an den Webserver reduziert."
+
+#: classes/autoptimizeConfig.php:130
+msgid "Look for styles only in &lt;head&gt;?"
+msgstr "Nach CSS nur in &lt;head&gt; suchen?"
+
+#: classes/autoptimizeConfig.php:132
+msgid ""
+"Don't autoptimize CSS outside the head-section. If the cache gets big, you "
+"might want to enable this."
+msgstr ""
+"Optimiere CSS nicht außerhalb des head-Bereichs. Die Aktivierung dieser "
+"Option kann sinnvoll sein, wenn der Cache sehr groß wird."
+
+#: classes/autoptimizeConfig.php:135
+msgid "Defer CSS loading?"
+msgstr "Laden von CSS verzögern?"
+
+#: classes/autoptimizeConfig.php:137
+msgid ""
+"Load optimized CSS only after page load (disables CSS inlining). "
+"<strong>Warning</strong>: <a href=\"http://wordpress.org/plugins/autoptimize/"
+"faq/\" target=\"_blank\">check the FAQ</a> before activating this option!"
+msgstr ""
+"Lade optimiertes CSS erst nach dem Seitenaufbau (deaktiviert CSS Inlining). "
+"<strong>Warnung</strong>: <a href=\"http://wordpress.org/plugins/autoptimize/"
+"faq/\" target=\"_blank\">Lese die FAQ</a> vor der Aktivierung dieser Option."
+
+#: classes/autoptimizeConfig.php:140
+msgid "Inline all CSS?"
+msgstr "CSS Inlining aktivieren?"
+
+#: classes/autoptimizeConfig.php:142
+msgid ""
+"Inlining all CSS can improve performance for sites with a low pageviews/ "
+"visitor-rate, but may slow down performance otherwise. CSS inlining disables "
+"CSS deferring."
+msgstr ""
+"CSS Inlining kann die Performance von Webseiten mit geringen "
+"Seitenaufrufen / Besucherzahlen verbessern. In anderen Situation kann diese "
+"Option allerdings die Performance verschlechtern. CSS Inlining deaktiviert "
+"das verzögerte Laden von CSS."
+
+#: classes/autoptimizeConfig.php:145
+msgid "Exclude CSS from Autoptimize:"
+msgstr "Folgende CSS-Dateien von Autoptimize ausschließen:"
+
+#: classes/autoptimizeConfig.php:147
+msgid "A comma-seperated list of CSS you want to exclude from being optimized."
+msgstr ""
+"Eine Komma getrennte Liste mit CSS-Dateien die von der Optimierung "
+"ausgeschlossen werden sollen."
+
+#: classes/autoptimizeConfig.php:151
+msgid "CDN Options"
+msgstr "CDN Optionen"
+
+#: classes/autoptimizeConfig.php:154
+msgid "CDN Base URL"
+msgstr "CDN Basis URL:"
+
+#: classes/autoptimizeConfig.php:156
+msgid ""
+"Enter your CDN blog root directory URL if you want to enable CDN for images "
+"referenced in the CSS."
+msgstr ""
+"Gib hier die URL deines CDN Root-Verzeichnisses ein, wenn du CDN für Bilder "
+"und referenzierte CSS-Dateien aktivieren möchtest."
+
+#: classes/autoptimizeConfig.php:160
+msgid "Cache Info"
+msgstr "Cache Info"
+
+#: classes/autoptimizeConfig.php:163
+msgid "Cache folder"
+msgstr "Cache Ordner:"
+
+#: classes/autoptimizeConfig.php:167
+msgid "Can we write?"
+msgstr "Schreibberechtigung?"
+
+#: classes/autoptimizeConfig.php:168
+msgid "Yes"
+msgstr "Ja"
+
+#: classes/autoptimizeConfig.php:168
+msgid "No"
+msgstr "Nein"
+
+#: classes/autoptimizeConfig.php:171
+msgid "Cached styles and scripts"
+msgstr "Anzahl gecachter Dateien:"
+
+#: classes/autoptimizeConfig.php:175
+msgid "Save aggregated script/css as static files?"
+msgstr "Optimierte CSS / Skript-Dateien als statische Dateien speichern?"
+
+#: classes/autoptimizeConfig.php:177
+msgid ""
+"By default files saved are static css/js, uncheck this option if your "
+"webserver doesn't properly handle the compression and expiry."
+msgstr ""
+"Standardmäßig werden CSS- und JavaScript-Dateien bereits statisch "
+"gespeichert. Deaktiviere diese Option, wenn dein Webserver mit der "
+"Verarbeitung von komprimierten Dateien und Expires-Header Probleme hat."
+
+#: classes/autoptimizeConfig.php:183
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: classes/autoptimizeConfig.php:184
+msgid "Save Changes and Empty Cache"
+msgstr "Änderungen speichern und Cache leeren"
+
+#: classes/autoptimizeConfig.php:192
+msgid "futtta about"
+msgstr "Über futtta"
+
+#. #-#-#-#-#  plugin.pot (Autoptimize 1.8.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: classes/autoptimizeConfig.php:194
+msgid "Autoptimize"
+msgstr "Autoptimize"
+
+#: classes/autoptimizeConfig.php:195
+msgid "WordPress"
+msgstr "WordPress"
+
+#: classes/autoptimizeConfig.php:196
+msgid "Web Technology"
+msgstr "Web Technologien"
+
+#: classes/autoptimizeConfig.php:201
+msgid "Do not donate for this plugin!"
+msgstr "Bitte spende nicht für dieses Plugin!"
+
+#: classes/autoptimizeConfig.php:262
+msgid "Autoptimize Options"
+msgstr "Autoptimize Optionen"
+
+#: classes/autoptimizeConfig.php:309 classes/autoptimizeConfig.php:316
+msgid "Settings"
+msgstr "Einstellungen"
+
+#. Plugin URI of the plugin/theme
+msgid "http://blog.futtta.be/autoptimize"
+msgstr "http://blog.futtta.be/autoptimize"
+
+#. Description of the plugin/theme
+msgid ""
+"Optimizes your website, concatenating the CSS and JavaScript code, and "
+"compressing it."
+msgstr ""
+"Optimiert deine Webseite, fügt CSS und JavaScripte Code zusammen und "
+"komprimiert diesen."
+
+#. Author of the plugin/theme
+msgid "Frank Goossens (futtta)"
+msgstr "Frank Goossens (futtta)"
+
+#. Author URI of the plugin/theme
+msgid "http://blog.futtta.be/"
+msgstr "http://blog.futtta.be/"

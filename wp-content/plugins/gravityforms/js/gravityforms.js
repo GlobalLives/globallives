@@ -626,7 +626,7 @@ function gformAddListItem(element, max){
     if(jQuery(element).hasClass("gfield_icon_disabled"))
         return;
 
-    var tr = jQuery(element).parent().parent();
+    var tr = jQuery(element).closest('tr');
     var clone = tr.clone();
     clone.find("input, select").val("").attr("tabindex", clone.find('input:last').attr("tabindex"));
     tr.after(clone);

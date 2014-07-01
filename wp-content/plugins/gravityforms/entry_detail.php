@@ -367,25 +367,26 @@ class GFEntryDetail{
                                         <?php
                                     }
 
-                                    if(do_action("gform_enable_entry_info_payment_details", true, $lead)){
+                                    if(apply_filters("gform_enable_entry_info_payment_details", true, $lead)){
+
                                         if(!empty($lead["payment_status"])){
-                                            echo $lead["transaction_type"] != 2 ? __("Payment Status", "gravityforms") : __("Subscription Status", "gravityforms"); ?>: <span id="gform_payment_status"><?php echo apply_filters("gform_payment_status", $lead["payment_status"], $form, $lead) ?></span>
+                                            echo $lead["transaction_type"] == 2 ? __("Subscription Status", "gravityforms") : __("Payment Status", "gravityforms"); ?>: <span id="gform_payment_status"><?php echo apply_filters("gform_payment_status", $lead["payment_status"], $form, $lead) ?></span>
                                             <br/><br/>
                                             <?php
                                             if(!empty($lead["payment_date"])){
-                                                echo $lead["transaction_type"] == 1 ? __("Payment Date", "gravityforms") : __("Start Date", "gravityforms") ?>: <?php echo GFCommon::format_date($lead["payment_date"], false, "Y/m/d", $lead["transaction_type"] == 1) ?>
+                                                echo $lead["transaction_type"] == 2 ? __("Start Date", "gravityforms") : __("Payment Date", "gravityforms") ?>: <?php echo GFCommon::format_date($lead["payment_date"], false, "Y/m/d", $lead["transaction_type"] != 2) ?>
                                                 <br/><br/>
                                                 <?php
                                             }
 
                                             if(!empty($lead["transaction_id"])){
-                                                echo $lead["transaction_type"] == 1 ? __("Transaction Id", "gravityforms") : __("Subscriber Id", "gravityforms"); ?>: <?php echo $lead["transaction_id"]?>
+                                                echo $lead["transaction_type"] == 2 ? __("Subscriber Id", "gravityforms") : __("Transaction Id", "gravityforms"); ?>: <?php echo $lead["transaction_id"]?>
                                                 <br/><br/>
                                                 <?php
                                             }
 
                                             if(!rgblank($lead["payment_amount"])){
-                                                echo $lead["transaction_type"] == 1 ? __("Payment Amount", "gravityforms") : __("Subscription Amount", "gravityforms"); ?>: <?php echo GFCommon::to_money($lead["payment_amount"], $lead["currency"]) ?>
+                                                echo $lead["transaction_type"] == 2 ? __("Subscription Amount", "gravityforms") : __("Payment Amount", "gravityforms"); ?>: <?php echo GFCommon::to_money($lead["payment_amount"], $lead["currency"]) ?>
                                                 <br/><br/>
                                                 <?php
                                             }
@@ -463,7 +464,7 @@ class GFEntryDetail{
                     </div>
 
                     <?php
-                    if (!empty($lead["payment_status"])) {
+                    if (!empty($lead["payment_status"]) && !apply_filters("gform_enable_entry_info_payment_details", true, $lead) ) {
                         self::payment_details_box($lead, $form);
                     }
                     ?>
@@ -957,7 +958,7 @@ class GFEntryDetail{
         <div id="submitdiv" class="stuffbox">
             <h3>
                 <span
-                    class="hndle"><?php echo $lead["transaction_type"] == 1 ? __("Payment Details", "gravityforms") : __("Subscription Details", "gravityforms"); ?></span>
+                    class="hndle"><?php echo $lead["transaction_type"] == 2 ? __("Subscription Details", "gravityforms") : __("Payment Details", "gravityforms"); ?></span>
             </h3>
 
             <div class="inside">
@@ -971,19 +972,19 @@ class GFEntryDetail{
                             <br/><br/>
                             <?php
                             if (!empty($lead["payment_date"])) {
-                                echo __("Date", "gravityforms") ?>: <?php echo GFCommon::format_date($lead["payment_date"], false, "Y/m/d", $lead["transaction_type"] == 1) ?>
+                                echo $lead["transaction_type"] == 2 ? __("Start Date", "gravityforms") : __("Date", "gravityforms") ?>: <?php echo GFCommon::format_date($lead["payment_date"], false, "Y/m/d", $lead["transaction_type"] != 2) ?>
                                 <br/><br/>
                             <?php
                             }
 
                             if (!empty($lead["transaction_id"])) {
-                                echo $lead["transaction_type"] == 1 ? __("Transaction Id", "gravityforms") : __("Subscription Id", "gravityforms"); ?>: <?php echo $lead["transaction_id"] ?>
+                                echo $lead["transaction_type"] == 2 ? __("Subscription Id", "gravityforms") : __("Transaction Id", "gravityforms"); ?>: <?php echo $lead["transaction_id"] ?>
                                 <br/><br/>
                             <?php
                             }
 
                             if (!rgblank($lead["payment_amount"])) {
-                                echo $lead["transaction_type"] == 1 ? __("Amount", "gravityforms") : __("Recurring Amount", "gravityforms"); ?>: <?php echo GFCommon::to_money($lead["payment_amount"], $lead["currency"]) ?>
+                                echo $lead["transaction_type"] == 2 ? __("Recurring Amount", "gravityforms") : __("Amount", "gravityforms"); ?>: <?php echo GFCommon::to_money($lead["payment_amount"], $lead["currency"]) ?>
                                 <br/><br/>
                             <?php
                             }

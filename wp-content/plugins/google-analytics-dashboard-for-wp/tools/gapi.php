@@ -14,7 +14,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 		function __construct() {
 			global $GADASH_Config;
 			if (! function_exists ( 'curl_version' )) {
-				update_option ( 'gadash_lasterror', 'CURL disabled. Please enable CURL!' );
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': CURL disabled. Please enable CURL!' );
 				return;
 			}
 			if (! class_exists ( 'Google_Client' )) {
@@ -117,13 +117,13 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					update_option ( 'gadash_lasterror', 'N/A' );
 					return ($ga_dash_profile_list);
 				} else {
-					update_option ( 'gadash_lasterror', 'No properties were found in this account!' );
+					update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': No properties were found in this account!' );
 				}
 			} catch ( Google_IOException $e ){
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option('gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return false;
 			} catch (Exception $e){
-				update_option('gadash_lasterror',esc_html($e));
+				update_option('gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				$this->ga_dash_reset_token (true);
 			}	
 		}
@@ -151,11 +151,11 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					return $transient;
 				}
 			} catch ( Google_IOException $e ){
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return false;
 			}catch ( Exception $e ) {
 				$this->ga_dash_reset_token (false);
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return false;
 			}
 		}
@@ -214,7 +214,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			
@@ -259,7 +259,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			
@@ -303,7 +303,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -314,10 +314,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			$i = 0;
 			//print_r($data ['rows'] );
 			while ( isset ( $data ['rows'] [$i] [0] ) ) {
-				$ga_dash_data .= "['<a href=\"http://".$data ['rows'] [$i] [1].$data ['rows'] [$i] [2]."\" target=\"_blank\">" . str_replace ( array (
-						"'",
-						"\\" 
-				), " ", $data ['rows'] [$i] [0] ) . "</a>'," . $data ['rows'] [$i] [3] . "],";
+				$ga_dash_data .= "['<a href=\"http://".addslashes($data ['rows'] [$i] [1].$data ['rows'] [$i] [2])."\" target=\"_blank\">" . addslashes( $data ['rows'] [$i] [0] ) . "</a>'," . $data ['rows'] [$i] [3] . "],";
 				$i ++;
 			}
 			
@@ -353,7 +350,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -363,10 +360,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			$ga_dash_data = "";
 			$i = 0;
 			while ( isset ( $data ['rows'] [$i] [0] ) ) {
-				$ga_dash_data .= "['<a href=\"http://".$data ['rows'] [$i] [1]."\"target=\"_blank\">" . str_replace ( array (
-						"'",
-						"\\" 
-				), " ", $data ['rows'] [$i] [0] ) . "</a>'," . $data ['rows'] [$i] [3] . "],";
+				$ga_dash_data .= "['<a href=\"http://".addslashes($data ['rows'] [$i] [1])."\"target=\"_blank\">" . addslashes( $data ['rows'] [$i] [0] ) . "</a>'," . $data ['rows'] [$i] [3] . "],";
 				$i ++;
 			}
 			
@@ -401,7 +395,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -412,10 +406,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			$i = 0;
 			while ( isset ( $data ['rows'] [$i] [0] ) ) {
 				if ($data ['rows'] [$i] [0] != "(not set)") {
-					$ga_dash_data .= "['" . str_replace ( array (
-							"'",
-							"\\" 
-					), " ", $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
+					$ga_dash_data .= "['" . addslashes( $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
 				}
 				$i ++;
 			}
@@ -469,7 +460,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -479,10 +470,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			$ga_dash_data = "";
 			$i = 0;
 			while ( isset ( $data ['rows'] [$i] [1] ) ) {
-				$ga_dash_data .= "['" . str_replace ( array (
-						"'",
-						"\\" 
-				), " ", $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
+				$ga_dash_data .= "['" . addslashes( $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
 				$i ++;
 			}
 			
@@ -514,7 +502,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -555,7 +543,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return 0;
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -564,10 +552,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			
 			$ga_dash_data = "";
 			for($i = 0; $i < $data ['totalResults']; $i ++) {
-				$ga_dash_data .= "['" . str_replace ( array (
-						"'",
-						"\\" 
-				), " ", $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
+				$ga_dash_data .= "['" . addslashes( $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
 			}
 			
 			return rtrim ( $ga_dash_data, ',' );
@@ -617,7 +602,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return '';
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -705,7 +690,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 				</table>';
 			}			
 			
-			return $content;
+			return apply_filters( 'gadash_frontend_content',$content);
 		}
 		
 		// Frontend Visists
@@ -747,7 +732,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e ));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return '';
 			}
 			if (! isset ( $data ['rows'] )) {
@@ -809,7 +794,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return '';
 			}
 			
@@ -820,10 +805,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			$i = 0;
 			while ( isset ( $data ['rows'] [$i] [0] ) ) {
 				if ($data ['rows'] [$i] [0] != "(not set)") {
-					$ga_dash_organicdata .= "['" . str_replace ( array (
-							"'",
-							"\\" 
-					), " ", $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
+					$ga_dash_organicdata .= "['" . addslashes( $data ['rows'] [$i] [0] ) . "'," . $data ['rows'] [$i] [1] . "],";
 				}
 				$i ++;
 			}
@@ -864,12 +846,12 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 					$data = $this->service->data_realtime->get ( 'ga:' . $projectId, $metrics, array (
 							'dimensions' => $dimensions
 					) );
-					set_transient ( $serial, $data, 20 );
+					set_transient ( $serial, $data, 55 );
 				} else {
 					$data = $transient;
 				}
 			} catch ( Exception $e ) {
-				update_option ( 'gadash_lasterror', esc_html($e));
+				update_option ( 'gadash_lasterror', date('Y-m-d H:i:s').': '.esc_html($e));
 				return '';
 			}
 			return $data;			
@@ -1064,10 +1046,10 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 						document.getElementById("gadash-tdo-right").innerHTML += "<span class=\"gadash-bigtext\"><a href=\"#\" title=\""+gadash_generatetooltip(ukeywordsstats)+"\">"+\'' . __ ( "ORGANIC", 'ga-dash' ) . '\'+"</a>: "+countvisits(data,uvisittype[1])+"</span><br /><br />";
 						document.getElementById("gadash-tdo-right").innerHTML += "<span class=\"gadash-bigtext\"><a href=\"#\" title=\""+gadash_generatetooltip(usocialstats)+"\">"+\'' . __ ( "SOCIAL", 'ga-dash' ) . '\'+"</a>: "+countvisits(data,uvisittype[2])+"</span><br /><br />";
 		
-						var uvisitortype = ["DIRECT","NEW","RETURNING"];
+						var uvisitortype = ["DIRECT","NEW","RETURN"];
 						document.getElementById("gadash-tdo-rights").innerHTML = "<span class=\"gadash-bigtext\">"+\'' . __ ( "DIRECT", 'ga-dash' ) . '\'+": "+countvisits(data,uvisitortype[0])+"</span><br /><br />";
 						document.getElementById("gadash-tdo-rights").innerHTML += "<span class=\"gadash-bigtext\">"+\'' . __ ( "NEW", 'ga-dash' ) . '\'+": "+countvisits(data,uvisitortype[1])+"</span><br /><br />";
-						document.getElementById("gadash-tdo-rights").innerHTML += "<span class=\"gadash-bigtext\">"+\'' . __ ( "RETURNING", 'ga-dash' ) . '\'+": "+countvisits(data,uvisitortype[2])+"</span><br /><br />";
+						document.getElementById("gadash-tdo-rights").innerHTML += "<span class=\"gadash-bigtext\">"+\'' . __ ( "RETURN", 'ga-dash' ) . '\'+": "+countvisits(data,uvisitortype[2])+"</span><br /><br />";
 		
 						if (!data["totalsForAllResults"]["ga:activeVisitors"]){
 							location.reload();
@@ -1077,7 +1059,7 @@ if (! class_exists ( 'GADASH_GAPI' )) {
 			   };
 			   };
 			   online_refresh();
-			   setInterval(online_refresh, 20000);
+			   setInterval(online_refresh, 60000);
 			   </script>';
 			return $code;
 		}

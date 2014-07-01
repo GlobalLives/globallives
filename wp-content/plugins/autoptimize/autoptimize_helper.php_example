@@ -1,0 +1,44 @@
+<?php
+/*
+Plugin Name: Autoptimize Helper
+Plugin URI: http://blog.futtta.be/autoptimize
+Description: Autoptimize Helper contains some helper functions to make Autoptimize even more flexible
+Author: Frank Goossens (futtta)
+Version: 0.1
+Author URI: http://blog.futtta.be/ 
+*/
+
+// add_filter('autoptimize_filter_css_datauri_maxsize','my_ao_override_dataursize',10,1);
+function my_ao_override_dataursize($urisizeIn) {
+	return 10000;
+}
+
+// add_filter('autoptimize_filter_js_defer','my_ao_override_defer',10,1);
+function my_ao_override_defer($defer) {
+	return $defer."async ";
+}
+
+// add_filter('autoptimize_filter_noptimize','my_ao_noptimize',10,0);
+function my_ao_noptimize() {
+	if (strpos($_SERVER['REQUEST_URI'],'no-autoptimize-now')!==false) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// add_filter('autoptimize_filter_js_exclude','my_ao_override_jsexclude',10,1);
+function my_ao_override_jsexclude($exclude) {
+	return $exclude.", customize-support";
+}
+
+// add_filter('autoptimize_filter_css_exclude','my_ao_override_cssexclude',10,1);
+function my_ao_override_cssexclude($exclude) {
+	return $exclude.", recentcomments";
+}
+
+// add_filter('autoptimize_filter_js_movelast','my_ao_override_movelast',10,1);
+function my_ao_override_movelast($movelast) {
+	$movelast[]="console.log";
+	return $movelast;
+	}

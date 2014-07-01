@@ -1,4 +1,35 @@
 -------------------------------------------------------------------------------------------------------------------
+Version 1.8.9
+    - Added "password" to the list of fields which allow HTML input.
+    - Added 'gform_field_container' filter to allow modifying the field container markup.
+        add_action( 'gform_field_container', 'my_field_container', 10, 6 );
+        function my_field_container( $field_container, $field, $form, $class_attr, $style, $field_content ) {
+            return '<li style="border: 1px solid #f00;">{FIELD_CONTENT}</li>';
+        }
+    - Updated entry detail screen so that the payment details heading is defaulted to "Payment Details".
+    - Updated Akismet integration to use Akismet::http_post instead of the deprecated function akismet_http_post when the Akismet version is 3.0 and greater.
+    - Updated Spanish translation to properly escape a string causing issues when resending notifications.
+    - Added 'gform_encrypt_password' hook to allow basic encryption of password field values when saved to database
+        add_filter( 'gform_encrypt_password', '__return_true' );
+
+    - Fixed issue with Payment Add-On where payment information wasn't available to hooks via the $entry object.
+    - Fixed issue causing payment details to show up twice for older payment addons.
+    - Fixed issue with conditional logic when greater than and less were used on checkboxes.
+    - Fixed error being incorrectly returned for GFAPI::update_form() method.
+	- Fixed notices thrown when the is_valid_key element does not exist in the version information array.
+    - Fixed issue with currency validation on certain currencies.
+    - Fixed issue with conditional logic reset logic triggering change event even when value did not change.
+    - Fixed issue with conditional logic javascript when working with empty child elements.
+    - Fixed issue with quantity of Quantity fields allowing negative values to be entered.
+
+	- AF: Updated gform_entry_post_save hook so it is called as a filter, not an action.
+    - AF: Fixed issue with the results page where values of fields with multiple inputs (e.g. Name and Address) would not be displayed correctly.
+	- AF: Added support for additional payment options to the Payment Add-On.
+    - AF: Fixed notices.
+    - AF: Fixed issue causing feed condition to display warnings in certain conditions.
+    - AF: Added extra parameter to has_feed() call to support checking if there is a feed that meets conditional logic.
+
+-------------------------------------------------------------------------------------------------------------------
 Version 1.8.8
 
     - Added support for Proxy to resolve issues with sites on blacklisted IPs not being able to access the Gravity Help API.

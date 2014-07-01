@@ -4,7 +4,7 @@ Plugin Name: Google Sitemap
 Plugin URI: http://bestwebsoft.com/plugin/
 Description: Plugin to add google sitemap file in Google Webmaster Tools account.
 Author: BestWebSoft
-Version: 2.8.9
+Version: 2.9.0
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -30,7 +30,8 @@ License: GPLv2 or later
 if ( ! function_exists( 'gglstmp_admin_menu' ) ) {
 	function gglstmp_admin_menu() {
 		global $bstwbsftwppdtplgns_options, $wpmu, $bstwbsftwppdtplgns_added_menu;
-		$bws_menu_version = '1.2.6';
+		$bws_menu_info = get_plugin_data( plugin_dir_path( __FILE__ ) . "bws_menu/bws_menu.php" );
+		$bws_menu_version = $bws_menu_info["Version"];
 		$base = plugin_basename(__FILE__);
 
 		if ( ! isset( $bstwbsftwppdtplgns_options ) ) {
@@ -403,6 +404,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab<?php if ( !isset( $_GET['action'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=google-sitemap-plugin.php"><?php _e( 'Settings', 'sitemap' ); ?></a>
 				<a class="nav-tab<?php if ( isset( $_GET['action'] ) && 'extra' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=google-sitemap-plugin.php&amp;action=extra"><?php _e( 'Extra settings', 'sitemap' ); ?></a>
+				<a class="nav-tab" href="http://bestwebsoft.com/plugin/google-sitemap-plugin/#faq" target="_blank"><?php _e( 'FAQ', 'sitemap' ); ?></a>
 				<a class="nav-tab bws_go_pro_tab<?php if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=google-sitemap-plugin.php&amp;action=go_pro"><?php _e( 'Go PRO', 'sitemap' ); ?></a>
 			</h2>
 			<div id="gglstmp_settings_notice" class="updated fade" style="display:none"><p><strong><?php _e( "Notice:", 'sitemap' ); ?></strong> <?php _e( "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button.", 'sitemap' ); ?></p></div>
@@ -621,7 +623,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 							$bstwbsftwppdtplgns_options['go_pro']['google-sitemap-pro/google-sitemap-pro.php']['time'] < ( time() + ( 24 * 60 * 60 ) ) ) { ?>
 							<p>
 								<input disabled="disabled" type="text" name="bws_license_key" value="<?php echo $bws_license_key; ?>" />
-								<input disabled="disabled" type="submit" class="button-primary" value="<?php _e( 'Go!', 'sitemap' ); ?>" />
+								<input disabled="disabled" type="submit" class="button-primary" value="<?php _e( 'Activate', 'sitemap' ); ?>" />
 							</p>
 							<p>
 								<?php _e( "Unfortunately, you have exceeded the number of available tries per day. Please, upload the plugin manually.", 'sitemap' ); ?>
@@ -631,7 +633,7 @@ if ( ! function_exists ( 'gglstmp_settings_page' ) ) {
 								<input type="text" name="bws_license_key" value="<?php echo $bws_license_key; ?>" />
 								<input type="hidden" name="bws_license_plugin" value="google-sitemap-pro/google-sitemap-pro.php" />
 								<input type="hidden" name="bws_license_submit" value="submit" />
-								<input type="submit" class="button-primary" value="<?php _e( 'Go!', 'sitemap' ); ?>" />
+								<input type="submit" class="button-primary" value="<?php _e( 'Activate', 'sitemap' ); ?>" />
 								<?php wp_nonce_field( plugin_basename(__FILE__), 'bws_license_nonce_name' ); ?>
 							</p>
 						<?php } ?>
@@ -844,8 +846,11 @@ if ( ! function_exists ( 'gglstmp_plugin_banner' ) ) {
 		global $hook_suffix;	
 		if ( $hook_suffix == 'plugins.php' ) {  
 			$banner_array = array(
+				array( 'sndr_hide_banner_on_plugin_page', 'sender/sender.php', '0.5' ),
+				array( 'srrl_hide_banner_on_plugin_page', 'user-role/user-role.php', '1.4' ),	
 				array( 'pdtr_hide_banner_on_plugin_page', 'updater/updater.php', '1.12' ),
-				array( 'cntctfrmtdb_hide_banner_on_plugin_page', 'contact-form-to-db/contact_form_to_db.php', '1.2' ),		
+				array( 'cntctfrmtdb_hide_banner_on_plugin_page', 'contact-form-to-db/contact_form_to_db.php', '1.2' ),
+				array( 'cntctfrmmlt_hide_banner_on_plugin_page', 'contact-form-multi/contact-form-multi.php', '1.0.7' ),	
 				array( 'gglmps_hide_banner_on_plugin_page', 'bws-google-maps/bws-google-maps.php', '1.2' ),		
 				array( 'fcbkbttn_hide_banner_on_plugin_page', 'facebook-button-plugin/facebook-button-plugin.php', '2.29' ),
 				array( 'twttr_hide_banner_on_plugin_page', 'twitter-plugin/twitter.php', '2.34' ),

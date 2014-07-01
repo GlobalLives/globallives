@@ -4,7 +4,7 @@ Donate link: http://www.whiletrue.it/
 Tags: twitter, twitter sidebar, sidebar, social sidebar, widget, plugin, post, posts, links, twitter widget, twitter feed, simple twitter, twitter api 1.1, api 1.1, oauth, twitter oauth
 Requires at least: 2.9+
 Tested up to: 3.9.1
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 
 Shows the latest tweets from a Twitter account in a sidebar widget. Twitter API 1.1 ready.
 
@@ -179,6 +179,9 @@ This is the complete option list. The boolean options can be set writing "true" 
 
 == Changelog ==
 
+= 2.5.3 =
+* Fixed: Twitter thumbnail transient cleaning
+
 = 2.5.2 =
 * Fixed: links cleaning
 
@@ -192,37 +195,14 @@ This is the complete option list. The boolean options can be set writing "true" 
 
 = 2.4.11 =
 * Added: Shortcode options list
-
-= 2.4.10 =
 * Added: Donate link
-
-= 2.4.9 =
-* Fixed: Layout cleaning
-
-= 2.4.8 =
-* Fixed: Increased number of retrieved posts when the "skip text" option is enabled
-
-= 2.4.7 =
-* Added: Timestamp format option
-
-= 2.4.6 =
-* Fixed: Secret fields masked
-
-= 2.4.5 =
-* Changed: Readme cleaning
-
-= 2.4.4 =
-* Changed: readme cleaning
-
-= 2.4.3 =
-* Changed: code cleaning
-
-= 2.4.2 =
+* Added: "really_simple_twitter" shortcode
 * Added: account thumbnail option
 * Changed: code cleaning
-
-= 2.4.1 =
-* Added: "really_simple_twitter" shortcode
+* Added: Timestamp format option
+* Fixed: Layout cleaning
+* Fixed: Increased number of retrieved posts when the "skip text" option is enabled
+* Fixed: Secret fields masked
 
 = 2.4 =
 * Added: Twitter Follow @user button with text customization
@@ -232,14 +212,10 @@ This is the complete option list. The boolean options can be set writing "true" 
 * Fixed: revert to older Codebird version (PHP < 5.3 compatible)
 
 = 2.3.1.2 =
-* Fixed: previous Codebird version now available when running PHP < 5.3 
-
-= 2.3.1.1 =
-* Fixed: class_exists check is now namespace safe
-
-= 2.3.1 =
 * Changed: updated Codebird library
 * Changed: better error handling 
+* Fixed: previous Codebird version now available when running PHP < 5.3 
+* Fixed: class_exists check is now namespace safe
 
 = 2.3 =
 * Changed: updated timestamp function, following the current Twitter guidelines 
@@ -261,7 +237,10 @@ This is the complete option list. The boolean options can be set writing "true" 
 * Changed: Cache timeout lowered from 30 to 10 minutes
 
 = 2.0.4 =
+* Added: Twitter API 1.1 support
 * Added: Erase cached data option (to be used only for a few minutes, when having issues)
+* Changed: Brand new options box
+* Changed: Brand new debug system
 * Changed: More reasonable options display
 * Changed: Only show Twitter API debug status when getting actual Twitter data
 * Changed: If widget title is not set, don't show the title box
@@ -269,11 +248,6 @@ This is the complete option list. The boolean options can be set writing "true" 
 * Fixed: if Twitter data is empty, don't cache it
 * Fixed: minor warning on empty Twitter data
 * Fixed: minor notice on Twitter status timeout
-
-= 2.0 =
-* Added: Twitter API 1.1 support
-* Changed: Brand new options box
-* Changed: Brand new debug system
 
 = 1.3.17 =
 * Added: Polish translation by Aleksandra Czuba (www.iwasindira.com)
@@ -298,34 +272,26 @@ This is the complete option list. The boolean options can be set writing "true" 
 * Fixed: now checks for errors when retrieving data from the Twitter API
 
 = 1.3.1 =
-* Fixed: now retrieve data in JSON format for better storage with transient API and faster data update
-
-= 1.3.0 =
-* Changed: use Transient API to cache Twitter results, in order to reduce direct requests to the Twitter API
 * Added: option to add a link to the Twitter user page below the posts (CSS customizable via the "rstw_link_user" class)
 * Added: option to create all the links on new window / tab
 * Added: Italian translation
+* Changed: use Transient API to cache Twitter results, in order to reduce direct requests to the Twitter API
+* Fixed: now retrieve data in JSON format for better storage with transient API and faster data update
 
 = 1.2.3 =
 * Changed: a bit of UI (work by Frank Gregor)
 * Added: switch for setting on/off a link of the title to the twitter user (work by Frank Gregor)
 * Added: German translation (work by Frank Gregor)
-* Fixed: Better hashtag handling
-
-= 1.2.0 =
 * Changed: FB Widget API adoption (carries multiple Widgets support)
+* Fixed: Better hashtag handling
 
 = 1.1.1 =
 * Changed: direct to the twitter.com search link
-
-= 1.1.0 =
 * Changed: Use the new Twitter REST API
 * Changed: Error handling cleaning
 
 = 1.0.2 =
 * Changed: Feed cache lifetime shortening to 30 minutes (default is 12 hours)
-
-= 1.0.1 =
 * Changed: Some more code cleaning and security option control
 
 = 1.0.0 =

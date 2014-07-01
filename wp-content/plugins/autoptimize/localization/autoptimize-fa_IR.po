@@ -1,0 +1,324 @@
+# Copyright (C) 2013 Autoptimize
+# This file is distributed under the same license as the Autoptimize package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Autoptimize 1.7.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/autoptimize\n"
+"POT-Creation-Date: 2014-01-17 18:16:35+00:00\n"
+"PO-Revision-Date: 2014-01-18 23:12+0330\n"
+"Last-Translator: Hamed.T <ham3d.t@gmail.com>\n"
+"Language-Team: http://basics.ir/ <ham3d.t@gmail.com>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: autoptimize.php:117
+msgid ""
+"Thank you for installing and activating Autoptimize. Please configure it "
+"under \"Settings\" -> \"Autoptimize\" to start improving your site's "
+"performance."
+msgstr ""
+"از اینکه Autoptimize را نصب و فعال کردید متشکریم. لطفاً تنظیمات خود را در "
+"مسیر \"تنظیمات > Autoptimize\" انجام دهید تا کارایی و سرعت سایت شما افزایش "
+"یابد."
+
+#: autoptimize.php:123
+msgid ""
+"Autoptimize has just been updated. Please <strong>test your site now</"
+"strong> and adapt Autoptimize config if needed."
+msgstr ""
+"Autoptimize به روز رسانی شد. لطفاً <strong/>اکنون سایت خود را امتحان "
+"کنید<strong> و اگر لازم بود تنظیمات Autoptimize را تغییر دهید."
+
+#: classes/autoptimizeConfig.php:56
+msgid "Autoptimize Settings"
+msgstr "تنظیمات Autoptimize"
+
+#: classes/autoptimizeConfig.php:62 classes/autoptimizeConfig.php:68
+msgid "Show advanced settings"
+msgstr "نمایش تنظیمات پیشرفته"
+
+#: classes/autoptimizeConfig.php:63 classes/autoptimizeConfig.php:69
+msgid "Hide advanced settings"
+msgstr "پنهان نمودن تنظیمات پیشرفته"
+
+#: classes/autoptimizeConfig.php:77
+msgid "HTML Options"
+msgstr "تنظیمات HTML"
+
+#: classes/autoptimizeConfig.php:80
+msgid "Optimize HTML Code?"
+msgstr "کدهای HTML بهینه سازی شوند؟"
+
+#: classes/autoptimizeConfig.php:84
+msgid "Keep HTML comments?"
+msgstr "کامنت های HTML باقی بمانند؟"
+
+#: classes/autoptimizeConfig.php:86
+msgid ""
+"Enable this if you want HTML comments to remain in the page, needed for e.g. "
+"AdSense to function properly."
+msgstr ""
+"اگر مایل هستید تا کامنت های HTML در صفحه باقی بماند این گزینه را فعال کنید."
+
+#: classes/autoptimizeConfig.php:90
+msgid "JavaScript Options"
+msgstr "تنظیمات جاوا اسکریپت"
+
+#: classes/autoptimizeConfig.php:93
+msgid "Optimize JavaScript Code?"
+msgstr "کدهای جاوا اسکریپت بهینه سازی شوند؟"
+
+#: classes/autoptimizeConfig.php:97
+msgid "Force JavaScript in &lt;head&gt;?"
+msgstr "فایل جاوا اسکریپت در قسمت &lt;head&gt; باقی بماند؟"
+
+#: classes/autoptimizeConfig.php:99
+msgid ""
+"For performance reasons it is better to include JavaScript at the bottom of "
+"HTML, but this sometimes breaks things. Especially useful for jQuery-based "
+"themes."
+msgstr ""
+"برای کارایی بیشتر بهتر است تا فایل جاوا اسکریپت در انتهای صفحه قرار بگیرد، "
+"اما این ممکن است باعث تداخل در کارایی پوسته هایی شود که تابع Jquery هستند."
+
+#: classes/autoptimizeConfig.php:102
+msgid "Look for scripts only in &lt;head&gt;?"
+msgstr "فقط اسکریپت هایی که در قسمت &lt;head&gt; بهینه سازی شوند؟"
+
+#: classes/autoptimizeConfig.php:104
+msgid ""
+"Mostly usefull in combination with previous option when using jQuery-based "
+"templates, but might help keeping cache size under control."
+msgstr ""
+"کارایی بیشتر این گزینه زمانی است که همراه با گزینه قبلی در پوسته های تابع "
+"Jquery استفاده شود، همچنین باعث می شود اندازه فایل کش شده را تحت کنترل داشته "
+"باشید."
+
+#: classes/autoptimizeConfig.php:107
+#, fuzzy
+msgid "Exclude scripts from Autoptimize:"
+msgstr "جلوگیری از بهینه سازی اسکریپت ها:"
+
+#: classes/autoptimizeConfig.php:109
+#, fuzzy
+msgid ""
+"A comma-seperated list of scripts you want to exclude from being optimized, "
+"for example 'whatever.js, another.js' (without the quotes) to exclude those "
+"scripts from being aggregated and minimized by Autoptimize."
+msgstr ""
+"برای جلوگیری از بهینه سازی اسکریپت ها لیستی از اسکریپت ها را با استفاده از "
+"کاما از هم جدا کنید و در فیلد زیر وارد کنید. مانند: whatever.js, another.js"
+
+#: classes/autoptimizeConfig.php:112
+msgid "Add try-catch wrapping?"
+msgstr "سعی در درک کردن بسته بندی؟"
+
+#: classes/autoptimizeConfig.php:114
+msgid ""
+"If your scripts break because of an script error, you might want to try this."
+msgstr ""
+"اگر اسکریپت های شما به دلیل خطای یک اسکریپت درست نمایش داده نشوند، شاید مایل "
+"باشید از این گزینه استفاده کنید."
+
+#: classes/autoptimizeConfig.php:118
+msgid "CSS Options"
+msgstr "تنظیمات CSS"
+
+#: classes/autoptimizeConfig.php:121
+msgid "Optimize CSS Code?"
+msgstr "کدهای CSS بهینه سازی شوند؟"
+
+#: classes/autoptimizeConfig.php:125
+msgid "Generate data: URIs for images?"
+msgstr "تولید داده: URI برای تصاویر"
+
+#: classes/autoptimizeConfig.php:127
+msgid ""
+"Enable this to include small background-images in the CSS itself instead of "
+"as seperate downloads."
+msgstr ""
+"با فعال کردن این گزینه تصاویر کوچک پس زمینه ی موجود در CSS به جای اینکه "
+"جداگانه بارگذاری شود توسط data URI همراه با فایل CSS بارگذاری می شوند."
+
+#: classes/autoptimizeConfig.php:130
+msgid "Look for styles only in &lt;head&gt;?"
+msgstr "فقط استایل هایی که در قسمت &lt;head&gt; هستند بهینه سازی شوند؟"
+
+#: classes/autoptimizeConfig.php:132
+msgid ""
+"Don't autoptimize CSS outside the head-section. If the cache gets big, you "
+"might want to enable this."
+msgstr ""
+"استایل هایی که خارج از قسمت head هستند بهینه سازی نمی شوند. اگر حجم کش زیاد "
+"باشد شاید مایل باشید تا از این گزینه استفاده کنید."
+
+#: classes/autoptimizeConfig.php:135
+msgid "Defer CSS loading?"
+msgstr "به تاخیر انداختن بارگذاری CSS?"
+
+#: classes/autoptimizeConfig.php:137
+msgid ""
+"Load optimized CSS only after page load (disables CSS inlining). "
+"<strong>Warning</strong>: <a href=\"http://wordpress.org/plugins/autoptimize/"
+"faq/\" target=\"_blank\">check the FAQ</a> before activating this option!"
+msgstr ""
+"CSS بهینه شده بعد از بارگذاری صفحه بارگذاری خواهد شد (CSS درون خطی را "
+"غیرفعال می‌کند). <strong>هشدار</strong>: قبل از فعال سازی این گزینه<a href="
+"\"http://wordpress.org/plugins/autoptimize/faq/\" target=\"_blank\">سوالات "
+"متداول</a> را مطالعه فرمایید!"
+
+#: classes/autoptimizeConfig.php:140
+msgid "Inline all CSS?"
+msgstr "تبدیل CSS به درون خطی"
+
+#: classes/autoptimizeConfig.php:142
+msgid ""
+"Inlining all CSS can improve performance for sites with a low pageviews/ "
+"visitor-rate, but may slow down performance otherwise. CSS inlining disables "
+"CSS deferring."
+msgstr ""
+"درون خطی نمودن کدهای CSS باعث افزایش سرعت سایت هایی با بازدید کم می‌شود، در "
+"غیر اینصورت ممکن است باعث کم شدن سرعت بارگذاری شود. درون خطی نمودن کدهای CSS "
+"گزینه به تاخیر انداختن بارگذاری CSS را غیرفعال می کند."
+
+#: classes/autoptimizeConfig.php:145
+#, fuzzy
+msgid "Exclude CSS from Autoptimize:"
+msgstr "جلوگیری از بهینه سازی CSS ها:"
+
+#: classes/autoptimizeConfig.php:147
+#, fuzzy
+msgid "A comma-seperated list of CSS you want to exclude from being optimized."
+msgstr ""
+"با استفاده از کاما لیست فایل های CSS ایی که می خواهید از بهینه سازی آن ها "
+"جلوگیری شود در فیلد زیر وارد کنید."
+
+#: classes/autoptimizeConfig.php:151
+msgid "CDN Options"
+msgstr "تنظیمات CDN"
+
+#: classes/autoptimizeConfig.php:154
+msgid "CDN Base URL"
+msgstr "آدرس پایه CDN"
+
+#: classes/autoptimizeConfig.php:156
+#, fuzzy
+msgid ""
+"Enter your CDN blog root directory URL if you want to enable CDN for images "
+"referenced in the CSS."
+msgstr ""
+"اگر می خواهید CDN فعال شود آدرس CDN ریشه دایرکتوری بلاگ خود را وارد کنید."
+
+#: classes/autoptimizeConfig.php:160
+msgid "Cache Info"
+msgstr "اطلاعات کش"
+
+#: classes/autoptimizeConfig.php:163
+msgid "Cache folder"
+msgstr "فولدر کش"
+
+#: classes/autoptimizeConfig.php:167
+msgid "Can we write?"
+msgstr "حق نوشتن (write) داریم؟"
+
+#: classes/autoptimizeConfig.php:168
+msgid "Yes"
+msgstr "بله"
+
+#: classes/autoptimizeConfig.php:168
+msgid "No"
+msgstr "خیر"
+
+#: classes/autoptimizeConfig.php:171
+msgid "Cached styles and scripts"
+msgstr "استایل ها و اسکریپت های کش شده"
+
+#: classes/autoptimizeConfig.php:175
+msgid "Save aggregated script/css as static files?"
+msgstr "جمع و ذخیره اسکریپت/CSS در یک فایل ثابت(static)؟"
+
+#: classes/autoptimizeConfig.php:177
+#, fuzzy
+msgid ""
+"By default files saved are static css/js, uncheck this option if your "
+"webserver doesn't properly handle the compression and expiry."
+msgstr ""
+"اگر وب سرور شما می تواند فشرده سازی و کش فایل ها را انجام دهد این گزینه را "
+"فعال کنید."
+
+#: classes/autoptimizeConfig.php:183
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: classes/autoptimizeConfig.php:184
+msgid "Save Changes and Empty Cache"
+msgstr "ذخیره تغییرات و تخلیه کش"
+
+#: classes/autoptimizeConfig.php:192
+msgid "futtta about"
+msgstr "درباره ی futtta"
+
+#. Plugin Name of the plugin/theme
+#: classes/autoptimizeConfig.php:194
+msgid "Autoptimize"
+msgstr "Autoptimize"
+
+#: classes/autoptimizeConfig.php:195
+msgid "WordPress"
+msgstr "وردپرس"
+
+#: classes/autoptimizeConfig.php:196
+msgid "Web Technology"
+msgstr "تکنولوژی وب"
+
+#: classes/autoptimizeConfig.php:201
+msgid "Do not donate for this plugin!"
+msgstr "به این افزونه کمک مالی نکنید!"
+
+#: classes/autoptimizeConfig.php:262
+msgid "Autoptimize Options"
+msgstr "تنظیمات Autoptimize"
+
+#: classes/autoptimizeConfig.php:309 classes/autoptimizeConfig.php:316
+msgid "Settings"
+msgstr "تنظیمات"
+
+#. Plugin URI of the plugin/theme
+msgid "http://blog.futtta.be/autoptimize"
+msgstr "http://blog.futtta.be/autoptimize"
+
+#. Description of the plugin/theme
+msgid ""
+"Optimizes your website, concatenating the CSS and JavaScript code, and "
+"compressing it."
+msgstr ""
+"با یکی کردن فایل های CSS و جاوا اسکریپت و فشرده سازی آن ها وب سایت شما را "
+"بهینه سازی می کند."
+
+#. Author of the plugin/theme
+msgid "Frank Goossens (futtta)"
+msgstr "Frank Goossens (futtta)"
+
+#. Author URI of the plugin/theme
+msgid "http://blog.futtta.be/"
+msgstr "http://blog.futtta.be/"
+
+#~ msgid ""
+#~ "Normally CSS is loaded in the &lt;head&gt;-section of the HTML, but for "
+#~ "mobile performance reasons having it deferred can be better."
+#~ msgstr ""
+#~ "در حالت عادی CSS در قسمت &lt;head&gt; بارگذاری می شود، اما برای افزایش "
+#~ "کارایی در گوشی های همراه بهتر است که با تاخیر بارگذاری شوند."
+
+#~ msgid "Do not compress cache files"
+#~ msgstr "فایل های کش را فشرده سازی نکن"
+
+#~ msgid ""
+#~ "Enable this if you want to compress the served files using your webserver."
+#~ msgstr ""
+#~ "اگر مایل هستید فایل های ارائه شده توسط وب سرور شما فشرده سازی شوند از این "
+#~ "گزینه استفاده کنید."

@@ -1290,10 +1290,14 @@ class GFFormDisplay{
                                 $field["failed_validation"] = true;
                                 $field["validation_message"] = empty($field["errorMessage"]) ? GFCommon::get_range_message($field) : $field["errorMessage"];
                             }
-                            else if($field["type"] == "quantity" && intval($value) != $value){
-                                $field["failed_validation"] = true;
-                                $field["validation_message"] = empty($field["errorMessage"]) ? __("Please enter a valid quantity. Quantity cannot contain decimals.", "gravityforms") : $field["errorMessage"];
-
+                            else if( $field['type'] == 'quantity' ) {
+                                if( intval( $value ) != $value ) {
+                                    $field['failed_validation'] = true;
+                                    $field['validation_message'] = empty( $field['errorMessage'] ) ? __( 'Please enter a valid quantity. Quantity cannot contain decimals.', 'gravityforms' ) : $field['errorMessage'];
+                                } else if( ! empty( $value ) && ( ! is_numeric( $value ) || intval( $value ) != floatval( $value ) || intval( $value ) < 0 ) ) {
+                                    $field['failed_validation'] = true;
+                                    $field['validation_message'] = empty( $field['errorMessage'] ) ? __( 'Please enter a valid quantity', 'gravityforms' ) : $field['errorMessage'];
+                                }
                             }
 
                         break;
@@ -2466,7 +2470,17 @@ class GFFormDisplay{
 
         $field_id = IS_ADMIN || empty($form) ? "field_$id" : "field_" . $form["id"] . "_$id";
 
-        return "<li id='$field_id' class='$css_class' $style>" . self::get_field_content($field, $value, $force_frontend_label, $form == null ? 0 : $form["id"]) . "</li>";
+        $field_content = self::get_field_content( $field, $value, $force_frontend_label, $form == null ? 0 : $form['id'] );
+        $field_container = "<li id='$field_id' class='$css_class' $style>{FIELD_CONTENT}</li>";
+
+        $field_container = apply_filters( 'gform_field_container',                              $field_container, $field, $form, $css_class, $style, $field_content );
+        $field_container = apply_filters( "gform_field_container_{$form['id']}",                $field_container, $field, $form, $css_class, $style, $field_content );
+        $field_container = apply_filters( "gform_field_container_{$form['id']}_{$field['id']}", $field_container, $field, $form, $css_class, $style, $field_content );
+
+        $field_markup = str_replace( '{FIELD_CONTENT}', $field_content, $field_container );
+
+        return $field_markup;
+
     }
 
     private static function prev_field_has_description($form, $field_id){
