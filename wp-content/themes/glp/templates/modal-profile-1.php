@@ -1,7 +1,8 @@
 <?php
 	global $current_user, $field_keys; $user_id = $current_user->ID;
-	$user_firstname = $current_user->first_name ? $current_user->first_name : explode(' ', $current_user->display_name, 2)[0];
-	$user_lastname = $current_user->last_name ? $current_user->last_name : explode(' ', $current_user->display_name, 2)[1];
+	$user_name_array = explode(' ', $current_user->display_name, 2);
+	$user_firstname = $current_user->first_name ? $current_user->first_name : $user_name_array[0];
+	$user_lastname = $current_user->last_name ? $current_user->last_name : $user_name_array[1];
 	$user_url = $current_user->user_url;
 	$user_occupation = get_user_meta($user_id, 'occupation', true);
 	$user_location = get_user_meta($user_id, 'location', true);

@@ -51,14 +51,19 @@
 		update_field($field_keys['user_languages'], $user_languages, 'user_'.$profile->ID);
 	}
 
-	if ($_FILES["file"]["error"] != 0) {
-		foreach ($_FILES as $file => $array) {
-	        $attachment_id = insert_attachment($file, $profile->ID);
-    	    update_field($field_keys['user_avatar'], $attachment_id, 'user_'.$profile->ID);
-        }
-    }
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	require_once( ABSPATH . 'wp-admin/includes/media.php' );
+	$attachment_id = media_handle_upload('user_avatar', $profile->ID);
+	if (is_wp_error($attachment_id)) {
+?>
+	<div class="alert">There was an error uploading the image.</div>
+<?php
+	} else {
+		update_field($field_keys['user_avatar'], $attachment_id, 'user_'.$profile->ID);
+	}
 
-    // Helper Functions
+	// Helper Functions
 
 	function insert_attachment ($file_handler, $post_id, $setthumb = 'false') {
 		if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();

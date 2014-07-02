@@ -10,7 +10,7 @@
 <?php
 	if ($participant_clips) {
 ?>
-	<div class="toggle-clips"><?php echo count($participant_clips); ?> <?php echo count($participant_clips) !== 1 ? __('clips','glp') : __('clip','glp'); ?></div>
+	<p><div class="toggle-clips"><?php echo count($participant_clips); ?> <?php echo count($participant_clips) !== 1 ? __('clips','glp') : __('clip','glp'); ?></div></p>
 <?php
 		foreach ($participant_clips as $clip_id) {
 			$clip = get_post($clip_id);
