@@ -3,7 +3,7 @@
 	<div class="nav-themes-inner container">
 		<div id="theme-carousel" class="carousel slide">
 			<ul class="carousel-inner">
-				<li class="theme-navitem span2 active"><?php echo _e('All Themes','glp'); ?></li>
+				<li class="theme-navitem span2 active"><?php echo _e('All Themes','glp'); ?></li>			
 <?php
 	$total_themes = count($themes);
 	$themes_per_row = 4;

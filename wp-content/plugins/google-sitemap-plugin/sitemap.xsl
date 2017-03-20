@@ -136,7 +136,7 @@
 					</table>
 				</div>
 				<div id="footer">
-					Generated with <a href="http://bestwebsoft.com/plugin/google-sitemap-plugin">Google Sitemap</a> plugin by <a href="http://bestwebsoft.com">BestWebSoft</a>
+					Generated with <a href="http://bestwebsoft.com/products/google-sitemap/">Google Sitemap</a> plugin by <a href="http://bestwebsoft.com">BestWebSoft</a>
 				</div>
 			</body>
 		</html>

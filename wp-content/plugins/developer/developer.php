@@ -5,7 +5,7 @@
 Plugin Name:  Developer
 Plugin URI:   http://wordpress.org/extend/plugins/developer/
 Description:  The first stop for every WordPress developer
-Version:      1.2.5
+Version:      1.2.6
 Author:       Automattic
 Author URI:   http://automattic.com
 License:      GPLv2 or later
@@ -25,7 +25,7 @@ class Automattic_Developer {
 	public $settings               = array();
 	public $default_settings       = array();
 
-	const VERSION                  = '1.2.5';
+	const VERSION                  = '1.2.6';
 	const OPTION                   = 'a8c_developer';
 	const PAGE_SLUG                = 'a8c_developer';
 
@@ -140,11 +140,6 @@ class Automattic_Developer {
 				'name'		=> esc_html__( 'Pig Latin', 'a8c-developer' ),
 				'active'	=> class_exists( 'PigLatin' ),
 			),
-			'mp6' => array(
-				'project_type' => 'wpcom-vip',
-				'name' 		   => esc_html__( 'MP6', 'a8c-developer' ),
-				'active'       => function_exists( 'mp6_replace_wp_default_styles' ),
-			),
 
 			// Theme Developer
 			'rtl-tester' => array(
@@ -171,7 +166,7 @@ class Automattic_Developer {
 			'theme-check' => array(
 				'project_type' => 'wporg-theme',
 				'name'         => esc_html__( 'Theme Check', 'a8c-developer' ),
-				'active'       => function_exists( 'tc_add_headers' ),
+				'active'       => class_exists( 'ThemeCheckMain' ),
 			),
 		);
 
@@ -844,7 +839,7 @@ class Automattic_Developer {
 
 	private static function is_dev_version() {
 		$cur = get_preferred_from_update_core();
-		return $cur->response == 'development';
+		return isset( $cur->response ) && $cur->response == 'development';
 	}
 
 	private static function is_project_type( $project, $type ) {

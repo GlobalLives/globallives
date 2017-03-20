@@ -3,7 +3,7 @@
 Plugin Name: Verify Google Webmaster Tools
 Plugin URI: http://wordpress.org/extend/plugins/verify-google-webmaster-tools/
 Description: Adds <a href="http://www.google.com/webmasters/">Google Webmaster Tools</a> verification meta-tag.
-Version: 1.2
+Version: 1.3
 Author: Audrius Dobilinskas
 Author URI: http://onlineads.lt/author/audrius
 */
@@ -41,6 +41,7 @@ function google_webmaster_tools() {
   $gwebmasters_code = get_option('gwebmasters_code');
 ?>
 
+<!-- Google Webmaster Tools plugin for WordPress -->
 <?php echo $gwebmasters_code ?>
 
 <?php

@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------------------------------------------
+Version 1.0-beta-2
+    - Added support for Gravity Forms 2.0-beta-2
+    - Added the Last Saved date and link to the entry detail page.
+    - Added the gform_pre_render filter before creating the partial entry.
+    - Added support for notification events (sending notifications when the partial entry is saved and updated).
+    - Added logging statements.
+    - Fixed PHP warning on notifications list and edit pages.
+    - Fixed an issue with the warning message.
+    - Fixed the text domains used for some of the translatable strings.
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.0-beta-1
+    All new!

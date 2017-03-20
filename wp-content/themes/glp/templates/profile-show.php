@@ -1,119 +1,101 @@
-<?php global $profile, $current_user, $field_keys; $can_edit = $profile->ID == $current_user->ID; ?>
-
+<?php global $profile, $current_user, $field_keys; ?>
 <article id="user-<?php echo $profile->ID; ?>" class="container">
+	<header class="row">
+		<div class="profile-header span9 offset3">
+			<div class="profile-header-inner">
+				<?php if ($current_user->ID == $profile->ID) : ?><a class="edit-profile" href="/profile?mode=edit"><?php _e('Edit','glp'); ?> <i class="icon icon-white icon-edit"></i></a><?php endif; ?>
+				<h1 class="profile-name"><?php echo $profile->first_name; ?> <?php echo $profile->last_name; ?></h1>
+				<p class="profile-location">
+					<?php if ($user_occupation = get_field($field_keys['user_occupation'],'user_'.$profile->ID)) : ?><b><?php echo $user_occupation; ?></b><?php endif; ?>
+					<?php if ($user_location = get_field($field_keys['user_location'],'user_'.$profile->ID)) : ?> <?php _e('in','glp'); ?> <b><?php echo $user_location; ?></b><?php endif; ?>
+				</p>
+				<div class="profile-username">@<?php echo $profile->user_login; ?></div>
+			</div>
+		</div>
+	</header>
+
 	<div class="profile-container row">
-
 		<div class="profile-sidebar span3">
-			<?php if ($can_edit) { ?><a href="#modal-profile-1" data-toggle="modal" class="edit-profile"><i class="fa fa-edit"></i></a><?php } ?>
+			<div class="profile-sidebar-inner">
+				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
+				<p><b><?php _e('Member since','glp'); ?>:</b> <?php echo date("F Y", strtotime($profile->user_registered)); ?></p>
+				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo human_time_diff( get_profile_last_active( $profile->ID ), current_time('timestamp') ); ?> ago.</p>
+				<hr>
 
-			<h4><?php _e('Hello!','glp'); ?></h4>
-			<p><?php echo $profile->description; ?></p>
+				<?php if (get_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
+				<p>
+					<b><?php _e('Volunteer Skills','glp'); ?></b><br>
+				<?php while (has_sub_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
+					<?php if (get_sub_field('skill_name')) : ?><span class="skill_name"><?php the_sub_field('skill_name'); ?></span> <span class="skill_level"><?php $skill_level = get_sub_field('skill_level'); for ($i = 0; $i < $skill_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
+				<?php endwhile; ?>
+				</p>
+				<?php endif; ?>
 
-<?php
-	if (get_field($field_keys['user_contact'],'user_'.$profile->ID)) {
-?>
-			<p>
-<?php
-		while (has_sub_field($field_keys['user_contact'],'user_'.$profile->ID)) {
-			if (get_sub_field('contact_information') !== '') {
-?>
-				<i class="fa fa-<?php echo strtolower(get_sub_field('contact_channel')); ?>"></i>
-				<?php the_sub_field('contact_information'); ?><br>
-<?php
-			}
-		}
-?>
-			</p>
-<?php
-	}
-?>
-			<?php if ($profile->user_url) { ?><a href="<?php echo $profile->user_url; ?>"><?php _e('website','glp'); ?></a><?php } ?>
-			<hr>
-			<?php if ($can_edit) { ?><a href="#modal-profile-2" data-toggle="modal" class="edit-profile"><i class="fa fa-edit"></i></a><?php } ?>
+				<?php if (get_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
+				<p>
+					<b><?php _e('Languages Spoken','glp'); ?></b><br>
+				<?php while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
+					<?php if (get_sub_field('language_name')) : ?><span class="skill_name"><?php the_sub_field('language_name'); ?></span> <span class="skill_level"><?php $language_level = get_sub_field('language_level'); for ($i = 0; $i < $language_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
+				<?php endwhile; ?>
+				</p>
+				<?php endif; ?>
 
+				<?php if (get_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
+				<p>
+					<b><?php _e('Contact Information','glp'); ?></b><br>
+				<?php while (has_sub_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
+					<?php if (get_sub_field('contact_information') !== '') : ?>
+					<i class="fa fa-<?php echo strtolower(get_sub_field('contact_channel')); ?>"></i>
+					<?php the_sub_field('contact_information'); ?><br>
+					<?php endif; ?>
+				<?php endwhile; ?>
+				</p>
+				<?php endif; ?>
 
-<?php
-	if ($user_skills = get_field($field_keys['user_skills'], 'user_'.$profile->ID)) {
-?>
-			<h4><i class="fa fa-heart"></i> <?php _e('Volunteer','glp'); ?></h4>
-			<ul>
-<?php
-		foreach($user_skills[0] as $skill_category) {
-			foreach($skill_category as $skill) {
-?>
-				<li><?php echo $skill; ?></li>
-<?php
-			}
-		}
-?>
-			</ul>
-<?php
-	}
-	if (get_field($field_keys['user_languages'],'user_'.$profile->ID)) {
-?>
-			<h4><i class="fa fa-comment"></i> <?php _e('Speaks','glp'); ?></h4>
-			<ul>
-<?php
-		while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) {
-			if (get_sub_field('language_name')) {
-?>
-			<li class="row-fluid"><span class="span8"><?php the_sub_field('language_name'); ?></span> <span class="span4"><?php $language_level = get_sub_field('language_level'); echo $language_level; ?></span></li>
-<?php
-			}
-		}
-?>
-			</ul>
-<?php
-	}
-?>
+			</div>
 		</div>
 
 		<div class="profile-body span9">
-			<div class="profile-header" style="background-image: url('<?php the_profile_thumbnail_url($profile->ID, 'large'); ?>');">
-				<div class="profile-location">
-					<?php the_field($field_keys['user_location'], 'user_'.$profile->ID); ?>
+			<div class="profile-body-inner">
+				<h4><?php _e('Bio','glp'); ?></h4>
+				<p><?php echo $profile->description; ?></p>
+			<?php if ($profile->user_url) : ?>
+				<h4><?php _e('Website','glp'); ?></h4>
+				<p><?php echo '<a target="_blank" href="'.$profile->user_url.'">'.$profile->user_url.'</a>'; ?></p>
+			<?php endif; ?>
+			<?php if ($collaborators = get_profile_collaborators($profile->ID)) : ?>
+				<div class="profile-collaborators">
+				<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators); ?>)</small></h4>
+				<?php foreach ($collaborators as $crew_member) : ?>
+					<?php include(locate_template('templates/profile-crew_member.php')); ?>
+				<?php endforeach; ?>
 				</div>
-				<div class="profile-name">
-					<?php echo $profile->first_name; ?> <?php echo $profile->last_name; ?>,
-					<small><?php the_field($field_keys['user_occupation'], 'user_'.$profile->ID); ?></small>
-				</div>
-				<div class="profile-username">
-					@<?php echo $profile->user_login; ?>
-				</div>
-			</div>
-
-			<div class="profile-library">
-				<?php include(locate_template('templates/profile-library.php')); ?>
+			<?php endif; ?>
+				<p class="profile-activity-buttons">
+					<span class="span1"><?php _e('Activity','glp'); ?></span>
+					<a class="" href=""><i class="fa fa-video-camera"></i> Shoots</a>
+					<a class="" href=""><i class="fa fa-comment"></i> Comments</a>
+					<a class="" href=""><i class="fa fa-tag"></i> Tags</a>
+					<a class="" href="">@ Mentions</a>
+					<a class="" href=""><i class="fa fa-bookmark"></i> Bookmarks</a>
+					<a class="" href=""><i class="fa fa-heart"></i> Favorites</a>
+				</p>
+								
+				<ul class="profile-activity">
+				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
+					<li class="activity <?php echo $activity['activity_type']; ?> row">
+						<div class="activity-thumbnail span1"><img src="<?php the_profile_thumbnail_url($activity['activity_user']); ?>"></div>
+						<div class="activity-meta span7">
+							<i class="fa fa-<?php echo $activity['activity_icon']; ?>"></i>
+							<span class="activity-username"><?php the_fullname($activity_user->ID); ?></span> 
+							<?php echo $activity['activity_description']; ?> 
+							<?php echo human_time_diff( $activity['activity_timestamp'], current_time('timestamp') ); ?> ago.
+						</div>
+						<div class="activity-content span6"><?php echo $activity['activity_content']; ?></div>
+					</li>
+				<?php endforeach; ?>
+				</ul>
 			</div>
 		</div>
-
 	</div>
 </article>
-<?php
-	if ($can_edit) {
-?>
-<form id="form-profile" action="<?php echo site_url('/profile'); ?>" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="mode" value="save">
-
-	<div id="modal-profile-1" class="modal hide">
-		<div class="modal-body">
-			<?php get_template_part('templates/modal', 'profile-1'); ?>
-		</div>
-		<div class="modal-footer">
-			<input type="submit" class="btn" value="Save">
-		</div>
-	</div>
-
-	<div id="modal-profile-2" class="modal hide">
-		<div class="modal-body">
-			<?php get_template_part('templates/modal', 'profile-2'); ?>
-		</div>
-		<div class="modal-footer">
-			<input type="submit" class="btn" value="Save">
-		</div>
-	</div>
-</form>
-
-<?php
-	}
-?>

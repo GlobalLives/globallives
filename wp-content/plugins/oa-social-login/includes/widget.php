@@ -10,7 +10,7 @@ class oa_social_login_widget extends WP_Widget
 	 */
 	public function __construct ()
 	{
-		parent::WP_Widget ('oa_social_login', 'Social Login', array (
+		parent::__construct ('oa_social_login', 'Social Login', array (
 			'description' => __ ('Allow your visitors to login and register with social networks like Twitter, Facebook, LinkedIn, Hyves, Google and Yahoo.', 'oa_social_login')
 		));
 	}

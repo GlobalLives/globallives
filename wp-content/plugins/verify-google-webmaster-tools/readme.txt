@@ -1,10 +1,10 @@
 === Verify Google Webmaster Tools ===
 Contributors: audriusd
 Donate link: http://onlineads.lt/
-Tags: google, webmaster tools, verification, meta tag, google webmaster tools, verification meta tag, verify webmaster tools
+Tags: google, webmaster tools, verification, meta tag, google webmaster tools, verification meta tag, verify webmaster tools, verify
 Requires at least: 2.5
-Tested up to: 3.5.1
-Stable tag: 1.2
+Tested up to: 3.9.1
+Stable tag: 1.3
 License: GPLv2 or later
 
 Adds Google Webmaster Tools verification meta tag and gets account verified. 
@@ -49,11 +49,18 @@ Yes, there is. Check [Bing Webmaster Tools verification plugin for WordPress](ht
 
 Yes, I do. Just fill out a form at [OnlineAds.lt](http://onlineads.lt/contact-us/). 
 
+= I use Google Analytics. What tool can I use for generating periodic website performance reports? =
+
+Check out [nexusAd - Google Analytics reporting tool](https://nexusad.com). 
+
 == Screenshots ==
 
 1. Copy Google Webmaster Tools verification meta-tag.
 
 == Changelog ==
+
+= 1.3 =
+* Documentation update.
 
 = 1.2 =
 * Bug fixed. Verification problem fixed. 
@@ -66,6 +73,9 @@ Yes, I do. Just fill out a form at [OnlineAds.lt](http://onlineads.lt/contact-us
 
 == Upgrade Notice ==
 
+= 1.3 =
+* Documentation update.
+
 = 1.2 =
 * Bug fixed. Verification problem fixed. 
 
@@ -73,4 +83,4 @@ Yes, I do. Just fill out a form at [OnlineAds.lt](http://onlineads.lt/contact-us
 * Bug fix.
 
 = 1.0 =
-Initial release. 
+* Initial release. 

@@ -1,573 +1,873 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="http://globallives.dev/wp-content/plugins/google-sitemap-plugin/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://globallives.org/wp-content/plugins/google-sitemap-plugin/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://globallives.dev/</loc>
-    <lastmod>2014-04-04T22:31:25+00:00</lastmod>
+    <loc>http://globallives.org/</loc>
+    <lastmod>2017-03-16T06:35:31+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/</loc>
-    <lastmod>2013-01-07T20:02:48+00:00</lastmod>
+    <loc>http://globallives.org/worksamples-nea-2017/</loc>
+    <lastmod>2017-03-06T05:05:33+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/sponsors/</loc>
-    <lastmod>2013-12-04T22:42:52+00:00</lastmod>
+    <loc>http://globallives.org/blog/crazy-year-brainchild-twins/</loc>
+    <lastmod>2016-12-31T22:57:58+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/careers/</loc>
-    <lastmod>2014-05-28T03:04:45+00:00</lastmod>
+    <loc>http://globallives.org/test-razoo/</loc>
+    <lastmod>2016-12-30T21:49:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/council/</loc>
-    <lastmod>2013-12-07T01:35:34+00:00</lastmod>
+    <loc>http://globallives.org/blog/nyff/</loc>
+    <lastmod>2016-12-31T18:48:34+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/crew/</loc>
-    <lastmod>2013-02-16T17:43:19+00:00</lastmod>
+    <loc>http://globallives.org/blog/calling-all-translators/</loc>
+    <lastmod>2016-06-23T23:00:12+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/board/</loc>
-    <lastmod>2014-04-25T19:49:16+00:00</lastmod>
+    <loc>http://globallives.org/blog/southafricashoot/</loc>
+    <lastmod>2016-06-17T23:05:38+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/staff/</loc>
-    <lastmod>2014-04-28T22:06:15+00:00</lastmod>
+    <loc>http://globallives.org/resources/translators/translation-faq/</loc>
+    <lastmod>2016-05-31T21:31:29+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/explore/</loc>
-    <lastmod>2013-01-07T20:05:00+00:00</lastmod>
+    <loc>http://globallives.org/participate/propose/lives-in-transit/</loc>
+    <lastmod>2016-06-16T21:29:46+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/</loc>
-    <lastmod>2013-01-07T20:06:10+00:00</lastmod>
+    <loc>http://globallives.org/participate/propose/produce-translate-shoot/</loc>
+    <lastmod>2016-06-01T01:45:49+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/volunteer/</loc>
-    <lastmod>2013-01-07T20:06:22+00:00</lastmod>
+    <loc>http://globallives.org/participate/volunteer/translate/</loc>
+    <lastmod>2016-06-24T05:43:35+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/propose/considerations/</loc>
-    <lastmod>2014-01-22T19:53:08+00:00</lastmod>
+    <loc>http://globallives.org/participate/educate/online-video-collection/</loc>
+    <lastmod>2016-06-01T00:41:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/host/</loc>
-    <lastmod>2014-02-18T22:57:40+00:00</lastmod>
+    <loc>http://globallives.org/participate/educate/assemblies-community-events/</loc>
+    <lastmod>2016-06-01T00:11:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/</loc>
-    <lastmod>2013-01-07T20:07:22+00:00</lastmod>
+    <loc>http://globallives.org/participate/educate/exhibits-for-students/</loc>
+    <lastmod>2016-06-01T00:11:58+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/educators/</loc>
-    <lastmod>2014-04-07T17:15:29+00:00</lastmod>
+    <loc>http://globallives.org/participate/educate/classroom-curriculum/</loc>
+    <lastmod>2016-06-10T22:35:35+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/producers/</loc>
-    <lastmod>2014-01-22T19:52:20+00:00</lastmod>
+    <loc>http://globallives.org/diversitysurvey/</loc>
+    <lastmod>2016-04-12T23:58:45+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/events/</loc>
-    <lastmod>2013-01-07T20:08:41+00:00</lastmod>
+    <loc>http://globallives.org/blog/desmonddalai/</loc>
+    <lastmod>2015-12-31T18:19:11+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/</loc>
-    <lastmod>2014-05-19T20:00:03+00:00</lastmod>
+    <loc>http://globallives.org/blog/huffpopart2/</loc>
+    <lastmod>2015-12-24T19:06:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/press/</loc>
-    <lastmod>2014-04-01T23:51:12+00:00</lastmod>
+    <loc>http://globallives.org/blog/huffpo/</loc>
+    <lastmod>2015-12-02T01:28:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/profile/</loc>
-    <lastmod>2013-01-19T00:39:16+00:00</lastmod>
+    <loc>http://globallives.org/blog/urban-lives-ybca-google-exhibit/</loc>
+    <lastmod>2015-11-06T17:29:22+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/propose/</loc>
-    <lastmod>2014-02-26T22:07:10+00:00</lastmod>
+    <loc>http://globallives.org/about/overview/</loc>
+    <lastmod>2015-05-03T00:44:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/donate/donate/</loc>
-    <lastmod>2013-11-23T20:25:22+00:00</lastmod>
+    <loc>http://globallives.org/blog/hmschool/</loc>
+    <lastmod>2015-05-11T22:56:49+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/propose/inquiry/</loc>
-    <lastmod>2014-01-27T22:25:58+00:00</lastmod>
+    <loc>http://globallives.org/participate/educate/professional-development/</loc>
+    <lastmod>2016-06-01T00:32:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/propose/proposal/</loc>
-    <lastmod>2013-04-01T21:07:37+00:00</lastmod>
+    <loc>http://globallives.org/livesintransitsneak/</loc>
+    <lastmod>2015-08-18T00:31:05+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/translators/</loc>
-    <lastmod>2013-02-16T17:51:24+00:00</lastmod>
+    <loc>http://globallives.org/blog/justasfranco/</loc>
+    <lastmod>2015-01-01T02:18:03+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/curators/</loc>
-    <lastmod>2013-12-06T02:57:36+00:00</lastmod>
+    <loc>http://globallives.org/blog/whoa/</loc>
+    <lastmod>2014-12-20T18:07:39+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/producers/overview/</loc>
-    <lastmod>2014-04-28T22:37:40+00:00</lastmod>
+    <loc>http://globallives.org/thankyoueducator/</loc>
+    <lastmod>2014-12-15T19:46:05+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/translate/</loc>
-    <lastmod>2013-06-08T00:50:27+00:00</lastmod>
+    <loc>http://globallives.org/shipping-address-confirmation/</loc>
+    <lastmod>2014-12-15T19:46:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/educate/</loc>
-    <lastmod>2013-04-18T22:49:34+00:00</lastmod>
+    <loc>http://globallives.org/4483/</loc>
+    <lastmod>2014-11-26T23:33:48+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/livesintransit/</loc>
-    <lastmod>2014-03-28T23:28:39+00:00</lastmod>
+    <loc>http://globallives.org/confirmaddress/</loc>
+    <lastmod>2014-12-01T18:10:29+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/translators/faq/</loc>
-    <lastmod>2013-02-16T17:55:14+00:00</lastmod>
+    <loc>http://globallives.org/home-2/blog/</loc>
+    <lastmod>2014-10-20T23:33:57+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/translators/dotsub/</loc>
-    <lastmod>2013-11-20T08:03:46+00:00</lastmod>
+    <loc>http://globallives.org/home/blog/</loc>
+    <lastmod>2014-10-20T20:08:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/donate/</loc>
-    <lastmod>2014-05-15T23:10:30+00:00</lastmod>
+    <loc>http://globallives.org/palyteachers/</loc>
+    <lastmod>2014-09-23T21:29:30+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/partners/</loc>
-    <lastmod>2014-02-27T21:13:12+00:00</lastmod>
+    <loc>http://globallives.org/paly/</loc>
+    <lastmod>2014-09-15T23:33:28+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/about/overview/</loc>
-    <lastmod>2014-03-28T16:28:38+00:00</lastmod>
+    <loc>http://globallives.org/unicefmycroftarchive/</loc>
+    <lastmod>2014-09-03T00:02:59+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/volunteer/volunteer-form/</loc>
-    <lastmod>2013-02-13T16:47:07+00:00</lastmod>
+    <loc>http://globallives.org/%e7%bb%84%e7%bb%87%e7%9a%84%e7%bb%86%e8%8a%82/%e5%b7%a5%e4%bd%9c%e5%92%8c%e5%ae%9e%e4%b9%a0%e6%9c%ba%e4%bc%9a/</loc>
+    <lastmod>2014-08-30T14:45:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/license/</loc>
-    <lastmod>2013-02-22T04:33:58+00:00</lastmod>
+    <loc>http://globallives.org/%e8%b0%a2%e8%b0%a2%e4%bd%a0%ef%bc%81/</loc>
+    <lastmod>2014-08-27T19:31:48+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/livesintransit/callforfilmmakers/</loc>
-    <lastmod>2014-03-28T23:55:37+00:00</lastmod>
+    <loc>http://globallives.org/2016nea-worksample/</loc>
+    <lastmod>2016-03-04T05:20:20+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/participate/livesintransit/callforfilmmakers/crew-member-inquiry-form/</loc>
-    <lastmod>2013-02-25T22:21:07+00:00</lastmod>
+    <loc>http://globallives.org/work-sample/</loc>
+    <lastmod>2014-08-14T02:14:37+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/fr/le-global-lives-project-glp-cherche-des-cineastes-dans-le-monde-entier-pour-contribuer-a-sa-nouvelle-serie-de-dix-films-de-24-heures-lives-in-transit-vies-en-transit/</loc>
-    <lastmod>2013-03-14T01:24:03+00:00</lastmod>
+    <loc>http://globallives.org/%e4%b8%be%e5%8a%9e%e5%b1%95%e8%a7%88%e4%bc%9a/</loc>
+    <lastmod>2014-07-25T20:11:03+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/es/test-2/</loc>
-    <lastmod>2013-06-20T21:32:02+00:00</lastmod>
+    <loc>http://globallives.org/%e6%9d%90%e6%96%99/%e5%88%b6%e7%89%87%e4%ba%ba%e7%9a%84%e8%b5%84%e6%96%99/%e5%88%b6%e7%89%87%e6%a6%82%e8%a7%82/</loc>
+    <lastmod>2014-07-25T19:21:33+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/home/thankyou/</loc>
-    <lastmod>2014-01-03T06:20:19+00:00</lastmod>
+    <loc>http://globallives.org/%e6%9d%90%e6%96%99/</loc>
+    <lastmod>2014-07-25T19:13:32+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/conversion/</loc>
-    <lastmod>2013-06-20T23:18:26+00:00</lastmod>
+    <loc>http://globallives.org/%e7%bb%84%e7%bb%87%e7%9a%84%e7%bb%86%e8%8a%82/</loc>
+    <lastmod>2014-07-25T19:02:16+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/pdf-download/</loc>
-    <lastmod>2013-06-20T23:30:45+00:00</lastmod>
+    <loc>http://globallives.org/%e7%bb%84%e7%bb%87%e7%9a%84%e7%bb%86%e8%8a%82/%e8%91%a3%e4%ba%8b%e4%bc%9a/</loc>
+    <lastmod>2014-07-28T20:34:54+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/livesintransit/</loc>
-    <lastmod>2013-11-15T21:19:20+00:00</lastmod>
+    <loc>http://globallives.org/%e7%bb%84%e7%bb%87%e7%9a%84%e7%bb%86%e8%8a%82/%e6%a6%82%e8%a7%82/</loc>
+    <lastmod>2014-07-25T18:53:26+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/firstten/</loc>
-    <lastmod>2013-11-15T21:52:21+00:00</lastmod>
+    <loc>http://globallives.org/%e6%9d%90%e6%96%99/%e5%88%b6%e7%89%87%e4%ba%ba%e7%9a%84%e8%b5%84%e6%96%99/</loc>
+    <lastmod>2014-07-25T19:15:04+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/independentshoots/</loc>
-    <lastmod>2013-11-15T22:07:27+00:00</lastmod>
+    <loc>http://globallives.org/macarthur/</loc>
+    <lastmod>2014-09-11T20:44:23+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/educate/</loc>
-    <lastmod>2013-11-26T19:13:39+00:00</lastmod>
+    <loc>http://globallives.org/resources/educators/unheardstories/</loc>
+    <lastmod>2014-09-02T22:31:46+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/empathykit/</loc>
-    <lastmod>2013-11-20T01:33:40+00:00</lastmod>
+    <loc>http://globallives.org/blog/globallivesschools/</loc>
+    <lastmod>2014-05-27T23:08:52+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/productionguide/</loc>
-    <lastmod>2013-11-20T08:06:47+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/thank-you-for-donating/</loc>
-    <lastmod>2014-05-15T23:09:09+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/events/jan9/</loc>
-    <lastmod>2013-12-23T23:11:33+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/jan9sf/</loc>
-    <lastmod>2013-12-23T23:11:31+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/jan9/</loc>
-    <lastmod>2013-12-23T23:12:05+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/jan9event/</loc>
-    <lastmod>2013-12-23T23:12:11+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/jan9volunteer/</loc>
-    <lastmod>2013-12-25T18:43:08+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/jan9testtickets/</loc>
-    <lastmod>2013-12-26T22:48:38+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/globalwednesdays/</loc>
-    <lastmod>2014-01-19T19:01:18+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/livesintransitpreviews/</loc>
-    <lastmod>2014-01-30T18:51:50+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/sponsorateacher/</loc>
+    <loc>http://globallives.org/sponsorateacher/</loc>
     <lastmod>2014-01-17T23:15:49+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/resources/educators/unheardstories/</loc>
-    <lastmod>2014-05-14T00:57:12+00:00</lastmod>
+    <loc>http://globallives.org/blog/feb18fieldtrips/</loc>
+    <lastmod>2016-02-28T02:09:37+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/threeperipheries/</loc>
-    <lastmod>2013-02-14T23:47:26+00:00</lastmod>
+    <loc>http://globallives.org/livesintransitpreviews/</loc>
+    <lastmod>2014-01-30T18:51:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/excerpt/</loc>
-    <lastmod>2013-02-14T23:46:02+00:00</lastmod>
+    <loc>http://globallives.org/globalwednesdays/</loc>
+    <lastmod>2014-01-19T19:01:18+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/kickstarter-twitter/</loc>
-    <lastmod>2013-02-14T23:33:39+00:00</lastmod>
+    <loc>http://globallives.org/blog/exhibitmonth/</loc>
+    <lastmod>2016-02-28T06:39:49+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/livesintransit/</loc>
-    <lastmod>2013-02-14T23:27:25+00:00</lastmod>
+    <loc>http://globallives.org/blog/jan9tonight/</loc>
+    <lastmod>2016-02-28T06:05:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/newwebsite/</loc>
-    <lastmod>2013-02-16T18:09:08+00:00</lastmod>
+    <loc>http://globallives.org/blog/equaldreams/</loc>
+    <lastmod>2016-02-28T02:28:18+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/call-for-entries-is-now-open-for-baymn-fest-deadline-april-1-2013/</loc>
-    <lastmod>2013-02-27T00:21:45+00:00</lastmod>
+    <loc>http://globallives.org/jan9testtickets/</loc>
+    <lastmod>2013-12-26T22:48:38+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/how-to-make-a-global-lives-shoot-kazakhstan/</loc>
-    <lastmod>2013-11-27T22:40:30+00:00</lastmod>
+    <loc>http://globallives.org/jan9volunteer/</loc>
+    <lastmod>2013-12-25T18:43:08+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/how-to-make-a-global-lives-shoot-india/</loc>
-    <lastmod>2013-11-27T22:40:22+00:00</lastmod>
+    <loc>http://globallives.org/jan9event/</loc>
+    <lastmod>2013-12-23T23:12:11+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/how-ten-shoots-can-describe-the-world/</loc>
-    <lastmod>2013-11-27T22:40:12+00:00</lastmod>
+    <loc>http://globallives.org/jan9/</loc>
+    <lastmod>2013-12-23T23:12:05+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/global-lives-is-moving/</loc>
-    <lastmod>2013-11-27T22:40:03+00:00</lastmod>
+    <loc>http://globallives.org/jan9sf/</loc>
+    <lastmod>2013-12-23T23:11:31+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/global-lives-partners-with-sf-film-societys-filmmaker-in-the-classroom-program/</loc>
-    <lastmod>2013-06-20T21:45:22+00:00</lastmod>
+    <loc>http://globallives.org/events/jan9/</loc>
+    <lastmod>2013-12-23T23:11:33+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/baymnfest2013/</loc>
-    <lastmod>2013-06-19T06:08:44+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/china-shoot-in-production/</loc>
-    <lastmod>2013-06-21T22:13:22+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/global-lives-goes-to-catapult-labs/</loc>
-    <lastmod>2013-11-27T22:39:20+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/global-lives-joins-the-circus/</loc>
-    <lastmod>2013-11-27T22:39:11+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/south-by-southwest-education-conference-and-festival-globally-empathetic-standards-based-web-lessons/</loc>
-    <lastmod>2013-11-27T22:38:51+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/global-lives-project-announced-as-aiga-redesign-awards-2013-finalist/</loc>
-    <lastmod>2013-11-27T22:38:43+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/globalgangnam/</loc>
-    <lastmod>2013-11-27T22:38:33+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/global-lives-will-be-at-georgetown-university-on-tuesday-october-15th/</loc>
-    <lastmod>2013-11-27T22:38:22+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/calling-all-portuguese-english-translators/</loc>
-    <lastmod>2013-11-27T22:38:11+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/crew-call/</loc>
-    <lastmod>2013-11-27T22:36:52+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/global_education/</loc>
-    <lastmod>2013-11-27T22:36:16+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/aiga-redesign-award-2013/</loc>
-    <lastmod>2013-11-27T22:35:11+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/update2013/</loc>
-    <lastmod>2013-12-03T07:33:16+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/teachersbangingdowndoor/</loc>
-    <lastmod>2013-12-06T01:47:27+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc>http://globallives.dev/blog/globalfuture/</loc>
+    <loc>http://globallives.org/blog/globalfuture/</loc>
     <lastmod>2013-12-20T04:04:30+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/equaldreams/</loc>
-    <lastmod>2014-01-01T02:55:17+00:00</lastmod>
+    <loc>http://globallives.org/thank-you-for-donating/</loc>
+    <lastmod>2014-05-15T23:09:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/jan9tonight/</loc>
-    <lastmod>2014-01-27T17:42:29+00:00</lastmod>
+    <loc>http://globallives.org/blog/teachersbangingdowndoor/</loc>
+    <lastmod>2016-02-28T06:17:20+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/exhibitmonth/</loc>
-    <lastmod>2014-05-27T19:57:37+00:00</lastmod>
+    <loc>http://globallives.org/blog/update2013/</loc>
+    <lastmod>2016-03-04T22:51:15+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/feb18fieldtrips/</loc>
-    <lastmod>2014-04-10T22:53:40+00:00</lastmod>
+    <loc>http://globallives.org/productionguide/</loc>
+    <lastmod>2013-11-20T08:06:47+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/mindsopen/</loc>
-    <lastmod>2014-05-27T20:34:11+00:00</lastmod>
+    <loc>http://globallives.org/empathykit/</loc>
+    <lastmod>2013-11-20T01:33:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/globalgratitude/</loc>
-    <lastmod>2014-01-27T17:40:28+00:00</lastmod>
+    <loc>http://globallives.org/educate/</loc>
+    <lastmod>2013-11-26T19:13:39+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/global-empathy/</loc>
-    <lastmod>2014-05-19T19:50:38+00:00</lastmod>
+    <loc>http://globallives.org/independentshoots/</loc>
+    <lastmod>2013-11-15T22:07:27+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
-    <loc>http://globallives.dev/blog/globallivesschools/</loc>
-    <lastmod>2014-05-27T23:08:52+00:00</lastmod>
+    <loc>http://globallives.org/firstten/</loc>
+    <lastmod>2013-11-15T21:52:21+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/livesintransit/</loc>
+    <lastmod>2013-11-15T21:19:20+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/aiga-redesign-award-2013/</loc>
+    <lastmod>2016-02-28T02:15:04+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global_education/</loc>
+    <lastmod>2016-03-04T08:17:12+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/calling-all-portuguese-english-translators/</loc>
+    <lastmod>2016-03-04T23:07:12+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-will-be-at-georgetown-university-on-tuesday-october-15th/</loc>
+    <lastmod>2013-11-27T22:38:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/globalgangnam/</loc>
+    <lastmod>2013-11-27T22:38:33+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-project-announced-as-aiga-redesign-awards-2013-finalist/</loc>
+    <lastmod>2013-11-27T22:38:43+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/south-by-southwest-education-conference-and-festival-globally-empathetic-standards-based-web-lessons/</loc>
+    <lastmod>2016-03-05T02:50:44+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-joins-the-circus/</loc>
+    <lastmod>2013-11-27T22:39:11+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-goes-to-catapult-labs/</loc>
+    <lastmod>2013-11-27T22:39:20+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/china-shoot-in-production/</loc>
+    <lastmod>2013-06-21T22:13:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/pdf-download/</loc>
+    <lastmod>2013-06-20T23:30:45+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/conversion/</loc>
+    <lastmod>2013-06-20T23:18:26+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/home-2/thankyou/</loc>
+    <lastmod>2014-01-03T06:20:19+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/test-2/</loc>
+    <lastmod>2013-06-20T21:32:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/baymnfest2013/</loc>
+    <lastmod>2013-06-19T06:08:44+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-partners-with-sf-film-societys-filmmaker-in-the-classroom-program/</loc>
+    <lastmod>2013-06-20T21:45:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/global-lives-is-moving/</loc>
+    <lastmod>2013-11-27T22:40:03+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/how-ten-shoots-can-describe-the-world/</loc>
+    <lastmod>2013-11-27T22:40:12+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/how-to-make-a-global-lives-shoot-india/</loc>
+    <lastmod>2013-11-27T22:40:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/le-global-lives-project-glp-cherche-des-cineastes-dans-le-monde-entier-pour-contribuer-a-sa-nouvelle-serie-de-dix-films-de-24-heures-lives-in-transit-vies-en-transit/</loc>
+    <lastmod>2016-06-16T21:35:42+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/how-to-make-a-global-lives-shoot-kazakhstan/</loc>
+    <lastmod>2013-11-27T22:40:30+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/call-for-entries-is-now-open-for-baymn-fest-deadline-april-1-2013/</loc>
+    <lastmod>2013-02-27T00:21:45+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/crew/</loc>
+    <lastmod>2016-06-16T19:58:10+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/livesintransit-2/callforfilmmakers/</loc>
+    <lastmod>2016-06-16T21:37:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/license/</loc>
+    <lastmod>2013-02-22T04:33:58+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/volunteer/volunteer-form/</loc>
+    <lastmod>2016-11-05T05:43:05+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/newwebsite/</loc>
+    <lastmod>2013-02-16T18:09:08+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/overview/</loc>
+    <lastmod>2014-12-18T18:30:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/partners/</loc>
+    <lastmod>2017-03-06T22:22:01+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/donate/</loc>
+    <lastmod>2016-12-30T21:56:08+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/donate-2/</loc>
+    <lastmod>2016-12-30T20:25:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/donate-3/</loc>
+    <lastmod>2016-12-30T21:53:04+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/livesintransit-2/</loc>
+    <lastmod>2016-05-31T02:51:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/educate/</loc>
+    <lastmod>2016-06-03T20:30:15+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/resources/translators/</loc>
+    <lastmod>2016-05-31T04:01:14+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/propose/proposal/</loc>
+    <lastmod>2016-06-01T01:52:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/propose/inquiry/</loc>
+    <lastmod>2016-06-16T20:05:38+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/donate-2/donate/</loc>
+    <lastmod>2013-11-23T20:25:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/livesintransit/</loc>
+    <lastmod>2013-02-14T23:27:25+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/propose/</loc>
+    <lastmod>2016-06-03T20:35:39+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/profile/</loc>
+    <lastmod>2013-01-19T00:39:16+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/kickstarter-twitter/</loc>
+    <lastmod>2013-02-14T23:33:39+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/press/</loc>
+    <lastmod>2016-03-07T22:44:21+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/press/</loc>
+    <lastmod>2013-01-07T21:33:56+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/events/</loc>
+    <lastmod>2016-01-10T16:13:16+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/events/</loc>
+    <lastmod>2013-01-07T20:08:41+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/resources/producers/</loc>
+    <lastmod>2016-05-31T04:09:31+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/resources/educators/</loc>
+    <lastmod>2016-06-04T07:32:49+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/%e6%9d%90%e6%96%99/educators/</loc>
+    <lastmod>2014-08-13T17:45:40+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/resources/</loc>
+    <lastmod>2013-01-07T20:07:22+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/host/</loc>
+    <lastmod>2016-06-01T00:47:27+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/propose/considerations/</loc>
+    <lastmod>2016-06-01T01:31:59+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/volunteer/</loc>
+    <lastmod>2016-11-05T05:44:13+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/participate/</loc>
+    <lastmod>2013-01-07T20:06:10+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/explore/</loc>
+    <lastmod>2013-01-07T20:05:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/explore/</loc>
+    <lastmod>2013-01-07T20:05:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/staff/</loc>
+    <lastmod>2016-06-09T22:19:03+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/staff/</loc>
+    <lastmod>2013-01-07T20:04:53+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/board/</loc>
+    <lastmod>2016-11-26T03:11:46+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/board/</loc>
+    <lastmod>2013-01-07T20:04:45+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/crew/</loc>
+    <lastmod>2013-02-16T17:43:19+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/crew/</loc>
+    <lastmod>2013-01-07T20:04:33+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/council/</loc>
+    <lastmod>2016-03-07T22:41:49+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/council/</loc>
+    <lastmod>2013-01-07T20:04:19+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/careers/</loc>
+    <lastmod>2016-07-06T02:44:25+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/careers/</loc>
+    <lastmod>2013-01-07T20:04:05+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/sponsors/</loc>
+    <lastmod>2013-12-04T22:42:52+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/</loc>
+    <lastmod>2013-01-07T20:02:48+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/about/</loc>
+    <lastmod>2013-01-07T20:02:48+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/</loc>
+    <lastmod>2016-09-23T21:12:08+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/home/</loc>
+    <lastmod>2013-01-04T00:06:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/excerpt/</loc>
+    <lastmod>2013-02-14T23:46:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://globallives.org/blog/threeperipheries/</loc>
+    <lastmod>2016-03-04T07:59:22+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>

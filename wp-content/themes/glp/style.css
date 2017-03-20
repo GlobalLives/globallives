@@ -5,3 +5,20 @@ Author URI: http://staydiligent.com/
 Description: A custom theme for GlobalLives.org
 Version: 1.2 (Phase 3)
 */
+
+.menu-primary-header-navigation-2-container {
+	color: rgb(68, 68, 68);
+	display: block;
+	float: left;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 200;
+	height: 42px;
+	line-height: 18px;
+	text-rendering: optimizelegibility;
+	width: 470.28125px;
+}
+
+.page-content {
+	color: #fff;
+}

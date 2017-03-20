@@ -7,12 +7,12 @@
 
 	add_action( 'init', 'create_clip_post_type' );
 	function create_clip_post_type() {
-
+   
 		register_taxonomy( 'clip_tags', 'clip', array(
 			'label' => __( 'Clip Tags' ),
 			'rewrite' => array( 'slug' => 'clip-tag' )
 		));
-
+   
 		register_post_type( 'clip', array(
 			'labels' => array(
 			    'name'			=> __( 'Clips' ),
@@ -44,21 +44,8 @@
             	)
             )
         ));
-		if ($participant) { return $participant[0]; } else { return false; }
-	}
-	function get_clip_position($clip_id, $clips = null) {
-		global $field_keys;
-		if (!$clips) {
-			$participant = get_clip_participant($clip_id);
-			$clips = get_field($field_keys['participant_clips'], $participant->ID);
-		}
-		// var_dump($clips);
-		return array_search(get_post($clip_id), $clips);
-	}
-	function the_clip_position($clip_id, $clips = null) {
-		$clip_position = get_clip_position($clip_id, $clips);
-		if ($clip_position !== false) { echo $clip_position + 1; }
-		else { return false; }
+
+		return $participant[0];
 	}
 	function get_next_clip( $clip_id ) {
 		$clip = get_post($clip_id);
@@ -105,25 +92,4 @@
 	}
 	function the_clip_thumbnail($clip_id) {
 		echo get_clip_thumbnail($clip_id);
-	}
-
-	function get_clip_url($clip_id) {
-		$participant = get_clip_participant($clip_id);
-		return get_permalink($participant->ID) . '?clip_id=' . $clip_id;
-	}
-	function the_clip_url($clip_id) {
-		echo get_clip_url($clip_id);
-	}
-
-	function get_clip_tags($clip_id) {
-		$tags = array();
-		if ($clip_tags = get_the_terms($clip_id, 'clip_tags')) {
-			foreach ($clip_tags as $clip_tag) {
-				$tags[] = $clip_tag->name;
-			}
-		}
-		return $tags;
-	}
-	function the_clip_tags($clip_id) {
-		echo implode(', ', get_clip_tags($clip_id));
 	}

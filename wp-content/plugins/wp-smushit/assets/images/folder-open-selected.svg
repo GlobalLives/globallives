@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="15px" viewBox="0 0 18 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>folder-open</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Folder-22px-Solid-3-Open" fill="#17a8e3">
+            <path d="M2.00010759,5 L17.9871925,5 L16.1942557,14.0229504 C16.0870306,14.56256 15.5496251,15 14.9982973,15 L0.791347791,15 C0.238063241,15 -0.104466299,14.5709592 0.0287507007,14.0317368 L0.246548481,13.1501568 L2.00010759,5 Z M0.000107590658,0.99396592 C0.000107590658,0.4450137 0.453143901,0 0.997137731,0 L7.00307745,0 C7.55372199,0 8.00010759,0.44386482 8.00010759,1 L8.00010759,2 L16.5001076,2 L16.5001076,4 L1.50010759,4 L0.000107590658,10.5 L0.000107590658,2.44374814 L0.000107590658,0.99396592 Z" id="folder-open"></path>
+        </g>
+    </g>
+</svg>

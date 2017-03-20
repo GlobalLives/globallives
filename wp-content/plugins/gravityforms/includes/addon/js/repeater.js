@@ -28,30 +28,32 @@ jQuery.fn.repeater = function( options ) {
 
     var self     = this,
         defaults = {
-        template:       '',
-        limit:          5,
-        items:          [{}],
-        saveEvents:     'blur change',
-        saveElements:   'input, select',
-        addButtonMarkup:      '+',
-        removeButtonMarkup:   '-',
-        callbacks: {
-            save:            function() { },
-            beforeAdd:       function() { },
-            add:             function() { },
-            beforeAddNew:    function() { },
-            addNew:          function() { },
-            beforeRemove:    function() { },
-            remove:          function() { },
-            repeaterButtons: function() { return false; }
-        }
-    }
+            template:           '',
+            limit:              5,
+            items:              [{}],
+            saveEvents:         'blur change',
+            saveElements:       'input, select',
+            addButtonMarkup:    '+',
+            removeButtonMarkup: '-',
+            minItemCount:       1,
+            callbacks: {
+                save:            function() { },
+                beforeAdd:       function() { },
+                add:             function() { },
+                beforeAddNew:    function() { },
+                addNew:          function() { },
+                beforeRemove:    function() { },
+                remove:          function() { },
+                repeaterButtons: function() { return false; }
+            }
+        };
 
     self.options   = jQuery.extend( true, {}, defaults, options );
     self.elem      = jQuery( this );
     self.items     = self.options.items;
     self.callbacks = self.options.callbacks;
     self._template = self.options.template;
+    self._baseObj  = self.items[0];
 
     self.init = function() {
 
@@ -92,13 +94,8 @@ jQuery.fn.repeater = function( options ) {
         if( ! self._template )
             self._template = self.elem.html();
 
-        // move template html into "stash"
-        //jQuery( 'body' ).append( '<div id="' + self.elem.attr( 'id' ) + '-template" style="display:none">' + self._template + '</div>' );
+        self._template = jQuery.trim( self._template );
 
-    }
-
-    self.getStashedTemplate = function() {
-        return jQuery( self.elem.attr( 'id' ) + '-repeater-template').html();
     }
 
     self.addItem = function( item, index ) {
@@ -106,12 +103,12 @@ jQuery.fn.repeater = function( options ) {
         var itemMarkup = self.getItemMarkup( item, index),
             itemElem = jQuery( itemMarkup ).addClass( 'item-' + index );
 
-        self.callbacks.beforeAdd( self, itemElem, item );
+        self.callbacks.beforeAdd( self, itemElem, item, index );
 
         self.append( itemElem );
         self.populateSelects( item, index );
 
-        self.callbacks.add( self, itemElem, item );
+        self.callbacks.add( self, itemElem, item, index );
 
     }
 
@@ -148,7 +145,7 @@ jQuery.fn.repeater = function( options ) {
         var cssClass = self.items.length >= self.options.limit && self.options.limit !== 0 ? 'inactive' : '',
             buttons = '<a class="add-item ' + cssClass + '" data-index="' + index + '">' + self.options.addButtonMarkup + '</a>';
 
-        if( self.items.length > 1 )
+        if( self.items.length > self.options.minItemCount )
             buttons += '<a class="remove-item" data-index="' + index + '">' + self.options.removeButtonMarkup + '</a>';
 
         return '<div class="repeater-buttons">' +  buttons + '</div>';
@@ -157,34 +154,46 @@ jQuery.fn.repeater = function( options ) {
     self.populateSelects = function( item, index ) {
 
         // after appending the row, check each property to see if it is a select and then populate
-        for( var property in item ) {
+        for ( var property in item ) {
 
-            if( ! item.hasOwnProperty( property ) )
+            if ( ! item.hasOwnProperty( property ) ) {
                 continue;
+			}
 
             var input = self.elem.find( '.' + property + '_' + index );
-            if( input.is( 'select' ) )
-                input.find( 'option[value="' + item[property] + '"]' ).prop( 'selected', true );
+
+            if ( ! input.is( 'select' ) ) {
+	            continue;
+            }
+            
+            if ( jQuery.isArray( item[ property ] ) ) {
+                input.val( item[ property ] );
+            } else {
+                input.find( 'option[value="' + item[ property ] + '"]' ).prop( 'selected', true );
+            }
+            
         }
 
     }
 
-    self.addNewItem = function( elem ) {
+    self.addNewItem = function( elemOrItem, index ) {
 
-        var index = jQuery( elem ).attr( 'data-index' );
+        var isElem = self.isElement( elemOrItem ),
+            index  = parseInt( typeof index != 'undefined' ? index : ( isElem ? jQuery( elemOrItem ).attr( 'data-index' ) + 1 : self.items.length ) ),
+            item   = isElem ? self.getBaseObject() : elemOrItem;
 
-        self.callbacks.beforeAddNew( this, index );
-        self.items.splice( index + 1, 0, self.getBaseObject() );
-        self.callbacks.addNew( this, index );
+        self.callbacks.beforeAddNew( self, index );
+        self.items.splice( index, 0, item );
+        self.callbacks.addNew( self, index );
 
-        self.refresh();
+        self.refresh().save();
 
         return self;
     }
 
-    self.removeItem = function( elem ) {
+    self.removeItem = function( elemOrIndex ) {
 
-        var index = jQuery( elem ).attr( 'data-index' );
+        var index = self.isElement( elemOrIndex ) ? jQuery( elemOrIndex ).attr( 'data-index' ) : elemOrIndex;
 
         self.callbacks.beforeRemove( self, index );
 
@@ -252,15 +261,16 @@ jQuery.fn.repeater = function( options ) {
      */
     self.getBaseObjectKeys = function() {
 
-        var keys = [];
+        var keys = [],
+            items = self.items.length > 0 ? self.items : [ self._baseObj ];
 
-        for( var i = 0; i < self.items.length; i++ ) {
+        for( var i = 0; i < items.length; i++ ) {
 
-            if( typeof self.items[i] == 'undefined' )
+            if( typeof items[i] == 'undefined' )
                 continue;
 
-            for( var key in self.items[i] ) {
-                if( ! self.items[i].hasOwnProperty( key ) )
+            for( var key in items[i] ) {
+                if( ! items[i].hasOwnProperty( key ) )
                     continue;
                 keys.push( key );
             }
@@ -295,17 +305,25 @@ jQuery.fn.repeater = function( options ) {
         return namespacedEvents.join( ' ' );
     }
 
+    /**
+     * http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
+     * @param obj
+     * @returns {boolean}
+     */
+    self.isElement = function( obj ) {
+        try {
+            //Using W3 DOM2 (works for FF, Opera and Chrom)
+            return obj instanceof HTMLElement;
+        }
+        catch(e){
+            //Browsers not supporting W3 DOM2 don't have HTMLElement and
+            //an exception is thrown and we end up here. Testing some
+            //properties that all elements have. (works on IE7)
+            return (typeof obj==="object") &&
+                (obj.nodeType===1) && (typeof obj.style === "object") &&
+                (typeof obj.ownerDocument ==="object");
+        }
+    }
+
     return self.init();
 };
-
-//$(this).repeater({
-//    limit: 0,
-//    items: wpvflow.getActionRuleEvents( i ),
-//    template: wpvflow.getEventTemplate(),
-//    addImageSrc: '<?php echo GFCommon::get_base_url(); ?>',
-//    removeImageSrc: '<?php echo GFCommon::get_base_url(); ?>',
-//    callbacks: {
-//        save: wpvflow.saveActionRuleEvents
-//    }
-//});
-

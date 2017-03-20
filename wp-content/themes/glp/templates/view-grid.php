@@ -1,7 +1,8 @@
 <?php global $participants, $field_keys; ?>
-<div id="gridview" class="view"><div class="container">
+<div id="gridview" class="view">
+	<div class="container">
 	<?php foreach ($participants as $participant) : ?>
-		<article id="participant-<?php echo $participant->ID; ?>" class="participant-grid<?php echo get_field('proposed',$participant->ID) ? ' proposed hide' : ''; ?>"><a href="<?php echo get_permalink($participant->ID); ?>">
+		<article id="participant-<?php echo $participant->ID; ?>" class="participant-grid"><a href="<?php echo get_permalink($participant->ID); ?>">
 			<div class="participant-meta">
 				<h3><?php echo $participant->post_title; ?></h3>
 				<p>
@@ -16,7 +17,8 @@
 					<? endif; ?>
 				</p>
 			</div>
-			<img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>">
+			<img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>" class="thumbnail">
 		</a></article>
 	<?php endforeach; ?>
-</div></div>
+</div>
+</div>

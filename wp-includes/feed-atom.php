@@ -8,7 +8,11 @@
 header('Content-Type: ' . feed_content_type('atom') . '; charset=' . get_option('blog_charset'), true);
 $more = 1;
 
-echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
+echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+
+/** This action is documented in wp-includes/feed-rss2.php */
+do_action( 'rss_tag_pre', 'atom' );
+?>
 <feed
   xmlns="http://www.w3.org/2005/Atom"
   xmlns:thr="http://purl.org/syndication/thread/1.0"
@@ -23,10 +27,13 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
   do_action( 'atom_ns' );
   ?>
  >
-	<title type="text"><?php bloginfo_rss('name'); wp_title_rss(); ?></title>
+	<title type="text"><?php wp_title_rss(); ?></title>
 	<subtitle type="text"><?php bloginfo_rss("description") ?></subtitle>
 
-	<updated><?php echo mysql2date('Y-m-d\TH:i:s\Z', get_lastpostmodified('GMT'), false); ?></updated>
+	<updated><?php
+		$date = get_lastpostmodified( 'GMT' );
+		echo $date ? mysql2date( 'Y-m-d\TH:i:s\Z', $date ) : date( 'Y-m-d\TH:i:s\Z' );
+	?></updated>
 
 	<link rel="alternate" type="<?php bloginfo_rss('html_type'); ?>" href="<?php bloginfo_rss('url') ?>" />
 	<id><?php bloginfo('atom_url'); ?></id>
@@ -74,10 +81,13 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 	 * @since 2.0.0
 	 */
 	do_action( 'atom_entry' );
+
+	if ( get_comments_number() || comments_open() ) :
 		?>
 		<link rel="replies" type="<?php bloginfo_rss('html_type'); ?>" href="<?php the_permalink_rss() ?>#comments" thr:count="<?php echo get_comments_number()?>"/>
 		<link rel="replies" type="application/atom+xml" href="<?php echo esc_url( get_post_comments_feed_link(0, 'atom') ); ?>" thr:count="<?php echo get_comments_number()?>"/>
 		<thr:total><?php echo get_comments_number()?></thr:total>
+	<?php endif; ?>
 	</entry>
 	<?php endwhile ; ?>
 </feed>

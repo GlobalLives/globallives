@@ -1,0 +1,61 @@
+
+	Time: 2017/03/16 10:20:29
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 56885248, 56885248
+	---------------------
+	
+	Time: 2017/03/16 10:20:29
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 56885248, 56885248
+	---------------------
+	
+	Time: 2017/03/16 10:21:47
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 57671680, 57671680
+	---------------------
+	
+	Time: 2017/03/16 10:21:47
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 57671680, 57671680
+	---------------------
+	
+	Time: 2017/03/16 10:22:31
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 57671680, 57933824
+	---------------------
+	
+	Time: 2017/03/16 10:22:31
+	Error number: 8
+	Error type: Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script. 
+	Error Msg: Undefined variable: chk
+	IP address: 59.99.194.114
+	File name: /nas/content/live/globallives/wp-content/plugins/stop-spammer-registrations-plugin/classes/kpg_ss_log_bad.php
+	Line Number: 16
+	Memory used, peak: 57671680, 57933824
+	---------------------
+	

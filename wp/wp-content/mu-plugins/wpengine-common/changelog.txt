@@ -1,0 +1,280 @@
+v1.0.7
+	- disabled MU quota dashboard display. It was so slow, it was causing time-out errors when people tried to log in.
+
+v1.0.8
+	- use blog's domain in CDN replacement regexes so remote URLs are left alone.
+	- when CDN is disabled don't use it in the wp-admin area either.
+v1.0.9
+	- Adds a trivial HTML comment for monitoring
+v1.0.10
+	- Adds transient testing code for debug
+	- Adds the ability to feed notices to user dashboards
+v1.0.11
+	- Security fixes
+v1.0.12
+	- Integrate messaging API for dashboard notices (AB)
+v1.0.13
+	- Disabled most of W3TC to get around memcached issue.
+v1.0.14
+	- minor bugfix to check to make sure retrieved admin notices "thing" is not an error
+	- Re-enabled W3TC now that memcache issue is fixed.
+v1.0.15
+	- when including Google's hosted jQuery library multiple times, emit jQuery's clean-up code afterwards to support conflicting versions
+v1.0.17
+	- when hyperdb is enabled, disable W3TC database caching
+	- re-added .15 fixes which were accidentally removed
+	- Version logging
+v1.0.18
+	- Added "Purge All" button to WPEngine Common admin interface
+	- Purging all includes all the blog's domains, not just the primary domain
+v1.0.19
+	- Logging class
+	- General cleanup
+========= ERROR: MISSING MESSAGES! ===========
+v1.0.22
+	- Added support for configuring NetDNA in our configuration files and pushing W3TC config enabled and the right domain name.
+v1.0.23
+	- When ensure command, and update the wpengine user, set the current user to that user id.  Had a site with 'User Photo' plugin enabled and took fatal error.
+v1.0.24
+	- Don't call the WPEngine logger on every single request, only on admin requests.
+v1.0.25
+	- Purge caches (CDN, Varnish) async so we return immediately in the user dashboard.
+v1.0.26
+	- Support X-WPE-Rewrite header which changes the links inside the blog.
+	- httphead() method to ensure WordPress treats HEAD HTTP requests as expected
+v1.0.28 (intentional version number skip)
+	- Added: X-WPE-Rewrite in the User-Agent prevents W3TC from caching the page. (Page is cached in Varnish and requires a different caching namespace.)
+	- Added: Also replace url-encoded URLs when handling external URLs for proxies so we support things like the Facebook "like" button.
+v1.0.29
+	- Add hooks to skip api requests when in staging/snapshot enviro.
+	- Fixed nuking jqueryui from Google when also including jquery from Google.
+v1.0.30
+	- Purging Varnish properly even with Multisite and multiple mapped domains, and no longer using W3TC to do it.
+v1.0.31
+	- Adds new WP Engine Quicklinks menu to adminbar
+	- Removes plugin upgrade notices for designated plugins
+v1.0.32
+	- Add X-WPE-Host to header in ping/pong wp-cmd request.
+v1.0.33
+	- Regex chunk of domains into re_curr_domains when building cdn regular expressions.
+v1.0.34
+	- With more than 10 domains, purge only the current domain, not all domains.
+v1.0.35
+	- Reimplement logging of active plugins and WP versions in advance on WordPress 3.2
+v1.0.36
+	- Removed PHP error log download since it's currently insecure
+	- Replacing wpdb "ORDER BY" queries against post_date and comment_date to use the *_gmt versions
+	- Add forward compat code for twentyeleven
+v1.0.37
+	- Change Menu position of Plugin
+	- Keep Menu in Network Admin for Multisite
+v1.0.38
+	- Replacing https:// with http:// for references to Google's AJAX APIs, reducing page-load time for e.g. jQuery requests
+	- Make Curated plugins noticeable
+v1.0.39
+	- Support for FQDN CDN's instead of always using the WP Engine supplied CDN.
+v1.0.40
+	- Add BetterWP sitemap plugin static files list to W3TC browser cache exception list.
+	- More security lockdown on WPE Menu. Only Super Admins in Multisite. Adds link to User portal.
+v1.0.41
+	- Changed objectcache to use dbmaster-2, not localhost, for working properly on clusters >2
+	- Blowing anything matching /feed, not just the main feed
+v1.0.42
+	- Blow cache URL is set properly from inside network admin in multisite.
+v1.0.43
+	- Ensure that Dashboard menu item isn't clobbered in NEtwork Admin by WPE Menu
+v1.0.44
+	- Fixed $is_ssl to pick up the right setting, ticket #7951
+v1.0.45
+	- Added support for not doing CDN replacements on certain paths, which allows for CDNs on sites which mix with HTTPS
+v1.0.46
+	- Add logic to deactivate Google Sitemap XML plugin and activate BWP Google Sitemap XML.
+v1.0.47
+	- Change the wpengine user hash.
+v1.0.48
+	- Point api requests to version 1.1 instead of 1.0.
+v1.0.49
+	- Change some static references to WpeCommon to the instatiated class.
+v1.0.50
+	- Fixed incorrectly thinking we're in SSL mode when we're not when $_SERVER['HTTPS'] returns 'off' instead of being FALSE. This prevented some Multisite domains from getting CDN URL rewrites (although the site was still functional)
+v1.0.51
+	- W3-Total-Cache CDN HTTPS settings forced to "disable" instead of "auto"
+v1.0.52
+	- Changed blue background color of WPE Curated colors to white for better active/inactive differentation
+v1.0.53
+	- Add the ensure-user command and ensure_account_user(). Used when refreshing the database.
+v1.0.54
+	- Added functions and widget for emitting "Powered By" text on a blog.
+	- Added mirror-to-S3 support for certain customers; most people will not see any change.
+v1.0.55
+	- Add default value to second argument for ssl_login_filter().
+v1.0.56
+	- Change how staging is created to backgrounded.
+v1.0.57
+       - Support for displaying the recent Apache/PHP error log.
+v1.0.58
+	- And disk usage api request for multisite.
+v1.0.59
+	- Refactor the site CDN zone config array.
+v1.0.60
+	- Remove the WP3.3 download link in wp-admin.
+v1.0.61
+	- Fix the disk usage conversion from kbytes to bytes.
+v1.0.62
+	- Enable the WP3.3 download link in wp-admin.
+v2.0
+	- Now can remove W3TC plugin completely while retaining memcached object caching
+	- No longer using W3TC for CDN management
+v2.0.1
+	- Fix the SHOW_ADMIN_BAR adding whitespace.
+v2.0.8
+	- Change to reference api 1.2 instead of 1.1
+v2.0.10
+	- Change the ensure_user pw to random.
+v2.0.11
+	- Modify the regex to determine is_ssl;
+v2.0.12
+	- Fix the empty caches admin bar menu.
+v2.0.13
+	- Fix url for network admins and code reformat.
+v2.0.14
+	- Added support for configuring additional CDN replacement paths in our plugin
+v2.0.15
+	- Move plugin to mu-plugins.
+v2.0.16
+	- Use standard get_plugin_admin_url().
+	- Change the ensure_account_user().
+v2.0.18
+	- purge object and page caches on additional URLs relating to BP and Membership plugins
+	- disallow ORDER BY RAND() for post queries which causes database issues with large sites
+v2.0.19
+	- support for disabling the object cache
+	- support for enable/disable ORDER BY RAND() queries
+	- Only show object cache pull-down if have memcache servers to talk to.
+v2.0.20
+	- Add timthumb re_curr_domain regex change to only replace timthumb for sites in this WP site.
+v2.0.21
+	- Change the purge all varnish function to properly clear all domains. (Mark)
+v2.0.22
+	- When ssl, change domain matching content on the page to https.
+v2.0.23
+	- Use the domain mapping database list of blog domain when purge varnish cache.
+v2.0.24
+	- Curation: change the way we show curated plugins. (Mark)
+v2.0.25
+	-Add domain mapping integration with API server. (Mike)
+v2.0.26
+	-Fix powered-by link bug
+v2.0.27
+	-Add file permissions admin button. (Mark)
+v2.0.28
+	- Add admin messages.
+v2.0.29
+	- Refactor messaging cache and pull from S3. (Mark)
+v2.0.30
+	-added popup warnings before upgrading. Added common stylesheet and JS.
+v2.0.31
+	-Cleanup message styles, allow individual users to hide messages
+v2.0.32
+	-Add WPE_POPUP_DISABLE functionality and fix bug with popup activating on search form
+v2.0.33
+	-Change some external api requests to https.
+v2.0.34
+	-The purge cdn api request is now https with creds.
+v2.0.35
+	-Fix regex replacement when ssl pages force src objects from http to https.
+v2.0.36
+	- Fix debug being added to html when wp-admin and textarea replacement.
+v2.0.37
+	- Prevent internal commands from being run from the outside network.
+v2.0.40
+	- Added Deploy From Staging
+v2.0.41
+	- Fix staging refresh page link to point at staging tab.
+v2.0.42
+	- Updated method of defining WPE_PLUGIN_VERSION constant
+v2.0.43
+	- Change plugin links to WPE User Portal
+v2.0.44
+	- Updated staging to production push to prevent update if staging version is older than production version
+v2.0.45
+	- Added torquemag.io and wpengine blog feeds
+v2.0.46
+	- Added showing IP of SFTP host in WPE plugin page
+v2.0.47
+	- Added multiple status capability for staging status
+v2.0.48
+	- fixed status display during deploy staging to production
+v2.0.49
+	- Disable core updates and nag emails in WordPress 3.7.x branch.
+	- Removed unused object-cache debugging functionality
+v2.1
+	- Make WP Engine icon in admin area match wpengine.com
+	- remove colors from the "go take a snapshot" modal suggestion
+v2.1.1
+	- direct customers to the Customer Portal to create a ticket instead of sending them directly to Zendesk
+	- Eliminate CSRF potential on cache purge and fix file permissions buttons
+v2.1.2
+	- Add wpe_special_ips verification
+v2.1.3
+	- Disable automatic translation updates in core.
+v2.1.4
+	- Remove the "hide" class from the Staging dialog as it fades in
+	- Add version number to wpe-common.js file enqueueing
+v2.1.5
+	- Change the default WordPress password hint text to link to strong password support article
+v2.1.6
+	- Add throttle for EWWW Image Optimizer Cloud users to make their plugin more load friendly.
+v2.1.7
+	- Add `403` error code to failed logins for easier internal tracking.
+v2.1.8
+	- Removed unused mirror to s3 code
+v2.1.9
+	- Slow heartbeat to 60 seconds.
+v2.1.10
+	- Remove cache flush on login page. Flush only users.
+v2.1.11
+	- Optionally disable heartbeat for everything except auto-save.
+v2.1.12
+	- Remove deactivation code for `google-sitemap-generator`.
+v2.1.13
+	- Include 'edit.php' in the heartbeat allowed page list
+	- Add a filter for modifying the heartbeat page list
+v2.1.14
+	- Enforce upper bound of 30 days on wp_session expiration.
+	- Include filter for modifying the maximum wp_session expiration.
+	- When auth cookies are expired or invalid, force browsers to stop sending.
+v2.2.0
+	- Add User Portal site preview template.
+v2.2.1
+	- Temporarily remove Jetpack's email sharing button to prevent outgoing spam.
+v2.2.2
+	- Fix a bug introduced with the v2.2.1 change. Props to Sal Ferrarello.
+	- Fix a PHP notice caused by a sometimes-undefined variable.
+v2.2.3
+	- Fix PHP E_STRICT notices caused by the API hooks.
+v2.2.4
+ 	- Reinstate Jetpack's email sharing button.
+v2.2.5
+	- Add purge object cache internal command.
+v2.2.6
+	- Revamp the way purges are sent to varnish and cdn.
+v2.2.7
+	- Revamp backup reminder notices to work with inline ‘Shiny Updates’ in WordPress 4.2
+v2.2.8
+        - Remove unused parameter for setting up default WP user.
+v2.2.9
+	- Remove another unused parameter for setting up default WP user.
+	- Move bootstrap CSS to it's own file and only enqueue it when we need it.
+v2.2.10
+	- Added srcset support to CDN replacements.
+v3.0.0
+	- New Powered by WP Engine widget.
+v3.0.1
+	- Shiny Updates 4.6 compatibilty
+v3.1.0
+        - Refactor the preamble functionality 
+v3.2.0
+        - In ajax handler, die only in the singleton
+v3.2.1
+	- Add CDN support for get_attachment.

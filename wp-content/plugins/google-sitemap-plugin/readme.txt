@@ -1,58 +1,91 @@
-=== Google Sitemap ===
+=== Google Sitemap by BestWebSoft ===
 Contributors: bestwebsoft
-Donate link: https://www.2checkout.com/checkout/purchase?sid=1430388&quantity=1&product_id=94
-Tags: add posts to sitemap, add pages to sitemap, add sitemap, add site to google webmaster tools, create a map, google, googel, googgle, gogle, gogole, google sitemap, google sitemap plugin, google webmaster tools, sitemep, sitemap, sitemaps, site mep, site map, sitemap file path, update sitemap
-Requires at least: 3.0
-Tested up to: 3.9.1
-Stable tag: 2.9.0
+Donate link: http://bestwebsoft.com/donate/
+Tags: add pages to sitemap, add posts to sitemap, add sitemap, google, google sitemap, google sitemap plugin, sitemap file path, update sitemap, google webmaster tools, site map, sitemaps, webmaster tools
+Requires at least: 3.8
+Tested up to: 4.7.2
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin allows you to add a Sitemap file to Google Webmaster Tools.
+Generate and add XML sitemap to WordPress website. Help search engines index your blog.
 
 == Description ==
 
-With the Google Sitemap Plugin you can create and add a Sitemap file to Google Webmaster Tools, and get the info about your site in Google Webmaster Tools.
+Google Sitemap plugin automatically generates XML sitemap for your WordPress website and helps search engines index your blog. Such sitemap file helps crawlers to extract the structure of your website more effectively.
 
-http://www.youtube.com/watch?v=C4M_ge0dyuU
+The plugin supports default WordPress pages as well as custom URLs. It can be also added to your Google Webmaster Tools account. Improve your website SEO today!
 
-<a href="http://www.youtube.com/watch?v=NKlAnFTzNrQ" target="_blank">Video instruction on Installation</a>
+http://www.youtube.com/watch?v=CgYXKRXpj_0
 
-<a href="http://wordpress.org/plugins/google-sitemap-plugin/faq/" target="_blank">FAQ</a>
+= Free Features =
 
-<a href="http://support.bestwebsoft.com" target="_blank">Support</a>
+* Add the following URLs to the sitemap:
+	* Page
+	* Post
+	* Post category
+	* Post tag
+	* Custom post types
+	* Custom taxonomies
+* Add a path to your sitemap file in robots.txt automatically
+* Connect your Google Webmaster Tools account to:
+	* Add website
+	* Add sitemap
+	* Delete website
+	* Get website info
+* Compatible with latest WordPress version
+* Incredibly simple settings for fast setup without modifying code
+* Detailed step-by-step documentation and videos
 
-<a href="http://bestwebsoft.com/plugin/google-sitemap-pro/?k=8b735c0f7ca51187b5062d5e4f40058b" target="_blank">Upgrade to Pro Version</a>
+> **Pro Features**
+>
+> All features from Free version included plus:
+>
+> * Exclude certain pages or post types from your sitemap file
+> * Set the frequency of your website content changes for all pages
+> * Configure all subsites on the network
+> * Add custom URLs to the sitemap file
+> * Get answer to your support question within one business day ([Support Policy](http://bestwebsoft.com/support-policy/))
+>
+> [Upgrade to Pro Now](http://bestwebsoft.com/products/wordpress/plugins/google-sitemap/?k=8b735c0f7ca51187b5062d5e4f40058b)
 
-= Recommended Plugins =
+If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](http://support.bestwebsoft.com/hc/en-us/requests/new)
 
-The author of the Google Sitemap also recommends the following plugins:
+= Documentation & Videos =
 
-* <a href="http://wordpress.org/plugins/updater/">Updater</a> - This plugin updates WordPress core and the plugins to the recent versions. You can also use the auto mode or manual mode for updating and set email notifications.
-There is also a premium version of the plugin <a href="http://bestwebsoft.com/plugin/updater-pro/?k=4b7b8eac2b35e12eaa2d51359f49cfb2">Updater Pro</a> with more useful features available. It can make backup of all your files and database before updating. Also it can forbid some plugins or WordPress Core update.
+* [[Doc] Installation](https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/)
+* [[Doc] How to Add your site to Google Webmaster resource](https://docs.google.com/document/d/1VOJx_OaasVskCqi9fsAbUmxfsckoagPU5Py97yjha9w/)
+* [[Video] Installation Instruction](http://www.youtube.com/watch?v=NKlAnFTzNrQ)
+
+= Help & Support =
+
+Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <http://support.bestwebsoft.com/>
 
 = Translation =
 
 * Russian (ru_RU)
+* Spanish (es_ES)
 * Ukrainian (uk)
 
-If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> for <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](http://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
 
-= Technical support =
+= Recommended Plugins =
 
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please read the documentation and information on our Support Forum carefully before contacting us. Please note that we accept requests in English only. All messages in another languages won't be accepted.
+* [Updater](http://bestwebsoft.com/products/wordpress/plugins/updater/?k=4b7b8eac2b35e12eaa2d51359f49cfb2) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
 
-If you notice any bugs in the plugins, you can notify us about it and we'll investigate and fix the issue then. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
-Moreover we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then. 
-We can fix some things for free for the users who provide translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
+= Donate =
+
+Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
+
+[Donate Now](http://bestwebsoft.com/donate/)
 
 == Installation ==
 
 1. Upload the folder `google-sitemap-plugin` to the directory `/wp-content/plugins/`.
 2. Activate the plugin via the 'Plugins' menu in WordPress.
-3. The site settings are available in "BWS Plugins"->"Google Sitemap".
+3. The site settings are available in "BWS Panel"->"Google Sitemap".
 
-<a href="https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/edit" target="_blank">View a Step-by-step Instruction on Google Sitemap Installation</a>.
+[View a Step-by-step Instruction on Google Sitemap Installation](https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/)
 
 http://www.youtube.com/watch?v=NKlAnFTzNrQ
 
@@ -61,8 +94,8 @@ http://www.youtube.com/watch?v=NKlAnFTzNrQ
 = How can I use this plugin? =
 
 After opening the plugin settings page your Sitemap file will be created automatically. If you already have a Sitemap file and do not want to change it, just do not check off the field "I want to create a new sitemap file".
-If you do not want a Sitemap file to be added to Google Webmaster Tools automatically, just follow the brief instruction. In another case you should enter your login and password and choose the necessary action.
-In order to add a path to your sitemap file in robots.txt you do not need to enter login and password, you should just select the necessary field and click "Update button". If you're using multisiting, the plugin does not allow to add a sitemap to robots.txt
+If you do not want a Sitemap file to be added to Google Webmaster Tools automatically, just follow the brief instruction. In another case you should authorize via your Google Account and choose the necessary action.
+In order to add a path to your sitemap file in robots.txt you do not need to authorize via your Google Account, you should just select the necessary field and click "Save Changes" button. If you're using multisiting, the plugin does not allow to add a sitemap to robots.txt
 
 = How to create sitemap.xml file? =
 
@@ -70,35 +103,97 @@ After opening the Settings page the sitemap.xml file will be created automatical
 
 = How to replace the existing sitemap.xml file? =
 
-Select "I want to create a new sitemap file" and click "Update", the sitemap file will be recreated then.
+Select "I want to create a new sitemap file" and click "Save Changes" button, the sitemap file will be recreated then.
 
 = How to add a site to Google Webmaster Tools? =
 
-Select "I want to add this site to Google Webmaster Tools" and click "Update". Your site will be added to Google Webmaster Tools and verified, afterwards your sitemap file will be added.
+Select "I want to add this site to Google Webmaster Tools" and click "Save Changes" button. Your site will be added to Google Webmaster Tools and verified, afterwards your sitemap file will be added.
 
 = How can I remove a site from Google Webmaster Tools? =
 
-Select "I want to delete this site from Google Webmaster Tools" and click "Update". 
+Select "I want to delete this site from Google Webmaster Tools" and click "Save Changes" button.
 
 = How can I get information about my site in Google Webmaster Tools? =
 
-Select "I want to get info about this site in Google Webmaster Tools" and click "Update". 
+Select "I want to get info about this site in Google Webmaster Tools" and click "Save Changes" button.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
-Please make sure that the problem hasn't been discussed yet on our forum (http://support.bestwebsoft.com). If no, please provide the following data along with your problem's description:
+Please make sure that the problem hasn't been discussed yet on our forum (<http://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
+
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit" target="_blank">Instuction on System Status</a>
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
 
 == Screenshots ==
 
 1. Google Sitemap Settings page.
-2. Google Sitemap Settings page on the hosting which doesn't support cURL.
-3. Google Sitemap Extra Settings page.
+2. Google Sitemap Settings page when you have authorization via your Google Account.
 
 == Changelog ==
+
+= V3.0.7 - 04.10.2016 =
+* NEW : The Spanish language file was added.
+
+= V3.0.6 - 22.08.2016 =
+* Update : Compatibility with the bbPress plugin improved.
+* Update : Performance optimized.
+* Update : We updated all functionality for WordPress 4.6.
+
+= V3.0.5 - 15.07.2016 =
+* Update : BWS panel section was updated.
+
+= V3.0.4 - 27.06.2016 =
+* Update : BWS Panel section is updated.
+
+= V3.0.3 - 05.04.2016 =
+* Update : The page of plugin settings has been changed.
+* Bugfix : The bug with plugin work for network which is based on sub-directories has been fixed.
+
+= V3.0.2 - 28.12.2015 =
+* NEW : Compatibility with Htaccess by BestWebSoft was added. This allows to get an access to the xml files (for network which is based on sub-directories).
+* Bugfix : The bug with plugin menu duplicating was fixed.
+
+= V3.0.1 - 21.09.2015 =
+* Update : Textdomain was changed.
+* Update : We updated all functionality for wordpress 4.3.1.
+
+= V3.0.0 - 18.08.2015 =
+* Update : We updated all functionality for wordpress 4.2.4.
+* Update : BWS plugins section was updated.
+
+= V2.9.9 - 10.07.2015 =
+* Bugfix : We fixed bug with editing of file robots.txt.
+* NEW : Ability to restore default settings.
+
+= V2.9.8 - 04.06.2015 =
+* NEW : Allows to add links to Post categories and Post tags to the sitemap file.
+
+= V2.9.7 - 05.05.2015 =
+* Update : We replaced old Google Webmaster Tools API with new Google Webmaster Tools API v3.
+
+= V2.9.6 - 20.02.2015 =
+* Bugfix : Error with access to the plugins settings page was fixed.
+* Update : BWS Menu was updated.
+
+= V2.9.5 - 23.12.2014 =
+* Bugfix : Error loading stylesheet is fixed.
+
+= V2.9.4 - 11.11.2014 =
+* Update : BWS plugins section was updated.
+* Bugfix : Plugin optimization is done.
+
+= V2.9.3 - 15.09.2014 =
+* Update : We updated all functionality for wordpress 4.0.
+* Bugfix : We fixed errors while Quick Edit posts.
+* Bugfix : We fixed errors while adding site to Google Webmaster Tools.
+
+= V2.9.2 - 07.08.2014 =
+* Bugfix : Security Exploit was fixed.
+
+= V2.9.1 - 14.07.2014 =
+* Bugfix : We added updating for the sitemap file when changing the status of the post from publish to private.
 
 = V2.9.0 - 05.06.2014 =
 * Update : We updated all functionality for wordpress 3.9.1.
@@ -106,10 +201,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 
 = V2.8.9 - 11.04.2014 =
 * Update : We updated all functionality for wordpress 3.8.2.
-* Budfix : Bug related on the sitemap link in the robots.txt was fixed.
+* Bugfix : Bug related on the sitemap link in the robots.txt was fixed.
 
 = V2.8.8 - 12.03.2014 =
-* Budfix : Plugin optimization is done.
+* Bugfix : Plugin optimization is done.
 
 = V2.8.7 - 31.01.2014 =
 * Update : We updated all functionality for wordpress 3.8.1.
@@ -173,7 +268,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 * Update : We updated all functionality for wordpress 3.5.
 
 = V1.10 - 24.07.2012 =
-* Bugfix : Cross Site Request Forgery bug was fixed. 
+* Bugfix : Cross Site Request Forgery bug was fixed.
 * Update : We updated all functionality for wordpress 3.4.1.
 
 = V1.09 - 27.06.2012 =
@@ -206,6 +301,57 @@ Please make sure that the problem hasn't been discussed yet on our forum (http:/
 * New: Ability to add site in google webmaster tools, verify it and add sitemap file was added.
 
 == Upgrade Notice ==
+
+= V3.0.7 =
+* New languages added.
+
+= V3.0.6 =
+Performance optimized. Functionality improved. The compatibility with new WordPress version updated.
+
+= V3.0.5 =
+Usability improved.
+
+= V3.0.4 =
+BWS Panel section is updated.
+
+= V3.0.3 =
+The page of plugin settings has been changed. The bug with plugin work for network which is based on sub-directories has been fixed.
+
+= V3.0.2 =
+Compatibility with Htaccess by BestWebSoft was added. This allows to get an access to the xml files (for network which is based on sub-directories). The bug with plugin menu duplicating was fixed.
+
+= V3.0.1 =
+Textdomain was changed. We updated all functionality for wordpress 4.3.1.
+
+= V3.0.0 =
+We updated all functionality for wordpress 4.2.4. BWS plugins section was updated.
+
+= V2.9.9 =
+We fixed bug with editing of file robots.txt. Ability to restore default settings.
+
+= V2.9.8 =
+Allows to add links to Post categories and Post tags to the sitemap file.
+
+= V2.9.7 =
+We replaced old Google Webmaster Tools API with new Google Webmaster Tools API v3.
+
+= V2.9.6 =
+Error with access to the plugins settings page was fixed. BWS Menu was updated.
+
+= V2.9.5 =
+Error loading stylesheet is fixed.
+
+= V2.9.4 =
+BWS plugins section was updated. Plugin optimization is done.
+
+= V2.9.3 =
+We updated all functionality for wordpress 4.0. We fixed errors while Quick Edit posts. We fixed errors while adding site to Google Webmaster Tools.
+
+= V2.9.2 =
+Security Exploit was fixed.
+
+= V2.9.1 =
+We added updating for the sitemap file when changing the status of the post from publish to private.
 
 = V2.9.0 =
 We updated all functionality for wordpress 3.9.1. The Ukrainian language file is updated.

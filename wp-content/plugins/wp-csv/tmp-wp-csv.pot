@@ -1,0 +1,271 @@
+# Copyright (C) 2015 WP CSV
+# This file is distributed under the same license as the WP CSV package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP CSV 1.8.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-csv\n"
+"POT-Creation-Date: 2015-10-17 23:29:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: export_view.php:107
+msgid "Export To CSV"
+msgstr ""
+
+#: export_view.php:110 import_view.php:119
+msgid "Progress"
+msgstr ""
+
+#: export_view.php:112
+msgid "Download CSV File"
+msgstr ""
+
+#: export_view.php:115
+msgid "Download Debug File"
+msgstr ""
+
+#: export_view.php:119
+msgid "You seem to have nothing to export.  Add a post or page and try again."
+msgstr ""
+
+#: export_view.php:121 import_view.php:120
+msgid "Elapsed Time"
+msgstr ""
+
+#: import_view.php:98
+msgid "Upload CSV File For Import"
+msgstr ""
+
+#: import_view.php:101
+msgid "Select CSV File"
+msgstr ""
+
+#: import_view.php:115
+msgid "Import Uploaded File"
+msgstr ""
+
+#: import_view.php:118
+msgid "Uploaded file"
+msgstr ""
+
+#: report_view.php:1
+msgid "Import Results"
+msgstr ""
+
+#: report_view.php:6
+msgid "Details"
+msgstr ""
+
+#: report_view.php:16
+msgid "Errors"
+msgstr ""
+
+#: report_view.php:30
+msgid "Warnings"
+msgstr ""
+
+#: report_view.php:49
+msgid "Imported successfully, with no errors or warnings."
+msgstr ""
+
+#: settings_view.php:9 settings_view.php:78
+msgid "Save All Settings"
+msgstr ""
+
+#: settings_view.php:20
+msgid "General"
+msgstr ""
+
+#: settings_view.php:23
+msgid "Delimiter"
+msgstr ""
+
+#: settings_view.php:23
+msgid "(European users will usually need to change this from ',' to ';')"
+msgstr ""
+
+#: settings_view.php:24
+msgid "Enclosure"
+msgstr ""
+
+#: settings_view.php:25
+msgid "Import Date format"
+msgstr ""
+
+#: settings_view.php:25
+msgid "(Dates are always exported as 'YYYY-MM-DD HH:MM:SS')"
+msgstr ""
+
+#: settings_view.php:29
+msgid "Minimum Access Level"
+msgstr ""
+
+#: settings_view.php:42
+msgid "Shortcode Enabled"
+msgstr ""
+
+#: settings_view.php:43
+msgid ""
+"Only turn this on if you want your site visitors to be able to export "
+"posts!  To display the export form in a post or page you can use the "
+"shortcode '[wpcsv_export_form]'. It will allow any visitor to export to CSV "
+"according to whatever settings you've last saved on this screen (except for "
+"debug output).  <strong>Please use this feature with caution!</strong>"
+msgstr ""
+
+#: settings_view.php:47
+msgid "Debug Active"
+msgstr ""
+
+#: settings_view.php:48
+msgid ""
+"This may cause extra load and create quite a large trace file.  Only turn on "
+"if there's a problem. NOTE: Currently only traces export."
+msgstr ""
+
+#: settings_view.php:55
+msgid "Filters"
+msgstr ""
+
+#: settings_view.php:61
+msgid "Export 'Hidden' Custom Fields"
+msgstr ""
+
+#: settings_view.php:62
+msgid "Post Type and Status Exclude Filter"
+msgstr ""
+
+#: settings_view.php:70
+msgid "Include Fields"
+msgstr ""
+
+#: settings_view.php:71
+msgid ""
+"Control which fields are included in the export file.  You can enter the "
+"full field name or a pattern such as '*' (for everything), 'start*' (for "
+"fields starting with 'start'), or '*end' (for fields ending with 'end'). "
+"Separate field rules with a comma.  NOTE: Some fields are mandatory and will "
+"appear no matter what rules you add.  Excluded fields will not appear."
+msgstr ""
+
+#: settings_view.php:72
+msgid "Exclude Fields"
+msgstr ""
+
+#: settings_view.php:73
+msgid ""
+"Control which fields are excluded from the export file.  You can enter a "
+"pattern such as 'start*' (for fields starting with 'start'), or '*end' (for "
+"fields ending with 'end'). NOTE: Some fields are mandatory and will appear "
+"no matter what you enter.  Excluded fields take precedence over included "
+"fields so you can include 'start*' and then exclude 'start_useless_field'. "
+"Separate field rules with a comma."
+msgstr ""
+
+#: sidebar.php:2
+msgid "Getting Started"
+msgstr ""
+
+#: sidebar.php:3
+msgid ""
+"Read the <a href='http://cpkwebsolutions.com/plugins/wp-csv/quick-start-"
+"guide'>Quick Start Guide</a>."
+msgstr ""
+
+#: sidebar.php:4
+msgid "Feedback"
+msgstr ""
+
+#: sidebar.php:5
+msgid ""
+"Help me improve the plugin.<p/><p>Send your honest and constructive feedback "
+"(whatever it is) <a href='http://cpkwebsolutions.com/contact' "
+"target='_blank'>here</a>."
+msgstr ""
+
+#: sidebar.php:6
+msgid "Free Support"
+msgstr ""
+
+#: sidebar.php:7
+msgid ""
+"Please open a support ticket <a href='https://wordpress.org/support/plugin/"
+"wp-csv'>here</a>.  I do look at these and usually for bug reports I will "
+"integrate feedback into the next version, but please be aware that it often "
+"takes weeks due to other work load."
+msgstr ""
+
+#: sidebar.php:8
+msgid "Sponsor A Starving Plugin!"
+msgstr ""
+
+#: sidebar.php:9
+msgid ""
+"If you can, then please contribute to the ongoing maintenance and support of "
+"this plugin."
+msgstr ""
+
+#: sidebar.php:17
+msgid ""
+"I hope to keep this plugin relatively 'free' compared to $100+ 'pro' "
+"versions, but I can only do that if <strong>you</strong> make a small "
+"contribution when you're able to.  Thank you again to those who already have."
+msgstr ""
+
+#: sidebar.php:18
+msgid "Plugin Development"
+msgstr ""
+
+#: sidebar.php:19
+msgid ""
+"Please <a href='http://cpkwebsolutions.com/contact'>contact me</a> if you'd "
+"like a quote on your next plugin development project."
+msgstr ""
+
+#. #-#-#-#-#  tmp-wp-csv.pot (WP CSV 1.8.0.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: wp-csv.php:239 wp-csv.php:247
+msgid "WP CSV"
+msgstr ""
+
+#: wp-csv.php:240
+msgid "Settings"
+msgstr ""
+
+#: wp-csv.php:241
+msgid "Export"
+msgstr ""
+
+#: wp-csv.php:242
+msgid "Import"
+msgstr ""
+
+#: wp-csv.php:243
+msgid "Report"
+msgstr ""
+
+#: wp-csv.php:244
+msgid "Download"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://cpkwebsolutions.com/plugins/wp-csv"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A powerful, yet easy to use, CSV Importer/Exporter for Wordpress posts and "
+"pages."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "CPK Web Solutions"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://cpkwebsolutions.com"
+msgstr ""

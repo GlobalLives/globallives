@@ -1,16 +1,16 @@
 === Social Login ===
-Contributors: ClaudeSchlesser
-Tags: social login, social connect, facebook, linkedin, livejournal, google, yahoo, twitter, openid, paypal, google, instagram, widget, plugin, social network login, comments
+Contributors: ClaudeSchlesser, OneAll.com
+Tags: social login, social connect, facebook, linkedin, livejournal, google, yahoo, twitter, openid, pinterest, paypal, google, instagram, widget, plugin, social network login, comments
 Requires at least: 3.0
-Tested up to: 3.9.1
-Stable tag: 4.6
+Tested up to: 4.7.2
+Stable tag: 5.2
 
-Allow your visitors to comment and login with social networks like Twitter, Facebook, Paypal, LinkedIn, Instagram, OpenID, VKontakte, Google, Yahoo
+Allow your visitors to comment and login with social networks like Twitter, Facebook, Paypal, LinkedIn, Instagram, OpenID, VKontakte, Google, Pinterest 
 
 == Description ==
 
 Social Login is a professionally developed and free Wordpress (BuddyPress compatible) plugin that allows your visitors to comment, 
-login and register with 25+ Social Networks like for example Facebook, Twitter, Google, LinkedIn, PayPal, LiveJournal, Instagram, Вконтакте and Yahoo.<br /><br />
+login and register with 30+ Social Networks like for example Facebook, Twitter, Google, LinkedIn, PayPal, LiveJournal, Instagram, Вконтакте and Yahoo.<br /><br />
 <strong>Make your blog social!</strong><br />
 
 <strong>Choose where to add the Social Login Plugin:</strong>
@@ -27,11 +27,13 @@ login and register with 25+ Social Networks like for example Facebook, Twitter, 
  <li>A login widget that you can easily attach to your sidebar is provided</li>
 </ul>
 
-<strong>Select the Social Networks/Providers:</strong>
+<strong>30+ Social Networks Availabe!</strong>
 <ul>
  <li>Amazon</li>
+ <li>Battle.net</li>
  <li>Blogger</li>
  <li>Disqus</li>
+ <li>Dribbble</li>
  <li>Facebook</li>
  <li>Foursquare</li>
  <li>Github.com</li>
@@ -43,6 +45,8 @@ login and register with 25+ Social Networks like for example Facebook, Twitter, 
  <li>Odnoklassniki</li>
  <li>OpenID</li>
  <li>PayPal</li>
+ <li>Pinterest</li>
+ <li>PixelPin</li> 
  <li>Reddit</li>
  <li>Skyrock.com</li>		
  <li>StackExchange</li>
@@ -61,9 +65,9 @@ login and register with 25+ Social Networks like for example Facebook, Twitter, 
 <strong>Increase your wordpress/buddypress user engagement in a few simple steps with the Social Login Plugin!</strong>
 Our users love it! Check out the <a href="http://wordpress.org/extend/plugins/oa-social-login/other_notes/">testimonials</a>!<br />
 
-The Social Login Plugin is maintained by <a href="http://www.oneall.com">OneAll</a>, a technology company offering a set of web-delivered
+Social Login is maintained by <a href="http://www.oneall.com">OneAll</a>, a technology company offering a set of web-delivered
 tools and services for establishing and optimizing a site's connection with social networks and identity providers such as Facebook, Twitter, 
-Google, Yahoo!, LinkedIn, Paypal, Hyves amongst others.
+Google, Yahoo!, LinkedIn, Paypal, Instagram amongst others.
 
 == Installation ==
 
@@ -77,9 +81,7 @@ The social network APIs are constantly changing and being updated. We monitor th
 update our APIs, so that you can be sure that Social Login will always run smoothly and with the most up-to-date 
 API calls. 
 
-In order to enable the plugin your therefore have to connect with the OneAll API and you need to create a free 
-account at https://app.oneall.com
-
+In order to enable the plugin you must connect with the OneAll API and create a free account at https://app.oneall.com
 
 == Frequently Asked Questions ==
 
@@ -88,11 +90,11 @@ account at https://app.oneall.com
 You should not have to change your templates. 
 The Social Login seamlessly integrates into your blog by using predefined hooks.
 
-= Does Social Login can be embedded through a shortcode? =
+= Can Social Login be embedded through a shortcode? =
 
 The Social Login shortcode `[oa_social_login]` can be used in any page or post within your blog.
-The shortcode will automatically be replaced by the icons of the chosen
-social network providers.
+The shortcode will automatically be replaced by the icons of the social networks that you have
+enabled in the Social Login settings in your WordPress administration area.
 
 = I have a custom template and the plugin is not displayed correctly =
 
@@ -106,7 +108,7 @@ Do not hesitate to contact us if you need further assistance.
 
 = My users cannot login or leave comment with VKontakte (Вконтакте) =
 
-Per default WordPress does not allow to use special characters in usernames.
+Per default WordPress does not allow the use of special characters in usernames.
 If you encounter any problems with users having cyrillic characters in their
 usernames, please consider installing the following plugin to fix the problem:
 <a href="http://wordpress.org/extend/plugins/wordpress-special-characters-in-usernames/">Wordpress Special Characters In Usernames</a>
@@ -120,7 +122,7 @@ It should work out of the box.
 = Where can I report bugs, leave my feedback and get support? =
 
 Our team answers your questions at:<br />
-http://www.oneall.com/company/contact-us/
+http://support.oneall.com/forums/
 
 The plugin documentation is available at:<br />
 http://docs.oneall.com/plugins/guide/social-login-wordpress/
@@ -134,6 +136,22 @@ http://docs.oneall.com/plugins/guide/social-login-wordpress/
 5. **Login** - Login formular with small buttons (Social Network Buttons are included)
 
 == Changelog ==
+
+= 5.2 =
+* Buddypress avatar bugfix
+* Do not create users without email addresses when plugin set to request emails
+* Support for WP_PROXY_HOST added
+* Filter for callback uri added
+* More pannel added
+
+= 5.0 =
+* Social Network "Battle.net" added
+* Social Link Hooks/Nonce added
+* WooCommerce Actions added
+* Login/Registration URL filters added
+* Cache bug fixed
+* WooCommerce Social Login Twice on Register Form
+* Some minor bugs fixed
 
 = 4.6 =
 * Asynchronous JavaScript
@@ -299,6 +317,10 @@ http://docs.oneall.com/plugins/guide/social-login-wordpress/
 == Testimonials ==
 
 <strong>Used by thousands of users around the world!</strong>
+
+<em>The plugin in is one of the best I've seen so far. Extremely easy to implement and run. The support is great too. 
+No concerns on my side. Keep it up!</em>
+<strong>livia</strong>
 
 <em>Loving the service, seen a massive increase in painless signups to my blog. Thanks!</em>
 <strong>Richard B.</strong>
