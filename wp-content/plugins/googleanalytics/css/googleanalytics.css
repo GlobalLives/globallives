@@ -240,3 +240,21 @@ label.ga_checkbox_label {
     height: 65px;
     float: left;
 }
+
+.ga-debug-form-div{
+    margin:5px;
+}
+
+.ga-debug-form-label {
+    vertical-align: top;
+    display: inline-block;
+    width: 20%;
+}
+
+.ga-debug-form-field {
+    width: 50%;
+}
+
+.ga-debug-form-loader {
+    width: 20%;
+}

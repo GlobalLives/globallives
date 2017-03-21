@@ -161,7 +161,7 @@ class Ga_Helper {
 	 * Dashboard widget hook.
 	 */
 	public static function add_ga_dashboard_widget() {
-		echo self::get_ga_dashboard_widget();
+		echo self::get_ga_dashboard_widget( null, false, false, true );
 	}
 
 	/**
@@ -173,24 +173,37 @@ class Ga_Helper {
 	 *
 	 * @return null | string HTML dashboard widget code.
 	 */
-	public static function get_ga_dashboard_widget( $date_range = null, $text_mode = false, $ajax = false ) {
+	public static function get_ga_dashboard_widget( $date_range = null, $text_mode = false, $ajax = false, $trigger_request = false ) {
 		if ( empty( $date_range ) ) {
 			$date_range = '30daysAgo';
 		}
 
-		// Get chart and boxes data
-		$data = self::get_dashboard_widget_data( $date_range );
+		if ( !$trigger_request ) {
+			// Get chart and boxes data
+			$data = self::get_dashboard_widget_data( $date_range );
 
-		if ( $text_mode ) {
-			return self::get_chart_page( 'ga_dashboard_widget' . ( $ajax ? "_ajax" : "" ), array(
-				'chart'	 => $data[ 'chart' ],
-				'boxes'	 => $data[ 'boxes' ]
-			) );
+			if ( $text_mode ) {
+				return self::get_chart_page( 'ga_dashboard_widget' . ( $ajax ? "_ajax" : "" ), array(
+					'chart'	 => $data[ 'chart' ],
+					'boxes'	 => $data[ 'boxes' ]
+				) );
+			} else {
+				echo self::get_chart_page( 'ga_dashboard_widget' . ( $ajax ? "_ajax" : "" ), array(
+					'chart'				 => $data[ 'chart' ],
+					'boxes'				 => $data[ 'boxes' ],
+					'more_details_url'	 => admin_url( self::GA_STATISTICS_PAGE_URL ),
+					'ga_nonce'			 => wp_create_nonce( 'ga_ajax_data_change' ),
+					'ga_nonce_name'		 => Ga_Admin_Controller::GA_NONCE_FIELD_NAME
+				) );
+			}
 		} else {
 			echo self::get_chart_page( 'ga_dashboard_widget' . ( $ajax ? "_ajax" : "" ), array(
-				'chart'				 => $data[ 'chart' ],
-				'boxes'				 => $data[ 'boxes' ],
-				'more_details_url'	 => admin_url( self::GA_STATISTICS_PAGE_URL )
+				'chart'					 => array(),
+				'boxes'					 => Ga_Stats::get_empty_boxes_structure(),
+				'more_details_url'		 => admin_url( self::GA_STATISTICS_PAGE_URL ),
+				'show_trigger_button'	 => true,
+				'ga_nonce'				 => wp_create_nonce( 'ga_ajax_data_change' ),
+				'ga_nonce_name'			 => Ga_Admin_Controller::GA_NONCE_FIELD_NAME
 			) );
 		}
 
@@ -485,6 +498,16 @@ class Ga_Helper {
 		return $data;
 	}
 
+	public static function get_url_message_text() {
+		$ga_msg			 = '';
+		$invite_result	 = json_decode( base64_decode( $_GET[ 'ga_msg' ] ), true );
+		if ( !empty( $invite_result[ 'status' ] ) && !empty( $invite_result[ 'message' ] ) ) {
+			$ga_msg = $invite_result[ 'message' ];
+		}
+
+		return $ga_msg;
+	}
+
 	/**
 	 * Create base64 url message
 	 *
@@ -561,5 +584,14 @@ class Ga_Helper {
 
 		return ! empty( $account_id[0] ) ? $account_id[0] : '';
 	}
+        
+        public static function is_curl_disabled(){
+            return ! function_exists( 'curl_version' );
+        }
 
+
+	public static function get_plugin_url_with_correct_protocol() {
+		$url = parse_url( GA_PLUGIN_URL );
+		return ( ( is_ssl() ) ? 'https://' : 'http://' ) . $url['host'] . $url['path'];
+	}
 }

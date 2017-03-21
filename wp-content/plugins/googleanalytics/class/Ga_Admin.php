@@ -82,6 +82,7 @@ class Ga_Admin {
 		delete_option( self::GA_WEB_PROPERTY_ID_MANUALLY_OPTION_NAME );
 		delete_option( self::GA_WEB_PROPERTY_ID_MANUALLY_VALUE_OPTION_NAME );
 		delete_option( self::GA_DISABLE_ALL_FEATURES );
+		delete_option( Ga_SupportLogger::LOG_OPTION );
 		Ga_Cache::delete_cache_options();
 	}
 
@@ -254,7 +255,9 @@ class Ga_Admin {
 		if ( !Ga_Helper::is_wp_version_valid() || !Ga_Helper::is_php_version_valid() ) {
 			return false;
 		}
-
+                if ( Ga_Helper::are_features_enabled() && Ga_Helper::is_curl_disabled() ) {
+                    echo Ga_Helper::ga_wp_notice( _( 'Looks like cURL is not configured on your server. In order to authenticate your Google Analytics account and display statistics, cURL is required. Please contact your server administrator to enable it, or manually enter your Tracking ID.' ), self::NOTICE_WARNING );
+                }
 		/**
 		 * Keeps data to be extracted as variables in the view.
 		 *
@@ -285,9 +288,12 @@ class Ga_Admin {
 
 		if ( Ga_Helper::is_authorized() ) {
 			$data[ 'ga_accounts_selector' ] = self::get_accounts_selector();
+			$data[ 'auth_button' ] = self::get_auth_button( 'Re-authenticate with Google' );
 		} else {
 			$data[ 'popup_url' ] = self::get_auth_popup_url();
+			$data[ 'auth_button' ] = self::get_auth_button( 'Authenticate with Google' );
 		}
+		$data['debug_modal'] = self::get_debug_modal();
 		if ( !empty( $_GET[ 'err' ] ) ) {
 			switch ( $_GET[ 'err' ] ) {
 				case 1:
@@ -320,9 +326,12 @@ class Ga_Admin {
 	 */
 	public static function get_accounts_selector() {
 		$selected = Ga_Helper::get_selected_account_data();
-
+                $selector = json_decode( get_option( self::GA_ACCOUNT_DATA_OPTION_NAME ), true );
+                if ( !Ga_Helper::is_code_manually_enabled() && empty( $selector ) )  {
+                    echo Ga_Helper::ga_wp_notice( "Hi there! It seems like we weren't able to locate a Google Analytics account attached to your email account. Can you please register for Google Analytics and then deactivate and reactivate the plugin?", self::NOTICE_WARNING );
+                }
 		return Ga_View_Core::load( 'ga_accounts_selector', array(
-			'selector'				 => json_decode( get_option( self::GA_ACCOUNT_DATA_OPTION_NAME ), true ),
+			'selector'				 => $selector,
 			'selected'				 => $selected ? implode( "_", $selected ) : null,
 			'add_manually_enabled'	 => Ga_Helper::is_code_manually_enabled() || Ga_Helper::is_all_feature_disabled()
 		), true );
@@ -332,7 +341,7 @@ class Ga_Admin {
 	 * Adds JS scripts for the settings page.
 	 */
 	public static function enqueue_ga_scripts() {
-		wp_register_script( GA_NAME . '-page-js', GA_PLUGIN_URL . '/js/' . GA_NAME . '_page.js', array(
+		wp_register_script( GA_NAME . '-page-js', Ga_Helper::get_plugin_url_with_correct_protocol() . '/js/' . GA_NAME . '_page.js', array(
 			'jquery'
 		) );
 		wp_enqueue_script( GA_NAME . '-page-js' );
@@ -342,15 +351,15 @@ class Ga_Admin {
 	 * Adds CSS plugin's scripts.
 	 */
 	public static function enqueue_ga_css() {
-		wp_register_style( GA_NAME . '-css', GA_PLUGIN_URL . '/css/' . GA_NAME . '.css', false, null, 'all' );
-		wp_register_style( GA_NAME . '-additional-css', GA_PLUGIN_URL . '/css/ga_additional.css', false, null, 'all' );
+		wp_register_style( GA_NAME . '-css', Ga_Helper::get_plugin_url_with_correct_protocol() . '/css/' . GA_NAME . '.css', false, GOOGLEANALYTICS_VERSION, 'all' );
+		wp_register_style( GA_NAME . '-additional-css', Ga_Helper::get_plugin_url_with_correct_protocol(). '/css/ga_additional.css', false, GOOGLEANALYTICS_VERSION, 'all' );
 		wp_enqueue_style( GA_NAME . '-css' );
 		wp_enqueue_style( GA_NAME . '-additional-css' );
 		if ( Ga_Helper::is_wp_old() ) {
-			wp_register_style( GA_NAME . '-old-wp-support-css', GA_PLUGIN_URL . '/css/ga_old_wp_support.css', false, null, 'all' );
+			wp_register_style( GA_NAME . '-old-wp-support-css', Ga_Helper::get_plugin_url_with_correct_protocol() . '/css/ga_old_wp_support.css', false, GOOGLEANALYTICS_VERSION, 'all' );
 			wp_enqueue_style( GA_NAME . '-old-wp-support-css' );
 		}
-		wp_register_style( GA_NAME . '-modal-css', GA_PLUGIN_URL . '/css/ga_modal.css', false, null, 'all' );
+		wp_register_style( GA_NAME . '-modal-css', Ga_Helper::get_plugin_url_with_correct_protocol() . '/css/ga_modal.css', false, GOOGLEANALYTICS_VERSION, 'all' );
 		wp_enqueue_style( GA_NAME . '-modal-css' );
 	}
 
@@ -358,9 +367,9 @@ class Ga_Admin {
 	 * Enqueues dashboard JS scripts.
 	 */
 	private static function enqueue_dashboard_scripts() {
-		wp_register_script( GA_NAME . '-dashboard-js', GA_PLUGIN_URL . '/js/' . GA_NAME . '_dashboard.js', array(
+		wp_register_script( GA_NAME . '-dashboard-js', Ga_Helper::get_plugin_url_with_correct_protocol() . '/js/' . GA_NAME . '_dashboard.js', array(
 			'jquery'
-		) );
+		), GOOGLEANALYTICS_VERSION );
 		wp_enqueue_script( GA_NAME . '-dashboard-js' );
 	}
 
@@ -369,9 +378,9 @@ class Ga_Admin {
 	 */
 	public static function enqueue_scripts() {
 		if ( Ga_Helper::is_dashboard_page() || Ga_Helper::is_plugin_page() ) {
-			wp_register_script( GA_NAME . '-js', GA_PLUGIN_URL . '/js/' . GA_NAME . '.js', array(
+			wp_register_script( GA_NAME . '-js', Ga_Helper::get_plugin_url_with_correct_protocol() . '/js/' . GA_NAME . '.js', array(
 				'jquery'
-			) );
+			), GOOGLEANALYTICS_VERSION  );
 			wp_enqueue_script( GA_NAME . '-js' );
 
 			wp_register_script( 'googlecharts', 'https://www.gstatic.com/charts/loader.js', null, null, false );
@@ -478,7 +487,7 @@ class Ga_Admin {
 		add_action( 'wp_ajax_ga_ajax_data_change', 'Ga_Admin::ga_ajax_data_change' );
 		add_action( 'admin_notices', 'Ga_Admin::admin_notice_googleanalytics' );
 		add_action( 'heartbeat_tick', 'Ga_Admin::run_heartbeat_jobs' );
-
+		add_action( 'wp_ajax_googleanalytics_send_debug_email', 'Ga_SupportLogger::send_email' );
 		if ( !get_option( self::GA_SHARETHIS_TERMS_OPTION_NAME ) && !get_option( self::GA_HIDE_TERMS_OPTION_NAME ) ) {
 			add_action( 'wp_ajax_googleanalytics_hide_terms', 'Ga_Admin::admin_notice_hide_googleanalytics' );
 		}
@@ -496,9 +505,9 @@ class Ga_Admin {
 			self::api_client()->set_disable_cache( true );
 
 			// Try to regenerate cache if needed
-			self::generate_stats_data();
+				self::generate_stats_data();
+			}
 		}
-	}
 
 	/**
 	 * Adds plugin's filters
@@ -528,7 +537,7 @@ class Ga_Admin {
 
 		$code = Ga_Helper::get_option( self::GA_OAUTH_AUTH_CODE_OPTION_NAME );
 
-		if ( !Ga_Helper::is_authorized() && !empty( $code ) ) {
+		if ( !empty( $code ) ) {
 			Ga_Helper::update_option( self::GA_OAUTH_AUTH_CODE_OPTION_NAME, "" );
 
 			// Get access token
@@ -541,10 +550,10 @@ class Ga_Admin {
 				$param = '&err=1';
 			} else {
 				self::api_client()->set_access_token( $response->getData() );
-
 				// Get accounts data
 				$account_summaries = self::api_client()->call( 'ga_api_account_summaries' );
 				self::save_ga_account_summaries( $account_summaries->getData() );
+				update_option( self::GA_SELECTED_ACCOUNT, "" );
 			}
 
 			wp_redirect( admin_url( Ga_Helper::GA_SETTINGS_PAGE_URL . $param ) );
@@ -611,9 +620,11 @@ class Ga_Admin {
 			}
 
 			update_option( self::GA_ACCOUNT_DATA_OPTION_NAME, wp_json_encode( $return ) );
-			update_option( self::GA_WEB_PROPERTY_ID_OPTION_NAME, "" );
 		}
-
+		else{
+			update_option( self::GA_ACCOUNT_DATA_OPTION_NAME, "" );
+		}
+		update_option( self::GA_WEB_PROPERTY_ID_OPTION_NAME, "" );
 		return $return;
 	}
 
@@ -621,12 +632,16 @@ class Ga_Admin {
 	 * Handle AJAX data for the GA dashboard widget.
 	 */
 	public static function ga_ajax_data_change() {
-		$date_range	 = !empty( $_POST[ 'date_range' ] ) ? $_POST[ 'date_range' ] : null;
-		$metric		 = !empty( $_POST[ 'metric' ] ) ? $_POST[ 'metric' ] : null;
-		echo Ga_Helper::get_ga_dashboard_widget_data_json( $date_range, $metric, false, true );
+		if ( Ga_Admin_Controller::validate_ajax_data_change_post( $_POST ) ) {
+			$date_range	 = !empty( $_POST[ 'date_range' ] ) ? $_POST[ 'date_range' ] : null;
+			$metric		 = !empty( $_POST[ 'metric' ] ) ? $_POST[ 'metric' ] : null;
+			echo Ga_Helper::get_ga_dashboard_widget_data_json( $date_range, $metric, false, true );
+		} else {
+			echo wp_json_encode( array( 'error' => _( 'Invalid request.' ) ) );
+		}
 		wp_die();
 	}
-
+	
 	/**
 	 * Displays API error messages.
 	 */
@@ -670,5 +685,29 @@ class Ga_Admin {
 
 		return array( $chart, $boxes, $labels, $sources );
 	}
+	/**
+	 * Returns auth or re-auth button
+	 *
+	 * @return string
+	 */
+	public static function get_auth_button( $label ) {
 
+		return Ga_View_Core::load( 'ga_auth_button', array(
+			'label' => $label,
+			'url' => self::get_auth_popup_url(),
+			'manually_id' => get_option( self::GA_WEB_PROPERTY_ID_MANUALLY_OPTION_NAME )
+		), true );
+	}
+
+	/**
+	 * Returns debug modal
+	 *
+	 * @return string
+	 */
+	public static function get_debug_modal( ) {
+
+		return Ga_View_Core::load( 'ga_debug_modal', array(
+			'debug_info' => Ga_SupportLogger::$debug_info
+		), true );
+	}
 }

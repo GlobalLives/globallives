@@ -701,4 +701,34 @@ class Ga_Stats {
 		}
 	}
 
+	public static function get_empty_boxes_structure() {
+		$boxes_data							 = array();
+		$boxes_data[ 'Sessions' ]				 = array(
+			'label'	 => 'Visits',
+			'value'	 => 0,
+		);
+		$boxes_data[ 'Pageviews' ]			 = array(
+			'label'	 => 'Pageviews',
+			'value'	 => 0,
+		);
+		$boxes_data[ 'pageviewsPerSession' ]	 = array(
+			'label'	 => 'Pages / Visit',
+			'value'	 => self::number_format_clean( 0, 2, '.', ',' ),
+		);
+		$boxes_data[ 'BounceRate' ]			 = array(
+			'label'	 => 'Bounce Rate',
+			'value'	 => self::number_format_clean( 0, 2, '.', ',' ) . '%',
+		);
+		$boxes_data[ 'avgTimeOnPage' ]		 = array(
+			'label'	 => 'Avg. Time on Site',
+			'value'	 => gmdate( "H:i:s", 0 ),
+		);
+		$boxes_data[ 'percentNewSessions' ]	 = array(
+			'label'	 => '% of New Visits',
+			'value'	 => self::number_format_clean( 0, 2, '.', ',' ),
+		);
+
+		return $boxes_data;
+	}
+
 }

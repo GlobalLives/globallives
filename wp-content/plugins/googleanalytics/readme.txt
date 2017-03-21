@@ -3,7 +3,7 @@ Contributors: ShareThis
 Tags: analytics, dashboard, google, google analytics, google analytics plugin, javascript, marketing, pageviews, statistics, stats, tracking, visits, web stats, widget, analytics dashboard, google analytics dashboard, google analytics widget, google analytics dashboard
 Requires at least: 3.8
 Tested up to: 4.7.2
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 
 Use Google Analytics on your Wordpress site without touching any code, and view visitor reports right in your Wordpress admin dashboard!
 
@@ -70,6 +70,14 @@ We are always happy to help.
 6. Trending Content shows a list of alerts, article URLs, pageviews and time notified
 
 == Changelog ==
+
+= 2.1.2 =
+* Fixed authentication error issue experienced by some users.
+* Added re-authentication button for easier changing or relinking of Google Analytics accounts.
+* Added “Send Debug” button for faster technical troubleshooting.
+* Added refresh button for Google Analytics within dashboard.
+* Included new alert for missing Google Analytics account.
+* Included new alert for unsupported PHP version.
 
 = 2.1.1 =
 * Reduced requests to Google API to help with Google Analytics quotas

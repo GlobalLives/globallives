@@ -11,10 +11,10 @@ class Ga_Lib_Api_Request {
 	const USER_AGENT				 = 'googleanalytics-wordpress-plugin';
 
 	private $headers = array();
-
+	
 	// Whether to cache or not
 	private $cache = false;
-		
+	
 	private $appendix = '';
 
 	private function __construct( $cache = false, $appendix = '' ) {
@@ -59,23 +59,23 @@ class Ga_Lib_Api_Request {
 	 * @return string Response
 	 * @throws Exception
 	 */
-	public function make_request( $url, $rawPostBody = null, $json = false, $force_no_cache = false) {
+	public function make_request( $url, $rawPostBody = null, $json = false, $force_no_cache = false ) {
 
 		// Return cached data if exist
 		if ( ! $force_no_cache ) {
-		if ( $this->cache ) {
+			if ( $this->cache ) {
 				$wp_transient_name = Ga_Cache::get_transient_name( $url, $rawPostBody, $this->appendix );
 
-			if ( $cached = Ga_Cache::get_cached_result( $wp_transient_name ) ) {
+				if ( $cached = Ga_Cache::get_cached_result( $wp_transient_name ) ) {
 					if ( ! Ga_Cache::is_data_cache_outdated( $wp_transient_name, $this->appendix ) ) {
-				return $cached;
-			}
-			}
+						return $cached;
+					}
+				}
 
 				// Check if the next request after error is allowed
 				if ( false === Ga_Cache::is_next_request_allowed( $wp_transient_name ) ) {
-				throw new Ga_Lib_Api_Client_Exception( _( 'There are temporary connection issues, please try again later.' ) );
-			}
+					throw new Ga_Lib_Api_Client_Exception( _( 'There are temporary connection issues, please try again later.' ) );
+				}
 			}
 		}
 
@@ -92,7 +92,6 @@ class Ga_Lib_Api_Request {
 
 		$ch		 = curl_init( $url );
 		$headers = $this->headers;
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 
 		$curl_timeout		 = self::TIMEOUT;
 		$php_execution_time	 = ini_get( 'max_execution_time' );
@@ -122,7 +121,15 @@ class Ga_Lib_Api_Request {
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $curl_timeout );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, $curl_timeout );
 		curl_setopt( $ch, CURLOPT_HEADER, true );
+		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, true );
+		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 2 );
+
+		if ( !function_exists( 'ini_get' ) || ! ini_get( 'curl.cainfo' ) ) {
+			curl_setopt( $ch, CURLOPT_CAINFO, $this->get_cert_path() );
+		}
+
 		curl_setopt( $ch, CURLINFO_HEADER_OUT, true );
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_USERAGENT, self::USER_AGENT );
 		if ( defined( 'CURLOPT_IPRESOLVE' ) && defined( 'CURL_IPRESOLVE_V4' ) ) {
@@ -132,7 +139,7 @@ class Ga_Lib_Api_Request {
 		// POST body
 		if ( !empty( $rawPostBody ) ) {
 			curl_setopt( $ch, CURLOPT_POST, true );
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, ( $json ? $rawPostBody : http_build_query( $rawPostBody ) ) );
+			curl_setopt( $ch, CURLOPT_POSTFIELDS, ( $json ? $rawPostBody : http_build_query( $rawPostBody , null, '&' ) ) );
 		}
 
 		// Execute request
@@ -145,8 +152,8 @@ class Ga_Lib_Api_Request {
 			// Store last cache time when unsuccessful
 			if ( false === $force_no_cache ) {
 				if ( true === $this->cache ) {
-			Ga_Cache::set_last_cache_time( $wp_transient_name );
-			Ga_Cache::set_last_time_attempt();
+					Ga_Cache::set_last_cache_time( $wp_transient_name );
+					Ga_Cache::set_last_time_attempt();
 				}
 			}
 
@@ -161,8 +168,8 @@ class Ga_Lib_Api_Request {
 				// Store last cache time when unsuccessful
 				if ( false === $force_no_cache ) {
 					if ( true === $this->cache ) {
-				Ga_Cache::set_last_cache_time( $wp_transient_name );
-				Ga_Cache::set_last_time_attempt();
+						Ga_Cache::set_last_cache_time( $wp_transient_name );
+						Ga_Cache::set_last_time_attempt();
 					}
 				}
 
@@ -175,14 +182,18 @@ class Ga_Lib_Api_Request {
 
 			// Cache result
 			if ( false === $force_no_cache ) {
-				if (true === $this->cache) {
-				Ga_Cache::set_cache( $wp_transient_name, $response_data );
-			}
+				if ( true === $this->cache ) {
+					Ga_Cache::set_cache( $wp_transient_name, $response_data );
+				}
 			}
 
 
 			return $response_data;
 		}
+	}
+
+	private function get_cert_path() {
+		return GA_PLUGIN_DIR . '/lib/cert/cacerts.pem';
 	}
 
 }

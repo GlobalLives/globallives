@@ -29,8 +29,6 @@ class Ga_Admin_Controller extends Ga_Controller_Core {
 	public static function ga_action_sharethis_invite() {
 
 		if ( self::verify_nonce( self::ACTION_SHARETHIS_INVITE ) ) {
-			$msg = Ga_Helper::create_url_msg( _( 'Invalid request.' ), Ga_Admin::NOTICE_ERROR );
-		} else {
 			$email		 = !empty( $_POST[ 'sharethis_invite_email' ] ) ? $_POST[ 'sharethis_invite_email' ] : null;
 			$response	 = null;
 			if ( !empty( $email ) ) {
@@ -55,6 +53,8 @@ class Ga_Admin_Controller extends Ga_Controller_Core {
 					$msg = Ga_Helper::create_url_msg( _( 'An invite was sent to this email' ), Ga_Admin::NOTICE_SUCCESS );
 				}
 			}
+		} else {
+			$msg = Ga_Helper::create_url_msg( _( 'Invalid request.' ), Ga_Admin::NOTICE_ERROR );
 		}
 
 		wp_redirect( admin_url( Ga_Helper::create_url( Ga_Helper::GA_TRENDING_PAGE_URL, array( 'ga_msg' => $msg ) ) ) );
@@ -90,5 +90,30 @@ class Ga_Admin_Controller extends Ga_Controller_Core {
 
 		wp_redirect( $url );
 	}
+	
+	public static function validate_ajax_data_change_post( $post ) {
+		$error = 0;
 
+		if ( self::verify_nonce( 'ga_ajax_data_change' ) ) {
+			if ( !empty( $post[ 'date_range' ] ) ) {
+				if ( !is_string( $post[ 'date_range' ] ) ) {
+					$error ++;
+				}
+			} else {
+				$error ++;
+			}
+
+			if ( !empty( $post[ 'metric' ] ) ) {
+				if ( !is_string( $post[ 'metric' ] ) ) {
+					$error ++;
+				}
+			} else {
+				$error ++;
+			}
+		} else {
+			$error ++;
+		}
+
+		return $error == 0;
+	}
 }

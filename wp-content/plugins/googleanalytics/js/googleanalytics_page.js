@@ -1,4 +1,8 @@
 const GA_ACCESS_CODE_MODAL_ID = "ga_access_code_modal";
+const GA_DEBUG_MODAL_ID = "ga_debug_modal";
+const GA_DEBUG_MODAL_CONTENT_ID = "ga_debug_modal_content";
+const GA_DEBUG_EMAIL = "ga_debug_email";
+const GA_DEBUG_DESCRIPTION = "ga_debug_description";
 const GA_ACCESS_CODE_TMP_ID = "ga_access_code_tmp";
 const GA_ACCESS_CODE_ID = "ga_access_code";
 const GA_FORM_ID = "ga_form";
@@ -40,6 +44,7 @@ const GA_SAVE_ACCESS_CODE_BTN_ID = 'ga_save_access_code';
     ga_modal = {
         hide: function () {
             $('#' + GA_ACCESS_CODE_MODAL_ID).hide();
+            $('#' + GA_DEBUG_MODAL_ID).hide();
             ga_loader.hide();
             $('#' + GA_SAVE_ACCESS_CODE_BTN_ID).removeAttr('disabled');
         }
@@ -75,8 +80,11 @@ const GA_SAVE_ACCESS_CODE_BTN_ID = 'ga_save_access_code';
                 $('#' + GA_ACCESS_CODE_TMP_ID).focus();
             });
 
-            $('#' + GA_MODAL_CLOSE_ID + ', #' + GA_MODAL_BTN_CLOSE_ID).on('click', function () {
+            $('#' + GA_MODAL_CLOSE_ID + ', #' + GA_MODAL_BTN_CLOSE_ID + ', #' + GA_DEBUG_MODAL_ID ).on('click', function () {
                 ga_modal.hide();
+            });
+            $('#' + GA_DEBUG_MODAL_CONTENT_ID ).click(function(event){
+                event.stopPropagation();
             });
         }
     };
@@ -188,6 +196,40 @@ const GA_SAVE_ACCESS_CODE_BTN_ID = 'ga_save_access_code';
             var chart = new google.visualization.AreaChart(document
                 .getElementById(chartContainer));
             chart.draw(data, options);
+        }
+    };
+    ga_debug = {
+        url: '',
+        open_modal: function (e) {
+            e.preventDefault();
+            $('#' + GA_DEBUG_MODAL_ID).appendTo("body").show();
+            $('#ga-send-debug-email').removeAttr('disabled');
+            $('#ga_debug_error').hide();
+            $('#ga_debug_success').hide();
+        },
+        send_email: function (e) {
+            e.preventDefault();
+            ga_loader.show();
+            var dataObj = {};
+            dataObj['action'] = "googleanalytics_send_debug_email";
+            dataObj['email'] = $('#' + GA_DEBUG_EMAIL).val();
+            dataObj['description'] = $('#' + GA_DEBUG_DESCRIPTION).val();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: ajaxurl,
+                data: dataObj,
+                success: function (response) {
+                    ga_loader.hide();
+                    if (typeof response.error !== "undefined") {
+                        $('#ga_debug_error').show().html(response.error);
+                    } else if (typeof response.success !== "undefined"){
+                        $('#ga_debug_error').hide();
+                        $('#ga-send-debug-email').attr('disabled','disabled');
+                        $('#ga_debug_success').show().html(response.success);
+                    }
+                }
+            });
         }
     };
 })(jQuery);

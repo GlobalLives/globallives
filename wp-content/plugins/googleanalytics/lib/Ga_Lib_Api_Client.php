@@ -60,6 +60,7 @@ abstract class Ga_Lib_Api_Client {
 	 */
 	protected function add_error( Exception $e ) {
 		$this->errors[ $e->getCode() ] = array( 'class' => get_class( $e ), 'message' => $e->getMessage() );
+		do_action( 'st_support_save_error', $e );
 	}
 
 	public function add_own_error( $code, $message, $class = '' ) {
@@ -69,5 +70,5 @@ abstract class Ga_Lib_Api_Client {
 }
 
 class Ga_Lib_Api_Client_Exception extends Exception {
-	
+
 }

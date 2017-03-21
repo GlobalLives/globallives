@@ -53,7 +53,7 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 		return self::$instance;
 	}
 
-	public function set_disable_cache($value) {
+	public function set_disable_cache( $value ) {
 		$this->disable_cache = $value;
 	}
 
@@ -113,7 +113,7 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 			'approval_prompt' => urlencode( $this->config['approval_prompt'] )
 		);
 
-		return self::OAUTH2_AUTH_ENDPOINT . "?" . http_build_query( $params );
+		return self::OAUTH2_AUTH_ENDPOINT . "?" . http_build_query( $params, null, '&' );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 		);
 		try {
 			$response = Ga_Lib_Api_Request::get_instance()->make_request( self::OAUTH2_TOKEN_ENDPOINT,
-				$request, false, true);
+				$request, false, true );
 		} catch ( Ga_Lib_Api_Request_Exception $e ) {
 			throw new Ga_Lib_Google_Api_Client_AuthCode_Exception( $e->getMessage() );
 		}
@@ -157,9 +157,9 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 		);
 
 		try {
-		$response = Ga_Lib_Api_Request::get_instance()->make_request( self::OAUTH2_TOKEN_ENDPOINT,
-			$request, false, true );
-		} catch (Ga_Lib_Api_Request_Exception $e) {
+			$response = Ga_Lib_Api_Request::get_instance()->make_request( self::OAUTH2_TOKEN_ENDPOINT,
+				$request, false, true );
+		} catch ( Ga_Lib_Api_Request_Exception $e ) {
 			throw new Ga_Lib_Google_Api_Client_RefreshToken_Exception( $e->getMessage() );
 		}
 
@@ -175,8 +175,8 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 		$request  = Ga_Lib_Api_Request::get_instance();
 		$request  = $this->sign( $request );
 		try {
-		$response = $request->make_request( self::GA_ACCOUNT_SUMMARIES_ENDPOINT, null, false, true );
-		} catch (Ga_Lib_Api_Request_Exception $e) {
+			$response = $request->make_request( self::GA_ACCOUNT_SUMMARIES_ENDPOINT, null, false, true );
+		} catch ( Ga_Lib_Api_Request_Exception $e ) {
 			throw new Ga_Lib_Google_Api_Client_AccountSummaries_Exception( $e->getMessage() );
 		}
 
@@ -302,7 +302,6 @@ class Ga_Lib_Google_Api_Client extends Ga_Lib_Api_Client {
 	public function is_cache_enabled() {
 		return self::USE_CACHE && ! $this->disable_cache;
 	}
-
 }
 
 class Ga_Lib_Google_Api_Client_Exception extends Ga_Lib_Api_Client_Exception {
@@ -350,8 +349,15 @@ class Ga_Lib_Google_Api_Client_Exception extends Ga_Lib_Api_Client_Exception {
 	 */
 	protected function get_error_response_data( $response ) {
 		$data = json_decode( $response, true );
-		if ( ! empty( $data['error'] ) && ! empty( $data['error']['message'] ) && ! empty( $data['error']['code'] ) ) {
+		if ( is_array( $data['error'] ) && ! empty( $data['error'] ) && ! empty( $data['error']['message'] ) && ! empty( $data['error']['code'] ) ) {
 			return $data;
+		} elseif ( ! empty( $data['error'] ) ) {
+			return array(
+				'error' => array(
+					'message' => $data['error'],
+					'code'    => 500
+				)
+			);
 		} else {
 			return array(
 				'error' => array(
@@ -371,10 +377,10 @@ class Ga_Lib_Google_Api_Client_AuthCode_Exception extends Ga_Lib_Google_Api_Clie
 
 	protected function get_error_response_data( $response ) {
 		$data = json_decode( $response, true );
-		if ( ! empty( $data['error'] ) && ! empty( $data['error_description'] ) ) {
+		if ( ! empty( $data['error'] ) ) {
 			return array(
 				'error' => array(
-					'message' => '[' . $data['error'] . ']' . $data['error_description'],
+					'message' => $data['error'],
 					'code'    => 500
 				)
 			);

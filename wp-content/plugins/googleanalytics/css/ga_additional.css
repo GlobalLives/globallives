@@ -262,6 +262,13 @@
     border-radius: 4px;
 }
 
+.ga-alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    max-width: 95%;
+}
+
 .ga-alert-warning {
     color: #8a6d3b;
     background-color: #fcf8e3;
