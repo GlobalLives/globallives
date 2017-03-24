@@ -25,7 +25,7 @@
 							</div>
 							<div class="span6">
 								<p><?php echo $participant->post_content; ?></p>
-								<a href="<?php echo get_permalink($participant->ID); ?>" class="pull-right btn btn-inverse"><?php echo $participant->post_title; ?></a>
+								<a href="<?php echo get_permalink($participant->ID); ?>" class="pull-right btn"><i class="icon-white icon-play"></i> Learn More</a>
 							</div>
 						</div>
 					</div><!-- .tinyDetails -->
@@ -36,7 +36,7 @@
 	<?php endforeach; ?>
 	<div id="explore">
 		<h4><?php _e('Explore the Collection','glp'); ?></h4>
-		<a href="/explore/#gridview" class="btn btn-inverse"><i class="icon icon-th-large"></i> <?php _e('Grid View','glp'); ?></a>
-		<a href="/explore/#mapview" class="btn btn-inverse"><i class="icon icon-globe"></i> <?php _e('Map View','glp'); ?></a>
+		<a href="/explore/#gridview" class="btn"><i class="icon-white icon-th-large"></i> <?php _e('Grid View','glp'); ?></a>
+		<a href="/explore/#mapview" class="btn"><i class="icon-white icon-globe"></i> <?php _e('Map View','glp'); ?></a>
 	</div>
 </div>
