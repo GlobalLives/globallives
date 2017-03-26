@@ -23,7 +23,8 @@
 			'supports' => array( 'title', 'thumbnail', 'comments', 'page-attributes' ),
 			'menu_position' => 5,
 			'has_archive' => false,
-			'taxonomies' => array('clip_tags')
+			'taxonomies' => array('clip_tags'),
+			'menu_icon' => 'dashicons-video-alt'
 		));
 	}
 	function get_clip_participant( $clip_id ) {

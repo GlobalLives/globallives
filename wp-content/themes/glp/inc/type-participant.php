@@ -31,6 +31,7 @@
 			'public' => true,
 			'supports' => array( 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes' ),
 			'menu_position' => 5,
+			'menu_icon' => 'dashicons-universal-access',
 			'has_archive' => true,
 			'rewrite' => array(
 			    'slug'			=> 'participants',
