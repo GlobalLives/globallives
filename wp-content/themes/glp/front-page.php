@@ -1,13 +1,13 @@
 <div class="tab-content">
 	<?php while (have_posts()) : the_post(); ?>
-	<article id="content_glp" <?php post_class('front-page tab-pane active'); ?>>
+	<article id="content_glp" <?php post_class('front-page content-pane active'); ?>>
 		<div class="page-content"><?php the_content(); ?></div>
 	</article>
 	<?php endwhile; ?>
 	<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 10)); ?>
 	<?php foreach ($participants as $participant) : ?>
 		<?php $current_wp_post = get_post($participant->ID) ?>
-		<article id="content_<?php echo $participant->ID; ?>" class="tab-pane">
+		<article id="content_<?php echo $participant->ID; ?>" class="content-pane">
 			<div class="page-content">
 				<h2><?php echo $participant->post_title; ?> &mdash; <span class="participant-location"><?php the_field($field_keys['participant_location'], $participant->ID); ?></span></h2>
 				
