@@ -30,6 +30,7 @@ sitemap.xml
 *.bak
 *.swp
 Thumbs.db
+ignore
 
 # wordpress specific
 wp-config.php
