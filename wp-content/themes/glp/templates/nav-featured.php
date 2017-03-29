@@ -34,9 +34,6 @@
 								</a>
 							</li>
 						<?php endforeach; ?>
-						<li class="span2">
-							<a href="/explore/#gridview" title="More Featured People">More</a>
-						</li>
 					</ul>
 				</div>
 			</div>
