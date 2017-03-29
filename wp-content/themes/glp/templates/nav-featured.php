@@ -15,8 +15,8 @@
 						</li>
 						<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 5)); // First row only grabs 5, because of the "Home" thumbnail ?>
 						<?php foreach ($participants as $participant) : ?>
-							<li class="featured-thumbnail participant-thumbnail span2" data-controls="content_<?php echo $participant->ID; ?>" title="<?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>">
-								<a href="#content_<?php echo $participant->ID; ?>" aria-controls="content_<?php echo $participant->ID; ?>" role="tab" data-toggle="tab" title="<?php echo $participant->post_title; ?>: <?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>">
+							<li class="featured-thumbnail participant-thumbnail span2" data-controls="content_<?php echo $participant->ID; ?>" title="<?php echo trim($participant->post_title); ?>: <?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>">
+								<a href="#content_<?php echo $participant->ID; ?>" aria-controls="content_<?php echo $participant->ID; ?>" role="tab" data-toggle="tab" title="<?php echo trim($participant->post_title); ?>: <?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>">
 									<img src="<?php the_participant_thumbnail_url( $participant->ID, 'small' ); ?>" alt="<?php echo $participant->post_title; ?>: <?php the_field('occupation',$participant->ID);?> <?php _e('in','glp');?> <?php the_field('location',$participant->ID);?>">
 								</a>
 							</li>
