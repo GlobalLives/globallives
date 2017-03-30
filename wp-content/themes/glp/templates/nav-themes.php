@@ -19,7 +19,7 @@
 						<?php endforeach; endif; ?>
 						</div>
 					</a>
-					<a class="theme-filter"><?php echo $theme->name; ?></a>
+					<a class="theme-filter" href="<?php echo get_term_link($theme,'theme'); ?>"><?php echo $theme->name; ?></a>
 				</li>
 				<?php if ($i == $total_themes - 1 || $i % $themes_per_row == ($themes_per_row - 1)) : ?></div><?php endif; ?>
 
