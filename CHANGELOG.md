@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.0.1 - 2017-03-28
-### Changed Trailing Space and double quotes in DB - backup 1490759746
+### Changed
+- Trailing Space and double quotes in DB - backup 1490759746
 - programmatically fixed the trailing spaces
 - made sure google analytics is active in wordpress
+- updated Gravity Forms - Daily Backup 1490846874
 
 
 ## 1.0.0 - 2017-03-23
