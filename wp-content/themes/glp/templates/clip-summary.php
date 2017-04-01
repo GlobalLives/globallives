@@ -1,7 +1,7 @@
 <?php while(have_posts()) : the_post(); ?>
 <article class="participant-clip" id="participant-clip">
-	<iframe class="participant-video-embed" id="participant-video-embed-<?php the_ID(); ?>" src="https://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?enablejsapi=1&showinfo=0&modestbranding=1&rel=0&controls=0&wmode=transparent&cc_load_policy=1" wmode="opaque" allowfullscreen="" frameborder="0"></iframe>
-	<?php get_template_part('templates/clip', 'summary-controls') ?>
+	<iframe class="participant-video-embed" id="participant-video-embed-<?php the_ID(); ?>" src="https://www.youtube.com/embed/<?php the_field('youtube_id'); ?>?enablejsapi=1&showinfo=0&modestbranding=1&rel=0&controls=1&wmode=transparent&cc_load_policy=1" wmode="opaque" allowfullscreen="" frameborder="0"></iframe>
+	
 	
 	<div class="participant-video-buttons">
 		<a class="btn addthis_button"><i class="icon icon-white icon-share"></i> Share</a>
