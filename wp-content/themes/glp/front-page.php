@@ -12,7 +12,7 @@
 				<h2><?php echo $participant->post_title; ?> &mdash; <span class="participant-location"><?php the_field($field_keys['participant_location'], $participant->ID); ?></span></h2>
 				
 				<div class="participant-meta row">
-					<div class="span4 pull-left tinyDetails">
+					<div class="span4 tinyDetails">
 
 						<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&zoom=6&size=600x400&markers=color:red|<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100" class="location" />
 
@@ -23,17 +23,21 @@
 								$dob = get_field($field_keys['participant_dob'], $participant->ID)) : ?><b><?php _e('Date of Birth','glp'); ?>:</b> <?php echo $dob; ?><?php endif; ?>
 								<br>
 								<br>
-							</div>
+							</div><!-- .span2 -->
 							<div class="span2">
 								<b><?php _e('Religion','glp'); ?>:</b> <?php the_field($field_keys['participant_religion'], $participant->ID); ?><br>
 								<b><?php _e('Income','glp'); ?>:</b> <?php 
 								$incomes = get_field_object($field_keys['participant_income']); $income = get_field($field_keys['participant_income'], $participant->ID); echo $incomes['choices'][$income]; ?>
-							</div>
+								<br>
+								<br>
+							</div><!-- .span2 -->
 							<div class="span4">
 								<p><?php echo $participant->post_content; ?></p>
 								<a href="<?php echo get_permalink($participant->ID); ?>" class="btn btn-inverse"><i class="icon icon-play"></i> Full Story</a>
-							</div>
-						</div>
+								<br>
+								<br>
+							</div><!-- .span4 -->
+						</div><!-- .row -->
 					</div><!-- .tinyDetails -->
 
 					<div class="span8">
@@ -44,7 +48,7 @@
 							wp_reset_query();
 						}
 					?>
-					</div>
+					</div><!-- .span8 -->
 				</div><!-- .participant-meta -->
 			</div>
 		</article>
