@@ -1,10 +1,10 @@
 === Google Sitemap by BestWebSoft ===
 Contributors: bestwebsoft
-Donate link: http://bestwebsoft.com/donate/
+Donate link: https://bestwebsoft.com/donate/
 Tags: add pages to sitemap, add posts to sitemap, add sitemap, google, google sitemap, google sitemap plugin, sitemap file path, update sitemap, google webmaster tools, site map, sitemaps, webmaster tools
 Requires at least: 3.8
-Tested up to: 4.7.2
-Stable tag: 3.0.7
+Tested up to: 4.7.3
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,9 +14,11 @@ Generate and add XML sitemap to WordPress website. Help search engines index you
 
 Google Sitemap plugin automatically generates XML sitemap for your WordPress website and helps search engines index your blog. Such sitemap file helps crawlers to extract the structure of your website more effectively.
 
-The plugin supports default WordPress pages as well as custom URLs. It can be also added to your Google Webmaster Tools account. Improve your website SEO today!
+The plugin supports default WordPress pages as well as custom URLs. It can be also added to your Google Webmaster Tools account.
 
-http://www.youtube.com/watch?v=CgYXKRXpj_0
+Improve your website SEO today!
+
+https://www.youtube.com/watch?v=CgYXKRXpj_0
 
 = Free Features =
 
@@ -45,39 +47,41 @@ http://www.youtube.com/watch?v=CgYXKRXpj_0
 > * Set the frequency of your website content changes for all pages
 > * Configure all subsites on the network
 > * Add custom URLs to the sitemap file
-> * Get answer to your support question within one business day ([Support Policy](http://bestwebsoft.com/support-policy/))
+> * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
-> [Upgrade to Pro Now](http://bestwebsoft.com/products/wordpress/plugins/google-sitemap/?k=8b735c0f7ca51187b5062d5e4f40058b)
+> [Upgrade to Pro Now](https://bestwebsoft.com/products/wordpress/plugins/google-sitemap/?k=8b735c0f7ca51187b5062d5e4f40058b)
 
-If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](http://support.bestwebsoft.com/hc/en-us/requests/new)
+If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
 = Documentation & Videos =
 
-* [[Doc] Installation](https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/)
+* [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+* [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
 * [[Doc] How to Add your site to Google Webmaster resource](https://docs.google.com/document/d/1VOJx_OaasVskCqi9fsAbUmxfsckoagPU5Py97yjha9w/)
-* [[Video] Installation Instruction](http://www.youtube.com/watch?v=NKlAnFTzNrQ)
+* [[Video] Installation Instruction](https://www.youtube.com/watch?v=NKlAnFTzNrQ)
 
 = Help & Support =
 
-Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <http://support.bestwebsoft.com/>
+Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <https://support.bestwebsoft.com/>
 
 = Translation =
 
+* Czech (cs_CZ) (thanks to [Michal Kučera](mailto:kucerami@gmail.com), www.n0lim.it)
 * Russian (ru_RU)
 * Spanish (es_ES)
 * Ukrainian (uk)
 
-Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](http://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
 
 = Recommended Plugins =
 
-* [Updater](http://bestwebsoft.com/products/wordpress/plugins/updater/?k=4b7b8eac2b35e12eaa2d51359f49cfb2) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=4b7b8eac2b35e12eaa2d51359f49cfb2) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
 
 = Donate =
 
 Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
 
-[Donate Now](http://bestwebsoft.com/donate/)
+[Donate Now](https://bestwebsoft.com/donate/)
 
 == Installation ==
 
@@ -85,9 +89,9 @@ Donations play an important role in supporting open-source projects. We greatly 
 2. Activate the plugin via the 'Plugins' menu in WordPress.
 3. The site settings are available in "BWS Panel"->"Google Sitemap".
 
-[View a Step-by-step Instruction on Google Sitemap Installation](https://docs.google.com/document/d/1jceJFwgGYcrKQBm_FZSuLnH_weK4_ffCn7f68F_vgW8/)
+[View a Step-by-step Instruction on Google Sitemap Installation](hhttps://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
-http://www.youtube.com/watch?v=NKlAnFTzNrQ
+https://www.youtube.com/watch?v=NKlAnFTzNrQ
 
 == Frequently Asked Questions ==
 
@@ -119,7 +123,7 @@ Select "I want to get info about this site in Google Webmaster Tools" and click 
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
-Please make sure that the problem hasn't been discussed yet on our forum (<http://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
+Please make sure that the problem hasn't been discussed yet on our forum (<https://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
 
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
@@ -128,10 +132,15 @@ Please make sure that the problem hasn't been discussed yet on our forum (<http:
 
 == Screenshots ==
 
-1. Google Sitemap Settings page.
-2. Google Sitemap Settings page when you have authorization via your Google Account.
+1. Settings page.
+2. Settings page after the authorization via Google Account.
+3. Sitemap Structure Settings.
 
 == Changelog ==
+
+= V3.0.8 - 31.03.2017 =
+* NEW : The Czech language file was added.
+* Update : The plugin settings page has been updated.
 
 = V3.0.7 - 04.10.2016 =
 * NEW : The Spanish language file was added.
@@ -301,6 +310,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<http:
 * New: Ability to add site in google webmaster tools, verify it and add sitemap file was added.
 
 == Upgrade Notice ==
+
+= V3.0.8 =
+* Usability improved.
 
 = V3.0.7 =
 * New languages added.

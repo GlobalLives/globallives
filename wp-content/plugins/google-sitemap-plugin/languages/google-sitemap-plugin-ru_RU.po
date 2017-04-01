@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Google Sitemap\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 19:26+0300\n"
-"PO-Revision-Date: 2016-08-18 19:27+0300\n"
+"POT-Creation-Date: 2017-03-30 09:21+0300\n"
+"PO-Revision-Date: 2017-03-30 09:21+0300\n"
 "Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -13,428 +13,389 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: google-sitemap-plugin.php:35 google-sitemap-plugin.php:482
+#: google-sitemap-plugin.php:38 google-sitemap-plugin.php:39
+#: includes/class-gglstmp-settings.php:177
 msgid "Google Sitemap Settings"
 msgstr "Настройки Google Sitemap"
 
-#: google-sitemap-plugin.php:413
-msgid "Cannot edit \"robots.txt\". Check your permissions"
-msgstr "Невозможно отредактировать файл  \"robots.txt\". Проверьте свои права"
-
-#: google-sitemap-plugin.php:424
-msgid "Settings saved"
-msgstr "Настройки сохранены"
-
-#: google-sitemap-plugin.php:432
-msgid "Your Sitemap file has been created in the site root directory"
-msgstr "Файл Sitemap создан в корне основной директории"
-
-#: google-sitemap-plugin.php:470
-msgid "Cannot edit \"robot.txt\". Check your permissions"
-msgstr "Невозможно отредактировать файл  \"robot.txt\". Проверьте свои права"
-
-#: google-sitemap-plugin.php:479
-msgid "All plugin settings were restored."
-msgstr "Настройки плагина были восстановлены."
-
-#: google-sitemap-plugin.php:484 google-sitemap-plugin.php:995
-#: google-sitemap-plugin.php:1008
+#: google-sitemap-plugin.php:39 google-sitemap-plugin.php:346
+#: google-sitemap-plugin.php:703 google-sitemap-plugin.php:716
+#: includes/class-gglstmp-settings.php:27
 msgid "Settings"
 msgstr "Настройки"
 
-#: google-sitemap-plugin.php:485
-msgid "Custom links"
-msgstr "Дополнительные ссылки"
+#: google-sitemap-plugin.php:42 google-sitemap-plugin.php:350
+msgid "Custom Links"
+msgstr "Пользовательские ссылки"
 
-#: google-sitemap-plugin.php:486
-msgid "Extra settings"
-msgstr "Дополнительные настройки"
+#: google-sitemap-plugin.php:48 includes/pro_banners.php:27
+msgid "Upgrade to Pro"
+msgstr "Обновиться на Pro"
 
-#: google-sitemap-plugin.php:487
-msgid "Go PRO"
-msgstr "Перейти на PRO версию"
+#: google-sitemap-plugin.php:347
+msgid "Please enable JavaScript in Your browser."
+msgstr "Пожалуйста, включите поддержку JavaScript в вашем браузере."
 
-#: google-sitemap-plugin.php:493
-msgid "Warning:"
-msgstr "Внимание:"
+#: google-sitemap-plugin.php:395 google-sitemap-plugin.php:472
+#: google-sitemap-plugin.php:522
+msgid "Website"
+msgstr "Сайт"
 
-#: google-sitemap-plugin.php:495
-#, php-format
-msgid ""
-"To have an access to subsites XML files, please add the following rule %s to "
-"your %s file in %s after line %s or you can use option %s"
-msgstr ""
-"Чтобы иметь доступ к XML файлам подсайта, пожалуйста, добавьте следующее "
-"правило %s в ваш %s файл %s после строки %s или вы можете использовать опцию "
-"%s"
+#: google-sitemap-plugin.php:406 google-sitemap-plugin.php:410
+#: google-sitemap-plugin.php:488 google-sitemap-plugin.php:504
+#: google-sitemap-plugin.php:526 google-sitemap-plugin.php:540
+msgid "Status"
+msgstr "Статус"
 
-#: google-sitemap-plugin.php:500 google-sitemap-plugin.php:606
-msgid "Allow access to XML files"
-msgstr "Разрешить доступ к XML файлам"
+#: google-sitemap-plugin.php:407 google-sitemap-plugin.php:430
+#: google-sitemap-plugin.php:505
+msgid "Not added"
+msgstr "Не добавлено"
 
-#: google-sitemap-plugin.php:506
-msgid "Сheck Access"
-msgstr "Проверить Доступ"
+#: google-sitemap-plugin.php:411 google-sitemap-plugin.php:433
+#: google-sitemap-plugin.php:527 google-sitemap-plugin.php:623
+msgid "Added"
+msgstr "Добавлено"
 
-#: google-sitemap-plugin.php:533 google-sitemap-plugin.php:535
-msgid "The Sitemap file"
-msgstr "Файл Sitemap"
+#: google-sitemap-plugin.php:413 google-sitemap-plugin.php:582
+#: google-sitemap-plugin.php:594 google-sitemap-plugin.php:608
+msgid "Verification Status"
+msgstr "Статус проверки"
 
-#: google-sitemap-plugin.php:533 google-sitemap-plugin.php:535
-msgid ""
-"already exists. If you would like to replace it with a new one, please "
-"choose the necessary box below"
-msgstr ""
-"уже существует. Если вы хотите изменить его на новый, выберите "
-"соответствующее действие внизу"
+#: google-sitemap-plugin.php:415
+msgid "Verified"
+msgstr "Проверено"
 
-#: google-sitemap-plugin.php:540 google-sitemap-plugin.php:542
-msgid "Your Sitemap file"
-msgstr "Ваш файл Sitemap"
+#: google-sitemap-plugin.php:417
+msgid "Not verified"
+msgstr "Не проверено"
 
-#: google-sitemap-plugin.php:540 google-sitemap-plugin.php:542
-msgid "has been created in the site root directory"
-msgstr "создан в корне основной директории"
+#: google-sitemap-plugin.php:425 google-sitemap-plugin.php:615
+msgid "Sitemap Status"
+msgstr "Статус Sitemap"
 
-#: google-sitemap-plugin.php:548
-msgid "create a new sitemap file or update the existing one"
-msgstr "создать новый файл sitemap или обновить существующий"
+#: google-sitemap-plugin.php:435
+msgid "Added with errors."
+msgstr "Добавлено с ошибками."
 
-#: google-sitemap-plugin.php:554
-msgid "add sitemap file path in robots.txt"
-msgstr "добавить путь файла sitemap в robots.txt"
+#: google-sitemap-plugin.php:435
+msgid "View errors in Google Webmaster Tools"
+msgstr "Просмотреть ошибки на Google Webmaster Tools"
 
-#: google-sitemap-plugin.php:555
-msgid ""
-"Since you are using multisiting, the plugin does not allow to add a sitemap "
-"to robots.txt"
-msgstr ""
-"Т.к. вы используете мультисайтинг, плагин не имеет возможности добавить "
-"sitemap в robots.txt"
-
-#: google-sitemap-plugin.php:562
-msgid "add sitemap file path in"
-msgstr "добавить путь файла sitemap в"
-
-#: google-sitemap-plugin.php:567 includes/pro_banners.php:66
-msgid "Add post types and taxonomies links to the sitemap"
-msgstr "Добавить в sitemap ссылки на типы постов и таксономии"
-
-#: google-sitemap-plugin.php:590
-msgid "This option will be applied to all websites in the network"
-msgstr "Эта опция будет применена ко всем сайтам сети"
-
-#: google-sitemap-plugin.php:593 google-sitemap-plugin.php:598
-#, php-format
-msgid "You should %s to use this functionality"
-msgstr "Чтобы использовать этот функционал %s"
-
-#: google-sitemap-plugin.php:594
-msgid "activate"
-msgstr "активируйте"
-
-#: google-sitemap-plugin.php:594
-msgid "for network"
-msgstr "для сети"
-
-#: google-sitemap-plugin.php:599
-msgid "download"
-msgstr "загрузитe"
-
-#: google-sitemap-plugin.php:611
-msgid "The following string will be added to your .htaccess file"
-msgstr "В ваш .htaccess файл будет добавлена следующая строка"
-
-#: google-sitemap-plugin.php:623
-msgid ""
-"This hosting does not support сURL, so you cannot add a sitemap file "
-"automatically"
-msgstr ""
-"Ваш хостинг не поддерживает сURL, поэтому вы не можете добавить sitemap в "
-"Google аккаунт автоматически"
-
-#: google-sitemap-plugin.php:626 google-sitemap-plugin.php:701
-msgid ""
-"You can always add your sitemap to Google Webmaster Tools manually. For more "
-"info see"
-msgstr ""
-"Вы всегда можете добавить Ваш sitemap файл в Google Webmaster Tools вручную. "
-"Для получения более подрообной информации прочтите"
-
-#: google-sitemap-plugin.php:627 google-sitemap-plugin.php:702
-msgid "the instruction"
-msgstr "инструкцию"
-
-#: google-sitemap-plugin.php:633
-msgid "Remote work with Google Webmaster Tools"
-msgstr "Удаленная работа с Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:657
-msgid "Log out from Google Webmaster Tools"
-msgstr "Выйти из Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:659
-msgid "add this site to Google Webmaster Tools"
-msgstr "добавить этот сайт в Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:660
-msgid "delete this site from Google Webmaster Tools"
-msgstr "удалить этот сайт из Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:661
-msgid "get info about this site in Google Webmaster Tools"
-msgstr "получить информацию об этом сайте из Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:689
-msgid ""
-"Please authorize via your Google Account in order to add or delete a site "
-"and a sitemap file automatically or get information about this site in "
-"Google Webmaster Tools"
-msgstr ""
-"Пожалуйста, авторизуйтесь используя ваш Google аккаунт, чтобы иметь "
-"возможность добавлять или удалять сайты и файл sitemap автоматически или "
-"получать информацию из Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:690
-msgid "Get Authorization Code"
-msgstr "Получить код авторизации"
-
-#: google-sitemap-plugin.php:693
-msgid "Authorize"
-msgstr "Авторизироваться"
-
-#: google-sitemap-plugin.php:696
-msgid "Invalid authorization code. Please, try again"
-msgstr "Неверный код авторизации. Пожалуйста, попробуйте еще раз"
-
-#: google-sitemap-plugin.php:710 includes/pro_banners.php:84
-msgid "Save Changes"
-msgstr "Сохранить изменения"
-
-#: google-sitemap-plugin.php:763 google-sitemap-plugin.php:825
-#: google-sitemap-plugin.php:858
-#, php-format
-msgid "Site info for %s"
-msgstr "Информация о сайте %s"
-
-#: google-sitemap-plugin.php:771 google-sitemap-plugin.php:775
-#: google-sitemap-plugin.php:842
-msgid "This site has not been added to Google Webmaster Tools"
-msgstr "Этот сайт не добавлен в Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:776
-msgid "Site URL"
-msgstr "URL сайта"
-
-#: google-sitemap-plugin.php:777
-msgid "Site verification"
-msgstr "Верификация сайта"
-
-#: google-sitemap-plugin.php:777
-msgid "verified"
-msgstr "верифицрован"
-
-#: google-sitemap-plugin.php:777
-msgid "not verified"
-msgstr "не верифицирован"
-
-#: google-sitemap-plugin.php:786
-msgid "Failed to verify the site in Google Webmaster Tools"
-msgstr "Невозможно получить информацию об этом сайте из Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:788 google-sitemap-plugin.php:897
-#: google-sitemap-plugin.php:917
-msgid "The site couldn't be verified. Please, verify the site manually"
-msgstr ""
-"Сайт не может быть верифицрован. Пожалуйста, верифицируйте сайт вручную"
-
-#: google-sitemap-plugin.php:788 google-sitemap-plugin.php:811
-#: google-sitemap-plugin.php:870 google-sitemap-plugin.php:897
-#: google-sitemap-plugin.php:917 google-sitemap-plugin.php:936
-msgid "View the Instruction"
-msgstr "Просмотреть Инструкцию"
-
-#: google-sitemap-plugin.php:801 google-sitemap-plugin.php:804
-msgid "The sitemap file has not been added to Google Webmaster Tools"
-msgstr "Этот файл sitemap не добавлен в Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:806
-msgid ""
-"The sitemap file has been added to Google Webmaster Tools, but has some "
-"errors or warnings"
-msgstr ""
-"Этот файл sitemap добавлен в  Google Webmaster Tools, но при добавлении "
-"возникли ошибки"
-
-#: google-sitemap-plugin.php:806
-msgid "Please, see them in Google Webmaster Tools"
-msgstr "Посмотреть ошибки в Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:809
+#: google-sitemap-plugin.php:438
 msgid "Sitemap URL"
 msgstr "URL Sitemap"
 
-#: google-sitemap-plugin.php:811
-msgid ""
-"When checking the sitemap file an unexpected error occurred. Please, check "
-"the sitemap file manually"
-msgstr ""
-"При проверке файла sitemap обнаружена ошибка. Пожалуйста, проверьте файл "
-"вручную"
+#: google-sitemap-plugin.php:441 google-sitemap-plugin.php:457
+#: google-sitemap-plugin.php:507 google-sitemap-plugin.php:542
+#: google-sitemap-plugin.php:579 google-sitemap-plugin.php:610
+#: google-sitemap-plugin.php:636 google-sitemap-plugin.php:644
+#: includes/class-gglstmp-settings.php:407
+msgid "Error"
+msgstr "Ошибка"
 
-#: google-sitemap-plugin.php:837
-msgid "This site has been successfully deleted from Google Webmaster Tools"
-msgstr "Этот сайт был успешно удален из Google Webmaster Tools"
+#: google-sitemap-plugin.php:441
+msgid "Please check the sitemap file manually."
+msgstr "Проверьте файл Sitemap вручную."
 
-#: google-sitemap-plugin.php:862
-msgid "The site has been added to Google Webmaster Tools"
-msgstr "Этот сайт добавлен в Google Webmaster Tools"
+#: google-sitemap-plugin.php:441 google-sitemap-plugin.php:459
+#: google-sitemap-plugin.php:544 google-sitemap-plugin.php:583
+#: google-sitemap-plugin.php:612 google-sitemap-plugin.php:638
+#: includes/pro_banners.php:47
+msgid "Learn More"
+msgstr "Подробнее"
 
-#: google-sitemap-plugin.php:868
-msgid "An error occurred while adding the site in Google Webmaster Tools"
-msgstr "Ошибка при добавлении сайта в Google Webmaster Tools"
+#: google-sitemap-plugin.php:446 google-sitemap-plugin.php:495
+#: google-sitemap-plugin.php:530 google-sitemap-plugin.php:567
+#: google-sitemap-plugin.php:598 google-sitemap-plugin.php:626
+msgid "Unexpected error"
+msgstr "Неожиданная ошибка"
 
-#: google-sitemap-plugin.php:870
-msgid "The site couldn't be added. Please, add the site manually"
-msgstr "Сайт не может быть добавлен. Пожалуйста, добавьте сайт вручную"
+#: google-sitemap-plugin.php:459 google-sitemap-plugin.php:544
+#: google-sitemap-plugin.php:612
+msgid "Manual verification required."
+msgstr "Требуется ручная проверка."
 
-#: google-sitemap-plugin.php:886
-msgid "Verification code has been successfully received and added to the site"
-msgstr "Код верификации получен и добавлен на сайт"
+#: google-sitemap-plugin.php:489
+msgid "Deleted"
+msgstr "Удален"
 
-#: google-sitemap-plugin.php:888
-msgid ""
-"Verification code has been successfully received but has not been added to "
-"the site"
-msgstr "Код верификации получен, но не добавлен на сайт"
+#: google-sitemap-plugin.php:559 google-sitemap-plugin.php:562
+#: google-sitemap-plugin.php:578
+msgid "Verification Code"
+msgstr "Код Подтверждения"
 
-#: google-sitemap-plugin.php:895
-msgid ""
-"An error has occurred when receiving the verification code site in Google "
-"Webmaster"
-msgstr "Ошибка Google Webmaster при получении кода верификации"
+#: google-sitemap-plugin.php:560
+msgid "Received and added to the site"
+msgstr "Получен и добавлен на сайт"
 
-#: google-sitemap-plugin.php:909
-msgid "The site has been successfully verified in Google Webmaster Tools"
-msgstr "Этот сайт был успешно верифицирован в Google Webmaster Tools"
+#: google-sitemap-plugin.php:563
+msgid "Received, but has not been added to the site"
+msgstr "Получен, но не добавлен на сайт"
 
-#: google-sitemap-plugin.php:915
-msgid ""
-"An unexpected error occurred when verifying site in Google Webmaster Tools"
-msgstr "Ошибка при верификации сайта в Google Webmaster Tools"
+#: google-sitemap-plugin.php:638
+msgid "Please add the sitemap file manually."
+msgstr "Пожалуйста, добавьте файл Sitemap вручную."
 
-#: google-sitemap-plugin.php:928
-msgid "The sitemap file has been successfully added to Google Webmaster Tools"
-msgstr "Файл sitemap был успешно добавлен в Google Webmaster Tools"
+#: google-sitemap-plugin.php:641
+msgid "Error 404"
+msgstr "Ошибка 404"
 
-#: google-sitemap-plugin.php:934
-msgid ""
-"An error occurred while adding the sitemap file in Google Webmaster Tools"
-msgstr "Ошибка при добавлении файла sitemap в Google Webmaster Tools"
-
-#: google-sitemap-plugin.php:936
-msgid ""
-"The sitemap file couldn't be added. Please, add the sitemap file manually"
-msgstr "Файл sitemap не может быть добавлен. Пожалуйста, добавьте файл вручную"
-
-#: google-sitemap-plugin.php:939
+#: google-sitemap-plugin.php:641
 #, php-format
-msgid "Error 404. The sitemap file %s not found"
-msgstr "Ошибка 404. Файл sitemap %s не найден"
+msgid "The sitemap file %s not found."
+msgstr "Файл sitemap %s не найден."
 
-#: google-sitemap-plugin.php:942
-msgid "The sitemap file not found"
-msgstr "Файл sitemap не найден"
+#: google-sitemap-plugin.php:644
+msgid "The sitemap file not found."
+msgstr "Файл sitemap не найден."
 
-#: google-sitemap-plugin.php:1009
+#: google-sitemap-plugin.php:717
 msgid "FAQ"
 msgstr "FAQ"
 
-#: google-sitemap-plugin.php:1010
+#: google-sitemap-plugin.php:718
 msgid "Support"
 msgstr "Тех.поддержка"
+
+#: includes/class-gglstmp-settings.php:28
+msgid "Structure"
+msgstr "Структура"
+
+#: includes/class-gglstmp-settings.php:29
+msgid "Misc"
+msgstr "Разное"
+
+#: includes/class-gglstmp-settings.php:30
+msgid "License Key"
+msgstr "Лицензионный ключ"
+
+#: includes/class-gglstmp-settings.php:155
+msgid "Cannot edit \"robots.txt\". Check your permissions"
+msgstr "Невозможно отредактировать файл  \"robots.txt\". Проверьте свои права"
+
+#: includes/class-gglstmp-settings.php:167
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: includes/class-gglstmp-settings.php:191
+#, php-format
+msgid ""
+"Since you are using multisiting, the plugin does not allow to add a sitemap "
+"to %s."
+msgstr ""
+"Поскольку вы используете мультисайт, плагин не позволяет добавлять sitemap в "
+"%s."
+
+#: includes/class-gglstmp-settings.php:197
+#, php-format
+msgid "Enable to add a sitemap file path to the %s file."
+msgstr "Включить для добавления пути файла Sitemap в файл %s."
+
+#: includes/class-gglstmp-settings.php:203
+msgid "This option will be applied to all websites in the network."
+msgstr "Эта опция будет применена ко всем сайтам в сети."
+
+#: includes/class-gglstmp-settings.php:206
+msgid "Activate"
+msgstr "Активировать"
+
+#: includes/class-gglstmp-settings.php:210
+msgid "Install Now"
+msgstr "Установить Сейчас"
+
+#: includes/class-gglstmp-settings.php:219
+#, php-format
+msgid "%s Plugin"
+msgstr "%s плагин"
+
+#: includes/class-gglstmp-settings.php:221
+#, php-format
+msgid "Enable to allow XML files access using %s plugin."
+msgstr "Включить, чтобы разрешить доступ к файлам XML с помощью плагина %s."
+
+#: includes/class-gglstmp-settings.php:222
+msgid "The following string will be added to your .htaccess file"
+msgstr "В ваш .htaccess файл будет добавлена следующая строка"
+
+#: includes/class-gglstmp-settings.php:230
+#: includes/class-gglstmp-settings.php:324 includes/pro_banners.php:21
+msgid "Close"
+msgstr "Закрыть"
+
+#: includes/class-gglstmp-settings.php:241
+msgid "Google Webmaster Tools"
+msgstr "Google Webmaster Tools"
+
+#: includes/class-gglstmp-settings.php:244
+msgid ""
+"This hosting does not support сURL, so you cannot add a sitemap file "
+"automatically."
+msgstr ""
+"Ваш хостинг не поддерживает сURL, поэтому вы не можете добавить sitemap "
+"автоматически."
+
+#: includes/class-gglstmp-settings.php:247
+msgid "Logout from Google Webmaster Tools"
+msgstr "Выйти из Google Webmaster Tools"
+
+#: includes/class-gglstmp-settings.php:251
+msgid "Manage Website with Google Webmaster Tools"
+msgstr "Управление веб-сайтом с помощью Google Webmaster Tools"
+
+#: includes/class-gglstmp-settings.php:253
+msgid "Add"
+msgstr "Добавить"
+
+#: includes/class-gglstmp-settings.php:254
+msgid "Delete"
+msgstr "Удалить"
+
+#: includes/class-gglstmp-settings.php:255
+msgid "Get Info"
+msgstr "Получить информацию"
+
+#: includes/class-gglstmp-settings.php:257
+msgid ""
+"Add, delete or get info about this website using your Google Webmaster Tools "
+"account."
+msgstr ""
+"Добавьте, удалите или получите информацию о этом сайте с помощью своей "
+"учетной записи Google Webmaster Tools."
+
+#: includes/class-gglstmp-settings.php:265
+msgid "Get Authorization Code"
+msgstr "Получить код авторизации"
+
+#: includes/class-gglstmp-settings.php:268
+msgid "Authorize"
+msgstr "Авторизироваться"
+
+#: includes/class-gglstmp-settings.php:271
+msgid "Invalid authorization code. Please try again."
+msgstr "Недействительный код авторизации. Пожалуйста, попробуйте еще раз."
+
+#: includes/class-gglstmp-settings.php:276
+msgid "You can also add your sitemap to Google Webmaster Tools manually."
+msgstr "Вы также можете вручную добавить sitemap в Google Webmaster Tools."
+
+#: includes/class-gglstmp-settings.php:276
+msgid "Read the instruction"
+msgstr "Читать инструкцию"
+
+#: includes/class-gglstmp-settings.php:291
+msgid "Post category"
+msgstr "Рубрика записей"
+
+#: includes/class-gglstmp-settings.php:292
+msgid "Post tag"
+msgstr "Метка записей"
+
+#: includes/class-gglstmp-settings.php:294
+msgid "Sitemap Structure"
+msgstr "Структура Sitemap"
+
+#: includes/class-gglstmp-settings.php:299
+msgid "Post Types"
+msgstr "Типы постов"
+
+#: includes/class-gglstmp-settings.php:306
+msgid "Enable to add post type links to the sitemap."
+msgstr "Включить, чтобы добавить ссылки типов постов в sitemap."
+
+#: includes/class-gglstmp-settings.php:310
+msgid "Taxonomies"
+msgstr "Таксономии"
+
+#: includes/class-gglstmp-settings.php:317
+msgid "Enable to taxonomy links to the sitemap."
+msgstr "Включить, чтобы добавить ссылки таксономий в sitemap."
+
+#: includes/class-gglstmp-settings.php:358
+msgid "Cannot edit \"robot.txt\". Check your permissions"
+msgstr "Невозможно отредактировать файл  \"robot.txt\". Проверьте свои права"
+
+#: includes/class-gglstmp-settings.php:397
+#, php-format
+msgid "%s is in the site root directory."
+msgstr "%s находится в корневом каталоге сайта."
+
+#: includes/class-gglstmp-settings.php:397
+msgid "The Sitemap file"
+msgstr "Файл Sitemap"
+
+#: includes/class-gglstmp-settings.php:399
+msgid "The Sitemap file for this site has been deleted by network admin."
+msgstr "Файл Sitemap для этого сайта был удален администратором сети."
+
+#: includes/class-gglstmp-settings.php:408
+#, php-format
+msgid ""
+"Can't access XML files on subsites. Add the following rule %s to your %s "
+"file in %s after %s or install, activate and enable %s plugin option to "
+"resolve this error."
+msgstr ""
+"Невозможно получить доступ к файлам XML на подсайтах. Добавьте следующее "
+"правило %s в файл %s в %s после %s или установите, активируйте и включите "
+"опцию плагина %s, чтобы устранить эту ошибку."
 
 #: includes/pro_banners.php:18
 msgid "This options is available in Pro version of plugin"
 msgstr "Данный функционал доступен в Про версии плагина"
 
-#: includes/pro_banners.php:21
-msgid "Close"
-msgstr "Закрыть"
-
-#: includes/pro_banners.php:27
-msgid "Unlock premium options by upgrading to Pro version"
-msgstr "Активируйте премиум опции обновившись до Pro версии"
-
-#: includes/pro_banners.php:28
-msgid "Learn More"
-msgstr "Подробнее"
-
-#: includes/pro_banners.php:44
-msgid "XML Sitemap \"Change Frequency\" parameter"
-msgstr "Параметр XML Sitemap \"Частота обновления\""
-
-#: includes/pro_banners.php:47 includes/pro_banners.php:148
-#: includes/pro_banners.php:156 includes/pro_banners.php:164
-#: includes/pro_banners.php:172
-msgid "Monthly"
-msgstr "Ежемесячно"
-
-#: includes/pro_banners.php:49
-msgid ""
-"This value is used in the sitemap file and provides general information to "
-"search engines. The sitemap itself is generated once and will be re-"
-"generated when you create or update any post or page. For more info see"
-msgstr ""
-"Это значение используется в файле sitemap и предоставляет общую информацию "
-"для поисковых систем. Sitemap создается один раз и будет перезаписана вновь "
-"при создании или обновлении какой-либо страницы или поста. Более подробно Вы "
-"можете прочитать"
-
-#: includes/pro_banners.php:49 includes/pro_banners.php:128
-msgid "here"
-msgstr "здесь"
-
-#: includes/pro_banners.php:73
-msgid "Show URL for pages"
-msgstr "Отображать URL для страниц"
-
-#: includes/pro_banners.php:79
-msgid "Example of site pages' tree"
-msgstr "Пример дерева страниц сайта"
-
-#: includes/pro_banners.php:102
-msgid "Search"
-msgstr "Поиск"
-
-#: includes/pro_banners.php:106
-msgid "Bulk Actions"
-msgstr "Групповые действия"
-
-#: includes/pro_banners.php:108
-msgid "Apply"
-msgstr "Применить"
-
-#: includes/pro_banners.php:116 includes/pro_banners.php:181
-msgid "Priority"
-msgstr "Приоритет"
-
-#: includes/pro_banners.php:117 includes/pro_banners.php:182
+#: includes/pro_banners.php:42 includes/pro_banners.php:89
+#: includes/pro_banners.php:148
 msgid "Change Frequency"
 msgstr "Частота обновления"
 
-#: includes/pro_banners.php:118 includes/pro_banners.php:183
+#: includes/pro_banners.php:45 includes/pro_banners.php:117
+#: includes/pro_banners.php:124 includes/pro_banners.php:131
+#: includes/pro_banners.php:139
+msgid "Monthly"
+msgstr "Ежемесячно"
+
+#: includes/pro_banners.php:47
+msgid ""
+"This value provides general information to search engines and tell them how "
+"frequently the page is likely to change. It may not correlate exactly to how "
+"often they crawl the website."
+msgstr ""
+"Это значение предоставляет общую информацию поисковым системам и сообщает "
+"им, как часто страница может измениться. Это может не точно соответствовать "
+"тому, как часто они сканируют сайт."
+
+#: includes/pro_banners.php:60
+msgid "Example of site pages' tree"
+msgstr "Пример дерева страниц сайта"
+
+#: includes/pro_banners.php:75
+msgid "Search"
+msgstr "Поиск"
+
+#: includes/pro_banners.php:79
+msgid "Bulk Actions"
+msgstr "Групповые действия"
+
+#: includes/pro_banners.php:81
+msgid "Apply"
+msgstr "Применить"
+
+#: includes/pro_banners.php:88 includes/pro_banners.php:147
+msgid "Priority"
+msgstr "Приоритет"
+
+#: includes/pro_banners.php:90 includes/pro_banners.php:149
 msgid "Last Changed"
 msgstr "Дата"
 
-#: includes/pro_banners.php:127
+#: includes/pro_banners.php:99
 msgid "Please note"
 msgstr "Пожалуйста, учтите"
 
-#: includes/pro_banners.php:128
+#: includes/pro_banners.php:100
 msgid ""
 "All URLs listed in the sitemap.xml must use the same protocol ( HTTP or "
 "HTTPS ) and reside on the same host as the sitemap.xml. For more info see"
@@ -443,13 +404,275 @@ msgstr ""
 "и тот же протокол( HTTP или HTTPS ) и размещены на том же хосте, что и файл "
 "sitemap.xml. Более подрообно, Вы можете прочитать"
 
-#: includes/pro_banners.php:136
+#: includes/pro_banners.php:100
+msgid "here"
+msgstr "здесь"
+
+#: includes/pro_banners.php:106
 msgid "Always"
 msgstr "Всегда"
 
-#: includes/pro_banners.php:140
-msgid "Save link"
-msgstr "Сохранить ссылку"
+#: includes/pro_banners.php:110
+msgid "Save"
+msgstr "Сохранить"
+
+#~ msgid "Verification code"
+#~ msgstr "Код подтверждения"
+
+#~ msgid "Invalid authorization code. Please, try again."
+#~ msgstr "Недействительный код авторизации. Пожалуйста, попробуйте еще раз."
+
+#~ msgid "Save link"
+#~ msgstr "Сохранить ссылку"
+
+#~ msgid "Settings saved"
+#~ msgstr "Настройки сохранены"
+
+#~ msgid "Your Sitemap file has been created in the site root directory"
+#~ msgstr "Файл Sitemap создан в корне основной директории"
+
+#~ msgid "All plugin settings were restored."
+#~ msgstr "Настройки плагина были восстановлены."
+
+#~ msgid "Custom links"
+#~ msgstr "Дополнительные ссылки"
+
+#~ msgid "Extra settings"
+#~ msgstr "Дополнительные настройки"
+
+#~ msgid "Go PRO"
+#~ msgstr "Перейти на PRO версию"
+
+#~ msgid "Warning:"
+#~ msgstr "Внимание:"
+
+#~ msgid ""
+#~ "To have an access to subsites XML files, please add the following rule %s "
+#~ "to your %s file in %s after line %s or you can use option %s"
+#~ msgstr ""
+#~ "Чтобы иметь доступ к XML файлам подсайта, пожалуйста, добавьте следующее "
+#~ "правило %s в ваш %s файл %s после строки %s или вы можете использовать "
+#~ "опцию %s"
+
+#~ msgid "Allow access to XML files"
+#~ msgstr "Разрешить доступ к XML файлам"
+
+#~ msgid "Сheck Access"
+#~ msgstr "Проверить Доступ"
+
+#~ msgid ""
+#~ "already exists. If you would like to replace it with a new one, please "
+#~ "choose the necessary box below"
+#~ msgstr ""
+#~ "уже существует. Если вы хотите изменить его на новый, выберите "
+#~ "соответствующее действие внизу"
+
+#~ msgid "Your Sitemap file"
+#~ msgstr "Ваш файл Sitemap"
+
+#~ msgid "has been created in the site root directory"
+#~ msgstr "создан в корне основной директории"
+
+#~ msgid "create a new sitemap file or update the existing one"
+#~ msgstr "создать новый файл sitemap или обновить существующий"
+
+#~ msgid "add sitemap file path in robots.txt"
+#~ msgstr "добавить путь файла sitemap в robots.txt"
+
+#~ msgid ""
+#~ "Since you are using multisiting, the plugin does not allow to add a "
+#~ "sitemap to robots.txt"
+#~ msgstr ""
+#~ "Т.к. вы используете мультисайтинг, плагин не имеет возможности добавить "
+#~ "sitemap в robots.txt"
+
+#~ msgid "add sitemap file path in"
+#~ msgstr "добавить путь файла sitemap в"
+
+#~ msgid "Add post types and taxonomies links to the sitemap"
+#~ msgstr "Добавить в sitemap ссылки на типы постов и таксономии"
+
+#~ msgid "This option will be applied to all websites in the network"
+#~ msgstr "Эта опция будет применена ко всем сайтам сети"
+
+#~ msgid "You should %s to use this functionality"
+#~ msgstr "Чтобы использовать этот функционал %s"
+
+#~ msgid "activate"
+#~ msgstr "активируйте"
+
+#~ msgid "for network"
+#~ msgstr "для сети"
+
+#~ msgid "download"
+#~ msgstr "загрузитe"
+
+#~ msgid ""
+#~ "This hosting does not support сURL, so you cannot add a sitemap file "
+#~ "automatically"
+#~ msgstr ""
+#~ "Ваш хостинг не поддерживает сURL, поэтому вы не можете добавить sitemap в "
+#~ "Google аккаунт автоматически"
+
+#~ msgid ""
+#~ "You can always add your sitemap to Google Webmaster Tools manually. For "
+#~ "more info see"
+#~ msgstr ""
+#~ "Вы всегда можете добавить Ваш sitemap файл в Google Webmaster Tools "
+#~ "вручную. Для получения более подрообной информации прочтите"
+
+#~ msgid "the instruction"
+#~ msgstr "инструкцию"
+
+#~ msgid "Remote work with Google Webmaster Tools"
+#~ msgstr "Удаленная работа с Google Webmaster Tools"
+
+#~ msgid "Log out from Google Webmaster Tools"
+#~ msgstr "Выйти из Google Webmaster Tools"
+
+#~ msgid "add this site to Google Webmaster Tools"
+#~ msgstr "добавить этот сайт в Google Webmaster Tools"
+
+#~ msgid "delete this site from Google Webmaster Tools"
+#~ msgstr "удалить этот сайт из Google Webmaster Tools"
+
+#~ msgid "get info about this site in Google Webmaster Tools"
+#~ msgstr "получить информацию об этом сайте из Google Webmaster Tools"
+
+#~ msgid ""
+#~ "Please authorize via your Google Account in order to add or delete a site "
+#~ "and a sitemap file automatically or get information about this site in "
+#~ "Google Webmaster Tools"
+#~ msgstr ""
+#~ "Пожалуйста, авторизуйтесь используя ваш Google аккаунт, чтобы иметь "
+#~ "возможность добавлять или удалять сайты и файл sitemap автоматически или "
+#~ "получать информацию из Google Webmaster Tools"
+
+#~ msgid "Invalid authorization code. Please, try again"
+#~ msgstr "Неверный код авторизации. Пожалуйста, попробуйте еще раз"
+
+#~ msgid "Save Changes"
+#~ msgstr "Сохранить изменения"
+
+#~ msgid "Site info for %s"
+#~ msgstr "Информация о сайте %s"
+
+#~ msgid "This site has not been added to Google Webmaster Tools"
+#~ msgstr "Этот сайт не добавлен в Google Webmaster Tools"
+
+#~ msgid "Site URL"
+#~ msgstr "URL сайта"
+
+#~ msgid "Site verification"
+#~ msgstr "Верификация сайта"
+
+#~ msgid "verified"
+#~ msgstr "верифицрован"
+
+#~ msgid "not verified"
+#~ msgstr "не верифицирован"
+
+#~ msgid "Failed to verify the site in Google Webmaster Tools"
+#~ msgstr ""
+#~ "Невозможно получить информацию об этом сайте из Google Webmaster Tools"
+
+#~ msgid "The site couldn't be verified. Please, verify the site manually"
+#~ msgstr ""
+#~ "Сайт не может быть верифицрован. Пожалуйста, верифицируйте сайт вручную"
+
+#~ msgid "View the Instruction"
+#~ msgstr "Просмотреть Инструкцию"
+
+#~ msgid "The sitemap file has not been added to Google Webmaster Tools"
+#~ msgstr "Этот файл sitemap не добавлен в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "The sitemap file has been added to Google Webmaster Tools, but has some "
+#~ "errors or warnings"
+#~ msgstr ""
+#~ "Этот файл sitemap добавлен в  Google Webmaster Tools, но при добавлении "
+#~ "возникли ошибки"
+
+#~ msgid "Please, see them in Google Webmaster Tools"
+#~ msgstr "Посмотреть ошибки в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "When checking the sitemap file an unexpected error occurred. Please, "
+#~ "check the sitemap file manually"
+#~ msgstr ""
+#~ "При проверке файла sitemap обнаружена ошибка. Пожалуйста, проверьте файл "
+#~ "вручную"
+
+#~ msgid "This site has been successfully deleted from Google Webmaster Tools"
+#~ msgstr "Этот сайт был успешно удален из Google Webmaster Tools"
+
+#~ msgid "The site has been added to Google Webmaster Tools"
+#~ msgstr "Этот сайт добавлен в Google Webmaster Tools"
+
+#~ msgid "An error occurred while adding the site in Google Webmaster Tools"
+#~ msgstr "Ошибка при добавлении сайта в Google Webmaster Tools"
+
+#~ msgid "The site couldn't be added. Please, add the site manually"
+#~ msgstr "Сайт не может быть добавлен. Пожалуйста, добавьте сайт вручную"
+
+#~ msgid ""
+#~ "Verification code has been successfully received and added to the site"
+#~ msgstr "Код верификации получен и добавлен на сайт"
+
+#~ msgid ""
+#~ "Verification code has been successfully received but has not been added "
+#~ "to the site"
+#~ msgstr "Код верификации получен, но не добавлен на сайт"
+
+#~ msgid ""
+#~ "An error has occurred when receiving the verification code site in Google "
+#~ "Webmaster"
+#~ msgstr "Ошибка Google Webmaster при получении кода верификации"
+
+#~ msgid "The site has been successfully verified in Google Webmaster Tools"
+#~ msgstr "Этот сайт был успешно верифицирован в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "An unexpected error occurred when verifying site in Google Webmaster Tools"
+#~ msgstr "Ошибка при верификации сайта в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "The sitemap file has been successfully added to Google Webmaster Tools"
+#~ msgstr "Файл sitemap был успешно добавлен в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "An error occurred while adding the sitemap file in Google Webmaster Tools"
+#~ msgstr "Ошибка при добавлении файла sitemap в Google Webmaster Tools"
+
+#~ msgid ""
+#~ "The sitemap file couldn't be added. Please, add the sitemap file manually"
+#~ msgstr ""
+#~ "Файл sitemap не может быть добавлен. Пожалуйста, добавьте файл вручную"
+
+#~ msgid "Error 404. The sitemap file %s not found"
+#~ msgstr "Ошибка 404. Файл sitemap %s не найден"
+
+#~ msgid "The sitemap file not found"
+#~ msgstr "Файл sitemap не найден"
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Активируйте премиум опции обновившись до Pro версии"
+
+#~ msgid "XML Sitemap \"Change Frequency\" parameter"
+#~ msgstr "Параметр XML Sitemap \"Частота обновления\""
+
+#~ msgid ""
+#~ "This value is used in the sitemap file and provides general information "
+#~ "to search engines. The sitemap itself is generated once and will be re-"
+#~ "generated when you create or update any post or page. For more info see"
+#~ msgstr ""
+#~ "Это значение используется в файле sitemap и предоставляет общую "
+#~ "информацию для поисковых систем. Sitemap создается один раз и будет "
+#~ "перезаписана вновь при создании или обновлении какой-либо страницы или "
+#~ "поста. Более подробно Вы можете прочитать"
+
+#~ msgid "Show URL for pages"
+#~ msgstr "Отображать URL для страниц"
 
 #~ msgid ""
 #~ "When you add a site in Google Webmaster Tools unexpected error occurred"
@@ -530,12 +753,6 @@ msgstr "Сохранить ссылку"
 #~ msgid "Post tags"
 #~ msgstr "Метки записей"
 
-#~ msgid "Post category"
-#~ msgstr "Рубрика записей"
-
-#~ msgid "Post tag"
-#~ msgstr "Метка записей"
-
 #~ msgid ""
 #~ "Please choose the necessary post types the links to which are to be added "
 #~ "to the sitemap:"
@@ -581,7 +798,7 @@ msgstr "Сохранить ссылку"
 
 #~ msgid ""
 #~ "Something went wrong. Try again later. If the error will appear again, "
-#~ "please, contact us <a href=http://support.bestwebsoft.com>BestWebSoft</"
+#~ "please, contact us <a href=https://support.bestwebsoft.com>BestWebSoft</"
 #~ "a>. We are sorry for inconvenience."
 #~ msgstr ""
 #~ "Что-то пошло не так. Повторите попытку позже. Если ошибка появится снова, "
