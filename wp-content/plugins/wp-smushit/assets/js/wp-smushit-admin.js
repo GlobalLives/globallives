@@ -1096,8 +1096,8 @@ jQuery(function ($) {
      *
      */
     var add_dir_browser_button = function () {
-        //Get the content div length, if less than 700, Skip
-        if( $('div.wp-smush-scan-result div.content').height() < 700 || $('div.dir-smush-button-wrap.top').length >= 1 ) {
+        //Get the content div length, if less than 1500, Skip
+        if( $('div.wp-smush-scan-result div.content').height() < 1500 || $('div.dir-smush-button-wrap.top').length >= 1 ) {
             return;
         }
 
@@ -1107,8 +1107,8 @@ jQuery(function ($) {
     };
 
     var add_smush_button = function() {
-        //Get the content div length, if less than 700, Skip
-        if( $('div.wp-smush-scan-result div.content').height() < 700 || $('div.wp-smush-all-button-wrap.top').length >= 1 ) {
+        //Get the content div length, if less than 1500, Skip
+        if( $('div.wp-smush-scan-result div.content').height() < 1500 || $('div.wp-smush-all-button-wrap.top').length >= 1 ) {
             return;
         }
 
@@ -1127,8 +1127,8 @@ jQuery(function ($) {
      *
      */
     var add_smush_dir_notice = function ( notice_type ) {
-        //Get the content div length, if less than 700, Skip
-        if( $('div.wp-smush-scan-result div.content').height() < 700 || $('div.wp-smush-scan-result div.wp-smush-notice.top').length >= 1 ) {
+        //Get the content div length, if less than 1500, Skip
+        if( $('div.wp-smush-scan-result div.content').height() < 1500 || $('div.wp-smush-scan-result div.wp-smush-notice.top').length >= 1 ) {
             return;
         }
         var notice = '';
@@ -1965,7 +1965,7 @@ jQuery(function ($) {
         /** All the Styling changes **/
         button.attr('disabled', 'disabled');
         parent.find('span.spinner').addClass('is-active');
-        parent.find('button.wp-smush-pause').show().removeAttr('disabled');
+        parent.find('button.wp-smush-pause').show().removeClass('disabled').removeAttr('disabled');
 
         //Disable Select Directory button
         $('button.wp-smush-browse').attr('disabled', 'disabled');

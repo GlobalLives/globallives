@@ -229,7 +229,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				),
 				'png_to_jpg'  => array(
 					'label' => esc_html__( 'Convert PNG to JPEG (lossy)', 'wp-smushit' ),
-					'desc'  => sprintf( esc_html__( "When you compress a PNG file, Smush will check if converting the file to JPEG will further reduce its size. %s Note: PNGs with transparency will be ignored and Smush will only convert the file format if it results in a smaller file size. This will change the file’s name and extension, and any hard-coded URLs will need to be updated.", 'wp-smushit' ), "<br />" )
+					'desc'  => sprintf( esc_html__( "When you compress a PNG file, Smush will check if converting the file to JPEG will further reduce its size. %s Note: PNGs with transparency will be ignored and Smush will only convert the file format if it results in a smaller file size. This will change the file’s name and extension, and any hard-coded URLs will need to be updated.%s", 'wp-smushit' ), "<br /><strong>", "</strong>" )
 				)
 			);
 
@@ -566,8 +566,15 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			 */
 			if ( ! apply_filters( 'wp_smush_image', true, $attachment_id ) ) {
 				$send_error = true;
-				$error = esc_html__( "Attachment $attachment_id was skipped.", "wp-smushit" );
+				$error = $this->filter_error( esc_html__( "Attachment $attachment_id was skipped.", "wp-smushit" ), $attachment_id );
 			}
+
+			//Get the file path for backup
+			$attachment_file_path = get_attached_file( $attachment_id );
+
+			//Take Backup
+			global $wpsmush_backup;
+			$wpsmush_backup->create_backup( $attachment_file_path );
 
 			if ( ! $send_error ) {
 				//Proceed only if Smushing Transient is not set for the given attachment id
@@ -629,6 +636,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 					$this->update_resmush_list( $attachment_id );
 				}
 			}
+
 			$resmush_count = empty( $this->resmush_ids ) ? count( $this->resmush_ids = get_option( "wp-smush-resmush-list" ) ) : count( $this->resmush_ids );
 
 			$stats['smushed'] = ! empty( $this->resmush_ids ) ? $this->smushed_count - $resmush_count : $this->smushed_count;
@@ -639,8 +647,19 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 			$stats['tooltip_text'] = ! empty( $stats['total_images'] ) ? sprintf( __( "You've smushed %d images in total.", "wp-smushit" ), $stats['total_images'] ) : '';
 
+			/**
+			 * Used internally to modify the error message
+			 *
+			 */
+			$error = $this->filter_error( $error, $attachment_id );
+
 			//Wrap the error message in div
-			$error = !empty( $error ) ? '<p class="wp-smush-error-message">' . $error . '</p>' : $error;
+			$error = !empty( $error ) ? sprintf( '<p class="wp-smush-error-message">%s</p>', $error ) : $error;
+
+			if ( ! $send_error ) {
+				//Update the bulk Limit count
+				$this->update_smush_count();
+			}
 
 			//Send ajax response
 			$send_error ? wp_send_json_error( array(
@@ -682,8 +701,9 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			 *
 			 */
 			if ( ! apply_filters( 'wp_smush_image', true, $attachemnt_id ) ) {
+			    $error = $this->filter_error( esc_html__( "Attachment Skipped - Check `wp_smush_image` filter.", "wp-smushit" ), $attachemnt_id );
 				wp_send_json_error( array(
-					'error_msg'    => '<p class="wp-smush-error-message">' . esc_html__( "Attachment Skipped - Check `wp_smush_image` filter.", "wp-smushit" ) . '</p>',
+					'error_msg'    => sprintf( '<p class="wp-smush-error-message">%s</p>', $error ),
 					'show_warning' => intval( $this->show_warning() )
 				) );
 			}
@@ -720,7 +740,17 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 			$attachment_id = absint( (int) ( $attachment_id ) );
 
-			$original_meta = wp_get_attachment_metadata( $attachment_id );
+			//Get the file path for backup
+			$attachment_file_path = get_attached_file( $attachment_id );
+
+			//Take Backup
+			global $wpsmush_backup;
+			$wpsmush_backup->create_backup( $attachment_file_path );
+
+			//Get the image metadata from $_POST
+			$original_meta = !empty( $_POST['metadata'] ) ? $_POST['metadata'] : '';
+
+			$original_meta = empty( $original_meta ) ? wp_get_attachment_metadata( $attachment_id ) : $original_meta;
 
 			//Send image for resizing, if enabled resize first before any other operation
 			$updated_meta = $this->resize_image( $attachment_id, $original_meta );
@@ -730,15 +760,16 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 			$original_meta = ! empty( $updated_meta ) ? $updated_meta : $original_meta;
 
-			//Update the details, as soon as we are done with resizing
-			wp_update_attachment_metadata( $attachment_id, $original_meta );
-
 			//Smush the image
 			$smush = $WpSmush->resize_from_meta_data( $original_meta, $attachment_id );
+
+			//Update the details, after smushing, so that latest image is used in hook
+			wp_update_attachment_metadata( $attachment_id, $original_meta );
 
 			//Get the button status
 			$status = $WpSmush->set_status( $attachment_id, false, true );
 
+			//Delete the transient after attachment meta is updated
 			delete_transient( 'smush-in-progress-' . $attachment_id );
 
 			//Send Json response if we are not suppose to return the results
@@ -765,6 +796,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * Check bulk sent count, whether to allow further smushing or not
 		 *
 		 * @param bool $reset To hard reset the transient
+		 *
 		 * @param string $key Transient Key - bulk_sent_count/dir_sent_count
 		 *
 		 * @return bool
@@ -773,38 +805,50 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 			$transient_name = WP_SMUSH_PREFIX . $key;
 
-			//Do not go through this, if we need to reset
-			if ( ! $reset ) {
-				$bulk_sent_count = get_transient( $transient_name );
+			$bulk_sent_count = get_transient( $transient_name );
 
-				//If bulk sent count is not set
-				if ( false === $bulk_sent_count ) {
-
-					//start transient at 0
-					set_transient( $transient_name, 1, 200 );
-
-					return true;
-
-				} else if ( $bulk_sent_count < $this->max_free_bulk ) {
-
-					//If lte $this->max_free_bulk images are sent, increment
-					set_transient( $transient_name, $bulk_sent_count + 1, 200 );
-
-					return true;
-
-				} else { //Bulk sent count is set and greater than $this->max_free_bulk
-
-					$reset = true;
-
-				}
+			//Check if bulk smush limit is less than limit
+			if ( ! $bulk_sent_count || $bulk_sent_count < $this->max_free_bulk ) {
+				$continue = true;
+			} elseif ( $bulk_sent_count == $this->max_free_bulk ) {
+				//If user has reached the limit, reset the transient
+				$continue = false;
+				$reset    = true;
+			} else {
+				$continue = false;
 			}
 
-			//Reset the transient
+			//If we need to reset the transient
 			if ( $reset ) {
-				//clear it and return false to stop the process
 				set_transient( $transient_name, 0, 60 );
+			}
 
-				return false;
+			return $continue;
+		}
+
+		/**
+		 * Update the image smushed count in transient
+		 *
+		 * @param string $key
+		 *
+		 */
+		function update_smush_count( $key = 'bulk_sent_count' ) {
+
+			$transient_name = WP_SMUSH_PREFIX . $key;
+
+			$bulk_sent_count = get_transient( $transient_name );
+
+			//If bulk sent count is not set
+			if ( false === $bulk_sent_count ) {
+
+				//start transient at 0
+				set_transient( $transient_name, 1, 200 );
+
+			} else if ( $bulk_sent_count < $this->max_free_bulk ) {
+
+				//If lte $this->max_free_bulk images are sent, increment
+				set_transient( $transient_name, $bulk_sent_count + 1, 200 );
+
 			}
 		}
 
@@ -2078,6 +2122,27 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			global $wpsmush_settings;
 			$c_settings = $this->get_serialised_settings();
 			$wpsmush_settings->update_setting( WP_SMUSH_PREFIX . 'last_settings', $c_settings );
+		}
+
+		/**
+		 * Allows to filter the error message sent to the user
+		 *
+		 * @param string $error
+		 * @param string $attachment_id
+		 *
+		 * @return mixed|null|string|void
+		 */
+		function filter_error( $error = '', $attachment_id = '' ) {
+			if ( empty( $error ) ) {
+				return null;
+			}
+			/**
+			 * Used internally to modify the error message
+			 *
+			 */
+			$error = apply_filters( 'wp_smush_error', $error, $attachment_id );
+
+			return $error;
 		}
 
 	}

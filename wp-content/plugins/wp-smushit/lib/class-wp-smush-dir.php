@@ -478,7 +478,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			$base_dir = realpath( $base_dir );
 
 			//Store the path in option
-			update_option( 'wp_smush_dir_path', $base_dir );
+			update_option( 'wp-smush-dir_path', $base_dir );
 
 			//Directory Iterator, Exclude . and ..
 			$dirIterator = new RecursiveDirectoryIterator(
@@ -499,6 +499,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			$images    = array();
 			$count     = 0;
 			$timestamp = gmdate( 'Y-m-d H:i:s' );
+			$values = array();
 			foreach ( $iterator as $path ) {
 
 				//Used in place of Skip Dots, For php 5.2 compatability
@@ -509,7 +510,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 					$file_path = $path->getPathname();
 					$file_name = $path->getFilename();
 
-					if ( $this->is_image( $file_path ) && ! $this->is_media_library_file( $file_path ) ) {
+					if ( $this->is_image( $file_path ) && ! $this->is_media_library_file( $file_path ) && strpos( $path, '.bak' ) === false ) {
 
 						/**  To generate Markup **/
 						$dir_name = dirname( $file_path );
@@ -524,27 +525,30 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 						//Get the file modification time
 						$file_time = @filectime( $file_path );
 
-						/** To be stored in DB, Part of code borrowed from Ewwww Optimiser  */
+						/** To be stored in DB, Part of code inspired from Ewwww Optimiser  */
 						$image_size = $path->getSize();
-						$images[]   = "('" . utf8_encode( $file_path ) . "',$image_size, $file_time, '$timestamp' )";
+						$images []  = $file_path;
+						$images []  = $image_size;
+						$images []  = $file_time;
+						$images []  = $timestamp;
+						$values[]   = '(%s, %d, %d, %s)';
 						$count ++;
 					}
 				}
+
 				//Store the Images in db at an interval of 5k
 				if ( $count >= 5000 ) {
 					$count = 0;
-					$query = "INSERT INTO {$wpdb->prefix}smush_dir_images (path,orig_size,file_time,last_scan) VALUES %s ON DUPLICATE KEY UPDATE image_size = IF( file_time < VALUES(file_time), NULL, image_size ), image_size = IF( file_time < VALUES(file_time), VALUES(file_time), file_time ), last_scan = VALUES( last_scan )";
-					$sql   = sprintf( $query, implode( ',', $images ) );
-					$wpdb->query( $sql );
+					$query = $this->build_query( $values, $images );
+					$wpdb->query( $query );
 					$images = array();
 				}
 			}
 
 			//Update rest of the images
 			if ( ! empty( $images ) && $count > 0 ) {
-				$query = "INSERT INTO {$wpdb->prefix}smush_dir_images (path,orig_size,file_time,last_scan) VALUES %s ON DUPLICATE KEY UPDATE image_size = IF( file_time < VALUES(file_time), NULL, image_size ), file_time = IF( file_time < VALUES(file_time), VALUES(file_time), file_time ), last_scan = VALUES( last_scan )";
-				$sql   = sprintf( $query, implode( ',', $images ) );
-				$wpdb->query( $sql );
+				$query = $this->build_query( $values, $images );
+				$wpdb->query( $query );
 			}
 
 			//remove scanne dimages from cache
@@ -557,6 +561,31 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			wp_cache_add( 'wp_smush_scanned_images', $images );
 
 			return array( 'files_arr' => $files_arr, 'base_dir' => $base_dir, 'image_items' => $images );
+		}
+
+		/**
+		 * Build and prepare query from the given values and image array
+		 *
+		 * @param $values
+		 * @param $images
+		 *
+		 * @return bool|string|void
+		 */
+		function build_query( $values, $images ) {
+
+			if ( empty( $images ) || empty( $values ) ) {
+				return false;
+			}
+
+			global $wpdb;
+			$values = implode( ',', $values );
+
+			//Replace with image path and respective parameters
+			$query = "INSERT INTO {$wpdb->prefix}smush_dir_images (path,orig_size,file_time,last_scan) VALUES $values ON DUPLICATE KEY UPDATE image_size = IF( file_time < VALUES(file_time), NULL, image_size ), file_time = IF( file_time < VALUES(file_time), VALUES(file_time), file_time ), last_scan = VALUES( last_scan )";
+			$query = $wpdb->prepare( $query, $images );
+
+			return $query;
+
 		}
 
 		/**
@@ -586,9 +615,6 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				wp_send_json_error( "Empth Directory Path" );
 			}
 
-			//Remove the transient
-			delete_transient( 'wp_smush_dir_curr_id' );
-
 			//Get the File list
 			$files = $this->get_image_list( $_GET['smush_path'] );
 
@@ -607,6 +633,8 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 
 		/**
 		 * Check whether the given path is a image or not
+		 *
+		 * Do not include backup files
 		 *
 		 * @param $path
 		 *
@@ -954,7 +982,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 
 			//Get the savings in bytes and percent
 			if ( ! empty( $this->stats ) ) {
-				$this->stats['bytes']   = $this->stats['orig_size'] - $this->stats['image_size'];
+				$this->stats['bytes']   = ( $this->stats['orig_size'] > $this->stats['image_size'] ) ? $this->stats['orig_size'] - $this->stats['image_size'] : 0;
 				$this->stats['percent'] = number_format_i18n( ( ( $this->stats['bytes'] / $this->stats['orig_size'] ) * 100 ), 1 );
 				//Convert to human readable form
 				$this->stats['human'] = size_format( $this->stats['bytes'], 1 );
@@ -1111,6 +1139,10 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				'total'       => $total,
 				'latest_scan' => $last_scan
 			);
+
+			//Update Bulk Limit Transient
+			$wpsmushit_admin->update_smush_count( 'dir_sent_count' );
+
 			wp_send_json_success( $data );
 		}
 
@@ -1152,7 +1184,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 		 *
 		 */
 		function resume_scan() {
-			$dir_path = get_option( 'wp_smush_dir_path' );
+			$dir_path = get_option( 'wp-smush-dir_path' );
 
 			//If we don't get an error path, return an error message
 			if ( empty( $dir_path ) ) {

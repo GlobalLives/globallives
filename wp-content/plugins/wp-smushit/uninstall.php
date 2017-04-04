@@ -39,7 +39,9 @@ $smushit_keys = array(
 	'lossy-updated',
 	'version',
 	'networkwide',
-	'dir_path'
+	'dir_path',
+	'scan',
+	'last_settings'
 );
 
 //Cache Keys
@@ -84,6 +86,10 @@ if ( ! is_multisite() ) {
 
 //Delete Directory Smush stats
 delete_option( 'dir_smush_stats' );
+delete_option( 'wp_smush_scan' );
+delete_option( 'wp_smush_api_auth' );
+delete_option( 'wp_smush_dir_path' );
+delete_site_option( 'wp_smush_api_auth' );
 
 //Delete Post meta
 $meta_type  = 'post';

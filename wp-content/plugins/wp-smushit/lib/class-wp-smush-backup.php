@@ -35,6 +35,16 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 			$this->backup_enabled = $wpsmush_settings->get_setting( WP_SMUSH_PREFIX . 'backup' );
 		}
 
+		/**
+		 * Creates a backup of file for the given attachment path
+		 *
+		 * Checks if there is a existing backup, else create one
+		 *
+		 * @param string $file_path
+		 * @param string $backup_path
+		 *
+		 * @return string
+		 */
 		function create_backup( $file_path = '', $backup_path = '' ) {
 			global $WpSmush, $wpsmush_pngjpg;
 
@@ -63,7 +73,7 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 			}
 
 			//Check for backup from other plugins, like nextgen, if it doesn't exists, create our own
-			if ( ! file_exists( $file_path . '_backup' ) || ! file_exists( $backup_path ) ) {
+			if ( ! file_exists( $backup_path ) ) {
 				@copy( $file_path, $backup_path );
 			}
 
@@ -72,6 +82,10 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 		/**
 		 * Restore the image and its sizes from backup
 		 *
+		 * @param string $attachment
+		 * @param bool $resp
+		 *
+		 * @return bool
 		 */
 		function restore_image( $attachment = '', $resp = true ) {
 			global $WpSmush;
@@ -93,8 +107,8 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 				}
 			}
 
-			//Store the restore success/failure for all the sizes
-			$restored = array();
+			//Store the restore success/failure for Full size image
+			$restored = false;
 
 			//Process Now
 			$image_id = empty( $attachment ) ? absint( (int) $_POST['attachment_id'] ) : $attachment;
@@ -116,52 +130,35 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 
 			if ( !empty( $original_file) && file_exists( $original_file_path ) ) {
 				//restore PNG full size and all other image sizes
-				$restored[]  = $this->restore_png( $image_id, 'full', $original_file, $file_path );
-				$restore_png = true;
+				$restored  = $this->restore_png( $image_id, $original_file, $file_path );
 			} elseif ( file_exists( $backup_name ) ) {
 				//If file exists, corresponding to our backup path
 				//Restore
-				$restored[] = @copy( $backup_name, $file_path );
+				$restored = @copy( $backup_name, $file_path );
 
 				//Delete the backup
 				@unlink( $backup_name );
 			} elseif ( file_exists( $file_path . '_backup' ) ) {
 				//Restore from other backups
-				$restored[] = @copy( $file_path . '_backup', $file_path );
+				$restored = @copy( $file_path . '_backup', $file_path );
 			}
 
-			//Get other sizes and restore
-			//Get attachment data
-			$attachment_data = wp_get_attachment_metadata( $image_id );
+			//Set a transient to avoid the smush-restore-smush loop
+			set_transient("wp-smush-restore-$image_id", true, 90 );
 
-			//Get the sizes
-			$sizes = ! empty( $attachment_data['sizes'] ) ? $attachment_data['sizes'] : '';
+			//Generate all other image size, and update attachment metadata
+			$metadata =  wp_generate_attachment_metadata( $image_id, $file_path );
 
-			//Loop on images to restore them
-			foreach ( $sizes as $size_k => $size ) {
-				//Get the file path
-				if ( empty( $size['file'] ) ) {
-					continue;
-				}
+			//Remove the transient
+			delete_transient( "wp-smush-restore-$image_id");
 
-				//Image Path and Backup path
-				$image_size_path  = path_join( dirname( $file_path ), $size['file'] );
-				$image_bckup_path = $WpSmush->get_image_backup_path( $image_size_path );
-
-				//Restore
-				if ( $restore_png ) {
-					$restored[] = $this->restore_png( $image_id, $size_k, $original_file, $image_size_path );
-				} elseif ( file_exists( $image_bckup_path ) ) {
-					$restored[] = @copy( $image_bckup_path, $image_size_path );
-					//Delete the backup
-					@unlink( $image_bckup_path );
-				} elseif ( file_exists( $image_size_path . '_backup' ) ) {
-					$restored[] = @copy( $image_size_path . '_backup', $image_size_path );
-				}
+			//Update metadata to db if it was successfully generated
+			if ( ! empty( $metadata ) && ! is_wp_error( $metadata ) ) {
+				wp_update_attachment_metadata( $image_id, $metadata );
 			}
 
 			//If any of the image is restored, we count it as success
-			if ( in_array( true, $restored ) ) {
+			if ( $restored ) {
 
 				//Remove the Meta, And send json success
 				delete_post_meta( $image_id, $WpSmush->smushed_meta_key );
@@ -189,7 +186,15 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 		}
 
 
-		function restore_png( $image_id = '', $size = 'full', $original_file = '', $file_path = '' ) {
+		/**
+		 *
+		 * @param string $image_id
+		 * @param string $original_file
+		 * @param string $file_path
+		 *
+		 * @return bool
+		 */
+		function restore_png( $image_id = '', $original_file = '', $file_path = '' ) {
 
 			global $WpSmush, $wpsmush_pngjpg;
 
@@ -213,42 +218,25 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 				$original_file = get_post_meta( $image_id, WP_SMUSH_PREFIX . 'original_file', true );
 			}
 			$original_file_path = $WpSmush->original_file( $original_file );
-			if ( 'full' == $size ) {
-				if ( file_exists( $original_file_path ) ) {
-					//Update the path details in meta and attached file, replace the image
-					$meta = $wpsmush_pngjpg->update_image_path( $image_id, $file_path, $original_file_path, $meta, $size, 'restore' );
-					//@todo: Add a check in meta if file was updated or not, before unlinking jpg
-					if ( ! empty( $meta['file'] ) && $original_file == $meta['file'] ) {
-						@unlink( $file_path );
-					}
-					/**
-					 *  Perform a action after the image URL is updated in post content
-					 */
-					do_action( 'wp_smush_image_url_updated', $image_id, $file_path, $original_file, $size );
+			if ( file_exists( $original_file_path ) ) {
+				//Update the path details in meta and attached file, replace the image
+				$meta = $wpsmush_pngjpg->update_image_path( $image_id, $file_path, $original_file_path, $meta, $size, 'restore' );
+				//@todo: Add a check in meta if file was updated or not, before unlinking jpg
+				if ( ! empty( $meta['file'] ) && $original_file == $meta['file'] ) {
+					@unlink( $file_path );
 				}
-			} else {
+				//Generate all other image size, and update attachment metadata
+				$metadata =  wp_generate_attachment_metadata( $image_id, $original_file_path );
+
+				//Update metadata to db if it was successfully generated
+				if ( ! empty( $metadata ) && ! is_wp_error( $metadata ) ) {
+					wp_update_attachment_metadata( $image_id, $metadata );
+				}
+
 				/**
-				 * For any other size
-				 *  1. Figure out the image path for the respective size
-				 *  2. Update the image path in attachment metadata
-				 *  3. Delete the JPEG
-				 *  4. And done!
-				 *  5. Add a action after updating the URLs, that'd allow the users to perform a additional search, replace action
-				 **/
-				//Get the file path for the specific size
-				$n_file      = dirname( $original_file_path ) . '/' . basename( $file_path );
-				$n_file_path = pathinfo( $n_file, PATHINFO_FILENAME ) . '.png';
-				if ( file_exists( $n_file ) ) {
-					//Update the path details in meta and attached file, replace the image
-					$meta = $wpsmush_pngjpg->update_image_path( $image_id, $file_path, $n_file_path, $meta, $size, 'restore' );
-					if ( ! empty( $meta['sizes'] ) && ! empty( $meta['sizes'][ $size ] ) && ! empty( $meta['sizes'][ $size ]['file'] ) && $n_file_path != $meta['sizes'][ $size ]['file'] ) {
-						@unlink( $file_path );
-					}
-					/**
-					 *  Perform a action after the image URL is updated in post content
-					 */
-					do_action( 'wp_smush_image_url_updated', $image_id, $file_path, $n_file, $size );
-				}
+				 *  Perform a action after the image URL is updated in post content
+				 */
+				do_action( 'wp_smush_image_url_updated', $image_id, $file_path, $original_file, $size );
 			}
 			//Update Meta
 			if ( ! empty( $meta ) ) {

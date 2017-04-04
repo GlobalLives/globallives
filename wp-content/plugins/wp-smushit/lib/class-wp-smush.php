@@ -179,12 +179,10 @@ if ( ! class_exists( 'WpSmush' ) ) {
 		/**
 		 * Process an image with Smush.
 		 *
-		 * Returns an array of the $file $results.
+		 * @param string $file_path Absolute path to the image
 		 *
-		 * @param   string $file Full absolute path to the image file
-		 * @param   string $file_url Optional full URL to the image file
+		 * @return array|bool
 		 *
-		 * @returns array
 		 */
 		function do_smushit( $file_path = '' ) {
 			$errors   = new WP_Error();
@@ -246,10 +244,6 @@ if ( ! class_exists( 'WpSmush' ) ) {
 
 			//Add the file as tmp
 			file_put_contents( $tempfile, $response['data']->image );
-
-			//Take Backup
-			global $wpsmush_backup;
-			$wpsmush_backup->create_backup( $file_path );
 
 			//replace the file
 			$success = @rename( $tempfile, $file_path );
@@ -576,6 +570,11 @@ if ( ! class_exists( 'WpSmush' ) ) {
 				return $meta;
 			}
 
+			//Check if we're restoring the image
+			if ( get_transient( "wp-smush-restore-$ID" ) ) {
+				return $meta;
+			}
+
 			/**
 			 * Filter: wp_smush_image
 			 *
@@ -745,7 +744,6 @@ if ( ! class_exists( 'WpSmush' ) ) {
 			unset( $response );//free memory
 			return $data;
 		}
-
 
 		/**
 		 * Print column header for Smush results in the media library using
@@ -1271,6 +1269,11 @@ if ( ! class_exists( 'WpSmush' ) ) {
 			}
 			//Check for Empty fields
 			if ( empty( $id ) || empty( $retina_file ) || empty( $image_size ) ) {
+				return;
+			}
+
+			//Do not smush if auto smush is turned off
+			if ( ! $this->is_auto_smush_enabled() ) {
 				return;
 			}
 
@@ -2124,6 +2127,11 @@ if ( ! class_exists( 'WpSmush' ) ) {
 				return;
 			}
 
+			//Check if we're restoring the image
+			if ( get_transient( "wp-smush-restore-$id" ) ) {
+				return;
+			}
+
 			/**
 			 * Filter: wp_smush_image
 			 *
@@ -2183,7 +2191,7 @@ if ( ! class_exists( 'WpSmush' ) ) {
 			$res = $this->do_smushit( $post_data['filepath'] );
 
 			//Exit if smushing wasn't successful
-			if ( empty( $res['success'] ) || ! $res['success'] ) {
+			if ( is_wp_error( $res) || empty( $res['success'] ) || ! $res['success'] ) {
 				return;
 			}
 
