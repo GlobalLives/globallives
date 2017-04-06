@@ -63,7 +63,8 @@ jQuery(document).ready(function($){
   
   //FadeIn and FadeOut Google Analytics tracking settings
   $('input[name=googlelanguagetranslator_analytics]').change(function() {
-    if($(this).val()=='show') {
+    var analytics = $(this);
+    if(analytics.is(':checked')) {
       $('.analytics').fadeIn("slow");
     } else {
       $('.analytics').fadeOut("slow");

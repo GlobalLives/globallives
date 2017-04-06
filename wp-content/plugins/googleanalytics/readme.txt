@@ -2,8 +2,8 @@
 Contributors: ShareThis
 Tags: analytics, dashboard, google, google analytics, google analytics plugin, javascript, marketing, pageviews, statistics, stats, tracking, visits, web stats, widget, analytics dashboard, google analytics dashboard, google analytics widget, google analytics dashboard
 Requires at least: 3.8
-Tested up to: 4.7.2
-Stable tag: 2.1.2
+Tested up to: 4.7.3
+Stable tag: 2.1.3
 
 Use Google Analytics on your Wordpress site without touching any code, and view visitor reports right in your Wordpress admin dashboard!
 

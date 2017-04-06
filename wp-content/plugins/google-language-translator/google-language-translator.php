@@ -2,7 +2,7 @@
 /*
 Plugin Name: Google Language Translator
 Plugin URI: http://www.studio88design.com/plugins/google-language-translator
-Version: 5.0.29
+Version: 5.0.30
 Description: The MOST SIMPLE Google Translator plugin.  This plugin adds Google Translator to your website by using a single shortcode, [google-translator]. Settings include: layout style, hide/show specific languages, hide/show Google toolbar, and hide/show Google branding. Add the shortcode to pages, posts, and widgets.
 Author: Rob Myrick
 Author URI: http://www.wp-studio.net/
@@ -294,7 +294,11 @@ class google_language_translator {
   public function google_translator_menu_language($atts, $content = '') {
     extract(shortcode_atts(array(
       "language" => 'Spanish',
-      "label" => 'Spanish'
+      "label" => 'Spanish',
+      "image" => 'no',
+      "text" => 'yes',
+      "image_size" => '24',
+      "label" => 'Espa&ntilde;ol'
     ), $atts));
 
     $default_language = get_option('googlelanguagetranslator_language');
@@ -307,7 +311,7 @@ class google_language_translator {
       $language_name_flag = 'canada';
     }
 
-    return '<a class="notranslate flag '.$language_code.' single-language" title="'.$language.'">'.$label.'</a>';
+    return "<a class='nturl notranslate ".$language_code." ".$language_name_flag." single-language flag' title='".$language."'>".($image=='yes' ? "<span class='flag size".$image_size."'></span>" : '') .($text=='yes' ? $label : '')."</a>";
   }
 
   public function footer_script() {
@@ -332,7 +336,7 @@ class google_language_translator {
     $is_active = get_option ( 'googlelanguagetranslator_active' );
     $is_multilanguage = get_option('googlelanguagetranslator_multilanguage');
     $str = ''; ?>
-    <script>jQuery(document).ready(function($) { $('#flags a, a.single-language, .tool-items a').each(function() { $(this).attr('data-lang', $(this).attr('title')); }); $("a.flag").on("click",function(){function l(){doGoogleLanguageTranslator(default_lang+"|"+default_lang); }function n(){doGoogleLanguageTranslator(default_lang+"|"+lang_prefix); } lang_text=$(this).attr('data-lang'),default_lang="<?php echo get_option('googlelanguagetranslator_language'); ?>",lang_prefix=$(this).attr("class").split(" ")[2],$(".tool-container").hide(),lang_prefix==default_lang?l():n()}),0==$("body > #google_language_translator").length&&$("#glt-footer").html("<div id='google_language_translator'></div>")});</script>
+    <script>jQuery(document).ready(function($) { $('#flags a, a.single-language, .tool-items a').each(function() { $(this).attr('data-lang', $(this).attr('title')); }); $("a.flag").on("click",function(){function l(){doGoogleLanguageTranslator(default_lang+"|"+default_lang); }function n(){doGoogleLanguageTranslator(default_lang+"|"+lang_prefix); } lang_text=$(this).attr('data-lang'),default_lang="<?php echo get_option('googlelanguagetranslator_language'); ?>",lang_prefix=$(this).attr("class").split(" ")[2],$(".tool-container").hide(),lang_prefix==default_lang?l():n()}),0==$("body > #google_language_translator").length&&$("#glt-footer").html("<div id='google_language_translator'></div>"); });</script>
 
     <?php
 
@@ -1104,277 +1108,291 @@ class google_language_translator {
   }
 
   public function page_layout_cb() {
-    include( plugin_dir_path( __FILE__ ) . '/css/style.php'); ?>
-        <?php add_thickbox(); ?>
-        <div class="wrap">
-	      <div id="icon-options-general" class="icon32"></div>
-	        <h2><span class="notranslate">Google Language Translator</span></h2>
-		      <form action="<?php echo admin_url( '/options.php'); ?>" method="post">
-	          <div class="metabox-holder has-right-sidebar" style="float:left; width:65%">
-                <div class="postbox" style="width: 100%">
-                  <h3 class="notranslate">Settings</h3>
+    include( plugin_dir_path( __FILE__ ) . '/css/style.php'); add_thickbox(); ?>
+      <div id="glt-settings" class="wrap">
+        <div id="icon-options-general" class="icon32"></div>
+	  <h2><span class="notranslate">Google Language Translator</span></h2>
+            <form action="<?php echo admin_url( '/options.php'); ?>" method="post">
+              <div class="metabox-holder has-right-sidebar" style="float:left; width:65%">
+                <div class="postbox glt-main-settings" style="width: 100%">
+                  <h3 class="notranslate">Main Settings</h3>
+                    <?php settings_fields('google_language_translator'); ?>
+                      <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
+                        <tr>
+                          <td style="width:60%" class="notranslate">Plugin Status:</td>
+                          <td class="notranslate"><?php $this->googlelanguagetranslator_active_cb(); ?></td>
+                        </tr>
 
-			      <?php settings_fields('google_language_translator'); ?>
+                        <tr class="notranslate">
+                          <td>Choose the original language of your website</td>
+                          <td><?php $this->googlelanguagetranslator_language_cb(); ?></td>
+                        </tr>
+                      </table>
+                </div> <!-- .postbox -->
+
+                <div class="postbox glt-layout-settings" style="width: 100%">
+                  <h3 class="notranslate">Layout Settings</h3>
+                  <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
+                    <tr class="notranslate">
+		      <td>What languages will display in the language switcher?<br/>("All Languages" option <strong><u>must</u></strong> be chosen to show flags.)</td>
+                      <td><?php $this->googlelanguagetranslator_language_option_cb(); ?></td>
+                    </tr>
+
+		    <tr class="notranslate languages choose_languages">
+		      <td colspan="2">
+                        <script>
+                          jQuery(document).ready(function($) { $('.select-all-languages').on('click',function(e) { e.preventDefault(); $('.choose_languages').find('input:checkbox').prop('checked', true); }); $('.clear-all-languages').on('click',function(e) { e.preventDefault(); $('.choose_languages').find('input:checkbox').prop('checked', false); }); });
+                        </script>
+                        <div class="glt-controls choose_languages notranslate">
+                          <a class="select-all-languages" href="#">Select All</a> <a class="clear-all-languages" href="#">Clear All</a>
+                        </div>
+                        <?php $this->language_display_settings_cb(); ?>
+                      </td>
+                    </tr>
+
+		    <tr class="notranslate">
+                      <td class="choose_flags_intro">Show flag images?<br/>(Display up to 104 flags above the translator)</td>
+		      <td class="choose_flags_intro"><?php $this->googlelanguagetranslator_flags_cb(); ?></td>
+		    </tr>
+
+		    <tr class="notranslate choose_flags">
+                      <td colspan="2" class="choose_flags">Choose the flags you want to display:</td>
+                    </tr>
+
+		    <tr class="notranslate">
+		      <td colspan="2" class="choose_flags">
+                        <script>
+                          jQuery(document).ready(function($) { $('.select-all-flags').on('click',function(e) { e.preventDefault(); $('.choose_flags').find('input:checkbox').prop('checked', true); }); $('.clear-all-flags').on('click',function(e) { e.preventDefault(); 
+$('.choose_flags').find('input:checkbox').prop('checked', false); }); });
+                        </script>
+                        <div class="glt-controls choose_flags notranslate">
+                          <a class="select-all-flags" href="#">Select All</a> <a class="clear-all-flags" href="#">Clear All</a>
+                        </div>
+                        <?php $this->flag_display_settings_cb(); ?>
+                      </td>
+                    </tr>
+
+                    <tr class="notranslate">
+                      <td>Show or hide the langauge switcher?</td>
+                      <td><?php $this->googlelanguagetranslator_translatebox_cb(); ?></td>
+                    </tr>
+
+                    <tr class="notranslate">
+                      <td>Layout option:</td>
+                      <td><?php $this->googlelanguagetranslator_display_cb(); ?></td>
+                    </tr>
+
+                    <tr class="notranslate">
+                      <td>Show Google Toolbar?</td>
+                      <td><?php $this->googlelanguagetranslator_toolbar_cb(); ?></td>
+                    </tr>
+
+                    <tr class="notranslate">
+                      <td>Show Google Branding? &nbsp;<a href="https://developers.google.com/translate/v2/attribution" target="_blank">Learn more</a></td>
+		      <td><?php $this->googlelanguagetranslator_showbranding_cb(); ?></td>
+                    </tr>
+
+                    <tr class="alignment notranslate">
+                      <td class="flagdisplay">Align the translator left or right?</td>
+                      <td class="flagdisplay"><?php $this->googlelanguagetranslator_flags_alignment_cb(); ?></td>
+                    </tr>
+                  </table>
+                </div> <!-- .postbox -->
+
+                <div class="postbox glt-floating-widget-settings" style="width: 100%">
+                  <h3 class="notranslate">Floating Widget Settings</h3>
+                  <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
+                    <tr class="floating_widget notranslate">
+		      <td>Show floating translation widget?<br/>
+			<span>("All Languages" option <strong><u>must</u></strong> be chosen to show widget.)</span>
+                      </td>
+                      <td><?php $this->googlelanguagetranslator_floating_widget_cb(); ?></td>
+                    </tr>
+
+                    <tr class="floating_widget_text notranslate">
+                      <td>Custom text for the floating widget:</td>
+                      <td><?php $this->googlelanguagetranslator_floating_widget_text_cb(); ?></td>
+                    </tr>
+
+                    <tr class="floating_widget_text notranslate">
+                      <td>Allow floating widget text to translate?:</td>
+                      <td><?php $this->googlelanguagetranslator_floating_widget_text_allow_translation_cb(); ?></td>
+                    </tr>
+                  </table>
+                </div> <!-- .postbox -->
+
+                <div class="postbox glt-behavior-settings" style="width: 100%">
+                  <h3 class="notranslate">Behavior Settings</h3>
                     <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
-                      <tr>
-						<td style="width:60%" class="notranslate">Plugin Status:</td>
-				        <td class="notranslate"><?php $this->googlelanguagetranslator_active_cb(); ?></td>
-                      </tr>
-
-					  <tr class="notranslate">
-				        <td>Choose the original language of your website</td>
-						<td><?php $this->googlelanguagetranslator_language_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate">
-						<td>What languages will display in the language switcher?<br/>("All Languages" option <strong><u>must</u></strong> be chosen to show flags.)</td>
-						<td><?php $this->googlelanguagetranslator_language_option_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate languages choose_languages">
-						<td colspan="2">
-                                                  <script>jQuery(document).ready(function($) { $('.select-all-languages').on('click',function(e) { e.preventDefault(); $('.choose_languages').find('input:checkbox').prop('checked', true); }); $('.clear-all-languages').on('click',function(e) { e.preventDefault(); $('.choose_languages').find('input:checkbox').prop('checked', false); }); });</script>
-                                                  <div class="glt-controls choose_languages notranslate">
-                                                    <a class="select-all-languages" href="#">Select All</a> <a class="clear-all-languages" href="#">Clear All</a>
-                                                  </div><?php $this->language_display_settings_cb(); ?>
-                                                </td>
-					  </tr>
-
-					  <tr class="notranslate">
-				        <td class="choose_flags_intro">Show flag images?<br/>(Display up to 104 flags above the translator)</td>
-						<td class="choose_flags_intro"><?php $this->googlelanguagetranslator_flags_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate choose_flags">
-				            <td colspan="2" class="choose_flags">Choose the flags you want to display:</td>
-			                  </tr>
-
-					  <tr class="notranslate">
-						<td colspan="2" class="choose_flags">
-                                                  <script>jQuery(document).ready(function($) { $('.select-all-flags').on('click',function(e) { e.preventDefault(); $('.choose_flags').find('input:checkbox').prop('checked', true); }); $('.clear-all-flags').on('click',function(e) { e.preventDefault(); 
-$('.choose_flags').find('input:checkbox').prop('checked', false); }); });</script>
-                                                  <div class="glt-controls choose_flags notranslate">
-                                                    <a class="select-all-flags" href="#">Select All</a> <a class="clear-all-flags" href="#">Clear All</a>
-                                                  </div>
-                                                  <?php $this->flag_display_settings_cb(); ?>
-                                                </td>
-					  </tr>
-
-					  <tr class="floating_widget notranslate">
-						<td>Show floating translation widget?<br/>
-						  <span>("All Languages" option <strong><u>must</u></strong> be chosen to show widget.)</span>
-						</td>
-						<td><?php $this->googlelanguagetranslator_floating_widget_cb(); ?></td>
-					  </tr>
-
-                                          <tr class="floating_widget_text notranslate">
-                                                <td>Custom text for the floating widget:</td>
-                                                <td><?php $this->googlelanguagetranslator_floating_widget_text_cb(); ?></td>
-                                          </tr>
-
-                                          <tr class="floating_widget_text notranslate">
-                                                <td>Allow floating widget text to translate?:</td>
-                                                <td><?php $this->googlelanguagetranslator_floating_widget_text_allow_translation_cb(); ?></td>
-                                          </tr>
-
-					  <tr class="notranslate">
-				                <td>Show or hide the langauge switcher?</td>
-						<td><?php $this->googlelanguagetranslator_translatebox_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate">
-						<td>Layout option:</td>
-						<td><?php $this->googlelanguagetranslator_display_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate">
-                        <td>Show Google Toolbar?</td>
-						<td><?php $this->googlelanguagetranslator_toolbar_cb(); ?></td>
-					  </tr>
-
-					  <tr class="notranslate">
-				        <td>Show Google Branding? &nbsp;<a href="https://developers.google.com/translate/v2/attribution" target="_blank">Learn more</a></td>
-						<td><?php $this->googlelanguagetranslator_showbranding_cb(); ?></td>
-					  </tr>
-
-					  <tr class="alignment notranslate">
-				        <td class="flagdisplay">Align the translator left or right?</td>
-						<td class="flagdisplay"><?php $this->googlelanguagetranslator_flags_alignment_cb(); ?></td>
-					  </tr>
-
-
-
                       <tr class="multilanguage notranslate">
-						<td>Multilanguage Page option? &nbsp;<a href="#TB_inline?width=200&height=150&inlineId=multilanguage-page-description" title="What is the Multi-Language Page Option?" class="thickbox">Learn more</a><div id="multilanguage-page-description" style="display:none"><p>If you activate this setting, Google will translate all text into a single language when requested by your user, even if text is written in multiple languages. In most cases, this setting is not recommended, although for certain websites it might be necessary.</p></div></td>
-						<td><?php $this->googlelanguagetranslator_multilanguage_cb(); ?></td>
-					  </tr>
+                      <td>Multilanguage Page option? &nbsp;<a href="#TB_inline?width=200&height=150&inlineId=multilanguage-page-description" title="What is the Multi-Language Page Option?" class="thickbox">Learn more</a><div id="multilanguage-page-description" style="display:none"><p>If you activate this setting, Google will translate all text into a single language when requested by your user, even if text is written in multiple languages. In most cases, this setting is not recommended, although for certain websites it might be necessary.</p></div></td>
+                      <td><?php $this->googlelanguagetranslator_multilanguage_cb(); ?></td>
+                    </tr>
 
-					  <tr class="notranslate">
-						<td>Google Analytics:</td>
-						<td><?php $this->googlelanguagetranslator_analytics_cb(); ?></td>
-					  </tr>
+                    <tr class="notranslate">
+                      <td>Google Analytics:</td>
+                      <td><?php $this->googlelanguagetranslator_analytics_cb(); ?></td>
+                    </tr>
 
-					  <tr class="analytics notranslate">
-						<td>Google Analytics ID (Ex. 'UA-11117410-2')</td>
-						<td><?php $this->googlelanguagetranslator_analytics_id_cb(); ?></td>
-					  </tr>
+                    <tr class="analytics notranslate">
+                      <td>Google Analytics ID (Ex. 'UA-11117410-2')</td>
+                      <td><?php $this->googlelanguagetranslator_analytics_id_cb(); ?></td>
+                    </tr>
+                  </table>
+                </div> <!-- .postbox -->
 
-					  <tr class="notranslate">
-						<td>Full widget usage in pages/posts/sidebar:</td>
-						<td><code>[google-translator]</code></td>
-                                          </tr>
-				  </table>
+                <div class="postbox glt-usage-settings" style="width: 100%">
+                  <h3 class="notranslate">Usage</h3>
+                  <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
+                    <tr class="notranslate">
+                      <td>For usage in pages/posts/sidebar:</td>
+                      <td><code>[google-translator]</code></td>
+                    </tr>
 
-				  <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
-					  <tr class="notranslate">
-						<td style="width:40%">Full widget usage in header/footer or page template:</td>
-						<td style="width:60%"><code>&lt;?php echo do_shortcode('[google-translator]'); ?&gt;</code></td>
-					  </tr>
+                    <tr class="notranslate">
+                      <td style="width:40%">For usage in header/footer/page templates:</td>
+                      <td style="width:60%"><code>&lt;?php echo do_shortcode('[google-translator]'); ?&gt;</code></td>
+                    </tr>
 
-                      <tr class="notranslate">
-						<td>Single language usage in<br/>nav menu/pages/posts</td>
-						<td><code>[glt language="Spanish" label="Espa&ntilde;ol"]</code></td>
-                      </tr>
+                    <tr class="notranslate">
+                      <td colspan="2">Single language usage in menus/pages/posts</td>
+                    </tr>
 
-                      <tr class="notranslate">
-						<td colspan="2">
-						  <a href="#TB_inline?width=200&height=450&inlineId=single-language-shortcode-description" title="How to place a single language in your Wordpress menu" class="thickbox">How to place a single language in your Wordpress menu</a>
-						  <div id="single-language-shortcode-description" style="display:none">
-							<p>For menu usage, you need to create a new menu, or use an existing menu, by navigating to "Appearance > Menus".</p>
-							<p>First you will need to enable "descriptions" for your menu items, which can be found in a tab labeled "Screen Options" in the upper-right area of the page.</p>
-							<p>Once descriptions are enabled, follow these steps:<br/>
-							  <ol>
-								<li>Create a new menu item using "Link" as the menu item type.</li>
-								<li>Use <code style="border:none">#</code> for the URL</li>
-								<li>Enter a navigation label of your choice. This label does not appear on your website - it is meant only to help you identify the menu item.</li>
-								<li>Place the following shortcode into the "description" field, and modify it to display the language and navigation label of your choice:</li>
-						      </ol>
-							<p><code>[glt language="Spanish" label="Espa&ntilde;ol"]</code></p>
-                          </div>
-						</td>
-                      </tr>
+                    <tr class="notranslate">
+                      <td colspan="2"><code>[glt language="Spanish" label="Espa&ntilde;ol" image="yes" text="yes" image_size="24"]</code></td>
+                    </tr>
 
-					  <tr class="notranslate">
-						<td>
-						  <?php
-	                                            if (isset($_POST['submit'])) {
-	                                              if (empty($_POST['submit']) && !check_admin_referer( 'glt-save-settings', 'glt-save-settings-nonce' )) {
-	                                                wp_die();
-	                                              } else {  }
-	                                            }
-	                                            wp_nonce_field('glt-save-settings, glt-save-settings-nonce', false);
-                                                    submit_button();
-						  ?>
-						</td>
-						<td></td>
-					  </tr>
-			      </table>
-		    </div> <!-- .postbox -->
-		  </div> <!-- .metbox-holder -->
+                    <tr class="notranslate">
+                      <td colspan="2">
+                        <a href="#TB_inline?width=200&height=450&inlineId=single-language-shortcode-description" title="How to place a single language in your Wordpress menu" class="thickbox">How to place a single language in your Wordpress menu</a>
+			<div id="single-language-shortcode-description" style="display:none">
+			  <p>For menu usage, you need to create a new menu, or use an existing menu, by navigating to "Appearance > Menus".</p>
+			  <p>First you will need to enable "descriptions" for your menu items, which can be found in a tab labeled "Screen Options" in the upper-right area of the page.</p>
+			  <p>Once descriptions are enabled, follow these steps:<br/>
+                            <ol>
+			      <li>Create a new menu item using "Link" as the menu item type.</li>
+			      <li>Use <code style="border:none">#</code> for the URL</li>
+			      <li>Enter a navigation label of your choice. This label does not appear on your website - it is meant only to help you identify the menu item.</li>
+			      <li>Place the following shortcode into the "description" field, and modify it to display the language and navigation label of your choice:</li>
+                            </ol>
+                          <p><code>[glt language="Spanish" label="Espa&ntilde;ol"]</code></p>
+                        </div> <!-- .single-language-shortcode-description -->
+                      </td>
+                    </tr>
 
-		  <div class="metabox-holder" style="float:right; clear:right; width:33%">
-		    <div class="postbox">
-		      <h3 class="notranslate">Preview</h3>
-			    <table style="width:100%">
-		          <tr>
-					<td style="box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; padding:15px 15px; margin:0px"><span class="notranslate"> Drag &amp; drop flags to change their position.<br/><br/>(Note: flag order resets when flags are added/removed)</span><br/><br/><?php echo do_shortcode('[google-translator]'); ?><p class="hello"><span class="notranslate">Translated text:</span> &nbsp; <span>Hello</span></p></td>
-				  </tr>
+		    <tr class="notranslate">
+                      <td colspan="2">
+                        <?php
+	                  if (isset($_POST['submit'])) {
+	                    if (empty($_POST['submit']) && !check_admin_referer( 'glt-save-settings', 'glt-save-settings-nonce' )) {
+	                      wp_die();
+	                    }
+	                  }
+	                  wp_nonce_field('glt-save-settings, glt-save-settings-nonce', false);
+                          submit_button(); ?>
+                      </td>
+                    </tr>
+                  </table>
+		</div> <!-- .postbox -->
+		</div> <!-- .metbox-holder -->
 
-				  <tr>
-					<td></td>
-				  </tr>
+		<div class="metabox-holder" style="float:right; clear:right; width:33%">
+		  <div class="postbox glt-preview-settings">
+		    <h3 class="notranslate">Preview</h3>
+                      <table style="width:100%">
+		        <tr>
+                          <td style="box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; padding:15px 15px; margin:0px"><span class="notranslate"> Drag &amp; drop flags to change their position.<br/><br/>(Note: flag order resets when flags are added/removed)</span><br/><br/><?php echo do_shortcode('[google-translator]'); ?><p class="hello"><span class="notranslate">Translated text:</span> &nbsp; <span>Hello</span></p>
+                          </td>
+                        </tr>
+                      </table>
+		  </div> <!-- .postbox -->
+	        </div> <!-- .metabox-holder -->
 
+                <div class="metabox-holder box-right notranslate" style="float: right; width: 33%; clear:right">
+                  <div class="postbox glt-advanced-settings">
+                    <h3>Advanced Settings</h3>
+                      <div class="inside">
+                        <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
+                          <tr class="notranslate">
+	                    <td class="advanced">Select flag size:</td>
+	                    <td class="advanced"><?php $this->googlelanguagetranslator_flag_size_cb(); ?></td>
+                          </tr>
 
-		        </table>
-		    </div> <!-- .postbox -->
-	      </div> <!-- .metabox-holder -->
+                          <tr class="notranslate">
+	                    <td class="advanced">Flag for English:</td>
+	                    <td class="advanced"><?php $this->googlelanguagetranslator_english_flag_choice_cb(); ?></td>
+                          </tr>
 
-<div id="glt_advanced_settings" class="metabox-holder box-right notranslate" style="float: right; width: 33%; clear:right">
-  <div class="postbox">
-    <h3>Advanced Settings</h3>
-    <div class="inside">
-      <table style="border-collapse:separate" width="100%" border="0" cellspacing="8" cellpadding="0" class="form-table">
-        <tr class="notranslate">
-	  <td class="advanced">Select flag size:</td>
-	  <td class="advanced"><?php $this->googlelanguagetranslator_flag_size_cb(); ?></td>
-        </tr>
+                          <tr class="notranslate">
+	                    <td class="advanced">Flag for Spanish:</td>
+	                    <td class="advanced"><?php $this->googlelanguagetranslator_spanish_flag_choice_cb(); ?></td>
+                          </tr>
 
-        <tr class="notranslate">
-	  <td class="advanced">Flag for English:</td>
-	  <td class="advanced"><?php $this->googlelanguagetranslator_english_flag_choice_cb(); ?></td>
-        </tr>
-
-        <tr class="notranslate">
-	  <td class="advanced">Flag for Spanish:</td>
-	  <td class="advanced"><?php $this->googlelanguagetranslator_spanish_flag_choice_cb(); ?></td>
-        </tr>
-
-        <tr class="notranslate">
-	  <td class="advanced">Flag for Portuguese:</td>
-	  <td class="advanced"><?php $this->googlelanguagetranslator_portuguese_flag_choice_cb(); ?></td>
-        </tr>
-      </table>
-    </div> <!-- .inside -->
-  </div> <!-- .postbox -->
-</div> <!-- #glt_advanced_settings -->
+                          <tr class="notranslate">
+	                    <td class="advanced">Flag for Portuguese:</td>
+	                    <td class="advanced"><?php $this->googlelanguagetranslator_portuguese_flag_choice_cb(); ?></td>
+                          </tr>
+                        </table>
+                      </div> <!-- .inside -->
+                    </div> <!-- .postbox -->
+                  </div> <!-- .metabox-holder -->
 
 
-	   <div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
-          <div class="postbox">
-            <h3>Add CSS Styles</h3>
+	          <div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
+                    <div class="postbox glt-css-settings">
+                      <h3>Add CSS Styles</h3>
 			<div class="inside">
 			  <p>You can apply any necessary CSS styles below:</p>
-			      <?php $this->googlelanguagetranslator_css_cb(); ?>
-			 </div>
-          </div>
-	   </div>
-	  <?php $this->googlelanguagetranslator_flags_order_cb(); ?>
-	</form>
+			  <?php $this->googlelanguagetranslator_css_cb(); ?>
+                        </div> <!-- .inside -->
+                    </div> <!-- .postbox -->
+                  </div> <!-- .metabox-holder -->
+	          <?php $this->googlelanguagetranslator_flags_order_cb(); ?>
+	    </form>
 
-		<div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
-          <div class="postbox">
-            <h3>GLT Premium 5.0.26 is Here! $30</h3>
-			<div class="inside"><a class="wp-studio-logo" href="http://www.wp-studio.net/" target="_blank"><img style="background:#444; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; width:177px;" src="<?php echo plugins_url( 'images/logo.png' , __FILE__ ); ?>"></a><br />
-              <ul id="features" style="margin-left:15px">
-				<li style="list-style:square outside"><span style="color:red; font-weight:bold">New!</span> Edit translations! (Pages/Posts ONLY)</li>
-                <li style="list-style:square outside">6 Floating Widget positions</li>
-                <li style="list-style:square outside">97 Languages with flags</li>
-                <li style="list-style:square outside">Exclude specific areas from translation</li>
-		<li style="list-style:square outside">jQuery-powered language switcher<br/>(No Adobe Flash required)</li>
-		<li style="list-style:square outside">Add single languages to your menus/pages/posts</li>
-		<li style="list-style:square outside">Show/hide images or text for each language</li>
-		<li style="list-style:square outside">Language switcher loads inline with page content</li>
-		<li style="list-style:square outside">Custom flag choices for English, Spanish and Portuguese</li>
-		<li style="list-style:square outside">User-friendly URLs, hide or show <code>lang</code> attribute</li>
-		<li style="list-style:square outside">Drag/drop flags to re-arrange their order</li>
-	        <li style="list-style:square outside">Full access to our support forum</li>
-	        <li style="list-style:square outside">FREE access to all future updates</li>
-	      </ul>
-           </div>
-        </div>
-      </div>
+            <div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
+              <div class="postbox">
+                <h3>GLT Premium 5.0.34 is Here! $30</h3>
+                  <div class="inside">
+                    <a class="wp-studio-logo" href="http://www.wp-studio.net/" target="_blank"><img style="background:#444; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; width:177px;" src="<?php echo plugins_url( 'images/logo.png' , __FILE__ ); ?>"></a><br />
+                      <ul id="features" style="margin-left:15px">
+		        <li style="list-style:square outside">Duplicate pages/posts into your chosen languages (for editing)</li>
+                        <li style="list-style:square outside">6 Floating Widget positions</li>
+                        <li style="list-style:square outside">104 Languages with flags</li>
+                        <li style="list-style:square outside">Exclude specific areas from translation</li>
+		        <li style="list-style:square outside">jQuery-powered language switcher<br/>(No Adobe Flash required)</li>
+		        <li style="list-style:square outside">Add single languages to your menus/pages/posts</li>
+		        <li style="list-style:square outside">Show/hide images or text for each language</li>
+		        <li style="list-style:square outside">Language switcher loads inline with page content</li>
+		        <li style="list-style:square outside">Custom flag choices for English, Spanish and Portuguese</li>
+		        <li style="list-style:square outside">User-friendly URLs, hide or show <code>lang</code> attribute</li>
+		        <li style="list-style:square outside">Drag/drop flags to re-arrange their order</li>
+	                <li style="list-style:square outside">Full access to our support forum</li>
+	                <li style="list-style:square outside">FREE access to all future updates</li>
+	              </ul>
+                  </div> <!-- .inside -->
+              </div> <!-- .postbox -->
+            </div> <!-- .metabox-holder -->
 
 	    <div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
-          <div class="postbox">
-            <h3>Please Consider A Donation</h3>
-              <div class="inside">If you like this plugin and find it useful, help keep this plugin actively developed by clicking the donate button <br /><br />
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                  <input type="hidden" name="cmd" value="_donations">
-                  <input type="hidden" name="business" value="robertmyrick@hotmail.com">
-                  <input type="hidden" name="lc" value="US">
-                  <input type="hidden" name="item_name" value="Support Studio 88 Design and help us bring you more Wordpress goodies!  Any donation is kindly appreciated.  Thank you!">
-                  <input type="hidden" name="no_note" value="0">
-                  <input type="hidden" name="currency_code" value="USD">
-                  <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                </form>
-                <br />
-               <br />
-             </div>
-          </div>
-	   </div>
-</div> <!-- .wrap -->
+              <div class="postbox">
+                <h3>Please Consider A Donation</h3>
+                  <div class="inside">If you find our plugin useful, help keep it actively developed by clicking the donate button <br /><br />
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                      <input type="hidden" name="cmd" value="_donations">
+                      <input type="hidden" name="business" value="robertmyrick@hotmail.com">
+                      <input type="hidden" name="lc" value="US">
+                      <input type="hidden" name="item_name" value="Support Studio 88 Design and help us bring you more Wordpress goodies!  Any donation is kindly appreciated.  Thank you!">
+                      <input type="hidden" name="no_note" value="0">
+                      <input type="hidden" name="currency_code" value="USD">
+                      <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+                      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                      <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                  </div> <!-- .inside -->
+              </div> <!-- .postbox -->
+            </div> <!-- .metabox-holder -->
+      </div> <!-- .wrap -->
 <?php
   }
 }

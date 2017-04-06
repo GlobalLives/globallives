@@ -15,6 +15,8 @@ class Ga_Notice {
 
 		if ( Ga_Helper::GA_DEBUG_MODE ) {
 			$message = Ga_Helper::ga_wp_notice( (!empty( $error[ 'class' ] ) ? _( '[' . $error[ 'class' ] . ']' ) : '' ) . ' ' . $error[ 'message' ], Ga_Admin::NOTICE_ERROR );
+		} elseif ( $error[ 'class' ] == 'Ga_Lib_Google_Api_Client_AuthCode_Exception' ) {
+			$message = Ga_Helper::ga_wp_notice( $error[ 'message' ], Ga_Admin::NOTICE_ERROR );
 		} elseif ( $error[ 'class' ] == 'Ga_Lib_Sharethis_Api_Client_InvalidDomain_Exception' ) {
 			$message = Ga_Helper::ga_wp_notice( $error[ 'message' ], Ga_Admin::NOTICE_ERROR );
 		} elseif ( $error[ 'class' ] == 'Ga_Lib_Sharethis_Api_Client_Invite_Exception' ) {

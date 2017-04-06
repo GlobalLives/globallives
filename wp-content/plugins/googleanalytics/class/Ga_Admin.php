@@ -288,16 +288,19 @@ class Ga_Admin {
 
 		if ( Ga_Helper::is_authorized() ) {
 			$data[ 'ga_accounts_selector' ] = self::get_accounts_selector();
-			$data[ 'auth_button' ] = self::get_auth_button( 'Re-authenticate with Google' );
+			$data[ 'auth_button' ] = self::get_auth_button( 'reauth' );
 		} else {
 			$data[ 'popup_url' ] = self::get_auth_popup_url();
-			$data[ 'auth_button' ] = self::get_auth_button( 'Authenticate with Google' );
+			$data[ 'auth_button' ] = self::get_auth_button( 'auth' );
 		}
 		$data['debug_modal'] = self::get_debug_modal();
 		if ( !empty( $_GET[ 'err' ] ) ) {
 			switch ( $_GET[ 'err' ] ) {
 				case 1:
 					$data[ 'error_message' ] = Ga_Helper::ga_oauth_notice( 'There was a problem with Google Oauth2 authentication process.' );
+					break;
+				case 2:
+					$data[ 'error_message' ] = Ga_Helper::ga_wp_notice( 'Authentication code is incorrect.', 'error', true );
 					break;
 			}
 		}
@@ -343,7 +346,7 @@ class Ga_Admin {
 	public static function enqueue_ga_scripts() {
 		wp_register_script( GA_NAME . '-page-js', Ga_Helper::get_plugin_url_with_correct_protocol() . '/js/' . GA_NAME . '_page.js', array(
 			'jquery'
-		) );
+		), GOOGLEANALYTICS_VERSION );
 		wp_enqueue_script( GA_NAME . '-page-js' );
 	}
 
@@ -548,6 +551,14 @@ class Ga_Admin {
 			$param = '';
 			if ( !self::save_access_token( $response ) ) {
 				$param = '&err=1';
+				$errors = self::api_client()->get_errors();
+				if ( !empty( $errors ) ){
+					foreach ( $errors as $error ) {
+						if ( $error[ 'message' ] == 'invalid_grant' ){
+							$param = '&err=2';
+						}
+					}
+				}
 			} else {
 				self::api_client()->set_access_token( $response->getData() );
 				// Get accounts data
@@ -690,10 +701,11 @@ class Ga_Admin {
 	 *
 	 * @return string
 	 */
-	public static function get_auth_button( $label ) {
+	public static function get_auth_button( $type ) {
 
 		return Ga_View_Core::load( 'ga_auth_button', array(
-			'label' => $label,
+			'label' => ( $type == 'auth' ) ? 'Authenticate with Google' : 'Re-authenticate with Google',
+			'type' => $type,
 			'url' => self::get_auth_popup_url(),
 			'manually_id' => get_option( self::GA_WEB_PROPERTY_ID_MANUALLY_OPTION_NAME )
 		), true );

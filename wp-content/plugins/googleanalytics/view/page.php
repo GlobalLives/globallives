@@ -6,6 +6,7 @@
                 <h4 class="ga-modal-title"><?php _e( 'Please paste the access code obtained from Google below:' ) ?></h4>
             </div>
             <div class="ga-modal-body">
+                <div id="ga_code_error" class="ga-alert ga-alert-danger" style="display: none;"></div>
                 <label for="ga_access_code"><strong><?php _e( 'Access Code' ); ?></strong>:</label>
                 &nbsp;<input id="ga_access_code_tmp" type="text"
                              placeholder="<?php _e( 'Paste your access code here' ) ?>"/>
@@ -55,8 +56,8 @@
 
 	                <?php if ( ! empty( $data['ga_accounts_selector'] ) ): ?>
                         <th scope="row"><?php echo _e( 'Google Analytics Account' ) ?>:</th>
-                        <td><?php echo $data['ga_accounts_selector']; ?>
-                            <div class="wrap"><?php echo $data[ 'auth_button' ] ?></div>
+                        <td>
+                            <?php echo $data['ga_accounts_selector']; ?>
                         </td>
 	                <?php endif; ?>
 
@@ -66,7 +67,7 @@
 
                     <th scope="row">
                         <div class="checkbox">
-                            <label class="ga_checkbox_label <?php echo ( ! Ga_Helper::are_features_enabled() ) ? 'label-grey ga-tooltip' : '' ?>"
+                            <label class="ga_checkbox_label <?php echo Ga_Helper::get_code_manually_label_classes() ?>"
                                    for="ga_enter_code_manually"> <input
 			                        <?php if ( Ga_Helper::are_features_enabled() ) : ?>
                                         onclick="ga_events.click( this, ga_events.codeManuallyCallback( <?php echo Ga_Helper::are_features_enabled() ? 1 : 0; ?> ) )"
@@ -145,7 +146,12 @@
                   <td colspan="2">
                     <p>If you experience an issue with this plugin, we are here to help! You can visit our <a href="https://googleanalytics.zendesk.com/hc/en-us">support portal</a> to find answers to the most frequently asked questions and to submit a support request. We aim to respond to everyone within one business day.</p>
               			<p>If your issue is difficult to debug, click the button below to automatically send us your error logs and debugging info.</p>
-                    <p><button id="ga_debug_button" class="button button-secondary" onclick="ga_debug.open_modal( event )" >Send Debugging Info</button></p>
+                    <p>
+                        <button id="ga_debug_button" class="button button-secondary" onclick="ga_debug.open_modal( event )" >Send Debugging Info</button>
+	                    <?php if ( ! empty( $data['ga_accounts_selector'] ) ): ?>
+			                <?php echo $data[ 'auth_button' ] ?>
+	                    <?php endif; ?>
+                    </p>
                   </td>
                 </tr>
                 <tr valign="top">

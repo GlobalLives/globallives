@@ -594,4 +594,15 @@ class Ga_Helper {
 		$url = parse_url( GA_PLUGIN_URL );
 		return ( ( is_ssl() ) ? 'https://' : 'http://' ) . $url['host'] . $url['path'];
 	}
+
+	public static function get_code_manually_label_classes() {
+        $classes = '';
+        if ( ! self::are_features_enabled() ){
+        	$classes = 'label-grey ga-tooltip';
+		}
+		else if( self::is_account_selected() ) {
+			$classes = 'label-grey';
+		}
+		return $classes;
+	}
 }

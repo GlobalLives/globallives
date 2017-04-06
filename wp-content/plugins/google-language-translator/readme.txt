@@ -5,7 +5,7 @@ Plugin link: http://wp-studio.net/how-it-works
 Tags: language translator, google translator, language translate, translate wordpress, google language translator, translation, translate, multi language
 Requires at least: 2.9
 Tested up to: 4.6
-Stable tag: 5.0.29
+Stable tag: 5.0.30
 
 Welcome to Google Language Translator! This plugin allows you to insert the Google Language Translator tool anywhere on your website using shortcode.
 
@@ -45,6 +45,13 @@ Q: Can I exclude certain areas of my website from being translated?
 A: Yes! Add the "notranslate" class to the HTML element containing your text. For example, the following text will be excluded from translation: <span class="notranslate">Hello World!</span>
 
 == Changelog ==
+
+5.0.30
+- Organized the settings page into sections.
+- Upgraded Wordpress.org plugin banner.
+- Added additional attributes to single language shortcodes. Users now have ability to display flag images, change flag sizes, or show/hide the text label.
+- Changed Chinese (Traditional) language flag to the Flag of Taiwan.
+- Fixed a minor display issue with the Google Analytics setting in Wordpress Dashboard.
 
 5.0.29
 - Fixed CSS display issues with the floating widget.

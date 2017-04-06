@@ -91,7 +91,7 @@ class Ga_SupportLogger {
 	private function get_mail_link() {
 
 		$body  = 'DESCRIBE ISSUE HERE:' . str_repeat( '%0A', 10 );
- 		$body .= 'Debug Info:%0A%0A';
+		$body .= 'Debug Info:%0A%0A';
 		$body .= implode( $this->get_debug_info(), '%0A' );
 		$body .= '%0A%0AError Log:%0A%0A';
 		$body .= str_replace( "\n", '%0A', $this->get_formatted_log() );
@@ -115,15 +115,20 @@ class Ga_SupportLogger {
 			'Plugin Version' => GOOGLEANALYTICS_VERSION,
 			'WordPress Version' => get_bloginfo( 'version' ),
 			'PHP Version' => phpversion(),
+			'CURL Version' => $this->get_curl_version(),
 			'Site URL' => get_bloginfo( 'wpurl' ),
 			'Theme Name' => $theme->get( 'Name' ),
 			'Theme URL' => $theme->get( 'ThemeURI' ),
 			'Theme Version' => $theme->get( 'Version' ),
 			'Active Plugins' => implode( $plugins, ', ' ),
-			'Operating System' => php_uname(),
+			'Operating System' => $this->get_operating_system(),
 			'Web Server' => $_SERVER['SERVER_SOFTWARE'],
 			'Current Time' => current_time( 'r' ),
-			'Browser' => $_SERVER['HTTP_USER_AGENT'],
+			'Browser' => !empty( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '',
+			'Excluded roles' =>  get_option( 'googleanalytics_exclude_roles' ),
+			'Manually Tracking ID enabled' => get_option( 'googleanalytics_web_property_id_manually' ),
+			'Manually typed Tracking ID' => get_option( 'googleanalytics_web_property_id_manually_value' ),
+			'Tracking ID' => get_option( 'googleanalytics_web_property_id' ),
 		);
 		$formatted = array();
 		foreach ( $data as $text => $value ) {
@@ -135,6 +140,26 @@ class Ga_SupportLogger {
 		return $formatted;
 	}
 
+	/**
+	 * Gets CURL version
+	 * @return string
+	 */
+	private function get_curl_version(){
+		$curl_version = curl_version();
+		return !empty( $curl_version['version'] ) ? $curl_version['version'] : '';
+	}
+
+	/**
+	 * Gets operating system
+	 * @return string
+	 */
+	private function get_operating_system(){
+		if ( function_exists( 'ini_get' ) ) {
+			$disabled = explode( ',', ini_get( 'disable_functions' ) );
+			return !in_array( 'php_uname', $disabled ) ? php_uname() : PHP_OS;
+		}
+		return PHP_OS;
+	}
 
 	/**
 	 * Gets a string of formatted error log entries.
