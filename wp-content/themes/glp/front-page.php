@@ -14,7 +14,7 @@
 				<div class="participant-meta row">
 					<div class="span4 tinyDetails">
 
-						<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&zoom=6&size=600x400&markers=color:red|<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100" class="location" />
+						<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&zoom=6&size=600x400&markers=color:red|<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100" class="location" alt="Map with location at: <?php the_field($field_keys['participant_latitude'],$participant->ID); ?>, <?php the_field($field_keys['participant_longitude'],$participant->ID); ?>" />
 
 						<div class="row">
 							<div class="span2">
