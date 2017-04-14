@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
+## 1.0.2 - Week of 170405-170414
+### Status
+
+### Changed
+- Updated WP Smush
+- Removed Emoji
+
+
 ## 1.0.1 - 2017-03-28
 ### Status
 *Working!* commit a5b62cde1664f4aa2afbdc72e0879bfeb057126a
