@@ -3,10 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
-## 1.0.3
+## 1.1.0
 ### Status
-
+*Working!* wpengine commit 1492450809, github commit 6143d098068399b17598113e2062ac1e138065aa
 ### Changed
+- Streamlined content with Yoast SEO in mind
+- removed Explore Map option on Extra Small devices
 
 
 ## 1.0.2 - Week of 170405-170414
