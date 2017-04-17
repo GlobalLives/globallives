@@ -6,18 +6,8 @@ local-config.php
 wp-content/themes/glp/bower_components/*
 wp-content/themes/glp/node_modules/*
 
-# development plugins
-wp-content/plugins/debug-bar
-wp-content/plugins/debug-bar-console
-wp-content/plugins/debug-bar-cron
-wp-content/plugins/debug-bar-extender
-wp-content/plugins/developer
-wp-content/plugins/theme-check
-wp-content/plugins/log-viewer
-wp-content/plugins/log-deprecated-notices
-wp-content/plugins/regenerate-thumbnails
-wp-content/plugins/wp_firephp
-wp-content/plugins/hello.php
+# plugins
+wp-content/plugins/*
 
 sitemap.xml
 
