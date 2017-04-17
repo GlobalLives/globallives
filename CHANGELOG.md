@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 ### Status
 *Working!* commit 97983e159de7231d421b2d4ddb4058e0af56bfa2
 ### Changed
+
+
+## 1.0.2 - Week of 170405-170414
+### Status
+*Working!* commit 97983e159de7231d421b2d4ddb4058e0af56bfa2
+### Changed
 - Updated WP Smush
 - Removed Emoji
 
