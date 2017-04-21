@@ -648,6 +648,19 @@ WDP.wpmuSelect = function(el) {
 		wrap.addClass(jq.attr("class"));
 	}
 
+	// When changing selection using JS, you need to trigger a 'wpmu:change' event
+	// eg: jQuery('select').val('4').trigger('wpmu:change')
+	function handleSelectionChange() {
+		jq.on('wpmu:change',function(){
+			//We need to re-populateList to handle dynamic select options added via JS/ajax
+			populateList();
+			items.find("li").not('.optgroup-label').on("click", function onItemClick(ev) {
+				var opt = jQuery(ev.target);
+				selectItem(opt, false);
+			});
+		});
+	}
+
 	// Add all the options to the new DOM elements.
 	function populateList() {
 		items.empty();
@@ -737,6 +750,7 @@ WDP.wpmuSelect = function(el) {
 
 		setupElement();
 		populateList();
+		handleSelectionChange();
 		items.find("li").not('.optgroup-label').on("click", function onItemClick(ev) {
 			var opt = jQuery(ev.target);
 			selectItem(opt, false);

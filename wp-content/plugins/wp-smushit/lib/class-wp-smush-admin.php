@@ -124,6 +124,13 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			'media_page_wp-smush-all'
 		);
 
+		public $plugin_pages = array(
+			'gallery_page_wp-smush-nextgen-bulk',
+			'settings_page_wp-smush-network',
+			'media_page_wp-smush-bulk',
+			'media_page_wp-smush-all'
+		);
+
 		/**
 		 * Constructor
 		 */
@@ -1816,20 +1823,10 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			//If class method exists, load shared UI
 			if ( class_exists( 'WDEV_Plugin_Ui' ) ) {
 
-				if ( method_exists( 'WDEV_Plugin_Ui', 'load' ) ) {
+				if ( method_exists( 'WDEV_Plugin_Ui', 'load' ) && in_array( $current_page, $this->plugin_pages ) ) {
 
 					//Load Shared UI
 					WDEV_Plugin_Ui::load( WP_SMUSH_URL . 'assets/shared-ui/', false );
-
-					if ( ( 'settings_page_wp-smush-network' != $current_page && 'media_page_wp-smush-bulk' != $current_page && 'gallery_page_wp-smush-nextgen-bulk' != $current_page && 'media_page_wp-smush-all' != $current_page) ) {
-
-						//Don't add thhe WPMUD class to body to other admin pages
-						remove_filter(
-							'admin_body_class',
-							array( 'WDEV_Plugin_Ui', 'admin_body_class' )
-						);
-
-					}
 				}
 			}
 		}

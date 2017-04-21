@@ -10,6 +10,12 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
+
+//Check if someone want to keep the stats and settings
+if( defined('WP_SMUSH_PRESERVE_STATS') &&  WP_SMUSH_PRESERVE_STATS ) {
+	return;
+}
+
 global $wpdb;
 
 $smushit_keys = array(

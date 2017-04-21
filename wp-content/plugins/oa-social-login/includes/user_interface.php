@@ -131,7 +131,7 @@ function oa_social_login_render_link_form ($source, $user)
 							$result = oa_social_login_do_api_request ($api_connection_handler, $api_resource_url, array ('api_key' => $api_key, 'api_secret' => $api_secret));
 
 							//Parse result
-							if (is_object ($result) AND property_exists ($result, 'http_code') AND property_exists ($result, 'http_data') AND $result->http_code == 200)
+							if (is_object ($result) AND property_exists ($result, 'http_code') AND property_exists ($result, 'http_data'))
 							{
 								//Decode
 								$json_decoded = json_decode ($result->http_data);
@@ -142,171 +142,162 @@ function oa_social_login_render_link_form ($source, $user)
 									//Extract data
 									$data = $json_decoded->response->result->data;
 
+
 									//Check for plugin status
-									if (is_object ($data) AND property_exists ($data, 'plugin') AND $data->plugin->key == 'social_link' AND $data->plugin->data->status == 'success')
+									if (is_object ($data) AND property_exists ($data, 'plugin') AND $data->plugin->key == 'social_link')
 									{
-										//Get the id of the linked user - Can be empty
-										$userid_by_token = oa_social_login_get_userid_by_token ($data->user->user_token);
+									    if ($data->plugin->data->status == 'success')
+									    {
+    										//Get the id of the linked user - Can be empty
+    										$userid_by_token = oa_social_login_get_userid_by_token ($data->user->user_token);
 
-										//Link identity
-										if ($data->plugin->data->action == 'link_identity')
-										{
-											//Hook for other plugins
-											do_action ('oa_social_login_action_before_user_link', $user->data, $data->user->identity, $userid_by_token);
-											
-											// The user already has a user_token
-											if (is_numeric ($userid_by_token))
-											{
-												//Already connected to this user
-												if ($userid_by_token == $userid)
-												{
-													$success_message = sprintf (__ ('You have successfully linked your %s account.', 'oa_social_login'), $data->user->identity->source->name);
+    										//Link identity
+    										if ($data->plugin->data->action == 'link_identity')
+    										{
+    											//Hook for other plugins
+    											do_action ('oa_social_login_action_before_user_link', $user->data, $data->user->identity, $userid_by_token);
 
-													//Read provider list
-													$meta_identity_providers = trim (strval (get_user_meta ($userid, 'oa_social_login_identity_provider', true)));
-													$meta_identity_providers = explode ("|", $meta_identity_providers);
+    											// The user already has a user_token
+    											if (is_numeric ($userid_by_token))
+    											{
+    												//Already connected to this user
+    												if ($userid_by_token == $userid)
+    												{
+    													$success_message = sprintf (__ ('You have successfully linked your %s account.', 'oa_social_login'), $data->user->identity->source->name);
 
-													//Update new provider list
-													$identity_providers = array (
-														trim ($data->user->identity->source->name)
-													);
-													foreach ($meta_identity_providers AS $meta_identity_provider)
-													{
-														if (strlen (trim ($meta_identity_provider)) > 0)
-														{
-															$identity_providers [] = trim ($meta_identity_provider);
-														}
-													}
+    													// Linked Social Network
+    													$linked_social_networks = array ();
+    													if (isset ($data->user->identities) && is_array ($data->user->identities))
+    													{
+    													    foreach ($data->user->identities AS $identity)
+    													    {
+    													        $linked_social_networks[] = $identity->provider;
+    													    }
+    													    $linked_social_networks = array_unique ($linked_social_networks);
+    													}
 
-													//First Provider
-													if (count ($identity_providers) == 1)
-													{
-														update_user_meta ($userid, 'oa_social_login_identity_provider', array_shift ($identity_providers));
-													}
-													//Multiple Providers
-													else
-													{
-														update_user_meta ($userid, 'oa_social_login_identity_provider', implode ("|", $identity_providers));
-													}
-												}
-												//Connected to a different user
-												else
-												{
-													$error_message = sprintf (__ ('This %s account is already used by another user of this website.', 'oa_social_login'), $data->user->identity->source->name);
-												}
-											}
-											// The user does not have a user_token yet
-											else
-											{
-												$success_message = sprintf (__ ('You have successfully linked your %s account.', 'oa_social_login'), $data->user->identity->source->name);
-												
-												//Clean Cache
-												wp_cache_delete ($userid, 'users');
+    													// Update
+    													update_user_meta ($userid, 'oa_social_login_identity_provider', implode ("|", $linked_social_networks));
+    												}
+    												//Connected to a different user
+    												else
+    												{
+    													$error_message = sprintf (__ ('This %s account is already used by another user of this website.', 'oa_social_login'), $data->user->identity->source->name);
+    												}
+    											}
+    											// The user does not have a user_token yet
+    											else
+    											{
+    												$success_message = sprintf (__ ('You have successfully linked your %s account.', 'oa_social_login'), $data->user->identity->source->name);
 
-												//User Meta Data
-												update_user_meta ($userid, 'oa_social_login_user_token', $data->user->user_token);
-												update_user_meta ($userid, 'oa_social_login_identity_provider', $data->user->identity->source->name);
+    												//Clean Cache
+    												wp_cache_delete ($userid, 'users');
 
-												//Thumbnail
-												if (!empty ($data->user->identity->thumbnailUrl))
-												{
-													update_user_meta ($userid, 'oa_social_login_user_thumbnail', $data->user->identity->thumbnailUrl);
-												}
-											}
-											
-											//Hook for other plugins
-											do_action ('oa_social_login_action_after_user_link', $user->data, $data->user->identity, $userid_by_token);
-										}
-										//UnLink identity
-										elseif ($data->plugin->data->action == 'unlink_identity')
-										{
-											//Hook for other plugins
-											do_action ('oa_social_login_action_before_user_unlink', $user->data, $data->user->identity, $userid_by_token);
-											
-											// The user already has a user_token
-											if (is_numeric ($userid_by_token))
-											{
-												//Was connected to this user
-												if ($userid_by_token == $userid)
-												{
-													$success_message = sprintf (__ ('You have successfully unlinked your %s account.', 'oa_social_login'), $data->user->identity->source->name);
+    												//User Meta Data
+    												update_user_meta ($userid, 'oa_social_login_user_token', $data->user->user_token);
 
-													//Read provider list
-													$meta_identity_providers = trim (strval (get_user_meta ($userid, 'oa_social_login_identity_provider', true)));
-													$meta_identity_providers = explode ("|", $meta_identity_providers);
 
-													//Update new provider list
-													$identity_providers = array ();
-													$discard_existing_identity_provider = true;
-													foreach ($meta_identity_providers AS $meta_identity_provider)
-													{
-														if (strlen (trim ($meta_identity_provider)) > 0)
-														{
-															$meta_identity_provider = trim ($meta_identity_provider);
+    												// Linked Social Network
+    												$linked_social_networks = array ();
+    												if (isset ($data->user->identities) && is_array ($data->user->identities))
+    												{
+    												    foreach ($data->user->identities AS $identity)
+    												    {
+    												        $linked_social_networks[] = $identity->provider;
+    												    }
+    												    $linked_social_networks = array_unique ($linked_social_networks);
+    												}
 
-															//Different from the one that has been unlinked
-															if ($meta_identity_provider <> $data->user->identity->source->name)
-															{
-																$identity_providers [] = $meta_identity_provider;
-															}
-															//The same as the one that has been unlinked
-															else
-															{
-																//Only discard the first
-																if ($discard_existing_identity_provider)
-																{
-																	$discard_existing_identity_provider = false;
-																}
-																//Keep the others
-																else
-																{
-																	$identity_providers [] = $meta_identity_provider;
-																}
-															}
-														}
-													}
+    												// Update
+    												update_user_meta ($userid, 'oa_social_login_identity_provider', implode ("|", $linked_social_networks));
+    											}
 
-													//One provider linked
-													if (count ($identity_providers) == 1)
-													{
-														update_user_meta ($userid, 'oa_social_login_identity_provider', array_shift ($identity_providers));
-													}
-													//Zero, two or more
-													else
-													{
-														//No providers linked
-														if (count ($identity_providers) == 0)
-														{
-															$error_message = __ ("You might no longer be able to login to this website if you don't link at least one social network.", 'oa_social_login');
-															update_user_meta ($userid, 'oa_social_login_identity_provider', '');
-														}
-														else
-														{
-															update_user_meta ($userid, 'oa_social_login_identity_provider', implode ("|", $identity_providers));
-														}
-													}
-												}
-												//Connected to a different user
-												else
-												{
-													$error_message = sprintf (__ ('This %s account is already used by another user of this website.', 'oa_social_login'), $data->user->identity->source->name);
-												}
-											}
-											// The user does not have a user_token yet
-											else
-											{
-												//Nothing to do
-											}
-											
-											//Hook for other plugins
-											do_action ('oa_social_login_action_after_user_unlink', $user->data, $data->user->identity, $userid_by_token);
-										}
+    											// Thumbnail
+    											if (!empty ($data->user->identity->thumbnailUrl))
+    											{
+    											    update_user_meta ($userid, 'oa_social_login_user_thumbnail', $data->user->identity->thumbnailUrl);
+    											}
+
+    											// Picture
+    											if (!empty ($data->user->identity->pictureUrl))
+    											{
+    											    update_user_meta ($userid, 'oa_social_login_user_picture', $data->user->identity->pictureUrl);
+    											}
+
+    											//Hook for other plugins
+    											do_action ('oa_social_login_action_after_user_link', $user->data, $data->user->identity, $userid_by_token);
+    										}
+    										//UnLink identity
+    										elseif ($data->plugin->data->action == 'unlink_identity')
+    										{
+    											//Hook for other plugins
+    											do_action ('oa_social_login_action_before_user_unlink', $user->data, $data->user->identity, $userid_by_token);
+
+    											//The user already has a user_token
+    											if (is_numeric ($userid_by_token))
+    											{
+    												//Was connected to this user
+    												if ($userid_by_token == $userid)
+    												{
+    													$success_message = __ ('You have successfully unlinked your social network account.', 'oa_social_login');
+
+    													//Remove avatar
+    													delete_user_meta ($userid, 'oa_social_login_user_thumbnail');
+    													delete_user_meta ($userid, 'oa_social_login_user_picture');
+
+    													// Linked Social Network
+    													$linked_social_networks = array ();
+
+    													if (isset ($data->user->identities) && is_array ($data->user->identities))
+    													{
+    													    foreach ($data->user->identities AS $identity)
+    													    {
+    													        $linked_social_networks[] = $identity->provider;
+    													    }
+    													    $linked_social_networks = array_unique ($linked_social_networks);
+    													}
+
+    													//No providers linked
+    													if (count ($linked_social_networks) == 0)
+    													{
+    														$error_message = __ ("You might no longer be able to login to this website if you don't link at least one social network.", 'oa_social_login');
+    														delete_user_meta ($userid, 'oa_social_login_identity_provider');
+    													}
+    													else
+    													{
+    														update_user_meta ($userid, 'oa_social_login_identity_provider', implode ("|", $linked_social_networks));
+    													}
+    												}
+    												//Connected to a different user
+    												else
+    												{
+    													$error_message = sprintf (__ ('This %s account is already used by another user of this website.', 'oa_social_login'), $data->user->identity->source->name);
+    												}
+    											}
+
+    											//Hook for other plugins
+    											do_action ('oa_social_login_action_after_user_unlink', $user->data, $data->user->identity, $userid_by_token);
+    										}
+    									}
+    									else
+    									{
+    									    if ($data->plugin->data->status == 'error' && $data->plugin->data->reason = 'identity_is_linked_to_another_user')
+    									    {
+    									        $error_message = __ ('This social network account is already used by another user.', 'oa_social_login');
+    									    }
+    									}
 									}
 								}
 							}
 						}
 
-						//Custom CSS
+						//Button Theme
+						$theme_id = (array_key_exists ('plugin_icon_theme', $settings) ? $settings['plugin_icon_theme'] : null);
+
+						// Grab theme URI
+						$css_theme_uri = oa_social_login_get_theme_css_url ($theme_id);
+
+						// Apply filters
 						$css_theme_uri = apply_filters ('oa_social_login_link_css', $css_theme_uri);
 
 						//OneAll user_token
@@ -319,7 +310,7 @@ function oa_social_login_render_link_form ($source, $user)
 						$callback_uri = oa_social_login_get_current_url ();
 						$callback_uri .= (strlen (parse_url ($callback_uri, PHP_URL_QUERY)) == 0 ? '?' : '&') . 'oa_social_login_source=' . $source . '#oa_social_link';
 						$callback_uri = wp_nonce_url($callback_uri, 'update-user_' . $userid);
-						
+
 						//Setup Social Container
 						$containerid = 'oneall_social_login_providers_' . mt_rand (99999, 9999999);
 
@@ -327,7 +318,7 @@ function oa_social_login_render_link_form ($source, $user)
 						$social_link = array ();
 						$social_link [] = '<div class="oneall_social_link">';
 						$social_link [] = ' <div class="oneall_social_login_providers" id="' . $containerid . '"></div>';
-						$social_link [] = ' <script type="text/javascript">';
+						$social_link [] = ' <script data-cfasync="false" type="text/javascript">';
 
 						//Synchronous JavaScript: This is the default to stay compatible with existing installations.
 						if (empty ($settings ['asynchronous_javascript']))
@@ -597,14 +588,14 @@ function oa_social_login_custom_avatar ($avatar, $mixed, $size, $default, $alt =
 		{
 			//Override current avatar ?
 			$override_avatar = true;
-			
+
 			//BuddyPress (Thumbnails in the default WordPress toolbar)
 			if (oa_social_login_has_bp_user_uploaded_avatar ($user_id) === true)
 			{
 				// Keep avatar is user has uploaded one
 				$override_avatar = false;
-			}		
-			
+			}
+
 			//Override if no avatar, from Buddypress:
 			if ($override_avatar)
 			{
@@ -774,7 +765,7 @@ function oa_social_login_render_login_form_wp_login ()
 
 			//Add our query argument
 			$args ['callback_uri'] = add_query_arg (array ('oa_social_login_source' => 'login'), $args ['callback_uri']);
-			
+
 			//Add redirect_to
 			if ( ! empty ($_REQUEST['redirect_to']))
 			{
@@ -809,31 +800,31 @@ function oa_social_login_render_login_form_wp_registration ()
 		{
 			// Bugfix for Social Login being displayed twice on the WooCommerce Registration Form
 			if ( ! did_action ('woocommerce_register_form'))
-			{			
+			{
 				//Additional arguments for the icon builder
 				$args = array ();
-	
+
 				//Only on the registration page
 				if (strpos (oa_social_login_get_current_url (), 'wp-login.php') !== false)
 				{
 					//This is the default WordPress registration url
 					$args ['callback_uri'] = site_url ('wp-login.php?action=register', 'login_post');
-	
+
 					//Add our query argument
 					$args ['callback_uri'] = add_query_arg (array ('oa_social_login_source' => 'registration'), $args ['callback_uri']);
-	
+
 					//Add redirect_to
 					if ( ! empty ($_REQUEST['redirect_to']))
 					{
 						$args ['callback_uri'] = add_query_arg (array ('redirect_to' => urlencode ($_REQUEST['redirect_to'])), $args ['callback_uri']);
 					}
-					
+
 					//Hook to customize the callback uri
 					$args ['callback_uri'] = apply_filters ('oa_social_login_filter_wp_registration_callback_uri', $args ['callback_uri']);
 				}
-	
+
 				echo oa_social_login_render_login_form ('registration', $args);
-			}			
+			}
 		}
 	}
 }
@@ -901,13 +892,6 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			}
 		}
 
-		//Themes are served from the CDN
-		$theme_uri_prefix = (oa_social_login_https_on () ? 'https://secure.oneallcdn.com' : 'http://public.oneallcdn.com');
-
-		//Themes
-		$css_theme_uri_small = $theme_uri_prefix . '/css/api/socialize/themes/wordpress/small.css';
-		$css_theme_uri_default = $theme_uri_prefix . '/css/api/socialize/themes/wordpress/default.css';
-
 		//Widget
 		if ($source == 'widget')
 		{
@@ -917,10 +901,13 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			//Don't show the title - this is handled insided the widget
 			$plugin_caption = '';
 
-			//Buttons size
-			$css_theme_uri = ((array_key_exists ('widget_use_small_buttons', $widget_settings) AND !empty ($widget_settings ['widget_use_small_buttons'])) ? $css_theme_uri_small : $css_theme_uri_default);
+			//Button Theme
+			$theme_id = (array_key_exists ('widget_icon_theme', $widget_settings) ? $widget_settings['widget_icon_theme'] : null);
 
-			//Custom CSS
+			// Grab theme URI
+		    $css_theme_uri = oa_social_login_get_theme_css_url ($theme_id);
+
+		    // Apply filters
 			$css_theme_uri = apply_filters ('oa_social_login_widget_css', $css_theme_uri);
 		}
 		//Other places
@@ -929,10 +916,13 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			//Show title if set
 			$plugin_caption = (!empty ($settings ['plugin_caption']) ? $settings ['plugin_caption'] : '');
 
-			//Buttons size
-			$css_theme_uri = (!empty ($settings ['plugin_use_small_buttons']) ? $css_theme_uri_small : $css_theme_uri_default);
+			//Button Theme
+			$theme_id = (array_key_exists ('plugin_icon_theme', $settings) ? $settings['plugin_icon_theme'] : null);
 
-			//Custom CSS
+			// Grab theme URI
+			$css_theme_uri = oa_social_login_get_theme_css_url ($theme_id);
+
+			// Apply filters
 			$css_theme_uri = apply_filters ('oa_social_login_default_css', $css_theme_uri);
 		}
 
@@ -945,7 +935,7 @@ function oa_social_login_render_login_form ($source, $args = array ())
 		{
 			$callback_uri = "(window.location.href + ((window.location.href.split('?')[1] ? '&amp;': '?') + \"oa_social_login_source=" . $source . "\"))";
 		}
-		
+
 		// Filter for callback uri
 		$callback_uri = apply_filters ('oa_social_login_filter_callback_uri', $callback_uri, $source);
 
@@ -972,7 +962,7 @@ function oa_social_login_render_login_form ($source, $args = array ())
 			//Add the Plugin
 			$containerid = 'oneall_social_login_providers_' . mt_rand (99999, 9999999);
 			$output [] = ' <div class="oneall_social_login_providers" id="' . $containerid . '"></div>';
-			$output [] = ' <script type="text/javascript">';
+			$output [] = ' <script data-cfasync="false" type="text/javascript">';
 
 			//Synchronous JavaScript: This is the default to stay compatible with existing installations.
 			if (empty ($settings ['asynchronous_javascript']))
@@ -1064,7 +1054,7 @@ function oa_social_login_request_email ()
 						}
 						elseif (email_exists ($user_email))
 						{
-	
+
 							$message = __ ('This email is already used by another account', 'oa_social_login');
 						}
 						else
@@ -1075,17 +1065,17 @@ function oa_social_login_request_email ()
 							{
 								//Store old email
 								$old_user_email = $user_data->user_email;
-	
+
 								//Update user
 								wp_update_user (array ('ID' => $user_data->ID, 'user_email' => $user_email));
 								delete_user_meta ($user_data->ID, 'oa_social_login_request_email');
-	
+
 								//Set new email for hook
 								$user_data->user_email = $user_email;
-	
+
 								//Hook after having updated the email
 								do_action ('oa_social_login_action_on_user_enter_email', $user_id, $user_data, $old_user_email);
-	
+
 								//No longer needed
 								$display_modal = false;
 							}
@@ -1093,7 +1083,7 @@ function oa_social_login_request_email ()
 					}
 				}
 			}
-			
+
 			//Display modal dialog?
 			if ($display_modal === true)
 			{
@@ -1108,11 +1098,11 @@ function oa_social_login_request_email ()
 
 				// Create Nonce
 				$oa_nonce = wp_create_nonce ('request_email_cancel-'.$user_id);
-				
+
 				// Compute logout url
 				$logout_url = wp_logout_url (oa_social_login_get_current_url ());
-				$logout_url .= ((parse_url ($logout_url, PHP_URL_QUERY) ? '&' : '?') . 'oa_action=request_email_cancel&oa_nonce='.$oa_nonce);			
-				
+				$logout_url .= ((parse_url ($logout_url, PHP_URL_QUERY) ? '&' : '?') . 'oa_action=request_email_cancel&oa_nonce='.$oa_nonce);
+
 				//Add CSS
 				oa_social_login_add_site_css ();
 
@@ -1182,26 +1172,26 @@ function oa_social_login_request_email_cancel ()
 		{
 			//Get the current user
 			$current_user = wp_get_current_user ();
-			
+
 			// Check Nonce
 			if (wp_verify_nonce ($_GET ['oa_nonce'], 'request_email_cancel-'.$current_user->ID))
-			{		
+			{
 				// Check if email was requested
 				$oa_social_login_request_email = get_user_meta ($current_user->ID, 'oa_social_login_request_email', true);
-						
-				// Yes, email was requested			
+
+				// Yes, email was requested
 				if (!empty ($oa_social_login_request_email))
 				{
 					// Make sure it was our placeholder email
 					if (preg_match ('/example\.com$/i', $current_user->user_email))
-					{					
+					{
 						wp_delete_user ($current_user->ID);
 					}
 					else
 					{
 						delete_user_meta ($current_user->ID, 'oa_social_login_request_email');
 					}
-				}				
+				}
 			}
 		}
 	}
