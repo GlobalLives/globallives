@@ -4,15 +4,7 @@
 
 <?php if( !is_paged() ) : ?>
 
-<?php global $query_string; query_posts( $query_string . '&posts_per_page=1&ignore_sticky_posts=1' ); // Get just the top post first ?>
-
-<div class="top-post row">
-<?php while (have_posts()) : the_post(); ?>
-	<div class="span6"><?php get_template_part('templates/content', get_post_type()); ?></div>
-<?php endwhile; ?>
-</div>
-
-<?php query_posts( $query_string . '&offset=1' ); // Then get the rest ?>
+<?php query_posts( $query_string . '&offset=0' ); // Then get the rest ?>
 <? endif; ?>
 
 <div class="page-container container">
