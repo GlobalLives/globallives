@@ -13,22 +13,22 @@ function glp_queue() {
 
 	if (WP_ENV=='DEV') {
 		// Stylesheets
-		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.css', false, filemtime(get_stylesheet_directory() . '/css/style.css'));
 		wp_enqueue_style('glp_bootstrap', get_template_directory_uri() . '/css/bootstrap.css', false, filemtime(get_stylesheet_directory() . '/css/style.css'));
+		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.css', false, filemtime(get_stylesheet_directory() . '/css/style.css'));
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
-		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.js'), true);
 		wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/bootstrap.js', 'jquery', filemtime(get_stylesheet_directory() . '/js/bootstrap.js'), true);
 		wp_register_script('glp_plugins', get_template_directory_uri() . '/js/plugins.js', 'jquery', filemtime(get_stylesheet_directory() . '/js/plugins.js'), true);
+		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.js'), true);
 	} else {
 		// Stylesheets
-		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.min.css', false, filemtime(get_stylesheet_directory() . '/css/style.min.css'));
 		wp_enqueue_style('glp_bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', false, filemtime(get_stylesheet_directory() . '/css/bootstrap.min.css'));
+		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.min.css', false, filemtime(get_stylesheet_directory() . '/css/style.min.css'));
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
-		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.min.js'), true);
 		wp_register_script('glp_bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', 'jquery', filemtime(get_stylesheet_directory() . '/js/bootstrap.min.js'), true);
 		wp_register_script('glp_plugins', get_template_directory_uri() . '/js/plugins.min.js', 'jquery', filemtime(get_stylesheet_directory() . '/js/plugins.min.js'), true);
+		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.min.js'), true);
 	}
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
