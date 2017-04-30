@@ -37,6 +37,8 @@ post_class($alt_text,$post->ID);
 $class = ob_get_contents();
 ob_end_clean();
 ?>
+<ul id="nav-local">
+  <?php while ( have_posts() ) : the_post(); ?>
 <li <?php echo $class ?>>
 	<div class="when">
 		<?php
@@ -59,4 +61,6 @@ if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
 		<a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a>
 	</div>
 </li>
+  <?php endwhile; wp_reset_query(); // posts ?>
+</ul>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>

@@ -14,7 +14,7 @@
 				<div class="participant-meta row">
 					<div class="span4 tinyDetails">
 
-						<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&zoom=6&size=600x400&markers=color:red|<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100" class="location" alt="Map with location at: <?php the_field($field_keys['participant_latitude'],$participant->ID); ?>, <?php the_field($field_keys['participant_longitude'],$participant->ID); ?>" />
+						<img src="" class="location" id="location_<?php echo $participant->ID; ?>" alt="<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>, <?php the_field($field_keys['participant_longitude'],$participant->ID); ?>" />
 
 						<div class="row">
 							<div class="span2">
@@ -40,8 +40,8 @@
 						</div><!-- .row -->
 					</div><!-- .tinyDetails -->
 
-					<div class="span8">
-					<?php
+					<div class="span8" id="video_<?php echo $participant->ID; ?>">
+					<?php //loaded by ajax
 						if ( $summary_video = get_field($field_keys['participant_summary_video'],$participant->ID) ) {
 							query_posts(array( 'post_type' => 'clip', 'p' => $summary_video[0]->ID ));
 							get_template_part('templates/clip','summary');

@@ -17,12 +17,14 @@ global $query_string;
 <?php
 	
 	# First get upcoming
-	query_posts($query_string . '&eventDisplay=upcoming');
+	query_posts($query_string . '&eventDisplay=past');
 	if (have_posts()) :
 		$hasPosts = true; $first = true;
 ?>
 
-	<h3><?php _e('Upcoming Events','glp'); ?></h3>
+	<header>
+		<h2 class="page-title"><?php _e('Past Events','glp'); ?></h2>
+	</header>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
 		<?php get_template_part('templates/content','event'); ?>		
@@ -33,12 +35,14 @@ global $query_string;
 	else :
 
 	# Then get past
-	query_posts($query_string . '&eventDisplay=past');
+	query_posts($query_string . '&eventDisplay=upcoming');
 	if (have_posts()) :
 
 ?>
 
-	<h3><?php _e('Past Events','glp'); ?></h3>
+	<header>
+		<h2 class="page-title"><?php _e('Upcoming Events','glp'); ?></h2>
+	</header>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
 		<?php get_template_part('templates/content','event'); ?>
