@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
+## 1.1.2
+### Status
+### Changed
+- Modified the page resources/educators/
+- Added google tracking script so google experiment works
+- Made events and Blogs pages have a consistent look
+- Updated plugins
+- Re=minimized App.js
+
 ## 1.1.1
 ### Status
 *Working!* github commit 05c93e0fb99c46118f762c960f43d8fbdbc805a4
