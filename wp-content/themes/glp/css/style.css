@@ -813,6 +813,10 @@ a:focus {
     border-bottom: 1px solid #444
 }
 
+#nav-explore ul {
+    margin: 0;
+}
+
 #nav-explore li {
     float: left;
     width: auto;
@@ -9890,7 +9894,7 @@ img {
     .navbar-static-top .container,
     .navbar-fixed-top .container,
     .navbar-fixed-bottom .container {
-        width: 940px
+        width: 955px
     }
     
     .span12 {
