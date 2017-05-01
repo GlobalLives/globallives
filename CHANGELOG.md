@@ -8,10 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 _**Dev not working**_ github commit 82b0a4f80d23951ad8a841c61f0101f9484c8364
 ### Changed
 - Modified the page resources/educators/
-- Added google tracking script so google experiment works
+- Added google tracking script so google experiment works (themes/glp/templates/footer.php)
 - Made events and Blogs pages have a consistent look
 - Updated plugins
-- Re=minimized App.js
+- Re-minimized App.js
 
 ## 1.1.1
 ### Status
