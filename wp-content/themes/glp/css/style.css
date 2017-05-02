@@ -3384,6 +3384,9 @@ figure.alignnone {
     min-height: 156px;
     width: 235px;
     background: #555;
+    border-radius: 0 none;
+    border: 0 none;
+    padding: 0;
 }
 
 .content-pane {
