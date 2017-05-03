@@ -813,6 +813,10 @@ a:focus {
     border-bottom: 1px solid #444
 }
 
+#nav-explore ul {
+    margin: 0;
+}
+
 #nav-explore li {
     float: left;
     width: auto;
@@ -3380,6 +3384,9 @@ figure.alignnone {
     min-height: 156px;
     width: 235px;
     background: #555;
+    border-radius: 0 none;
+    border: 0 none;
+    padding: 0;
 }
 
 .content-pane {
@@ -9890,7 +9897,7 @@ img {
     .navbar-static-top .container,
     .navbar-fixed-top .container,
     .navbar-fixed-bottom .container {
-        width: 940px
+        width: 955px
     }
     
     .span12 {

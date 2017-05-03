@@ -5,16 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.1.2
 ### Status
+_**Dev not working**_ github commit 82b0a4f80d23951ad8a841c61f0101f9484c8364
 ### Changed
 - Modified the page resources/educators/
-- Added google tracking script so google experiment works
+- Added google tracking script so google experiment works (themes/glp/templates/footer.php)
 - Made events and Blogs pages have a consistent look
 - Updated plugins
-- Re=minimized App.js
+- Re-minimized App.js
 
 ## 1.1.1
 ### Status
-*Working!* github commit 05c93e0fb99c46118f762c960f43d8fbdbc805a4
+_Working!_ github commit 05c93e0fb99c46118f762c960f43d8fbdbc805a4
 ### Changed
 - Increased responsiveness
 - Front Page Font Face
@@ -26,14 +27,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.1.0
 ### Status
-*Working!* wpengine commit 1492450809, github commit 6143d098068399b17598113e2062ac1e138065aa
+_Working!_ wpengine commit 1492450809, github commit 6143d098068399b17598113e2062ac1e138065aa
 ### Changed
 - Streamlined content with Yoast SEO in mind
 - Removed Explore Map option on Extra Small devices
 
 ## 1.0.2 - Week of 170405-170414
 ### Status
-*Working!* commit 97983e159de7231d421b2d4ddb4058e0af56bfa2
+_Working!_ commit 97983e159de7231d421b2d4ddb4058e0af56bfa2
 ### Changed
 - Updated WP Smush
 - Removed Emoji
@@ -41,7 +42,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.0.1 - 2017-03-28
 ### Status
-*Working!* commit a5b62cde1664f4aa2afbdc72e0879bfeb057126a
+_Working!_ commit a5b62cde1664f4aa2afbdc72e0879bfeb057126a
 ### Changed
 - Trailing Space and double quotes in DB - backup 1490759746
 - Programmatically fixed the trailing spaces
@@ -55,6 +56,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.0.0 - 2017-03-23
 ### Status
-*Working!* commit a1056eed83b8630b01b2d3e095f281406d233a69
+_Working!_ commit a1056eed83b8630b01b2d3e095f281406d233a69
 ### Changed
 - Start versioning based on the current English version and the previous development
