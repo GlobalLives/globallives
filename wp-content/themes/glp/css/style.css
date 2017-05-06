@@ -8815,6 +8815,14 @@ img {
 .visible-print {
     display: none!important
 }
+.page-board .entry-summary h3,
+.page-board .entry-summary h4 { /* board page */
+    clear: both;
+    margin-top: 18px;
+}
+#participant-155 h3, #participant-314 h3 { /* grid view tweak */
+    font-size: 20.25px;
+}
 @media print {
     * {
         text-shadow: none!important;
