@@ -6,9 +6,11 @@ if (!defined('ABSPATH')) exit;
 class kpg_ss_log_good extends be_module { 
 	public function process($ip,&$stats=array(),&$options=array(),&$post=array()) {
 		// are we getting stats?
+		$chk="error";
 	    extract($stats);
 		extract($post);
-		
+		// reason and chk are from the post array
+		if (array_key_exists('cnt'.$chk,$stats)) $stats['cnt'.$chk]++; else $stats['cnt'.$chk]=1;
 		$sname=$this->getSname();
 	    $now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
 		// updates counters. Adds to log list. Adds to good cache. Then updates stats when done
@@ -45,7 +47,7 @@ class kpg_ss_log_good extends be_module {
 		if (array_key_exists('addon',$post)) {
 			kpg_ss_set_stats($stats,$post['addon']); // from a plugin
 		} else {
-			// have to figure out why we are here - it is because registration did this - try to fix.
+			kpg_ss_set_stats($stats);
 		}
 	}
 

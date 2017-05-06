@@ -3,7 +3,7 @@
 Plugin Name: Stop Spammers Spam Control
 Plugin URI: http://wordpress.org/plugins/stop-spammer-registrations-plugin/
 Description: The Stop Spammers Plugin blocks spammers from leaving comments or logging in. Protects sites from robot registrations and malicious attacks.
-Version: 6.15
+Version: 7.00
 Author: Keith P. Graham
 
 This software is distributed in the hope that it will be useful,
@@ -12,7 +12,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 // networking requires a couple of globals
 
-define('KPG_SS_VERSION', '6.15');
+define('KPG_SS_VERSION', '7.00.1');
 define( 'KPG_SS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'KPG_SS_PLUGIN_FILE', plugin_dir_path( __FILE__ ) );
 define( 'KPG_SS_PLUGIN_DATA', plugin_dir_path( __FILE__ ).'data/' );
@@ -64,6 +64,8 @@ function kpg_ss_init() {
 	add_filter( 'pre_user_login', 'kpg_ss_user_reg_filter', 1, 1 );
 	// incompatible with a jetpack submit
 	if ($_POST!=null&&array_key_exists('jetpack_protect_num',$_POST)) return;
+	
+	add_action('wp_login', 'kpg_ss_notify_admin', 10, 2);
 	// emember trying to log in - disable plugin for emember logins.
 	if (function_exists('wp_emember_is_member_logged_in')) { 
 		// only emember function I could find after 30 econds of googling.
@@ -119,7 +121,7 @@ function kpg_ss_init() {
 	if (function_exists('wp_emember_is_member_logged_in')) { 
 		if (wp_emember_is_member_logged_in()) return;
 	}
-    // can we check for $_GET registrations?
+	// can we check for $_GET registrations?
 	if (isset($_POST) && !empty($_POST)) {
 		// see if we are returning from a deny
 		if (array_key_exists('kpg_deny',$_POST)&&array_key_exists('kn',$_POST )) {
@@ -141,6 +143,11 @@ function kpg_ss_init() {
 		// need to check that we are not Allow Listed.
 		// don' check if ip is google, etc
 		// check to see if we are doing a post with values
+		// better way to check for jetpack
+		if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'protect' ) ) {
+			return;
+		}
+
 		$post=get_post_variables();
 		if (!empty($post['email']) || !empty($post['author'])|| !empty($post['comment'])) { // must be a login or a comment which require minimum stuff 
 			//remove_filter( 'pre_user_login', kpg_ss_user_reg_filter, 1);
@@ -455,7 +462,7 @@ function get_post_variables() {
 		}
 		if (empty($ansa[$var]) && $var=='email' ) {  // empty email
 			// did not get a hit so we need to try again and look for something that looks like an email
- 			foreach($p as $pkey=>$pval) {
+			foreach($p as $pkey=>$pval) {
 				if (stripos($pkey,'input_')) {
 					// might have an email
 					if (is_array($pval)) $pval=print_r($pval,true);
@@ -470,7 +477,7 @@ function get_post_variables() {
 	}
 	
 	
-/*	
+	/*	
 	
 	foreach ($search as $var=>$sa) {
 		foreach ($sa as $srch) {
@@ -540,7 +547,7 @@ function kpg_new_user_ip($user_id) {
 	$x=$_SERVER['REQUEST_URI'];
 	$ip=kpg_get_ip();
 	//sfs_debug_msg("Checking reg filter login $x (kpg_user_ip)=".$ip.", method=".$_SERVER['REQUEST_METHOD'].", request=".print_r($_REQUEST,true));
-    // check to see if the user is OK
+	// check to see if the user is OK
 	// add the users ip to new users
 	update_user_meta($user_id, 'signup_ip', $ip);
 }
@@ -609,7 +616,7 @@ function kpg_ss_user_reg_filter($user_login) {
 		$ansa= be_load('kpg_ss_log_good',kpg_get_ip(),$stats,$options,$post);
 		sfs_errorsonoff('off');
 		return $user_login;
-    }
+	}
 	// check the black list
 	//sfs_debug_msg("Checking black list on registration: /r/n".print_r($post,true));
 	$ret=be_load('kpg_ss_check_post',kpg_get_ip(),$stats,$options,$post);
@@ -618,7 +625,10 @@ function kpg_ss_user_reg_filter($user_login) {
 	
 	return $user_login;
 }
-
+function kpg_ss_notify_admin($user_login, $user) {
+	require_once('includes/kpg_ss_notify_admin.php');
+	return kpg_ss_notify_admin_action($user_login, $user);
+}
 
 require_once('includes/stop-spam-utils.php');
 

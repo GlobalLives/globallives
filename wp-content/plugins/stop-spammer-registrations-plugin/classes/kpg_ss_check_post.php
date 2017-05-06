@@ -41,6 +41,7 @@ class kpg_ss_check_post extends be_module{
 		'chkdisp',
 		'chkexploits',
 		'chklong',
+		'chkshort',
 		'chkreferer',
 		'chksession',
 		'chkspamwords',

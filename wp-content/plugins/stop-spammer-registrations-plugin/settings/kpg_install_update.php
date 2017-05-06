@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit; // just in case
 // just give it the slug and it will install from the blogseye website.
 if (!function_exists('kpg_install_update')) { // could co-exist with the stop spammer version
 
-	function kpg_install_update($plugin_slug,$site='http://www.blogseye.com/') {
+	function kpg_install_update($plugin_slug,$site='https://www.blogseye.com/') {
 			// this function allows you to install from anywhere. - dangerous?
 			// Make sure that you've checked for nonces and clean the text coming in to avoid installing bad stuff.
 			if(!current_user_can('manage_options')) {

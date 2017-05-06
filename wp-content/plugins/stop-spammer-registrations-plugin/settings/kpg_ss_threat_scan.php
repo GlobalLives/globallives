@@ -5,6 +5,8 @@ if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
 
+kpg_fix_post_vars();
+
 global $wpdb;
 global $wp_query;
 $pre=$wpdb->prefix;
@@ -83,7 +85,7 @@ INSTR(LCASE(post_content), 'document.write(unescape(') +
 INSTR(LCASE(post_content), 'try{window.onload') +
 INSTR(LCASE(post_content), 'setAttribute(\'src\'') +
 INSTR(LCASE(post_mime_type), 'script') +
-INSTR(LCASE(document.write(string.fromcharcode), 'script') >0
+INSTR(LCASE(document.write(string.fromcharcode), 'script')) >0
 
 
 ";

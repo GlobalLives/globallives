@@ -147,13 +147,13 @@ class kpg_ss_challenge extends be_module{
 							'body' => $body,
 							'cookies' => array()
 						);
-						$url='http://verify.solvemedia.com/papi/verify/';
+						$url='//verify.solvemedia.com/papi/verify/';
 						$resultarray= wp_remote_post( $url, $args );
 						$result=$resultarray['body'];
 						
 						
 						//$result = 
-						//file_get_contents('http://verify.solvemedia.com/papi/verify/', 
+						//file_get_contents('//verify.solvemedia.com/papi/verify/', 
 						//false, $context);  
 
 						if (strpos($result,'true')!==false) {
@@ -380,12 +380,15 @@ Stop Spammers Plugin";
 			return true;
 		}
 	}
-	public function kpg_ss_add_allow($ip,$options=array(),$stats=array(),$post=array(),$post=array()) {
+	public function kpg_ss_add_allow($ip,$options=array(),$stats=array(),$post=array(),$post1=array()) {
 		// add to the wlrequest option
 		// time,ip,email,author,reasion,info,sname
 		$sname=$this->getSname();
 		$now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
-		$ke=sanitize_text_field($_POST['ke']); // email
+		$ke="";
+		if (array_key_exists('ke',$_POST)) {
+			$ke=sanitize_text_field($_POST['ke']); // email
+		}
 		//sfs_debug_msg("in add allow:'$ke'");
 		if (empty($ke)) return false;
 		if (!is_email($ke)) return false;

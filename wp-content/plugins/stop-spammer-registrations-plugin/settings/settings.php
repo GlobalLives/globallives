@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 
 function kpg_ss_admin_menu_l() {
+	
 	$icon2='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAAAAACo4kLRAAAA5UlEQVQY02P4DwS/251dwMC5/TeIzwASa4rcDAWRTb8hgkhiUFEGVDGIKAOaGFiUoR1NDCjazuC8uTusc2l6evrkNclJq9elZzRtdmZwWSPkxtNvxmlU76SqabWSw4Sz14XBZbb8qoIFm2WXreZfs15wttRmv2yg4CYVzpDNQMHpWps36zcLZEjXAwU3r8oRbgMKTlHZvFm7lcMoeBNQsNlks2sZUHAV97wlPAukgNYDBdeIKnAvBApuDucTCFgJEXTevKh89ubNEzZs3tzWvHlDP1DQGbvjsXoTa4BgDzrsgYwZHQBqzOv51ZaiYwAAAABJRU5ErkJggg==';
     $iconpng=KPG_SS_PLUGIN_URL.'images/sticon.png';
 
@@ -19,6 +20,9 @@ function kpg_ss_admin_menu_l() {
 	$iconpng, //$icon_url,
 	78.92   //$position 
 	);	
+	if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'protect' ) ) {
+        return;
+    }
 	
 	add_submenu_page(
 	'stop_spammers', // plugins parent
@@ -105,6 +109,7 @@ function kpg_ss_admin_menu_l() {
 	'ss_challenge', //$menu_slug,
 	'kpg_ss_challenges' // function
 	);	
+	/*
 	add_submenu_page(
 	'stop_spammers', // plugins parent
 	"Threat Scan", //$page_title,
@@ -113,6 +118,8 @@ function kpg_ss_admin_menu_l() {
 	'ss_threat_scan', //$menu_slug,
 	'kpg_ss_threat_scan' // function
 	);	
+	*/
+	/*
 	add_submenu_page(
 	'stop_spammers', // plugins parent
 	"Other WordPress Options Maintenance", //$page_title,
@@ -121,7 +128,7 @@ function kpg_ss_admin_menu_l() {
 	'ss_option_maint', //$menu_slug,
 	'kpg_ss_option_maint' // function
 	);	
-	
+	*/
 	add_submenu_page(
 	'stop_spammers', // plugins parent
 	"Plugin Diagnostics", //$page_title,
@@ -129,7 +136,8 @@ function kpg_ss_admin_menu_l() {
 	'manage_options', //$capability,
 	'ss_diagnostics', //$menu_slug,
 	'kpg_ss_diagnostics' // function
-	);	
+	);
+	
 	add_submenu_page(
 	'stop_spammers', // plugins parent
 	"Add Ons", //$page_title,
@@ -137,7 +145,9 @@ function kpg_ss_admin_menu_l() {
 	'manage_options', //$capability,
 	'ss_addons', //$menu_slug,
 	'kpg_ss_addons' // function
-	);	
+	);
+	
+	/*
 	add_submenu_page(
 	'stop_spammers', // plugins parent
 	"Keep This Plugin Alive", //$page_title,
@@ -146,7 +156,7 @@ function kpg_ss_admin_menu_l() {
 	'ss_contribute', //$menu_slug,
 	'kpg_ss_contribute' // function
 	);	
-
+    */
 }
 function kpg_ss_summary() {
 	include_setting("kpg_ss_summary.php");
@@ -165,7 +175,6 @@ function kpg_ss_denylist_settings() {
 }
 function kpg_ss_options() {
 	include_setting("kpg_ss_options.php");
-	echo "Options settings";
 }
 function kpg_ss_access() {
 	include_setting("kpg_ss_access.php");
@@ -184,7 +193,6 @@ function kpg_ss_option_maint() {
 }
 function kpg_ss_change_admin() {
 	include_setting("kpg_ss_change_admin.php");
-	echo "Change Admin Login";
 }
 function kpg_ss_challenges() {
 	include_setting("kpg_ss_challenge.php");
@@ -213,8 +221,26 @@ function include_setting($file) {
 	} else {
 		echo "<br>Missing file:$ppath $file <br>";
 	}
-	sfs_errorsonoff('off');
-	
+	sfs_errorsonoff('off');	
+}
+function kpg_fix_post_vars() {
+		// sanitize post
+	$p=$_POST;
+	$keys=array_keys($_POST);
+	foreach ($keys as $var) {
+		try {
+			$val=$_POST[$var];
+			if (is_string($val)) {
+				if (strpos($val,"\n")!==false) {
+					$val2 = esc_textarea($val);
+				} else {
+					$val2 = sanitize_text_field($val);
+				}
+				$_POST[$var]=$val2;
+			}
+		} catch (Exception $e) {}
+	}
+
 }
 
 ?>

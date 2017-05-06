@@ -4,15 +4,12 @@ if (!defined('ABSPATH')) exit;
 
 class chklong { // change name
 	public function process($ip,&$stats=array(),&$options=array(),&$post=array()) {
-		$this->searchname='email length';
+		$this->searchname='email/author/password too long';
 		if (array_key_exists('email',$post)) {
 			$email=$post['email'];
 			if (!empty($email)) {
 				if (strlen($email)>64) {
 					return "email too long:$email";
-				}
-				if (strlen($email)<5) {
-					return "email too short:$email";
 				}
 			}
 		}
@@ -21,10 +18,6 @@ class chklong { // change name
 				$author=$post['author'];
 				if (strlen($post['author'])>64) {
 					return "author too long:$author";
-				}
-				// short author is OK?.
-				if (strlen($post['author'])<3) {
-					return "author too short:$author";
 				}
 			}
 		}

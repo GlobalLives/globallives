@@ -3,6 +3,7 @@
 // I am trying to keep the plugin foorprint down as low as possible
 
 // rename each function with an _l and then call after a load
+if (!defined('ABSPATH')) exit;
 
 function kpg_append_file($filename,&$content) {
 	// this writes content to a file in the uploads director in the 'stop-spammer-registrations' directory

@@ -10,6 +10,8 @@ if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
 
+kpg_fix_post_vars();
+
 
 $trash=KPG_SS_PLUGIN_URL.'images/trash.png';
 $tdown=KPG_SS_PLUGIN_URL.'images/tdown.png';
@@ -93,6 +95,11 @@ $nonce=wp_create_nonce('kpgstopspam_update');
 ?>
 <hr/>
 <h3>Recent Activity</h3>
+<script>
+//setTimeout(function(){
+ //  window.location.reload(1);
+//}, 10000);
+</script>
 <form method="post" action="">
 <input type="hidden" name="kpg_stop_spammers_control" value="<?php echo $nonce;?>" />
 <input type="hidden" name="kpg_stop_update_log_size" value="true" />
@@ -170,7 +177,7 @@ if (empty($hist)) {
 		$reason="passed";
 		$stopper="<a title=\"Check Stop Forum Spam (SFS)\" target=\"_stopspam\" href=\"http://www.stopforumspam.com/search.php?q=$ip\"><img src=\"$stophand\" width=\"16px\"/></a>";
 		$honeysearch="<a title=\"Check project HoneyPot\" target=\"_stopspam\" href=\"https://www.projecthoneypot.org/ip_$ip\"><img src=\"$search\" width=\"16px\"/></a>";
-		$botsearch="<a title=\"Check BotScount\" target=\"_stopspam\" href=\"http://botscout.com/search.htm?stype=q&sterm=$ip\"><img src=\"$search\" width=\"16px\"/></a>";
+		$botsearch="<a title=\"Check BotScout\" target=\"_stopspam\" href=\"http://botscout.com/search.htm?stype=q&sterm=$ip\"><img src=\"$search\" width=\"16px\"/></a>";
 		$who="<a title=\"whois nic lookup\" target=\"_stopspam\" href=\"http://lacnic.net/cgi-bin/lacnic/whois?lg=EN&query=$ip\"><img src=\"$whois\" width=\"16px\"/></a>";
 		echo "<tr style=\"background-color:white;\">
 				<td style=\"font-size:.9em;padding:2px;\">$dt</td>

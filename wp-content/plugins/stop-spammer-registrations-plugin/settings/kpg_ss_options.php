@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) exit; // just in case
 if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
+
+kpg_fix_post_vars();
+
 $now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
 $options=kpg_ss_get_options();
 extract($options);
@@ -27,6 +30,7 @@ if (!empty($nonce) && wp_verify_nonce($nonce,'kpgstopspam_update')) {
 	'chkreferer',
 	'chkdisp',
 	'chklong',
+	'chkshort',
 	'chkmulti',
 	'chksession',
 	'chk404',
@@ -34,7 +38,8 @@ if (!empty($nonce) && wp_verify_nonce($nonce,'kpgstopspam_update')) {
 	'chkadminlog',
 	'chkhosting',
 	'chkakismet',
-	'filterregistrations'
+	'filterregistrations',
+	'chkform'
 	);
 	foreach ($optionlist as $check) {
 		$v='N';
@@ -88,6 +93,20 @@ $nonce=wp_create_nonce('kpgstopspam_update');
   <form method="post" action="" name="kpg">
     <input type="hidden" name="action" value="update" />
     <input type="hidden" name="kpg_stop_spammers_control" value="<?php echo $nonce;?>" />
+
+	<!-- new option -->
+    <fieldset style="border:thin solid black;padding:6px;margin:6px;">
+    <legend><span style="font-weight:bold;font-size:1.2em" >Only use the plugin for standard Wordpress forms</span></legend>
+    <input name="chkform" type="checkbox" value="Y" <?php if ($chkform=='Y') echo  "checked=\"checked\"";?>/>
+    Stop Spammers normally kicks off whenever someone fills out a form and presses submit. This means it 
+	checks all the forms on a website, not just comments and logins. This option will limit the plugin to
+	wp-comments-post.php and wp-login.php. Woo Commerce and other plugins will not be checked. Use this option
+	if you are running an ecommerce site or a specialized site that has forms that are blocked by Stop Spammers.<br>
+	This is a new option and is off by default.
+    </fieldset>
+	<!-- End new option -->
+ 	
+	
     <fieldset style="border:thin solid black;padding:6px;width:100%;">
     <legend><span style="font-weight:bold;font-size:1.5em" >Prevent Lockouts</span></legend>
     <p>This plugin aggressively checks for spammers and is unforgiving to the point where even you may get locked out of your own blog when you log off and try to log back in. There are two options which help prevent this, but these options can make it easier for a spammer to hack your site.<br/>
@@ -131,9 +150,15 @@ $nonce=wp_create_nonce('kpgstopspam_update');
     </fieldset>
     <br>
     <fieldset style="border:thin solid black;padding:6px;margin:6px;">
-    <legend><span style="font-weight:bold;font-size:1.2em" >Check for long emails or author name</span></legend>
+    <legend><span style="font-weight:bold;font-size:1.2em" >Check for long emails, author name or password</span></legend>
     <input name="chklong" type="checkbox" value="Y" <?php if ($chklong=='Y') echo  "checked=\"checked\"";?>/>
     Spammers can't resist using very long names and emails. This rejects these if the are over 64 characters in length.
+    </fieldset>
+    <fieldset style="border:thin solid black;padding:6px;margin:6px;">
+    <legend><span style="font-weight:bold;font-size:1.2em" >Check for short emails or author name</span></legend>
+    <input name="chkshort" type="checkbox" value="Y" <?php if ($chkshort=='Y') echo  "checked=\"checked\"";?>/>
+    Spammers sometimes use blank User names or author names. If you are having trouble with a plugin or theme
+	not using the correct fields with rejects for short user names, then uncheck this box.
     </fieldset>
     <br>
     <fieldset style="border:thin solid black;padding:6px;margin:6px;">

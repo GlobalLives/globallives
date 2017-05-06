@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) exit; // just in case
 if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
+
+kpg_fix_post_vars();
+
 $now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
 $options=kpg_ss_get_options();
 extract($options);

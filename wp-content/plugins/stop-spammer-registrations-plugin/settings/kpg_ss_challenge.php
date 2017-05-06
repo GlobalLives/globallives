@@ -10,6 +10,8 @@ if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
 
+kpg_fix_post_vars();
+
 $now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
 $options=kpg_ss_get_options();
 extract($options);
@@ -185,7 +187,7 @@ $nonce=wp_create_nonce('kpgstopspam_update');
 		if (!empty($solvmediaapivchallenge)) {
 		?>
     <script type="text/javascript"
-        src="http://api.solvemedia.com/papi/challenge.script?k=<?php echo $solvmediaapivchallenge;?>">
+        src="//api.solvemedia.com/papi/challenge.script?k=<?php echo $solvmediaapivchallenge;?>">
          </script>
     If the captcha form looks good you need to enable the captcha on the Challenge &amp; Deny Options menu page. (see left).
     (Solvemedia has a plugin that can be used for registrations and logins that you could use as a revenue stream.)

@@ -9,6 +9,8 @@ if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
 
+kpg_fix_post_vars();
+
 $now=date('Y/m/d H:i:s',time() + ( get_option( 'gmt_offset' ) * 3600 ));
 
 // for session speed checks
@@ -78,6 +80,7 @@ if (!empty($nonce) && wp_verify_nonce($nonce,'kpgstopspam_update')) {
 		'chkwlem',
 		'chkwluserid',
 		'chkwlist',
+		'chkform',
 		'chkyahoomerchant'
 		);
 		$m1=memory_get_usage(true);
@@ -111,6 +114,7 @@ if (!empty($nonce) && wp_verify_nonce($nonce,'kpgstopspam_update')) {
 		'chkhosting',
 		'chkinvalidip',
 		'chklong',
+		'chkshort',
 		'chkreferer',
 		'chksession',
 		'chksfs',

@@ -2,9 +2,6 @@
 
 if (!defined('ABSPATH')) exit;
 
-
-if (!defined('ABSPATH')) exit;
-
 class be_module { 
 	// useful functions for be classes
 	// attemping to make this standalone
@@ -25,17 +22,13 @@ class be_module {
 			} 
 			// four kinds of search, looking for an ip, cidr, wildcard or an email
 			if (substr_count($needle,'.')==3 && strpos($search,'.')!==false && strpos($search,'/')!==false ) {
-				// searching for an cidr in the list
-				list($ip,$bits)=explode('/',$search);
-				$n=ip2long($needle);
-				if ($n===false) continue;
-				$s=ip2long($ip);
-				if ($s===false) continue;
-				$num = pow(2, 32 - $bits)-1;
-				$s=$s |$num;
-				$n=$n |$num;
-				if ($s==$n) return "$searchname:$reason";
-				//continue;
+				// searching for an cidr in the list	
+				list($subnet, $mask) = explode('/', $search);
+				$x2=ip2long($needle) & ~((1 << (32 - $mask)) - 1);
+				$x3=ip2long($subnet)& ~((1 << (32 - $mask)) - 1);
+				if ($x2 == $x3){ 
+					return "$searchname:$reason";
+				}
 			}
 			// check for wildcard - both email and ip
 			if (strpos($search,'*')!==false || strpos($search,'?')!==false ) {
@@ -78,15 +71,12 @@ class be_module {
 			}
 			if (substr_count($needle,'.')==3 && strpos($search,'/')!==false ) {
 				// searching for an cidr in the list
-				list($ip,$bits)=explode('/',$search);
-				$n=ip2long($needle);
-				if ($n===false) continue;
-				$s=ip2long($ip);
-				if ($s===false) continue;
-				$num = pow(2, 32 - $bits)-1;
-				$s=$s |$num;
-				$n=$n |$num;
-				if ($s==$n) return "$searchname:$reason";
+				list($subnet, $mask) = explode('/', $search);
+				$x2=ip2long($needle) & ~((1 << (32 - $mask)) - 1);
+				$x3=ip2long($subnet)& ~((1 << (32 - $mask)) - 1);
+				if ($x2 == $x3){ 
+					return "$searchname:$reason";
+				}
 			}
 		}	
 		return false;
@@ -292,6 +282,10 @@ class be_module {
 		$ipl=$ipl & $z;
 		return long2ip($ipl);
 	}	
+	/**************************************************
+	* check if an IP is in a CIDR range 
+	* From http://php.net/manual/en/ref.network.php
+	***************************************************/
 
 }
 
