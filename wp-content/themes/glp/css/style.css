@@ -1125,13 +1125,14 @@ a:focus {
 }
 
 .section-title {
-    margin: 1em 0;
-    padding: 0 0 0 50px;
     color: #fff;
     background: transparent url(../img/logo-blog.png) center left no-repeat;
     font-size: 23.998px;
     font-family: "Montreal Serial", "Montreal Serial Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400
+    font-weight: 400;
+    margin: 1em 0;
+    padding: 0 0 0 50px;
+    text-transform: capitalize;
 }
 
 .section-title a {
