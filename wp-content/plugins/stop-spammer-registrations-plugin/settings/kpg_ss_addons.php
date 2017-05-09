@@ -7,6 +7,9 @@ if (!defined('ABSPATH')) exit; // just in case
 if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
+
+kpg_fix_post_vars();
+
 $updateable=array("beta-updater","RedHerring","multicheck","LogReport","TorList","SFSToxicList");
 if (array_key_exists("kpg_ss_nonce",$_POST)&&wp_verify_nonce($_POST['kpg_ss_nonce'],'kpg_ss') ) {
 	if (!function_exists('kpg_install_update')) { // adding update function to main plugin?

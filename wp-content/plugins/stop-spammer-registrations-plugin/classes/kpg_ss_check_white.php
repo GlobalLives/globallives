@@ -43,6 +43,7 @@ class kpg_ss_check_white extends be_module {
 		'chkgoogle',
 		'chkmiscallowlist',
 		'chkpaypal',
+		'chkform',
 		'chkscripts',
 		//'chkvalidip', // handled in deny testing
 		'chkwlem',

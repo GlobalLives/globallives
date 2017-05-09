@@ -1125,13 +1125,14 @@ a:focus {
 }
 
 .section-title {
-    margin: 1em 0;
-    padding: 0 0 0 50px;
     color: #fff;
     background: transparent url(../img/logo-blog.png) center left no-repeat;
     font-size: 23.998px;
     font-family: "Montreal Serial", "Montreal Serial Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400
+    font-weight: 400;
+    margin: 1em 0;
+    padding: 0 0 0 50px;
+    text-transform: capitalize;
 }
 
 .section-title a {
@@ -8814,6 +8815,14 @@ img {
 }
 .visible-print {
     display: none!important
+}
+.page-board .entry-summary h3,
+.page-board .entry-summary h4 { /* board page */
+    clear: both;
+    margin-top: 18px;
+}
+#participant-155 h3, #participant-314 h3 { /* grid view tweak */
+    font-size: 20.25px;
 }
 @media print {
     * {

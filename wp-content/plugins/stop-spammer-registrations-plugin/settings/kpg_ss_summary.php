@@ -4,6 +4,13 @@ if (!defined('ABSPATH')) exit; // just in case
 if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
+	if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'protect' ) ) {
+		echo "<div>Jetpack Protect has been detected. Stop Spammers has disabled itself.<br>
+		Please turn off JetPack Protect or unistall Stop Spammers.</div>";
+        return;
+    }
+
+kpg_fix_post_vars();
 
 $stats=kpg_ss_get_stats();
 extract($stats);
@@ -45,6 +52,7 @@ $counters=array(
 'cntchkhosting'=>'known spam host',
 'cntchkinvalidip'=>'block invalid ip',
 'cntchklong'=>'long email',
+'cntchkshort'=>'short email',
 'cntchkbbcode'=>'bbcode in request',
 'cntchkreferer'=>'bad HTTP_REFERER',
 'cntchksession'=>'session speed',
@@ -53,7 +61,7 @@ $counters=array(
 'cntchktld'=>'email TLD',
 'cntchkubiquity'=>'ubiquity servers',
 'cntchkmulti'=>'Repeated hits',
-
+'cntchkform'=>'Check for standard form',
 
 'cntchkAD'=>'Andorra',
 'cntchkAE'=>'United Arab Emirates',
@@ -227,7 +235,7 @@ if (wp_verify_nonce($nonce,'kpgstopspam_update')) {
 $nonce=wp_create_nonce('kpgstopspam_update');
 
 ?>
-<div class="wrap" style="position:relative;">
+<div class="wrap" style="position:relative">
 <h2>Stop Spammers Plugin Version <?php echo KPG_SS_VERSION;?></h2>
 
 <?php
@@ -388,63 +396,85 @@ filled out the form requesting access to your site.</li>
 </li>
 <li> <a href="?page=ss_challenge">Challenge and Deny</a>: This sets up Captcha and Notification options. You can give users who trigger the plugin a second chance to use a captcha. Supports Google ReCaptcha and Solve Media Captcha. 
 </li>
-<li> <a href="?page=ss_threat_scan">Threat Scan</a>: Searches options and local system files for exploits. This can sometimes detect if your site has been hacked.
-</li>
-<li> <a href="?page=ss_option_maint">WP Options Maintenance</a>: This lists all of the loaded options that it thinks may be from plugins. This lets you find and inspect the options set by other plugins and will let you delete orphan options from plugins that have been deleted, but did not clean up their mess.
-</li>
 
 <li> <a href="?page=ss_diagnostics">Diagnostics</a>: You can use this to test an IP, Email or comment against all of the options. This can tell you more about why an IP address might fail. It will also show you any options that might crash the plugin on your site due to system settings.
 </li>
-<li> <a href="?page=ss_addons">Addons</a>: Lists currently installed addons.
-</li>
-<li> <a href="?page=ss_contribute">Contribute</a>: The plugin is free, but I would appreciate your support. 
-</li>
 </ol>
-
-<h4>More of Keith's Plugins at WordPress.org</h4>
-<p>These are plugins are written for myself. Many I've used and then stopped using. Some are very useful.<br>
-I do not upload to wordpress very often so check the Beta Plugins page to see if there is a newer version on my site.</p>
-<ol>
-<li><a href="https://wordpress.org/plugins/akismet-wedge-for-mu-plugin/">Akismet Wedge for MU Plugin</a>: Globalizes the akismet api key so it can be used across blogs.</li>
-<li><a href="https://wordpress.org/plugins/amazon-product-link-widget/">Amazon Product Link Widget</a>: Displays a random Amazon link box from a list of asin product ids.</li>
-<li><a href="https://wordpress.org/plugins/collapse-page-and-category-plugin/">Collapse Page and Category Plugin</a>: Uses CSS and Javascript to collapse children on Pages and Categories or any Unordered List that uses the css class &#039;children&#039;.</li>
-<li><a href="https://wordpress.org/plugins/custom-post-type-list-widget/">Custom Post Type List Widget</a>: Displays a list of Custom Posts Type entries in a sidebar.</li>
-<li><a href="https://wordpress.org/plugins/email-php-errors-plugin/">Email PHP Errors Plugin</a>: Catches php errors, and reports last 25. Can also email the results. Good for debugging themes and plugins.</li>
-<li><a href="https://wordpress.org/plugins/exit-screen-plugin/">Exit Screen Plugin</a>: Prompts the user when they leave your blog, showing a &quot;last chance&quot; exit page behind the prompt.</li>
-<li><a href="https://wordpress.org/plugins/feed-ads-plugin/">Feed Ads Plugin</a>: Feed Ads will randomly insert text at the end of rss entries. Useful for ads, taglines, news, or links.</li>
-<li><a href="https://wordpress.org/plugins/keywords-widget/">Keywords Widget</a>: Watches for hits arriving from search engines. Puts a list of recent keywords as a widget.</li>
-<li><a href="https://wordpress.org/plugins/looser-search-plugin/">Looser Search Plugin</a>: A more more relaxed search. It is much more like to find something right or almost right than the built-in wordpress search.</li>
-<li><a href="https://wordpress.org/plugins/mu-global-options-plugin/">MU Global Options Plugin</a>: Plugin that uses options from main blog in other blogs.</li>
-<li><a href="https://wordpress.org/plugins/mu-manage-comments-plugin/">MU Manage Comments Plugin</a>: Lists on one page unmoderated and spam comments for all MU blogs for moderation.</li>
-<li><a href="https://wordpress.org/plugins/no-right-click-images-plugin/">No Right Click Images Plugin</a>: Disables right click context menu on images to help deter leeches from glomming images.</li>
-<li><a href="https://wordpress.org/plugins/open-in-new-window-plugin/">Open in New Window Plugin</a>: Opens external links in a new window, keeping your blog page in the browser so you don&#039;t lose surfers to another site.</li>
-<li><a href="https://wordpress.org/plugins/outbound-click-tracker/">Outbound Click Tracker Plugin</a>: Tracks clicks on outbound links without Google Analytics. Find out where your readers are going.</li>
-<li><a href="https://wordpress.org/plugins/permalink-finder/">Permalink Finder Plugin</a>: Never get a 404 page not found again. If you have restructured or moved your blog, this plugin will find the right post or page every time.</li>
-<li><a href="https://wordpress.org/plugins/recent-google-searches-widget/">Recent Google Searches Widget</a>: Watches for hits arriving from search engines. Puts a list of recent queries as a widget.</li>
-<li><a href="https://wordpress.org/plugins/remove-color-widget/">Remove Color Widget</a>: Removes text styling from blogs displaying black text on white background.</li>
-<li><a href="https://wordpress.org/plugins/search-engine-keywords-related-posts-widget/">Search Engine Keywords Related Posts Widget</a>: Watches for hits arriving from search engines. Displays a list of posts related to the search engine keywords.</li>
-<li><a href="https://wordpress.org/plugins/shortcode-grab-bag/">ShortCode Grab Bag Plugin</a>: List active shortcodes on post edit page with drag and drop to post. Includes a few simple shortcodes.</li>
-<li><a href="https://wordpress.org/plugins/simple-rich-text-widget/">Simple Rich Text Widget</a>: A simple rich text format widget for adding formatted HTML to sidebars.</li>
-<li><a href="https://wordpress.org/plugins/static-pages/">Static Pages</a>: Automatically wrap a WordPress Theme around static HTML pages, pdf files, audio or video files. Add the look and feel of WordPress to legacy static files</li>
-<li><a href="https://wordpress.org/plugins/stop-spammer-registrations-plugin/">Stop Spammers Spam Prevention</a>: Aggressive anti-spam plugin that eliminates comment spam, trackback spam, contact form spam and registration spam. Protects against malicious attacks.</li>
-<li><a href="https://wordpress.org/plugins/youtube-poster-plugin/">YouTube Poster Plugin</a>: Runs searches on YouTube and automatically creates a blog post for each video found.</li>
-
-</ol>
-<p>There are many more plugins that are not available on the Wordpress site. These can be updated through the Update plugin I've written. It will be available and ready through the addons page here.</p>
 </div>
-<div style="width:240px;float:right;">
-Powered By <a href="http://www.siteground.com/recommended?referrer_id=6975888" target="_blank">SiteGround.com</a>
+<div style="float:right;max-width:240px;">
+<h4>Please donate if you use the plugin.</h4>
+<table style="border:grey solid thin;min-width:50%">
+<thead>
+<tr style="background-color:ivory;">
+<th>Support Level</th>
+<th>PayPal</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Level 1) $2.50<br>
+Grateful User
+</td>
+<td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input name="cmd" type="hidden" value="_s-xclick" />
+<input name="hosted_button_id" type="hidden" value="9V4ZE99S2VYQA" />
+<input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" type="image" />
+<img src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" alt="" width="1" height="1" border="0" />
+</form></td>
+<td></td>
+</tr>
+<tr>
+<td>Level 2) $9.99<br>
+Generous Benefactor
+</td>
+<td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input name="cmd" type="hidden" value="_s-xclick" />
+<input name="hosted_button_id" type="hidden" value="2UCJBHR44HQAJ" />
+<input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" type="image" />
+<img src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" alt="" width="1" height="1" border="0" />
+</form></td>
+<td></td>
+</tr>
+<tr>
+<td>Level 3) $29.99<br>
+Wealthy patron</td>
+<td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input name="cmd" type="hidden" value="_s-xclick" />
+<input name="hosted_button_id" type="hidden" value="EG83EZCTGYYQQ" />
+<input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" type="image" />
+<img src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" alt="" width="1" height="1" border="0" />
+</form></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div style="width:189px;height:37px;overflow:hidden;position:relative;">
+<a class="coinbase-button" data-code="964189d13384c2091d838cd6aea18f2e" data-button-style="donation_large" href="https://www.coinbase.com/checkouts/964189d13384c2091d838cd6aea18f2e">Donate Bitcoins</a><script src="https://www.coinbase.com/assets/button.js" type="text/javascript"></script>
+</div>
+<br>
+If you sign up for <a href="https://coinbase.com/?r=52dad5e334b3905bfe0000c3&amp;utm_campaign=user-referral&amp;src=referral-link"
+>coinbase using this link</a>, we both get $5 when you buy $100 in bitcoins.
 
+<center>
+<h4>Buy my Books of Short Stories!</h4>
+<a href="http://www.amazon.com/Error-Message-Eyes-Programmers-Digital/dp/1456336584" target="_blank">Error Message Eyes<br><i>A Programmer's Guide to the Digital Soul</i></a><br>
+<iframe style="width:120px;height:240px;" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=audiocdcom03&marketplace=amazon&region=US&placement=B004C05DTC&asins=B004C05DTC&linkId=c25e44f622c792ac1bb26ee4aef828d6&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+    </iframe><br>
+<a href="http://www.amazon.com/Frogs-Aspic-Keith-Graham-ebook/dp/B005PQDI5S/" target="_blank">Frogs in Aspic<br>
+<i>16 Strange Stories (kindle edition)</i></a><br>
+<iframe style="width:120px;height:240px;" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=audiocdcom03&marketplace=amazon&region=US&placement=B005PQDI5S&asins=B005PQDI5S&linkId=bd1bdcc27d9bc18f3b3060667031c92c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
 
-<h4>Plugin Support Forum</h4>
+</center>
+<h4 style="clear:both;">Plugin Support Forum</h4>
 <ol>
 <?php display_feed('https://wordpress.org/support/rss/plugin/stop-spammer-registrations-plugin'); ?>
 </ol>
 <h4>Posts at BlogsEye.com</h4>
 <ol>
-<?php display_feed('http://www.blogseye.com/feed.xml'); ?>
+<?php display_feed('https://www.blogseye.com/feed.xml'); ?>
 </ol>
-
 </div>
 </div>
 <?php

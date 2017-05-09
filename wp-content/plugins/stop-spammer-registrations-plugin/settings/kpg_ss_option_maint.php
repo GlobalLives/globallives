@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) exit; // just in case
 if(!current_user_can('manage_options')) {
 	die('Access Denied');
 }
+
+kpg_fix_post_vars();
+
 ?>
 
 <div class="wrap">

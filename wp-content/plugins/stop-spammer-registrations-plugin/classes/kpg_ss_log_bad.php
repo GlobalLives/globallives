@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 class kpg_ss_log_bad extends be_module{ 
 	public function process($ip,&$stats=array(),&$options=array(),&$post=array()) {
+		$chk='error';
 		extract($stats);
 		extract($post);
 		$sname=$this->getSname();

@@ -14,7 +14,7 @@ class chkagent extends be_module {
 		}		
 		// user agent can be spoofed. Move these exclusions to a better test when finished.
 		if (stripos($agent,'docs.google.com/viewer')!==false) return false; // fix this?
-		if (stripos($agent,'http://www.google.com/bot.html)')!==false) return false; // fix this?
+		if (stripos($agent,'//www.google.com/bot.html)')!==false) return false; // fix this?
 		if (stripos($agent,'bingbot)')!==false) return false; // fix this?
 		foreach ($badagents as $a) {
 			if (stripos($agent,$a)!==false) {

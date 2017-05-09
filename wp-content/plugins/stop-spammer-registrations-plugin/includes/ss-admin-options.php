@@ -1,5 +1,6 @@
 <?php 
-// 
+if (!defined('ABSPATH')) exit;
+
 $options=kpg_ss_get_options();
 $options=kpg_ss_get_options();
 if ($options['addtoallowlist']=='Y') {
@@ -422,7 +423,7 @@ function kpg_sfs_ip_column($value, $column_name, $user_id) {
 
 			$stopper="<a title=\"Check Stop Forum Spam (SFS)\" target=\"_stopspam\" href=\"http://www.stopforumspam.com/search.php?q=$signup_ip\"><img src=\"$stophand\" width=\"16px\"/></a>";
 			$honeysearch="<a title=\"Check project HoneyPot\" target=\"_stopspam\" href=\"https://www.projecthoneypot.org/ip_$signup_ip\"><img src=\"$search\" width=\"16px\"/></a>";
-			$botsearch="<a title=\"Check BotScount\" target=\"_stopspam\" href=\"http://botscout.com/search.htm?stype=q&sterm=$signup_ip\"><img src=\"$search\" width=\"16px\"/></a>";
+			$botsearch="<a title=\"Check BotScout\" target=\"_stopspam\" href=\"http://botscout.com/search.htm?stype=q&sterm=$signup_ip\"><img src=\"$search\" width=\"16px\"/></a>";
 			$who="<a title=\"whois nic lookup\" target=\"_stopspam\" href=\"http://lacnic.net/cgi-bin/lacnic/whois?lg=EN&query=$signup_ip\"><img src=\"$whois\" width=\"16px\"/></a>";
 			
 			$action=" $who $stopper $honeysearch $botsearch";
