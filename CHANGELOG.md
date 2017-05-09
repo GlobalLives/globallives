@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
+## 1.1.3
+### Status
+_Working!_ github commit ef17b6da257d964c091c2ea72237a9c2b1026e73
+### Changed
+- Page title added across site
+- Board of Directors page formatted
 
 ## 1.1.2
 ### Status
