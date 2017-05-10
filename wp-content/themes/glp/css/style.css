@@ -8816,8 +8816,8 @@ img {
 .visible-print {
     display: none!important
 }
-.page-board .entry-summary h3,
-.page-board .entry-summary h4 { /* board page */
+.parent-pageid-17 .entry-summary h3,
+.parent-pageid-17 .entry-summary h4 { /* board page */
     clear: both;
     margin-top: 18px;
 }
