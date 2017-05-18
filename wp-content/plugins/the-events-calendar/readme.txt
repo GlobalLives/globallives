@@ -332,8 +332,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Improve Event Aggregator integration to avoid situations where imports continually restart but do not complete [77988]
 * Tweak - Make the inclusion or exclusion of the year (within the event schedule string) filterable [78070]
 * Tweak - Adjustments to help avoid false positive security alerts being generated in relation to our customizer integration [78355]
-
-= [4.5.1] 2017-05-04 =
+4 =
 
 * Fix - Prevented errors on EA import screen that happened in exotic circumstance. Thanks @kathryn for reporting this! [75787]
 * Fix - Made EA preserve custom dates after reimporting a Facebook Event when option is set. [75787]
