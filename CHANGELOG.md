@@ -2,14 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
-## 1.1.3
+
+## 1.1.4 - 2017-05-17
+### Status
+
+### Changed
+- Updated Translation FAQ Page
+- About section styles defined
+- Updated WordPress
+- Updated Plugins
+
+## 1.1.3 - 2017-05-08
 ### Status
 _Working!_ github commit ef17b6da257d964c091c2ea72237a9c2b1026e73
 ### Changed
 - Page title added across site
 - Board of Directors page formatted
 
-## 1.1.2
+## 1.1.2 - 2017-05-02
 ### Status
 _**Dev not working**_ github commit 82b0a4f80d23951ad8a841c61f0101f9484c8364
 ### Changed
@@ -19,7 +29,7 @@ _**Dev not working**_ github commit 82b0a4f80d23951ad8a841c61f0101f9484c8364
 - Updated plugins
 - Re-minimized App.js
 
-## 1.1.1
+## 1.1.1 - 2017-04-25
 ### Status
 _Working!_ github commit 05c93e0fb99c46118f762c960f43d8fbdbc805a4
 ### Changed
@@ -31,7 +41,7 @@ _Working!_ github commit 05c93e0fb99c46118f762c960f43d8fbdbc805a4
 - Reduced file confusion
 - Updated Plugins
 
-## 1.1.0
+## 1.1.0 - 2017-04-18
 ### Status
 _Working!_ wpengine commit 1492450809, github commit 6143d098068399b17598113e2062ac1e138065aa
 ### Changed
