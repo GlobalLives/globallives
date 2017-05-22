@@ -8,7 +8,7 @@ $(function() {
         //---- add the src of the location image
         $(c).attr({"src":"http://maps.googleapis.com/maps/api/staticmap?center=" + e + "&zoom=6&size=600x400&markers=color:red|" + e + "&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100"})
     })
-    $(".overlay, #mapview, .mapthumb").hide();
+    $(".overlay").hide();
     if($("body.page-explore").length){ // explore page
         var g=window.location.hash;
         $(".btn-mapview").click(function(){  // switch the view to mapview
@@ -96,12 +96,14 @@ $(function() {
                 countries.selectAll('path').remove();
                 countries.selectAll('path').data(json.features).enter().append('svg:path').attr('d', path);
             });
-        });
+            $(".mapthumb").hide(); // needs to be separate to hide
+        }); 
         $(".btn-gridview").click(function(){ // switch the view to gridview
             $("#mapview").slideUp('slow','swing',function(){$("#gridview").slideDown()});
             $(".nav-explore-inner .btn").removeClass("active");
             $(".btn-gridview").addClass("active");
         });
+        $(".mapthumb").hide(); // doesn't make sense to load on all pages
     }
 })
 /*
