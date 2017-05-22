@@ -84,7 +84,8 @@ $(function() {
                 .attr('class', 'mapthumb')
                 .attr('cy',-25) // offset the detailed image y value by the radius
                 .attr('r',25)
-                .attr('fill',function(d,i) { return 'url(#image-'+i+')';});
+                .attr('fill',function(d,i) { return 'url(#image-'+i+')';})
+                .on('mouseout',function(){ $('.mapthumb').hide(); }); // hide ALL the mapthumbs
         
             // Load the low-res country outlines
             d3.json('/wp-content/themes/glp/js/vendor/countries.json', function( json ) {
