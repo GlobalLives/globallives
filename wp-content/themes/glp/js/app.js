@@ -79,10 +79,10 @@ $(function() {
                 .attr('d', 'M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z') // marker circle definition
                 .attr('transform','translate(-30,-50), scale(0.125)');
     
-            markers.append('svg:circle')
+            markers.append('svg:circle') // Add the detailed image
                 .attr('id',function(d,i){ return 'mapthumb-'+i; })
                 .attr('class', 'mapthumb')
-    /*          .attr('cy',-40) */
+                .attr('cy',-25) // offset the detailed image y value by the radius
                 .attr('r',25)
                 .attr('fill',function(d,i) { return 'url(#image-'+i+')';});
         
