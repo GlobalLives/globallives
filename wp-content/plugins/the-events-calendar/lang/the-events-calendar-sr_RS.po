@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-15 16:27:08+0000\n"
+"PO-Revision-Date: 2017-05-19 07:28:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
-msgstr ""
+msgstr "Други линкови"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:410
 msgid "Import Event Settings"
-msgstr ""
+msgstr "Увоз подешавања догађаја"
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
@@ -33,7 +33,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:23
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
-msgstr ""
+msgstr "Параметри категорије садрже погрешни подложак категорије или ид"
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
@@ -45,15 +45,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:15
 msgid "The event does not have a venue assigned"
-msgstr ""
+msgstr "Догађај нема место одржавања."
 
 #: src/admin-views/aggregator/settings.php:398
 msgid "Import date range"
-msgstr ""
+msgstr "Увезите временско растојање"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:97
 msgid "Returns the data of the event with the specified post ID"
-msgstr ""
+msgstr "Врати податке догађаја са специфичним ИДем чланка"
 
 #: src/Tribe/REST/V1/Messages.php:27
 msgid "The requested post ID does not exist or is not an organizer"
@@ -61,15 +61,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:52
 msgid "The event last modification date in UTC time"
-msgstr ""
+msgstr "Последња модификација датума у УТЦ време"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:449
 msgid "Events should start after the specified date"
-msgstr ""
+msgstr "Догађај треба да почне после наведеног времена "
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:457
 msgid "Events should start before the specified date"
-msgstr ""
+msgstr "Догађај треба да почне пре наведеног времена"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:109
 msgid "An event with the specified event does not exist."
@@ -309,7 +309,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:48
 msgid "The venue last modification date in the site timezone"
-msgstr ""
+msgstr "Последња модификација датума за дату временску зону"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:56
 msgid "The URL to the venue page"
@@ -764,7 +764,7 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
 msgid "The image file extension"
-msgstr ""
+msgstr "Екстензија слике"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:24
 msgid "The venue WordPress post ID"
@@ -812,7 +812,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4090
 msgid "Keyword"
-msgstr ""
+msgstr "Кључна реч"
 
 #: src/functions/template-tags/loop.php:130
 msgctxt "featured events title"
@@ -947,7 +947,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Month_Week_View.php:197
 msgid "Calendar Hightlight Color"
-msgstr ""
+msgstr "Истакнута боја календара"
 
 #: src/Tribe/Customizer/Month_Week_View.php:175
 msgid "Calendar Table Color"
@@ -1249,7 +1249,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:1314
 msgid "A valid license has been entered by your network administrator."
-msgstr ""
+msgstr "Валидна лиценца је постављена од стране вашег администратора."
 
 #: common/src/Tribe/PUE/Checker.php:473
 msgid "Site License Key"
@@ -1516,7 +1516,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:124
 msgid "Server Connection"
-msgstr ""
+msgstr "Сервер конекција"
 
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:118
@@ -2125,7 +2125,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:307
 msgid "Last Import"
-msgstr ""
+msgstr "Последње увежено"
 
 #: src/Tribe/Ignored_Events.php:306 src/admin-views/aggregator/meta-box.php:14
 msgid "The last time this event was imported and/or updated via import."
@@ -2513,7 +2513,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:509
 msgid "The import is in progress."
-msgstr ""
+msgstr "Увоз је у току."
 
 #: src/Tribe/Aggregator/Service.php:507
 msgid "Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key."
@@ -3011,7 +3011,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:71
 msgid "Unable to save scheduled import. Please try again."
-msgstr ""
+msgstr "Грешка чувања заказаног увоза. Покушајте поново."
 
 #: src/Tribe/Aggregator/Errors.php:70
 msgid "Unable to save scheduled import instance. Please try again."
@@ -3031,7 +3031,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:173
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
-msgstr ""
+msgstr "Можда постоји проблем са складиштење догађаја на серверу. Покушајте свој увоз касније."
 
 #: src/Tribe/Aggregator/Errors.php:64
 msgid "You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service."
@@ -3582,7 +3582,7 @@ msgstr ""
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:115
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
-msgstr ""
+msgstr "Информације о недавним променама шаблона и потенцијално угрожених преовлађујућим шаблона је приказан испод."
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:113
 msgid "No notable template changes detected."
@@ -3590,11 +3590,11 @@ msgstr ""
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
-msgstr ""
+msgstr "на основу %s издања"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:96
 msgid "version data missing from override"
-msgstr ""
+msgstr "подаци верзије недостају због прекорачења"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:92
 msgid "Existing theme overrides that may need revision:"
@@ -3602,7 +3602,7 @@ msgstr ""
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:82
 msgid "Templates introduced or updated with this release (%s):"
-msgstr ""
+msgstr "Шаблони уведене или ажурирани са овим издањем (%s):"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:78
 msgid "No notable changes detected"
@@ -3610,19 +3610,19 @@ msgstr "Значајније промене нису откривене."
 
 #: src/Tribe/Main.php:2597
 msgid " (View Full %1$s Description Here: %2$s)"
-msgstr ""
+msgstr "(Погледајте слику у пуној %1$s опис овде: %2$s)"
 
 #: src/Tribe/Importer/Column_Mapper.php:128
 msgid "Organizer Featured Image"
-msgstr ""
+msgstr "Истакнута слика организатора"
 
 #: src/Tribe/Importer/Column_Mapper.php:110
 msgid "Venue Featured Image"
-msgstr ""
+msgstr "Истакнута слика одржавања"
 
 #: src/Tribe/Importer/Column_Mapper.php:85
 msgid "Event Featured Image"
-msgstr ""
+msgstr "Истакнута слика догађаја"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:50
 msgid "Edit Venue"
@@ -3630,11 +3630,11 @@ msgstr ""
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "Следећи %s"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "Претходни %s"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -3678,7 +3678,7 @@ msgstr ""
 
 #: src/Tribe/Template_Factory.php:293
 msgid "There were no results found for %s."
-msgstr ""
+msgstr "Нема пронађених резултата за %s."
 
 #: src/Tribe/Template/Month.php:371
 msgid "There were no results found for %s this month. Try searching next month."
@@ -3686,7 +3686,7 @@ msgstr ""
 
 #: src/Tribe/Template/Day.php:147
 msgid "No %1$s scheduled for %2$s. Please try another day."
-msgstr ""
+msgstr "Nema %1$s zakazanih događaja za %2$s. Молим вас покушајте други дан."
 
 #: src/Tribe/Main.php:3911
 msgid "Check out the %savailable add-ons%s."
@@ -3702,11 +3702,11 @@ msgstr ""
 
 #: src/Tribe/Main.php:1736
 msgid "%1$s draft updated. %2$sPreview %3$s"
-msgstr ""
+msgstr "%1$s нацрт ажуриран. %2$s Преглед %3$s"
 
 #: src/Tribe/Main.php:1727
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
-msgstr ""
+msgstr "%1$s Заказан за: %2$s. %3$s Преглед %4$s"
 
 #: src/Tribe/Main.php:1721
 msgid "%1$s submitted. %2$sPreview %3$s"
@@ -3714,7 +3714,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1715
 msgid "Event published. %1$sView %2$s"
-msgstr ""
+msgstr "Догађај објављен. %1$s Погледај %2$s"
 
 #: src/Tribe/Main.php:1704
 msgid "%1$s updated. %2$sView %3$s"
@@ -3758,7 +3758,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1030
 msgid "Events Tickets"
-msgstr ""
+msgstr "Карте за догађај"
 
 #: src/Tribe/Main.php:1015
 msgid "Customizing the Events plugins"
@@ -3831,7 +3831,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Admin_Page.php:96
 msgid "Default status to use for imported events"
-msgstr ""
+msgstr "Задато стање за увежене догађаје"
 
 #: src/Tribe/Importer/Admin_Page.php:88
 #: src/admin-views/aggregator/settings.php:63
@@ -3840,19 +3840,19 @@ msgstr ""
 
 #: src/Tribe/Asset/Bootstrap_Datepicker.php:26
 msgid "Clear"
-msgstr "Brisanje"
+msgstr "Брисање"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:227
 msgid "Add another %s"
-msgstr ""
+msgstr "Додај још %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151
 msgid "Create New %s"
-msgstr ""
+msgstr "Направи нови %s"
 
 #: src/Tribe/Organizer.php:304
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Неименовани %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:47
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
@@ -3884,7 +3884,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:24
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Потражите у нашој бази знања"
 
 #: common/src/admin-views/tribe-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
@@ -3908,7 +3908,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "База знања"
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
@@ -4025,9 +4025,9 @@ msgstr ""
 #: src/views/month/single-day.php:42
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Погледај %1$s %2$s"
+msgstr[1] "Погледај све %1$s %2$s"
+msgstr[2] "Погледај %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
@@ -4035,7 +4035,7 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:177
 msgid "organizers"
-msgstr ""
+msgstr "Организатори"
 
 #: src/admin-views/aggregator/origins/gcal.php:117
 #: src/admin-views/aggregator/origins/ical.php:111
@@ -4075,15 +4075,15 @@ msgstr ""
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s навигација"
 
 #: src/views/month/nav.php:19
 msgid "Calendar Month Navigation"
-msgstr "Mjesečna navigacija u kalendaru"
+msgstr "Месечна навигација у календару"
 
 #: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s ознаке:"
 
 #: src/views/modules/bar.php:42
 msgid "View As"
@@ -4091,11 +4091,11 @@ msgstr "Vidi kao"
 
 #: src/views/modules/bar.php:41
 msgid "Event Views Navigation"
-msgstr "Navigacija pogleda događaja"
+msgstr "Навигација за преглед догађаја"
 
 #: src/views/modules/bar.php:34 src/views/modules/bar.php:65
 msgid "Find %s"
-msgstr ""
+msgstr "Претрага %s"
 
 #: src/views/list/nav.php:20
 msgid "%s List Navigation"
@@ -4217,7 +4217,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Admin_Page.php:237
 msgid "Import Settings"
-msgstr ""
+msgstr "Импортуј подешавања"
 
 #: src/io/csv/admin-views/general.php:10
 msgid "Instructions"
@@ -4245,7 +4245,7 @@ msgstr ""
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr ""
+msgstr "Ви %1$sне можете%2$s користити исти подложак као горе. Горе наведени подложак би требало користити у множини, а овај у једнини.%3$sВаш линк догађаја је добар: %4$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -4261,7 +4261,7 @@ msgstr "%1$s за %2$s - %3$s"
 
 #: src/functions/template-tags/loop.php:140
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Предстојећи %s"
 
 #: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
@@ -4306,11 +4306,11 @@ msgstr "Категорија"
 
 #: src/functions/template-tags/day.php:112
 msgid "Tomorrow"
-msgstr ""
+msgstr "Сутра"
 
 #: src/functions/template-tags/day.php:110
 msgid "Yesterday"
-msgstr ""
+msgstr "Јуче"
 
 #: src/functions/template-tags/date.php:151
 msgid "The function needs to be passed an $event or used in the loop."
@@ -4368,7 +4368,7 @@ msgstr "Држава или провинција:"
 #: src/admin-views/create-venue-fields.php:61
 #: src/admin-views/venue-meta-box.php:62
 msgid "Country:"
-msgstr "Zemlja:"
+msgstr "Земља:"
 
 #: src/admin-views/create-venue-fields.php:48
 #: src/admin-views/venue-meta-box.php:50
@@ -4455,7 +4455,7 @@ msgstr "више ..."
 #: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:1042
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Календар Догађаја ПРО"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:777
@@ -4503,11 +4503,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:143
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
-msgstr "Можете наћи дупликате места одржавања и организатора када надограђујете Тhе Events Calendar с верзије пре 3.0. Кликните на ово дугме да аутоматски спојите идентична места и организаторе."
+msgstr "Можете наћи дуплирана места одржавања и организатора када надограђујете Тhe Events Calendar верзије пре 3.0. Кликните на ово дугме да аутоматски спојите идентична места и организаторе."
 
 #: src/admin-views/tribe-options-general.php:143
 msgid "Duplicate Venues &amp; Organizers"
-msgstr "Дупликат места одржавања &amp; Организатора"
+msgstr "Дупликат места одржавања &amp; организатора"
 
 #: src/admin-views/tribe-options-general.php:148
 msgid "Miscellaneous Settings"
@@ -4547,15 +4547,15 @@ msgstr "Podesite zadani simbol valute za cijenu događaja. Uzmite u obzir da se 
 
 #: src/admin-views/tribe-options-general.php:128
 msgid "Default currency symbol"
-msgstr "Podrazumijevani simbol valute"
+msgstr "Подразумевани симбол валуте"
 
 #: src/admin-views/tribe-options-general.php:123
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
-msgstr ""
+msgstr "Имате догађај који се завршава после поноћи? Одаберите време након завршетка тог догађаја да бисте избегли његово појављивање у календару за наредни дан."
 
 #: src/admin-views/tribe-options-general.php:102
 msgid "End of day cutoff"
-msgstr "Odsijecanje za kraj dana"
+msgstr "Одсецање за крај дана"
 
 #: src/admin-views/tribe-options-general.php:97
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
@@ -4622,7 +4622,7 @@ msgstr "Broj događaja za prikazivanje po stranici"
 
 #: src/admin-views/tribe-options-general.php:33
 msgid "General Settings"
-msgstr "Generalne postavke"
+msgstr "Генералне поставке"
 
 #: common/src/admin-views/tribe-options-general.php:40
 msgid "Show The Events Calendar link"
@@ -4635,7 +4635,7 @@ msgstr "Da li mislite  \"Hej, ovaj plagin je odličan! Treba da se zahvalim Mode
 #: common/src/admin-views/tribe-options-general.php:30
 #: common/src/admin-views/tribe-options-general.php:35
 msgid "See an example of the link"
-msgstr "Pogledaj primjer linka"
+msgstr "Погледај пример линка"
 
 #: common/src/admin-views/tribe-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
@@ -4655,11 +4655,11 @@ msgstr "Potrebna vam je dodatna funkcionalnost uključujući ponavljajuće doga�
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Right here"
-msgstr "Ovdje"
+msgstr "Овде"
 
 #: src/admin-views/tribe-options-general.php:22
 msgid "Where's my calendar?"
-msgstr "Gdje je moj kalendar?"
+msgstr "Где је мој календар?"
 
 #: src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
@@ -4683,7 +4683,7 @@ msgstr "Ako ste upoznati sa HTML-om, možete dodati kod prije šablona događaja
 
 #: src/admin-views/tribe-options-display.php:210
 msgid "Add HTML before event content"
-msgstr "Dodaj HTML prije sadržaja događaja"
+msgstr "Додај HTML пре садржаја догађаја"
 
 #: src/admin-views/tribe-options-display.php:206
 msgid "Advanced Template Settings"
@@ -4763,7 +4763,7 @@ msgstr "Onemogućite Event Search traku"
 
 #: src/admin-views/tribe-options-display.php:169
 msgid "Default view"
-msgstr "Zadani pogled"
+msgstr "Задати приказ "
 
 #: src/admin-views/tribe-options-display.php:162
 msgid "You must select at least one view."
@@ -4779,7 +4779,7 @@ msgstr "Odaberitte šablon stranice da bi ste kontrolisali izgled vašeg kalenda
 
 #: src/admin-views/tribe-options-display.php:152
 msgid "Events template"
-msgstr "Šablon događaja"
+msgstr "Шаблон догађаја"
 
 #: src/admin-views/tribe-options-display.php:145
 msgid "A fully designed and styled theme for your events pages."
@@ -4807,7 +4807,7 @@ msgstr "Kostur stilovi"
 
 #: src/admin-views/tribe-options-display.php:132
 msgid "Default stylesheet used for events templates"
-msgstr "Zadani stil korišten za šablon događaja"
+msgstr "Задати стил који се користи за догађаје"
 
 #: src/admin-views/tribe-options-display.php:128
 msgid "Basic Template Settings"
@@ -4823,11 +4823,11 @@ msgstr "Prikaži postavke"
 
 #: src/admin-views/tribe-options-display.php:7
 msgid "Default Page Template"
-msgstr "Zadani šablon stranice"
+msgstr "Задати шаблон страница "
 
 #: src/admin-views/tribe-options-display.php:6
 msgid "Default Events Template"
-msgstr "Zadani šablon događaja"
+msgstr "Задати шаблон догађаја "
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
@@ -4835,7 +4835,7 @@ msgstr "Pogledaj"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:357
 msgid "Edit"
-msgstr "Izmijeni"
+msgstr "Измени"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:19
 msgid "or"
@@ -4849,7 +4849,7 @@ msgstr "Adresa:"
 #: src/admin-views/linked-post-meta-box.php:49
 #: src/admin-views/organizer-meta-box.php:75
 msgid "%s Name Already Exists"
-msgstr ""
+msgstr "%s назив већ постоји"
 
 #: src/admin-views/create-organizer-fields.php:15
 #: src/admin-views/organizer-meta-box.php:43
@@ -4887,7 +4887,7 @@ msgstr ""
 #: src/admin-views/events-meta-box.php:248
 #: src/views/modules/meta/details.php:123
 msgid "Cost:"
-msgstr "Cijena:"
+msgstr "Цена:"
 
 #: src/admin-views/events-meta-box.php:243
 msgctxt "Currency symbol position"
@@ -4918,7 +4918,7 @@ msgstr "URL:"
 
 #: src/admin-views/events-meta-box.php:175
 msgid "%s Website"
-msgstr ""
+msgstr "%s Веб сајт"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:486
 msgid "Location:"
@@ -4939,7 +4939,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:52
 msgid "Time &amp; Date"
-msgstr ""
+msgstr "Време &amp; Датум"
 
 #: src/admin-views/event-sidebar-options.php:25
 msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
@@ -4947,7 +4947,7 @@ msgstr ""
 
 #: src/admin-views/event-sidebar-options.php:23
 msgid "Sticky in Month View"
-msgstr ""
+msgstr "Лепљив у месечном прегледу"
 
 #: src/admin-views/event-sidebar-options.php:16
 msgid "Hide From %s Listings"
@@ -5056,11 +5056,11 @@ msgstr ""
 
 #: src/Tribe/iCal.php:80
 msgid "iCal Export"
-msgstr ""
+msgstr "iCal извоз"
 
 #: src/Tribe/iCal.php:80
 msgid "Download .ics file"
-msgstr ""
+msgstr "Преузми .ics датотеку"
 
 #: src/Tribe/Aggregator/API/Origins.php:41
 #: src/Tribe/Aggregator/Record/gCal.php:14 src/Tribe/iCal.php:79
@@ -5091,7 +5091,7 @@ msgstr "Viskonsin"
 
 #: common/src/Tribe/View_Helpers.php:364
 msgid "West Virginia"
-msgstr "Zapadna Virdžinija"
+msgstr "Западна Вирџинија"
 
 #: common/src/Tribe/View_Helpers.php:363
 msgid "Washington"
@@ -5283,11 +5283,11 @@ msgstr "Alabama"
 
 #: common/src/Tribe/View_Helpers.php:285
 msgid "Zimbabwe"
-msgstr "Zimbabve"
+msgstr "Зимбабве"
 
 #: common/src/Tribe/View_Helpers.php:284
 msgid "Zambia"
-msgstr "Zambija"
+msgstr "Замбија "
 
 #: common/src/Tribe/View_Helpers.php:283
 msgid "Yemen"
@@ -5295,7 +5295,7 @@ msgstr "Jemen"
 
 #: common/src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
-msgstr "Zapadna Sahara"
+msgstr "Западна Сахара"
 
 #: common/src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
@@ -6239,7 +6239,7 @@ msgstr "Odaberite zemlju:"
 
 #: common/src/Tribe/Validate.php:499
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
-msgstr "Popis zemalja mora biti formatiran kao jedna zemlja po redu u sljedećem formatu: <br>SAD, Sjedinjene Američke Države <br> UK, Ujedinjeno Kraljevstvo."
+msgstr "Попис земаља мора бити форматиран као једна земља по реду у следећем формату: <br>SAD, Сједињене Америчке Државе <br> UK, Уједињено Краљевство"
 
 #: common/src/Tribe/Validate.php:483
 msgid "%s must be a phone number."
@@ -6259,7 +6259,7 @@ msgstr "%s mora da se sastoji samo od slova, brojeva, crtica, apostrofa i razmak
 
 #: common/src/Tribe/Validate.php:423
 msgid "%s must be a number between 0 and 21."
-msgstr "%s mora biti broj između 0 i 21."
+msgstr "%s мора бити између 0 и 21."
 
 #: common/src/Tribe/Validate.php:369
 msgid "%s must be a number or percentage."
@@ -6280,7 +6280,7 @@ msgstr "Validacija poređenja nije uspela jer podaci za poređenje nisu dati za 
 #: common/src/Tribe/Validate.php:291 common/src/Tribe/Validate.php:308
 #: common/src/Tribe/Validate.php:330
 msgid "%s must have a value that's part of its options."
-msgstr "%s mora imati vrijednost koja je dio opcije"
+msgstr "%s мора имати вредност која је део опције"
 
 #: common/src/Tribe/Validate.php:275
 msgid "%s must be a valid absolute URL."
@@ -6358,7 +6358,7 @@ msgstr ""
 
 #: src/Tribe/Template/Embed.php:59 src/Tribe/Template/Single_Event.php:119
 msgid "This %s has passed."
-msgstr ""
+msgstr "Овај %s је прошао."
 
 #: src/Tribe/Template/Month.php:817
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
@@ -6399,14 +6399,14 @@ msgstr ""
 
 #: common/src/Tribe/Settings_Tab.php:222
 msgid "There are no fields setup for this tab yet."
-msgstr "Još uvek nema polja podešenih za ovaj tab."
+msgstr "Још увек нема поља подешених за овај таб."
 
 #: common/src/Tribe/Settings.php:598
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] "Podešavanje iznad nije sačuvano. Ostala podešavanja su sačuvana uspješno."
-msgstr[1] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
-msgstr[2] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
+msgstr[0] "Подешавање изнад није сачувано. Остала подешавања су сачувана успешно."
+msgstr[1] "Подешавање изнад није сачувано. Остала подешавања су сачувана успешно."
+msgstr[2] "Подешавање изнад није сачувано. Остала подешавања су сачувана успешно."
 
 #: common/src/Tribe/Settings.php:597
 msgid "None of your settings were saved. Please try again."
@@ -6414,15 +6414,15 @@ msgstr "Ništa od vaših podešavanja nije sačuvano. Molimo probajte ponovo."
 
 #: common/src/Tribe/Settings.php:587
 msgid "Your form had the following errors:"
-msgstr "Vaša forma je imala sljedeće greške:"
+msgstr "Ваш формулар је имао следеће грешке:"
 
 #: common/src/Tribe/Settings.php:420
 msgid "The request wasn't sent from this tab."
-msgstr "Zahtev nije poslat sa ovog tab-a."
+msgstr "Захтев није послат са овог таба."
 
 #: common/src/Tribe/Settings.php:414
 msgid "The request was sent insecurely."
-msgstr "Zahtev je poslat nesigurno."
+msgstr "Захтев је послат несигурно."
 
 #: common/src/Tribe/Settings.php:408
 msgid "You don't have permission to do that."
@@ -6434,11 +6434,11 @@ msgstr "Сачувајте промене"
 
 #: common/src/Tribe/Settings.php:352
 msgid "You've requested a non-existent tab."
-msgstr "Zatražili ste nepostojeći tab."
+msgstr "Затражили сте непостојећи таб."
 
 #: common/src/Tribe/Settings.php:338
 msgid "%s Settings"
-msgstr "%s Podešavanje"
+msgstr "%s Подешавања"
 
 #: common/src/Tribe/Settings.php:241 common/src/Tribe/Settings.php:261
 msgid "Events Settings"
@@ -6483,29 +6483,29 @@ msgstr ""
 
 #: src/Tribe/Main.php:4121
 msgid "Day Of"
-msgstr ""
+msgstr "Дан"
 
 #: src/Tribe/Main.php:4119
 msgid "%s From"
-msgstr ""
+msgstr "%s oд"
 
 #: src/Tribe/Main.php:4117
 msgid "%s In"
-msgstr ""
+msgstr "%s у"
 
 #: src/Tribe/Main.php:4114 src/Tribe/Main.php:4130
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
-msgstr "Datum"
+msgstr "Датум"
 
 #: src/Tribe/Main.php:4089
 msgid "Search"
-msgstr ""
+msgstr "Претрага"
 
 #: src/Tribe/Main.php:4064 src/admin-views/aggregator/fields/schedule.php:44
 #: src/admin-views/aggregator/fields/schedule.php:62
 msgid "Day"
-msgstr ""
+msgstr "Дан"
 
 #: src/Tribe/Main.php:4047
 msgid "Month"
@@ -6555,58 +6555,58 @@ msgstr "Modern Tribe vjesti"
 
 #: src/Tribe/Main.php:3840
 msgid "View All Add-Ons"
-msgstr "Pogledaj sve add-one"
+msgstr "Погледај све додатке"
 
 #: src/Tribe/Main.php:3837
 msgid "Support"
-msgstr "Podrška"
+msgstr "Подршка"
 
 #: src/Tribe/Main.php:3490 src/Tribe/Main.php:3501
 msgid "%s Information"
-msgstr ""
+msgstr "%s Информације"
 
 #: src/Tribe/Main.php:3483
 msgid "%s Options"
-msgstr ""
+msgstr "%s Опције"
 
 #: src/Tribe/Main.php:3413 src/Tribe/Main.php:3448
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
-msgstr ""
+msgstr "Датум ван опсега."
 
 #: src/Tribe/Main.php:2222
 msgid "all"
-msgstr ""
+msgstr "све"
 
 #: src/Tribe/Main.php:2221 src/functions/template-tags/general.php:91
 msgid "events"
-msgstr ""
+msgstr "догађаји"
 
 #: src/Tribe/Main.php:2220 src/functions/template-tags/general.php:69
 msgid "event"
-msgstr ""
+msgstr "догађај"
 
 #: src/Tribe/Main.php:2219
 msgid "page"
-msgstr ""
+msgstr "страница"
 
 #: common/src/Tribe/Settings_Manager.php:219
 msgid "Network"
-msgstr "Mreža"
+msgstr "Мрежа"
 
 #: common/src/Tribe/Main.php:273
 msgid "Done"
-msgstr "Gotovo"
+msgstr "Готово"
 
 #: common/src/Tribe/Main.php:272 src/Tribe/Asset/Bootstrap_Datepicker.php:27
 #: src/functions/template-tags/day.php:104
 msgid "Today"
-msgstr "Danas"
+msgstr "Данас"
 
 #: common/src/Tribe/Main.php:271
 msgid "Prev"
-msgstr "Prethodni"
+msgstr "Претходни"
 
 #: common/src/Tribe/Main.php:254 common/src/Tribe/Main.php:270
 msgid "Next"
@@ -6662,15 +6662,15 @@ msgstr ""
 
 #: src/Tribe/Main.php:1710 src/Tribe/Main.php:1747 src/Tribe/Main.php:1767
 msgid "Custom field deleted."
-msgstr "Prilagođeno polje obrisano."
+msgstr "Прилагођено поље обрисано."
 
 #: src/Tribe/Main.php:1709 src/Tribe/Main.php:1746 src/Tribe/Main.php:1766
 msgid "Custom field updated."
-msgstr "Prilagođeno polje ažurirano."
+msgstr "Прилагођено поље ажурирано."
 
 #: src/Tribe/Main.php:1687
 msgid "New %s Category Name"
-msgstr ""
+msgstr "Ново %s име категорије"
 
 #: src/Tribe/Main.php:1686
 msgid "Add New %s Category"
@@ -6678,7 +6678,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1685
 msgid "Update %s Category"
-msgstr ""
+msgstr "Ажурирање %s категорија"
 
 #: src/Tribe/Main.php:1684
 msgid "Edit %s Category"
@@ -6686,19 +6686,19 @@ msgstr ""
 
 #: src/Tribe/Main.php:1683
 msgid "Parent %s Category:"
-msgstr ""
+msgstr "Надређена %s категорија"
 
 #: src/Tribe/Main.php:1682
 msgid "Parent %s Category"
-msgstr ""
+msgstr "Pодитељ %s kатегоријe"
 
 #: src/Tribe/Main.php:1681
 msgid "All %s Categories"
-msgstr ""
+msgstr "Све %s категорије"
 
 #: src/Tribe/Main.php:1680
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Претражи %s категорију"
 
 #: src/Tribe/Main.php:1679
 msgid "%s Category"
@@ -6714,7 +6714,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1667 src/Tribe/Organizer.php:76 src/Tribe/Venue.php:82
 msgid "Search %s"
-msgstr ""
+msgstr "Претражи %s"
 
 #: src/Tribe/Main.php:1666 src/Tribe/Organizer.php:75 src/Tribe/Venue.php:81
 msgid "View %s"
@@ -6731,23 +6731,23 @@ msgstr ""
 
 #: src/Tribe/Main.php:1662 src/Tribe/Organizer.php:71 src/Tribe/Venue.php:77
 msgid "Add New"
-msgstr "Dodaj novi"
+msgstr "Додај нови"
 
 #: src/Tribe/Main.php:1629 src/Tribe/Main.php:2217
 msgid "tag"
-msgstr "tag"
+msgstr "ознака"
 
 #: src/Tribe/Main.php:1615 src/Tribe/Main.php:2218
 msgid "category"
-msgstr "kategorija"
+msgstr "категорија"
 
 #: src/Tribe/Main.php:1396
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Žao nam je, The Events Calendar zahtijeva PHP %s ili noviji. Pričajte sa vašim hostom o prebacivanju na noviju verziju PHP-a."
+msgstr "Жао нам је, Календар Догађаја захтева PHP %s или новији. Причајте са вашим хост провајдером о пребацивању на новију верзију PHP-а."
 
 #: src/Tribe/Main.php:1393
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Žao nam je, The Events Calendar zahtijeva WordPress %s ili noviji. Molimo vas da ažurirate vašu Wordpress instalaciju."
+msgstr "Жао нам је, Календар догађаја захтева Вордпрес %s или новији. Молимо Вас да ажурирате вашу Вордпрес инталацију."
 
 #: common/src/Tribe/Settings_Manager.php:253
 #: common/src/admin-views/tribe-options-licenses.php:66
@@ -6757,11 +6757,11 @@ msgstr "Licence"
 #: common/src/Tribe/Settings_Manager.php:279
 #: src/Tribe/Admin/Bar/Default_Configurator.php:104
 msgid "Help"
-msgstr "Pomoć"
+msgstr "Помоћ"
 
 #: common/src/Tribe/Settings_Manager.php:55
 msgid "Display"
-msgstr "Prikaži"
+msgstr "Прикажи"
 
 #: src/Tribe/Main.php:1242
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
@@ -6793,7 +6793,7 @@ msgstr "predstojeći"
 
 #: src/Tribe/Main.php:702
 msgid "list"
-msgstr ""
+msgstr "Листа"
 
 #: src/Tribe/Main.php:701
 msgid "month"
@@ -6821,21 +6821,21 @@ msgstr "Događaji"
 
 #: src/Tribe/Organizer.php:136 src/functions/template-tags/organizer.php:75
 msgid "Organizer"
-msgstr "Organizator"
+msgstr "Организатор"
 
 #: src/Tribe/Importer/Admin_Page.php:205 src/Tribe/Organizer.php:150
 #: src/functions/template-tags/organizer.php:86
 msgid "Organizers"
-msgstr "Organizatori"
+msgstr "Организатори"
 
 #: src/Tribe/Venue.php:135 src/functions/template-tags/venue.php:41
 msgid "Venue"
-msgstr "Mjesto"
+msgstr "Место"
 
 #: src/Tribe/Importer/Admin_Page.php:204 src/Tribe/Venue.php:144
 #: src/functions/template-tags/venue.php:52
 msgid "Venues"
-msgstr "Mjesta"
+msgstr "Место"
 
 #: src/Tribe/List_Widget.php:219
 msgid "Upcoming Events"
@@ -6943,7 +6943,7 @@ msgstr "Sajt događaja"
 
 #: src/Tribe/Importer/Column_Mapper.php:83
 msgid "Event Tags"
-msgstr ""
+msgstr "Ознака догађаја"
 
 #: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Event Category"
@@ -6951,7 +6951,7 @@ msgstr "Kategorija događaja"
 
 #: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Позиција валуте за догађај"
 
 #: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Event Currency Symbol"
@@ -6959,7 +6959,7 @@ msgstr "Симбол валуте за догађај"
 
 #: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Event Cost"
-msgstr "Cijena događaja"
+msgstr "Цена догађаја"
 
 #: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Event Show Map"
@@ -6988,7 +6988,7 @@ msgstr "Дан заврзшетка догађаја"
 
 #: src/Tribe/Importer/Column_Mapper.php:68
 msgid "Event Start Time"
-msgstr ""
+msgstr "Време почетка догађаја"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Start Date"
@@ -7051,7 +7051,7 @@ msgstr ""
 
 #: common/src/Tribe/Cost_Utils.php:108
 msgid "Free"
-msgstr "Slobodan"
+msgstr "Бесплатан"
 
 #: src/Tribe/Cost_Utils.php:113
 msgctxt "Cost range separator"
@@ -7071,13 +7071,13 @@ msgstr "Spoj duplikate"
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:122
 #: src/views/modules/meta/details.php:48
 msgid "Time:"
-msgstr ""
+msgstr "Време:"
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:68
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:100
 #: src/views/modules/meta/details.php:80 src/views/modules/meta/details.php:105
 msgid "Date:"
-msgstr "Datum: "
+msgstr "Датум:"
 
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:57
 #: src/deprecated/Tribe__Events__Advanced_Functions__Register_Meta.php:89
@@ -7096,13 +7096,13 @@ msgstr "Početak:"
 #: src/admin-views/aggregator/tabs/import-form.php:157
 #: src/admin-views/aggregator/tabs/import-form.php:169
 msgid "End Date"
-msgstr "Datum završetka"
+msgstr "Датум завршетка"
 
 #: src/Tribe/Admin_List.php:252
 #: src/admin-views/aggregator/tabs/import-form.php:155
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "Start Date"
-msgstr "Datum početka"
+msgstr "Датум почетка"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1678
 msgid "%s Categories"
