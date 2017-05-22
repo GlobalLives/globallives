@@ -8,7 +8,7 @@ $(function() {
         //---- add the src of the location image
         $(c).attr({"src":"http://maps.googleapis.com/maps/api/staticmap?center=" + e + "&zoom=6&size=600x400&markers=color:red|" + e + "&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100"})
     })
-    $(".overlay, #mapview").hide();
+    $(".overlay, #mapview, .mapthumb").hide();
     if($("body.page-explore").length){ // explore page
         var g=window.location.hash;
         $(".btn-mapview").click(function(){  // switch the view to mapview
@@ -58,21 +58,27 @@ $(function() {
                 .attr('opacity',0)
             g.append('svg:path')
                 .attr('d', function(d, i) { return 'M' + polygons[i].join('L') + 'Z'; });
-    /*          .on('mouseover',function(d,i){ show_mapthumb(i); }); */
+
+            function show_mapthumb( i ) {
+                $('.mapthumb').hide();
+                $('#mapthumb-'+i).show();
+            }
 
             // Add Participant markers
             var markers = locations.selectAll('marker')
                 .data(participants)
                 .enter().append('svg:g')
+                    .attr('id', function(d) { return '' + d; })
                     .attr('class', function(d) { return 'marker ' + d.continent; })
                     .attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
-                    .on('click', function(d) {  });
-    /*
+                    .on('click', function(d) {  })
+                    .on('mouseover',function(d,i){ show_mapthumb(i); });
+    
             markers.append('svg:path') // Add the pins
                 .attr('class', 'pin')
                 .attr('d', 'M240,80c-60,0-107,48-107,107c0,25,9,49,24,67 c18,22,56,42,64,131c0,5,3,16,19,16c16,0,19-11,20-16 c8-88,46-108,64-131c15-18,24-42,24-67C347,127,299,80,240,80z M238,221c-19,0-35-15-35-35c0-19,15-35,35-35 c19,0,35,15,35,35C273,206,257,221,238,221z')
                 .attr('transform','translate(-30,-50), scale(0.125)');
-    */
+    
             markers.append('svg:circle')
                 .attr('id',function(d,i){ return 'mapthumb-'+i; })
                 .attr('class', 'mapthumb')
