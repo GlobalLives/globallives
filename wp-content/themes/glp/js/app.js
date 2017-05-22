@@ -72,7 +72,7 @@ $(function() {
                     .attr('class', function(d) { return 'marker ' + d.continent; })
                     .attr('transform', function(d) { return 'translate(' + xy([+d.longitude, +d.latitude]) + ')'; })
                     .on('click', function(d) {  })
-                    .on('mouseover',function(d,i){ show_mapthumb(i); });
+                    .on('mouseover',function(d,i){ show_mapthumb(i); }); // run the show_mapthumb function
     
             markers.append('svg:path') // Add the pins
                 .attr('class', 'pin')
