@@ -3383,7 +3383,7 @@ figure.alignnone {
 
 #gridview .participant-grid .thumbnail {
     min-height: 156px;
-    width: 235px;
+    width: 239px;
     background: #555;
     border-radius: 0 none;
     border: 0 none;
@@ -9430,7 +9430,7 @@ img {
     #gridview .participant-grid {
         float: none;
         margin: 0 auto;
-        width: 235px
+        width: 239px
     }
     
     #nav-explore li .btn,
