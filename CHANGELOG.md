@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## 1.1.4 - 2017-05-17
 ### Status
-
+_Working!_ github commit 3bf868a76785b1344091862bacc93e88ce94a62e
 ### Changed
 - Updated Translation FAQ Page
 - About section styles defined
