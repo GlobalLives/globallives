@@ -9,6 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-05-17 14:32\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -693,7 +694,7 @@ msgstr ""
 msgid "Completed!"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:88
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:89
 msgid ""
 "Your import is currently in progress. Don't worry, you can safely navigate "
 "away&ndash;the import will continue in the background."
@@ -711,8 +712,7 @@ msgstr ""
 msgid "Skipped:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:173\
-msgid ""
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:174msgid ""
 "Unable to continue inserting data. Please reload this page to continue/try "
 "again."
 msgstr ""
@@ -2123,8 +2123,8 @@ msgstr ""
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:4433
-#: src/Tribe/Main.php:4490
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:4437
+#: src/Tribe/Main.php:4494
 msgid "Use Saved %s:"
 msgstr ""
 
@@ -2180,9 +2180,9 @@ msgstr ""
 msgid "Upcoming Events"
 msgstr ""
 
-#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.1)  #-#-#-#-#
+#. #-#-#-#-#  the-events-calendar.pot (The Events Calendar 4.5.2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: src/Tribe/Main.php:694 src/Tribe/Main.php:1033
+#: src/Tribe/Main.php:698 src/Tribe/Main.php:1033
 msgid "The Events Calendar"
 msgstr ""
 
@@ -2229,11 +2229,7 @@ msgstr ""
 msgid "Welcome to The Events Calendar"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/Tribe/Main.php:923
-=======
-#: src/Tribe/Main.php:919
->>>>>>> master
 msgid ""
 "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will "
 "show its calendar in place of the page."
@@ -2266,7 +2262,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:995
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:995
+=======
 #: src/Tribe/Main.php:991
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "We are committed to helping make your calendar spectacular and have a wealth "
@@ -2281,7 +2281,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1009
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1009
+=======
 #: src/Tribe/Main.php:1005
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: A thorough walkthrough of The Events Calendar and the settings that are "
@@ -2295,7 +2299,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1011
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1011
+=======
 #: src/Tribe/Main.php:1007
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: A complete look at the features you can expect to see right out of the "
@@ -2309,7 +2317,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1013
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1013
+=======
 #: src/Tribe/Main.php:1009
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: Our most comprehensive outline for customizing the calendar to suit your "
@@ -2323,7 +2335,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1015
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1015
+=======
 #: src/Tribe/Main.php:1011
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: An overview of the default templates and styles that are included in the "
@@ -2337,7 +2353,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1017
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1017
+=======
 #: src/Tribe/Main.php:1013
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: Do you see an issue with your calendar? Go here first to find where it’s "
@@ -2351,7 +2371,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1019
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1019
+=======
 #: src/Tribe/Main.php:1015
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "%s: Code and guides for customizing your calendar in useful and interesting "
@@ -2369,7 +2393,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1035
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1035
+=======
 #: src/Tribe/Main.php:1031
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "If you have tried the above steps and are still having trouble, you can post "
@@ -2384,7 +2412,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1038
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1038
+=======
 #: src/Tribe/Main.php:1034
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "<strong>Looking for more immediate support?</strong> We offer %s with the "
@@ -2399,7 +2431,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1043
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1043
+=======
 #: src/Tribe/Main.php:1039
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "If you have tried the above steps and are still having trouble, you can post "
@@ -2414,7 +2450,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1047
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1047
+=======
 #: src/Tribe/Main.php:1043
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "<strong>Looking for more immediate support?</strong> We offer %1$s with the "
@@ -2430,7 +2470,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1052
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1052
+=======
 #: src/Tribe/Main.php:1048
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "If you have a valid license for one of our paid plugins, you can %s in our "
@@ -2447,7 +2491,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1234
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1234
+=======
 #: src/Tribe/Main.php:1230
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
@@ -2457,7 +2505,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1246
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1246
+=======
 #: src/Tribe/Main.php:1242
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "The following plugins are out of date: %1$s. All add-ons contain "
@@ -2468,7 +2520,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1397
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1397
+=======
 #: src/Tribe/Main.php:1393
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
@@ -2478,7 +2534,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1400
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1400
+=======
 #: src/Tribe/Main.php:1396
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
@@ -2488,7 +2548,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1412
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1412
+=======
 #: src/Tribe/Main.php:1408
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "It appears as if the tribe-common libraries cannot be found! The directory "
@@ -2589,7 +2653,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1717 src/Tribe/Main.php:1754
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1717 src/Tribe/Main.php:1754
+=======
 #: src/Tribe/Main.php:1713 src/Tribe/Main.php:1750
+>>>>>>> master
 >>>>>>> master
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
@@ -2614,7 +2682,11 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:1734 src/Tribe/Main.php:1762 src/Tribe/Main.php:1782
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1734 src/Tribe/Main.php:1762 src/Tribe/Main.php:1782
+=======
 #: src/Tribe/Main.php:1730 src/Tribe/Main.php:1758 src/Tribe/Main.php:1778
+>>>>>>> master
 >>>>>>> master
 msgid "M j, Y @ G:i"
 msgstr ""
@@ -2647,11 +2719,19 @@ msgstr ""
 
 #: src/Tribe/Main.php:1828
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:1774
+msgid "%s restored to revision from %s"
+msgstr ""
+
+#: src/Tribe/Main.php:1828
+=======
 #: src/Tribe/Main.php:1770
 msgid "%s restored to revision from %s"
 msgstr ""
 
 #: src/Tribe/Main.php:1824
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "Without a defined location your event will not display a %sGoogle Rich "
@@ -2681,13 +2761,20 @@ msgstr ""
 <<<<<<< HEAD
 #: src/Tribe/Main.php:3416 src/Tribe/Main.php:3451
 =======
+<<<<<<< HEAD
+#: src/Tribe/Main.php:3416 src/Tribe/Main.php:3451
+=======
 #: src/Tribe/Main.php:3412 src/Tribe/Main.php:3447
+>>>>>>> master
 >>>>>>> master
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:3486
+=======
 <<<<<<< HEAD
 #: src/Tribe/Main.php:3486
 msgid "%s Options"
@@ -2716,36 +2803,44 @@ msgstr ""
 #: src/Tribe/Main.php:3913
 =======
 #: src/Tribe/Main.php:3482
+>>>>>>> master
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3489 src/Tribe/Main.php:3500
+#: src/Tribe/Main.php:3493 src/Tribe/Main.php:3504
 msgid "%s Information"
 msgstr ""
 
-#: src/Tribe/Main.php:3836
+#: src/Tribe/Main.php:3840
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:3839
+#: src/Tribe/Main.php:3843
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:3859
+#: src/Tribe/Main.php:3863
 msgid "News from Modern Tribe"
 msgstr ""
 
-#: src/Tribe/Main.php:3904
+#: src/Tribe/Main.php:3908
 msgid "Additional Functionality"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:3913
+=======
 #: src/Tribe/Main.php:3909
+>>>>>>> master
 >>>>>>> master
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:3914
+=======
 <<<<<<< HEAD
 #: src/Tribe/Main.php:3914
 msgid "Check out the %savailable add-ons%s."
@@ -2766,27 +2861,35 @@ msgstr ""
 #: src/Tribe/Main.php:4067 src/admin-views/aggregator/fields/schedule.php:44
 =======
 #: src/Tribe/Main.php:3910
+>>>>>>> master
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:4012
+#: src/Tribe/Main.php:4016
 msgid "Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:4028
+#: src/Tribe/Main.php:4032
 msgid "List"
 msgstr ""
 
-#: src/Tribe/Main.php:4046
+#: src/Tribe/Main.php:4050
 msgid "Month"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:4067 src/admin-views/aggregator/fields/schedule.php:44
+=======
 #: src/Tribe/Main.php:4063 src/admin-views/aggregator/fields/schedule.php:44
+>>>>>>> master
 >>>>>>> master
 #: src/admin-views/aggregator/fields/schedule.php:62
 msgid "Day"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:4092
+=======
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4092
 msgid "Search"
@@ -2799,19 +2902,27 @@ msgstr ""
 #: src/Tribe/Main.php:4117 src/Tribe/Main.php:4133
 =======
 #: src/Tribe/Main.php:4088
+>>>>>>> master
 msgid "Search"
 msgstr ""
 
-#: src/Tribe/Main.php:4089
+#: src/Tribe/Main.php:4093
 msgid "Keyword"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:4117 src/Tribe/Main.php:4133
+=======
 #: src/Tribe/Main.php:4113 src/Tribe/Main.php:4129
+>>>>>>> master
 >>>>>>> master
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:4120
+=======
 <<<<<<< HEAD
 #: src/Tribe/Main.php:4120
 msgid "%s In"
@@ -2828,18 +2939,23 @@ msgstr ""
 #: src/Tribe/Main.php:4197
 =======
 #: src/Tribe/Main.php:4116
+>>>>>>> master
 msgid "%s In"
 msgstr ""
 
-#: src/Tribe/Main.php:4118
+#: src/Tribe/Main.php:4122
 msgid "%s From"
 msgstr ""
 
-#: src/Tribe/Main.php:4120
+#: src/Tribe/Main.php:4124
 msgid "Day Of"
 msgstr ""
 
+<<<<<<< HEAD
+#: src/Tribe/Main.php:4197
+=======
 #: src/Tribe/Main.php:4193
+>>>>>>> master
 >>>>>>> master
 msgid "Once Every 30 Mins"
 msgstr ""
