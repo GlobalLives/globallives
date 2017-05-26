@@ -109,7 +109,7 @@ if ( ! class_exists( 'WP_Async_Task_Smush' ) ) {
 			//Do not use this, as in case of importing, only the last image gets processed
 			//It's very important that all the Media uploads, are handled via shutdown action, else, sometimes the image meta updated
 			// by smush is earlier, and then original meta update causes discrepancy
-			if ( ( 'upload-attachment' == $_POST['action'] || ( ! empty( $_POST ) && isset( $_POST['post_id'] ) ) ) && ! $shutdown_action ) {
+			if ( ( ( !empty( $_POST['action'] ) && 'upload-attachment' == $_POST['action']  ) || ( ! empty( $_POST ) && isset( $_POST['post_id'] ) ) ) && ! $shutdown_action ) {
 				add_action( 'shutdown', array( $this, 'process_request' ) );
 			} else {
 				//Send a ajax request to process image and return image metadata, added for compatibility with plugins like
@@ -147,7 +147,7 @@ if ( ! class_exists( 'WP_Async_Task_Smush' ) ) {
 
 				//@todo: We've set sslverify to false
 				$request_args = array(
-					'timeout'   => 10,
+					'timeout'   => apply_filters( 'smush_async_time_out', 0 ),
 					'blocking'  => false,
 					'sslverify' => false,
 					'body'      => $this->_body_data,

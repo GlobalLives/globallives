@@ -30,9 +30,6 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				return;
 			}
 
-			global $WpSmush;
-
-
 			//Hook early for free version, in order to display it before the advanced settings
 			add_action( 'wp_smush_before_advanced_settings', array( $this, 'ui' ) );
 
@@ -89,19 +86,27 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
             <!-- Savings from Directory Smush -->
             <div class="row smush-dir-savings">
             <span class="float-l wp-smush-stats-label"><strong><?php esc_html_e( "DIRECTORY SMUSH SAVINGS", "wp-smushit" ); ?></strong></span>
-            <span class="float-r wp-smush-stats"><?php
-				if ( ! empty( $dir_smush_stats ) && $human == 0 && $percent < 1 ) {
-					//If smush percentage is lower, Show stats as < 1Kb
-					$human   = "< 1KB";
-					$percent = "< 1";
-				} ?>
-                <span class="spinner" style="visibility: visible"
-                      title="<?php esc_html_e( "Updating Stats", "wp-smushit" ); ?>"></span>
-                        <span class="wp-smush-stats-human"><?php echo ! empty( $human ) ? $human : ''; ?></span><?php
-				if ( $percent > 1 ) { ?>
-                    <span class="wp-smush-stats-sep">/</span>
-                    <span class="wp-smush-stats-percent"><?php echo ! empty( $percent ) ? $percent : ''; ?>%</span><?php
-				} ?>
+            <span class="float-r wp-smush-stats">
+	            <span class="spinner" style="visibility: visible" title="<?php esc_html_e( "Updating Stats", "wp-smushit" ); ?>"></span>
+				<?php
+				if ( $human > 0 ) { ?>
+                    <span class="wp-smush-stats-human"> <?php echo $human; ?></span><?php
+                    //Output percentage only if > 1
+					if ( $percent > 1 ) { ?>
+                        <span class="wp-smush-stats-sep">/</span>
+                        <span class="wp-smush-stats-percent"><?php echo ! empty( $percent ) ? $percent : ''; ?>
+                        %</span><?php
+					}
+				} else { ?>
+                    <span class="wp-smush-stats-human">
+		                <a href="#wp-smush-dir-browser">
+                            <button class="button button-small wp-smush-dir-link"
+                                    type="button"><?php esc_html_e( "SMUSH DIRECTORY", "wp-smushit" ); ?></button>
+                        </a>
+	                </span>
+                    <span class="wp-smush-stats-sep hidden">/</span>
+                    <span class="wp-smush-stats-percent"></span>
+				<?php } ?>
                 </span>
             </div><?php
 		}
@@ -123,6 +128,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			 * id -> Auto Increment ID
 			 * path -> Absolute path to the image file
 			 * resize -> Whether the image was resized or not
+			 * lossy -> Whether the image was super-smushed/lossy or not
 			 * image_size -> Current image size post optimisation
 			 * orig_size -> Original image size before optimisation
 			 * file_time -> Unix time for the file creation, to match it against the current creation time,
@@ -136,6 +142,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				path text NOT NULL,
 				resize varchar(55),
+				lossy varchar(55),
 				error varchar(55) DEFAULT NULL,
 				image_size int(10) unsigned,
 				orig_size int(10) unsigned,
@@ -180,8 +187,12 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 		 *
 		 */
 		function get_unsmushed_image() {
-			global $wpdb;
-			$query   = $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}smush_dir_images WHERE image_size IS NULL && last_scan = (SELECT MAX(last_scan) FROM {$wpdb->prefix}smush_dir_images t2 )  GROUP BY id ORDER BY id LIMIT %d", 1 );
+			global $wpdb, $WpSmush;
+
+			// If super-smush enabled, add lossy check.
+			$lossy_condition = $WpSmush->lossy_enabled ? '(image_size IS NULL OR lossy <> 1)' : 'image_size IS NULL';
+
+			$query   = $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}smush_dir_images WHERE $lossy_condition && last_scan = (SELECT MAX(last_scan) FROM {$wpdb->prefix}smush_dir_images t2 )  GROUP BY id ORDER BY id LIMIT %d", 1 );
 			$results = $wpdb->get_col( $query );
 
 			//If The query went through
@@ -255,7 +266,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
                     </div>
                     <!-- Notices -->
                     <div class="wp-smush-notice wp-smush-dir-all-done hidden" tabindex="0">
-                        <i class="dev-icon dev-icon-tick"></i><?php esc_html_e( "All images are smushed and up to date. Awesome!", "wp-smushit" ); ?>
+                        <i class="dev-icon dev-icon-tick"></i><?php esc_html_e( "All images for the selected directory are smushed and up to date. Awesome!", "wp-smushit" ); ?>
                     </div>
                     <div class="wp-smush-notice wp-smush-dir-remaining hidden" tabindex="0">
                         <i class="dev-icon wdv-icon wdv-icon-fw wdv-icon-exclamation-sign"></i><?php printf( esc_html__( "%s/%s image(s) were successfully smushed, however %s image(s) could not be smushed due to an error.", "wp-smushit" ), '<span class="wp-smush-dir-smushed"></span>', '<span class="wp-smush-dir-total"></span>', '<span class="wp-smush-dir-remaining"></span>' ); ?>
@@ -540,8 +551,8 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				if ( $count >= 5000 ) {
 					$count = 0;
 					$query = $this->build_query( $values, $images );
+					$images = $values = array();
 					$wpdb->query( $query );
-					$images = array();
 				}
 			}
 
@@ -944,7 +955,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 		 *
 		 */
 		function total_stats() {
-			global $wpdb;
+			global $wpdb, $WpSmush;
 
 			$offset    = 0;
 			$optimised = 0;
@@ -955,11 +966,19 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 
 			$total = ! empty( $total ) && is_array( $total ) ? $total[0] : 0;
 
-			while ( $results = $wpdb->get_results( "SELECT path, image_size, orig_size FROM {$wpdb->prefix}smush_dir_images WHERE image_size IS NOT NULL LIMIT $offset, $limit ", ARRAY_A ) ) {
+			// If super-smush enabled, add meta condition.
+			$lossy_condition = $WpSmush->lossy_enabled ? 'AND lossy = 1' : '';
+
+			$continue = true;
+			while ( $continue && $results = $wpdb->get_results( "SELECT path, image_size, orig_size FROM {$wpdb->prefix}smush_dir_images WHERE image_size IS NOT NULL $lossy_condition ORDER BY `id` LIMIT $offset, $limit", ARRAY_A ) ) {
 				if ( ! empty( $results ) ) {
 					$images = array_merge( $images, $results );
 				}
 				$offset += $limit;
+				//If offset is above total number, do not query
+				if( $offset > $total ) {
+				    $continue = false;
+                }
 			}
 
 			//Iterate over stats, Return Count and savings
@@ -981,7 +1000,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			}
 
 			//Get the savings in bytes and percent
-			if ( ! empty( $this->stats ) ) {
+			if ( ! empty( $this->stats ) && ! empty( $this->stats['orig_size'] ) ) {
 				$this->stats['bytes']   = ( $this->stats['orig_size'] > $this->stats['image_size'] ) ? $this->stats['orig_size'] - $this->stats['image_size'] : 0;
 				$this->stats['percent'] = number_format_i18n( ( ( $this->stats['bytes'] / $this->stats['orig_size'] ) * 100 ), 1 );
 				//Convert to human readable form
@@ -1049,6 +1068,10 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				wp_send_json_error( $error_msg );
 			}
 
+			// Get the last scan stats.
+			$last_scan = $this->last_scan_stats();
+			$stats = array();
+
 			//Check smush limit for free users
 			if ( ! $WpSmush->validate_install() ) {
 
@@ -1111,17 +1134,32 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			//Get file time
 			$file_time = @filectime( $path );
 
-			//All good, Update the stats
-			$query = "UPDATE {$wpdb->prefix}smush_dir_images SET image_size=%d, file_time=%d WHERE id=%d LIMIT 1";
-			$query = $wpdb->prepare( $query, $smush_results['data']->after_size, $file_time, $id );
+			// If super-smush enabled, update supersmushed meta value also.
+			$lossy = $WpSmush->lossy_enabled ? 1 : 0;
+
+			// All good, Update the stats.
+			$query = "UPDATE {$wpdb->prefix}smush_dir_images SET image_size=%d, file_time=%d, lossy=%s WHERE id=%d LIMIT 1";
+			$query = $wpdb->prepare( $query, $smush_results['data']->after_size, $file_time, $lossy, $id );
 			$wpdb->query( $query );
 
-			//Get Total stats
-			$this->total_stats();
-
-			//Get the total stats
-			$total     = $this->stats;
-			$last_scan = $this->last_scan_stats();
+			// Get the global stats if current dir smush completed.
+			if ( isset( $_GET['get_stats'] ) && 1 == $_GET['get_stats'] ) {
+				// This will setup directory smush stats too.
+				$wpsmushit_admin->setup_global_stats();
+				$stats            = $wpsmushit_admin->stats;
+				$stats['total']   = $wpsmushit_admin->total_count;
+				$resmush_count    = empty( $wpsmushit_admin->resmush_ids ) ? count( $wpsmushit_admin->resmush_ids = get_option( "wp-smush-resmush-list" ) ) : count( $wpsmushit_admin->resmush_ids );
+				$stats['smushed'] = ! empty( $wpsmushit_admin->resmush_ids ) ? $wpsmushit_admin->smushed_count - $resmush_count : $wpsmushit_admin->smushed_count;
+				if ( $lossy == 1 ) {
+					$stats['super_smushed'] = $wpsmushit_admin->super_smushed;
+				}
+				// Set tootltip text to update.
+				$stats['tooltip_text'] = ! empty( $stats['total_images'] ) ? sprintf( __( "You've smushed %d images in total.", "wp-smushit" ), $stats['total_images'] ) : '';
+				// Get the total dir smush stats.
+				$total = $wpsmushit_admin->dir_stats;
+			} else {
+				$total = $this->total_stats();
+			}
 
 			//Show the image wise stats
 			$image = array(
@@ -1137,8 +1175,13 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			$data = array(
 				'image'       => $image,
 				'total'       => $total,
-				'latest_scan' => $last_scan
+				'latest_scan' => $last_scan,
 			);
+
+			// If current dir smush completed, include global stats.
+			if ( ! empty( $stats ) ) {
+				$data['stats'] = $stats;
+			}
 
 			//Update Bulk Limit Transient
 			$wpsmushit_admin->update_smush_count( 'dir_sent_count' );

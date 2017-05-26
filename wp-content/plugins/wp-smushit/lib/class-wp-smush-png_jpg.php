@@ -52,13 +52,15 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 		 */
 		function is_transparent( $id = '', $file = '' ) {
 
+			global $wpsmush_helper;
+
 			//No attachment id/ file path, return
 			if ( empty( $id ) && empty( $file ) ) {
 				return false;
 			}
 
 			if ( empty( $file ) ) {
-				$file = get_attached_file( $id );
+				$file = $wpsmush_helper->get_attached_file( $id );
 			}
 
 			//Check if File exists
@@ -140,13 +142,8 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 			$this->is_transparent = $this->is_transparent( $id, $file );
 
 			//If we are suppose to convert transaprent images, skip is transparent check
-			if ( $convert_transparent ) {
+			if ( $convert_transparent || !$this->is_transparent ) {
 				$should_convert = true;
-			} else {
-				if ( ! $this->is_transparent ) {
-					//If image is not transparent
-					$should_convert = true;
-				}
 			}
 
 			return $should_convert;
@@ -157,8 +154,12 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 		 *
 		 * @param string $id Atachment id
 		 *
-		 * @return bool True/False Can be converted or not
+		 * @param string $id
+		 * @param string $size
+		 * @param string $mime
+		 * @param string $file
 		 *
+		 * @return bool True/False Can be converted or not
 		 */
 		function can_be_converted( $id = '', $size = 'full', $mime = '', $file = '' ) {
 
@@ -178,18 +179,18 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 			}
 
 			//If already tried the conversion
-			if ( get_post_meta( $id, WP_SMUSH_PREFIX . 'pngjpg_savings', false ) ) {
+			if ( get_post_meta( $id, WP_SMUSH_PREFIX . 'pngjpg_savings', true ) ) {
 				return false;
 			}
 
 			//Check if registered size is supposed to be converted or not
-			global $wpsmushit_admin;
+			global $wpsmushit_admin, $wpsmush_helper;
 			if ( 'full' != $size && $wpsmushit_admin->skip_image_size( $size ) ) {
 				return false;
 			}
 
 			if ( empty( $file ) ) {
-				$file = get_attached_file( $id );
+				$file = $wpsmush_helper->get_attached_file( $id );
 			}
 
 			/** Whether to convert to jpg or not **/
@@ -440,20 +441,26 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 		}
 
 		/**
-		 * Convert a PNG to JPG Lossless conversion, if we have any savings
+		 * Convert a PNG to JPG, Lossless Conversion, if we have any savings
 		 *
-		 * @param $id
+		 * @param string $id
+		 * @param string $meta
 		 *
-		 * @param $meta
+		 * @uses WpSmushBackup::add_to_image_backup_sizes()
+		 *
+		 * @return mixed|string
 		 */
 		function png_to_jpg( $id = '', $meta = '' ) {
+			global $wpsmush_backup;
 
 			//If we don't have meta or ID
 			if ( empty( $id ) || empty( $meta ) ) {
 				return $meta;
 			}
 
-			$file = get_attached_file( $id );
+			global $wpsmush_helper;
+
+			$file = $wpsmush_helper->get_attached_file( $id );
 
 			/** Whether to convert to jpg or not **/
 			$should_convert = $this->can_be_converted( $id );
@@ -484,7 +491,7 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 						$should_convert = $this->can_be_converted( $id, $size_k, 'image/png', $s_file );
 
 						//Perform the conversion
-						if ( ! $should_convert = apply_filters( 'wp_smush_convert_to_jpg', $should_convert, $id, $file, $size_k ) ) {
+						if ( ! $should_convert ) {
 							continue;
 						}
 
@@ -502,8 +509,8 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 				}
 
 				//Save the original File URL
-				$o_file = ! empty( $meta['file'] ) ? $meta['file'] : get_post_meta( $id, '_wp_attached_file', true );
-				update_post_meta( $id, WP_SMUSH_PREFIX . 'original_file', $o_file );
+				$o_file = ! empty( $file ) ? $file : get_post_meta( $id, '_wp_attached_file', true );
+				$wpsmush_backup->add_to_image_backup_sizes( $id, $o_file, 'smush_png_path' );
 
 				/**
 				 * Do action, if the PNG to JPG conversion was successful

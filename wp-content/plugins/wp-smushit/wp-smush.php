@@ -4,7 +4,7 @@ Plugin Name: WP Smush
 Plugin URI: http://wordpress.org/extend/plugins/wp-smushit/
 Description: Reduce image file sizes, improve performance and boost your SEO using the free <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
 Author: WPMU DEV
-Version: 2.6.3
+Version: 2.7.1
 Author URI: http://premium.wpmudev.org/
 Text Domain: wp-smushit
 */
@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * Constants
  */
 $prefix  = 'WP_SMUSH_';
-$version = '2.6.3';
+$version = '2.7.1';
 
 //Deactivate the .org version, if pro version is active
 add_action( 'admin_init', 'deactivate_smush_org' );
@@ -54,6 +54,15 @@ if ( ! function_exists( 'deactivate_smush_org' ) ) {
  * Set the default timeout for API request and AJAX timeout
  */
 $timeout = apply_filters( 'WP_SMUSH_API_TIMEOUT', 90 );
+
+// To support smushing on staging sites like SiteGround staging where
+// staging site urls are different but redirects to main site url.
+// Remove the protocols and www, and get the domain name.
+$site_url = str_replace( array( 'http://', 'https://', 'www.' ), '', site_url() );
+// If current site's url is different from site_url, disable Async.
+if ( ( 0 !== strpos( $_SERVER['SERVER_NAME'], $site_url ) ) && ! defined( $prefix . 'ASYNC' ) ) {
+	define( $prefix . 'ASYNC', false );
+}
 
 $smush_constants = array(
 	'VERSION'           => $version,
@@ -89,8 +98,10 @@ require_once WP_SMUSH_DIR . 'lib/class-wp-smush.php';
 if ( ! function_exists( 'wp_smush_rating_message' ) ) {
 	function wp_smush_rating_message( $message ) {
 		global $wpsmushit_admin, $wpsmush_db;
-		$savings     = $wpsmushit_admin->global_stats_from_ids();
-		$image_count = $wpsmush_db->total_count();
+		if ( empty( $wpsmushit_admin->stats ) ) {
+			$wpsmushit_admin->setup_global_stats();
+		}
+		$savings     = $wpsmushit_admin->stats;
 		$show_stats  = false;
 
 		//If there is any saving, greater than 1Mb, show stats
@@ -102,7 +113,7 @@ if ( ! function_exists( 'wp_smush_rating_message' ) ) {
 
 		//Conditionally Show stats in rating message
 		if ( $show_stats ) {
-			$message .= sprintf( " You've smushed <strong>%s</strong> from %d images already, improving the speed and SEO ranking of this site!", $savings['human'], $image_count );
+			$message .= sprintf( " You've smushed <strong>%s</strong> from %d images already, improving the speed and SEO ranking of this site!", $savings['human'], $savings['total_images'] );
 		}
 		$message .= " We've spent countless hours developing this free plugin for you, and we would really appreciate it if you dropped us a quick rating!";
 
