@@ -134,14 +134,57 @@ if ( ! class_exists( 'WpSmushDB' ) ) {
 		 * @return bool|int|mixed
 		 */
 		function total_count( $force_update = false ) {
-			global $wpsmushit_admin, $wpdb;
+			global $wpsmushit_admin;
 
 			//Retrieve from Cache
 			if ( ! $force_update && $count = wp_cache_get( 'total_count', 'wp-smush' ) ) {
-				return $count;
+				if( $count ) {
+					return $count;
+				}
+			}
+
+			//Set Attachment ids, and total count
+			$posts = $this->get_media_attachments( '', $force_update );
+			$wpsmushit_admin->attachments = $posts;
+
+			//Get total count from attachments
+			$total_count = ! empty( $posts ) && is_array( $posts ) ? sizeof( $posts ) : 0;
+
+			// Set total count.
+			$wpsmushit_admin->total_count = $total_count;
+
+			wp_cache_add( 'total_count', $total_count, 'wp-smush' );
+
+			// send the count
+			return $total_count;
+		}
+
+		/**
+		 * Get the media attachment Id/Count
+		 *
+		 * @param bool $return_count
+		 * @param bool $force_update
+		 *
+		 * @return array|bool|int|mixed
+		 */
+		function get_media_attachments( $return_count = false, $force_update = false ) {
+			global $wpsmushit_admin, $wpdb;
+
+			//Return results from cache
+			if ( ! $force_update ) {
+				$posts = wp_cache_get( 'media_attachments', 'wp-smush' );
+				$count = ! empty( $posts ) ? sizeof( $posts ) : 0;
+
+				//Return results only if we've got any
+				if( $count ) {
+					return $return_count ? $count : $posts;
+				}
+
 			}
 
 			$posts  = array();
+
+			//Else Get it Fresh!!
 			$offset = 0;
 			$limit  = $wpsmushit_admin->query_limit();
 
@@ -167,16 +210,13 @@ if ( ! class_exists( 'WpSmushDB' ) ) {
 				}
 			}
 
-			//If we have got the Query result
-			if ( ! empty( $posts ) && is_array( $posts ) ) {
-				wp_cache_add( 'smush_attachments', $posts, 'wp-smush' );
+			//Add the attachments to cache
+			wp_cache_add( 'media_attachments', $posts, 'wp-smushit' );
+
+			if ( $return_count ) {
+				return sizeof( $posts );
 			}
 
-			//Set Attachment ids, and total count
-			$wpsmushit_admin->attachments = $posts;
-			$wpsmushit_admin->total_count = ! empty( $posts ) && is_array( $posts ) ? sizeof( $posts ) : 0;
-
-			// send the count
 			return $posts;
 		}
 
@@ -188,42 +228,40 @@ if ( ! class_exists( 'WpSmushDB' ) ) {
 		 * @return array|int
 		 */
 		function smushed_count( $return_ids = false ) {
-			global $wpsmushit_admin;
+			global $wpsmushit_admin, $wpdb;
 
 			//Don't query again, if the variable is already set
 			if ( ! $return_ids && ! empty( $wpsmushit_admin->smushed_count ) && $wpsmushit_admin->smushed_count > 0 ) {
 				return $wpsmushit_admin->smushed_count;
 			}
 
-			$query = array(
-				'fields'         => array( 'ids', 'post_mime_type' ),
-				'post_type'      => 'attachment',
-				'post_status'    => 'inherit',
-				'order'          => 'ASC',
-				'posts_per_page' => - 1,
-				'meta_key'       => 'wp-smpro-smush-data',
-				'no_found_rows'  => true
-			);
+			/**
+			 * Allows to set a limit of mysql query
+			 * Default value is 2000
+			 */
+			$limit      = $wpsmushit_admin->query_limit();
+			$offset     = 0;
+			$query_next = true;
+
+			$posts = array();
 
 			//Remove the Filters added by WP Media Folder
 			$this->remove_filters();
+			while ( $query_next && $results = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key=%s LIMIT $offset, $limit", "wp-smpro-smush-data" ) ) ) {
+				if ( ! is_wp_error( $results ) && sizeof( $results ) > 0 ) {
 
-			$results = new WP_Query( $query );
-
-			if ( ! is_wp_error( $results ) && $results->post_count > 0 ) {
-
-				$posts = $this->filter_by_mime( $results->posts );
-
-				if ( ! $return_ids ) {
-					//return Post Count
-					return count( $posts );
-				} else {
-					//Return post ids
-					return $posts;
+					$posts = array_merge( $posts, $results );
 				}
-			} else {
-				return false;
+				//Update the offset
+				$offset += $limit;
+
+				//Compare the Offset value to total images
+				if ( ! empty( $wpsmushit_admin->total_count ) && $wpsmushit_admin->total_count <= $offset ) {
+					$query_next = false;
+				}
 			}
+
+			return $return_ids ? $posts : count( $posts );
 		}
 
 		/**

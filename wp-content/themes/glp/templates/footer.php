@@ -27,6 +27,7 @@
 			</div>
 			<div class="span3">
 				<?php dynamic_sidebar('sidebar-footer'); ?>
+				<div class="fb-like" data-href="https://www.facebook.com/globallives/" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
 			</div>
 		</div>
 	</div>
