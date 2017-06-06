@@ -1,21 +1,14 @@
 <?php
 /****************************
-These are IP addresses that have sent me spam, 
-but they are from residential ISPs and any spam 
-is usually fixed in a day or so.
-These IP ranges produce spam, so white listing them
-will allow spam into your site.
-The up side is that you will never block a legitimate
-customer.
-This is a trade off. I don't use this, but I have zero
-spam tolerance.
+These are IP addresses that have sent me spam, but they are from residential ISPs and any spam is usually fixed in a day or so.
+These IP ranges produce spam, so whitelisting them will allow spam into your site.
+The upside is that you will never block a legitimate customer.
+This is a trade off. I don't use this, but I have zero spam tolerance.
 *****************************/
 if (!defined('ABSPATH')) exit;
-
 class chkgenallowlist extends be_module{ 
-	public $searchname='Generated Allow List';
-	public $searchlist=array(
-
+public $searchname='Generated Allow List';
+public $searchlist=array(
 array('1.120.0.0','1.127.255.255'), // # Telstra AU
 array('1.128.0.0','1.159.255.255'), // # 001136097032 Telstra AU
 array('2.33.0.0','2.33.255.255'), // # IP addresses assigned to DSL cus... IT
@@ -1421,9 +1414,6 @@ array('220.235.0.0','220.235.255.255'), // # 220235226061 iiNet Limited AU
 array('220.236.0.0','220.239.255.255'), // # OPTUS INTERNET - RETAIL AU
 array('220.244.0.0','220.245.255.255'), // # TPG Internet Pty Ltd. AU
 array('220.253.0.0','220.253.255.255'), // # iiNet Limited AU
-
-
-	
-	);
+);
 }
 ?>
