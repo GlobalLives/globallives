@@ -31,28 +31,28 @@ function glp_queue() {
 		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.min.js'), true);
 	}
 
-		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
-		wp_register_script('d3', get_template_directory_uri() . '/js/d3.min.js', false, filemtime(get_stylesheet_directory() . '/js/d3.min.js'), true);
-		wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, true);
+	// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
+	wp_register_script('d3', get_template_directory_uri() . '/js/d3.min.js', false, filemtime(get_stylesheet_directory() . '/js/d3.min.js'), true);
+	wp_register_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-510832576c1fd9d6', false, null, true);
 
-		// Enqueue scripts for ALL pages
-		wp_enqueue_script('glp_app');
-		wp_enqueue_script('glp_bootstrap');
-		wp_enqueue_script('glp_plugins');
-		wp_enqueue_script('addthis');
-	
-		// Enqueue scripts for "Single" pages
-		if (is_single() && comments_open() && get_option('thread_comments')) {
-			wp_enqueue_script('comment-reply');
-		}
-	
-		// Enqueue scripts for "Explore", "Series", and "Participant" pages
-		if (is_page('explore') || is_tax('series') || is_singular('participant')) {
-			wp_enqueue_script('d3');
-		}
+	// Enqueue scripts for ALL pages
+	wp_enqueue_script('glp_app');
+	wp_enqueue_script('glp_bootstrap');
+	wp_enqueue_script('glp_plugins');
+	wp_enqueue_script('addthis');
 
-		// Localize glpAjax.ajaxurl
-		wp_localize_script('glp_app', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+	// Enqueue scripts for "Single" pages
+	if (is_single() && comments_open() && get_option('thread_comments')) {
+		wp_enqueue_script('comment-reply');
+	}
+
+	// Enqueue scripts for "Explore", "Series", and "Participant" pages
+	if (is_page('explore') || is_tax('series') || is_singular('participant')) {
+		wp_enqueue_script('d3');
+	}
+
+	// Localize glpAjax.ajaxurl
+	wp_localize_script('glp_app', 'glpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
 }
 

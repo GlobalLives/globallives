@@ -3,9 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
+## 1.1.6 - 2017-05-30
+### Status
+### Changed
+- Like button added - https://developers.facebook.com/docs/plugins/like-button#
+- News Updated/formatted
+- Volunteer Position added- D3+WP Developer
 ## 1.1.5 - 2017-05-23
 ### Status
+_Working!_ github commit 2cc73a41d1d8b59797a29b43ed985b9fc18bed8d
+### Changed
+- Updated Plugins
 
+## 1.1.4 - 2017-05-17
+### Status
+_Working!_ github commit 3bf868a76785b1344091862bacc93e88ce94a62e
 ### Changed
 
 ## 1.1.4 - 2017-05-17
