@@ -113,3 +113,7 @@ wp-content/mysql.sql
 *.asf
 *.wmv
 *.avi
+
+outside_src/all-in-one WP Migration - globallives.staging.wpengine.com-20170405-062623-323.wpress
+outside_src/bak/
+outside_src/staging/
