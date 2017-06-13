@@ -26,7 +26,7 @@ foreach($priv as $ips) {
 if ($ip2>=$ips[0] && $ip2<=$ips[1]) return 'Local IP Address:'.$ip;
 if ($ip2<$ips[1]) break; // sorted so we can bail
 }
-// use the experimental check fake ip routine
+// use the experimental check fake IP routine
 // doesn't work on older PHPs or some servers without IPv6 support enables
 /*
 try {
