@@ -24,7 +24,41 @@ add_submenu_page(
 'manage_options', // $capability,
 'stop_spammers', // $menu_slug,
 'ss_summary' // $function
-);
+);	
+add_submenu_page(
+'stop_spammers', // plugins parent
+"Allow Requests — Stop Spammers", // $page_title,
+"Allow Requests", // $menu_title,
+'manage_options', // $capability,
+'ss_allowrequests', // $menu_slug,
+'ss_allowreq' // $function
+);	
+add_submenu_page(
+'stop_spammers', // plugins parent
+"Log Report — Stop Spammers", // $page_title,
+'Log Report', // $menu_title,
+'manage_options', // $capability,
+'ss_reports', // $menu_slug,
+'ss_reports' // function
+);	
+add_submenu_page(
+'stop_spammers', // plugins parent
+"Cache — Stop Spammers", // $page_title,
+'Cache', // $menu_title,
+'manage_options', // $capability,
+'ss_cache', // $menu_slug,
+'ss_cache' // function
+);	
+if (function_exists('is_multisite') && is_multisite()) {
+add_submenu_page(
+'stop_spammers', // plugins parent
+"Multisite — Stop Spammers", // $page_title,
+'Network', // $menu_title,
+'manage_options', // $capability,
+'ss_network', // $menu_slug,
+'ss_network'
+);	
+}
 add_submenu_page(
 'stop_spammers', // plugins parent
 "Protection Options — Stop Spammers", // $page_title,
@@ -168,6 +202,9 @@ include_setting("ss_contribute.php");
 }
 function ss_diagnostics() {
 include_setting("ss_diagnostics.php");
+}
+function ss_addons() {
+include_setting("ss_addons.php");
 }
 function ss_allowreq() {
 include_setting("ss_allowreq.php");
