@@ -1002,14 +1002,13 @@ a:focus {
 }
 
 #nav-modules .widget {
-    background: #fff;
-    border-radius: 10px;
-    color: #222;
-    height: 375px;
-    margin-bottom: 2em;
     margin-top: 2em;
-    -moz-border-radius: 10px;
+    margin-bottom: 2em;
+    color: #222;
+    background: #fff;
     -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px
 }
 
 #nav-modules .widget .widget-inner {
@@ -8820,7 +8819,16 @@ img {
 .parent-pageid-17 .entry-summary h3,
 .parent-pageid-17 .entry-summary h4 { /* about section */
     clear: both;
-    margin-top: 18px;
+    padding-top: 18px;
+    margin-top: 0;
+}
+.parent-pageid-17 .entry-summary img {
+    float: left;
+    margin-right:10px;
+    width: 150px;
+}
+.parent-pageid-17 .entry-summary div p:last-child {
+    margin-bottom: 0;
 }
 #participant-155 h3, #participant-314 h3 { /* grid view tweak */
     font-size: 20.25px;
