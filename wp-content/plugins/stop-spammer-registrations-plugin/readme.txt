@@ -47,7 +47,6 @@ OR
 * continued design improvements
 * fixed SFS report messages
 * removed email notifications for admin logins
-
 = 7.0.2 =
 * continued general cleanup
 * continued design improvements
