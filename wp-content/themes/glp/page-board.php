@@ -14,10 +14,22 @@
           <?php $rows = get_field('individual'); ?>
           <?php
             foreach ($rows as $individual) { ?>
-              <div>
-                <h4><?php echo $individual['individual_name']; ?> <small><?php echo $individual['individual_title']; ?></small></h4>
-                <?php if($individual['individual_picture']){ ?><img src="<?php echo $individual['individual_picture']; ?>" /><?php } ?><?php echo $individual['individual_description']; ?>
-              </div>
+              <?php if(!$individual['emeritus']) { ?>
+                <div>
+                  <h4><?php echo $individual['individual_name']; ?> <small><?php echo $individual['individual_title']; ?></small></h4>
+                  <?php if($individual['individual_picture']){ ?><img src="<?php echo $individual['individual_picture']; ?>" /><?php } ?><?php echo $individual['individual_description']; ?>
+                </div>
+              <?php } ?>
+          <?php } ?>
+          <h3>Emeritus</h3>
+          <?php
+            foreach ($rows as $individual) { ?>
+              <?php if($individual['emeritus']) { ?>
+                <div>
+                  <h4><?php echo $individual['individual_name']; ?> <small><?php echo $individual['individual_title']; ?></small></h4>
+                  <?php if($individual['individual_picture']){ ?><img src="<?php echo $individual['individual_picture']; ?>" /><?php } ?><?php echo $individual['individual_description']; ?>
+                </div>
+              <?php } ?>
           <?php } ?>
         </div>
         <footer>
