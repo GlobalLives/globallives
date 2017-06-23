@@ -1,8 +1,9 @@
 === Stop Spammers ===
 
+Contributors: bhadaway, Keith Graham
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTRTUYSPKJN8N
 Tags: spam, antispam, anti-spam, spam blocker, block spam, signup spam, comment spam, spam filter, registration spam, spammer, spammers, spamming, xss, malware, virus, captcha, comment, comments, contact, contact form, contact forms, form, forms, login, multisite, protection, register, registration, security, signup, trackback, trackbacks, user registration spam, widget
-Tested up to: 4.7.4
+Tested up to: 4.8
 Stable tag: trunk
 License: https://www.gnu.org/licenses/gpl.html
 
@@ -35,6 +36,17 @@ OR
 
 == Changelog ==
 
+= 7.0.5 =
+* fixed SFS reporting
+
+= 7.0.4 =
+* fixed login issue
+
+= 7.0.3 =
+* continued general cleanup
+* continued design improvements
+* fixed SFS report messages
+* removed email notifications for admin logins
 = 7.0.2 =
 * continued general cleanup
 * continued design improvements

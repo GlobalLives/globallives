@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Stop Spammers Spam Control
+Plugin Name: Stop Spammers
 Plugin URI: https://wordpress.org/plugins/stop-spammer-registrations-plugin/
 Description: The Stop Spammers plugin blocks spammers from leaving comments or logging in. It protects sites from robot registrations and malicious attacks.
 Author: Bryan Hadaway
 Author URI: https://calmestghost.com/
-Version: 7.0.2
+Version: 7.0.5
 License: https://www.gnu.org/licenses/gpl.html
 */
 // networking requires a couple of globals
-define('SS_VERSION', '7.0.2');
+define('SS_VERSION', '7.0.5');
 define('SS_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 define('SS_PLUGIN_FILE', plugin_dir_path( __FILE__ ));
 define('SS_PLUGIN_DATA', plugin_dir_path( __FILE__ ).'data/');
@@ -72,7 +72,6 @@ remove_action('init','ss_init');
 add_filter('pre_user_login', 'ss_user_reg_filter', 1, 1);
 // incompatible with a Jetpack submit
 if ($_POST!=null&&array_key_exists('jetpack_protect_num',$_POST)) return;
-add_action('wp_login', 'ss_notify_admin', 10, 2);
 // eMember trying to log in - disable plugin for eMember logins
 if (function_exists('wp_emember_is_member_logged_in')) { 
 // only eMember function I could find after 30 seconds of Googling
@@ -595,10 +594,6 @@ $ret=be_load('ss_check_post',ss_get_ip(),$stats,$options,$post);
 $post['reason']='Passed Registration '.$ret;
 $ansa=be_load('ss_log_good',ss_get_ip(),$stats,$options,$post);
 return $user_login;
-}
-function ss_notify_admin($user_login, $user) {
-require_once('includes/ss_notify_admin.php');
-return ss_notify_admin_action($user_login, $user);
 }
 require_once('includes/stop-spam-utils.php');
 ?>
