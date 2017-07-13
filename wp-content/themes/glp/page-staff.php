@@ -13,17 +13,23 @@
         <div class="entry-summary">
           <?php $rows = get_field('individual'); //sets the feildname of ACF ?>
           <?php foreach ($rows as $individual) {
-            if(!$individual['individual_past']) { //checks for past status ?>
+            if($individual['individual_status'] == 'staff') { //checks for status ?>
             <div>
               <h4><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; //getting the repeater information ?></small></h4>
               <?php if($individual['individual_picture']) { //checks for image presence in the repeater information ?><img src="<?php echo $individual['individual_picture']; ?>" alt="<?php echo $individual['individual_name']; //getting the repeater information ?>" /><?php } ?><?php echo $individual['individual_description']; //getting the repeater information ?>
             </div>
             <?php } ?>
           <?php } ?>
+          <h3>Interns &amp; Volunteers</h3>
+          <?php foreach ($rows as $individual) {
+            if($individual['individual_status'] == 'intern' || $individual['individual_status'] == 'volunteer') { //checks for status ?>
+              <h4><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; ?> <span>(<?php echo $individual['individual_status'] ?>)</span></small></h4>
+            <?php } ?>
+          <?php } ?>
           <h3>Past Contributors</h3>
           <ul>
             <?php foreach ($rows as $individual) {
-              if($individual['individual_past']) { //checks for past status ?>
+              if($individual['individual_status'] == 'past') { //checks for past status ?>
                 <li>
                   <h5><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; ?></small></h5>
                 </li>
