@@ -322,7 +322,7 @@ if ( ! class_exists( 'WpSmushNextGenStats' ) ) {
 				$smush_stats['percent'] = ! empty( $smush_stats['size_before'] ) && !empty( $smush_stats['size_after'] ) && $smush_stats['size_before'] > 0 ? ( $smush_stats['bytes'] / $smush_stats['size_before'] ) * 100 : $stats['percent'];
 			}
 
-			update_option( 'wp_smush_stats_nextgen', $smush_stats );
+			update_option( 'wp_smush_stats_nextgen', $smush_stats, false );
 
 			//Cahce the results, we don't need a timed cache expiration.
 			wp_cache_set( 'wp_smush_stats_nextgen', $smush_stats, 'nextgen' );
@@ -358,7 +358,7 @@ if ( ! class_exists( 'WpSmushNextGenStats' ) ) {
 				//Compression Percentage
 				$smush_stats['percent'] = ! empty( $smush_stats['size_before'] ) && !empty( $smush_stats['size_after'] ) && $smush_stats['size_before'] > 0 ? ( $smush_stats['bytes'] / $smush_stats['size_before'] ) * 100 : $stats['percent'];
 			}
-			update_option( 'wp_smush_stats_nextgen', $smush_stats );
+			update_option( 'wp_smush_stats_nextgen', $smush_stats, false );
 
 			//Cahce the results, we don't need a timed cache expiration.
 			wp_cache_set( 'wp_smush_stats_nextgen', $smush_stats, 'nextgen' );

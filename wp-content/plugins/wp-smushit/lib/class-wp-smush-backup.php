@@ -113,6 +113,10 @@ if ( ! class_exists( 'WpSmushBackup' ) ) {
 				$backup_sizes = array();
 			}
 
+			//Return if backup file doesn't exists
+			if( !file_exists( $backup_path ) ) {
+				return;
+			}
 			list( $width, $height ) = getimagesize( $backup_path );
 			//Store our backup Path
 			$backup_key                  = empty( $backup_key ) ? $this->backup_key : $backup_key;

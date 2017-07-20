@@ -4,7 +4,7 @@ Plugin Name: WP Smush
 Plugin URI: http://wordpress.org/extend/plugins/wp-smushit/
 Description: Reduce image file sizes, improve performance and boost your SEO using the free <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
 Author: WPMU DEV
-Version: 2.7.1
+Version: 2.7.4
 Author URI: http://premium.wpmudev.org/
 Text Domain: wp-smushit
 */
@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * Constants
  */
 $prefix  = 'WP_SMUSH_';
-$version = '2.7.1';
+$version = '2.7.4';
 
 //Deactivate the .org version, if pro version is active
 add_action( 'admin_init', 'deactivate_smush_org' );
@@ -60,7 +60,7 @@ $timeout = apply_filters( 'WP_SMUSH_API_TIMEOUT', 90 );
 // Remove the protocols and www, and get the domain name.
 $site_url = str_replace( array( 'http://', 'https://', 'www.' ), '', site_url() );
 // If current site's url is different from site_url, disable Async.
-if ( ( 0 !== strpos( $_SERVER['SERVER_NAME'], $site_url ) ) && ! defined( $prefix . 'ASYNC' ) ) {
+if ( ! empty( $_SERVER['SERVER_NAME'] ) && ( 0 !== strpos( $_SERVER['SERVER_NAME'], $site_url ) ) && ! defined( $prefix . 'ASYNC' ) ) {
 	define( $prefix . 'ASYNC', false );
 }
 

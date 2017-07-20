@@ -104,16 +104,23 @@ Smush button transformation
 
 .wpmud .wp-smush-submit-wrap {
     margin-top: 17px;
+    overflow: hidden;
     padding-top: 0;
 }
 
 .wp-smush-submit-wrap .spinner {
-    float: none;
+    float: right;
     margin: 1.5em 1em 0;
 }
 
 input#wp-smush-save-settings {
+    background: #17A8E3;
+    float: right;
     margin: 10px 0 5px;
+}
+
+input#wp-smush-save-settings:hover {
+    background: #0A9BD6;
 }
 
 .wp-smush-welcome #wp-smush-save-settings {
@@ -278,12 +285,27 @@ input#wp-smush-save-settings {
     padding-top: 0;
 }
 
-.smush-stats-wrapper .row:last-child {
-    padding-bottom: 0;
+div#smush-avg-pro-savings {
+    background: rgba(242, 242, 242, 0.5);;
+    border-top: 1px solid #ddd;
+    margin-top: 12px;
+    padding: 14px 28px 12px 30px;
+}
+
+div#smush-avg-pro-savings:before, div#smush-avg-pro-savings:after {
+    margin: 0 -10px;
+}
+
+div.row.smush-avg-pro-savings {
+    padding-bottom: 8px;
+    padding-top: 19px;
+}
+div.row.smush-avg-pro-savings span.wp-smush-stats-label strong, div.row.smush-avg-pro-savings span.wp-smush-stats {
+    opacity: 0.5;
 }
 
 .wpmud .wp-smushit-container-right .smush-stats-wrapper .wp-smush-container-header {
-    margin-bottom: 0;
+    padding: 0 30px;
 }
 
 .smush-stats-wrapper td, .smush-stats-wrapper th {
@@ -297,6 +319,8 @@ input#wp-smush-save-settings {
 
 .smush-stats-wrapper .box-content {
     margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .wp-smush-count-total {
@@ -623,7 +647,7 @@ table.wp-smush-stats-holder tr td:first-child {
 
 .wpmud .smush-page-wrap .dev-box .box-title {
     height: 67px;
-    margin: -25px -30px 28px;
+    margin: -25px 0px 28px;
 }
 
 .wpmud .dev-box .wp-smush-container-header.box-title h3 {
@@ -640,14 +664,17 @@ table.wp-smush-stats-holder tr td:first-child {
 }
 
 .wp-smush-premium .smush-container-subheading {
-    border: solid 1px #ff6d6d;
-    border-radius: 4px;
     font-size: 12px;
     line-height: 1.4;
     margin: 1.3em 10px;
-    padding: 5px 8px;
     vertical-align: top;
 }
+
+.wpmud .wp-smush-premium .smush-container-subheading:hover > a {
+    background-color: #1ABC9C;
+    color: #fff;
+}
+
 
 .wpmud .row .col-half.wp-smush-pro-for-free {
     padding-left: 0;
@@ -658,7 +685,14 @@ table.wp-smush-stats-holder tr td:first-child {
 }
 
 .wpmud .wp-smush-premium .smush-container-subheading a {
-    color: #ff6d6d;
+    border: solid 2px #1ABC9C;
+    border-radius: 13px;
+    color: #1ABC9C;
+    padding: 4px 10px;
+}
+
+.wpmud .wp-smush-premium .smush-container-subheading a:hover {
+    color: #fff;
 }
 
 .smush-stats-wrapper .smush-container-subheading {
@@ -888,11 +922,20 @@ div.wp-smush-dir-limit .wdv-icon-info-sign:before {
 }
 
 .wpmud .bulk-smush-wrapper .wp-smush-remaining button.wp-smush-skip-resmush:not(.wph-button):not(#collapse-button) {
+    background-color: transparent;
+    border: solid 2px #888888;
+    color: #888888;
     display: block !important;
     font-size: 12px;
+    font-weight: 600;
     margin-left: 27px !important;
     margin-top: 10px !important;
     padding: 5px 16px;
+}
+.wpmud .bulk-smush-wrapper .wp-smush-remaining button.wp-smush-skip-resmush:not(.wph-button):not(#collapse-button):not([tooltip]):hover {
+    background-color: transparent !important;
+    border: solid 2px #7d7d7d;
+    color: #7d7d7d;
 }
 
 .wp-smush-pro-trial {
@@ -1020,7 +1063,7 @@ small.smush-setting-description strong {
     font-size: 13px;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 700;
-    padding-bottom: 24px;
+    padding: 30px 0 24px 0;
 }
 
 .wpmud .smush-stats-wrapper strong {
@@ -1040,7 +1083,7 @@ small.smush-setting-description strong {
 .wpmud .wp-smush-stats .button-small.wp-smush-resize-enable {
     border-radius: 3px;
     font: 500 12px/20px 'Roboto' !important;
-    padding: 5px 16px !important;
+    padding: 4px 15px !important;
     vertical-align: top;
 }
 
@@ -1090,21 +1133,22 @@ small.smush-setting-description strong {
 }
 
 .wpmud .wp-smush-stats-try-pro {
-    border: solid 1px #ff6d6d;
-    border-radius: 4px;
     font-size: 12px;
     font-weight: 500;
     margin-left: 15px;
-    padding: 7px;
     vertical-align: top;
 }
 
 .wpmud .wp-smush-stats-try-pro a, .wpmud .wp-smush-stats-try-pro a:focus {
-    color: #ff6d6d;
+    border: solid 2px #1ABC9C;
+    border-radius: 13px;
+    color: #1ABC9C;
+    padding: 4px 10px;
 }
 
-.wpmud .wp-smush-stats-try-pro a:hover {
-    color: #ff6d6d;
+.wpmud .wp-smush-stats-try-pro:hover > a, .wpmud .wp-smush-stats-try-pro a:hover {
+    background-color: #1ABC9C;
+    color: #fff;
     cursor: pointer;
 }
 
@@ -1916,6 +1960,10 @@ div.dir-smush-button-wrap span {
 }
 
 .wpmud button.wp-smush-browse {
+    background-color: #AEAEAE !important;
+}
+
+.wpmud button.wp-smush-browse:hover {
     background-color: #9E9E9E !important;
 }
 

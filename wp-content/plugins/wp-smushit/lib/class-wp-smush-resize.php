@@ -42,17 +42,20 @@ if ( ! class_exists( 'WpSmushResize' ) ) {
 
 		/**
 		 * Get the settings for resizing
+		 *
+		 * @param bool $skip_check Added for Mobile APP uploads
 		 */
-		function initialize() {
+		function initialize( $skip_check = false ) {
+
 			//Do not initialize unless in the WP Backend Or On one of the smush pages
-			if ( ! is_user_logged_in() || ! is_admin() ) {
+			if ( ! is_user_logged_in() || ( ! is_admin() && ! $skip_check ) ) {
 				return;
 			}
 
 			global $wpsmush_settings, $wpsmushit_admin;
 			$current_screen = get_current_screen();
 
-			if( !empty( $current_screen ) ) {
+			if ( ! empty( $current_screen ) && ! $skip_check ) {
 				//Do not Proceed if not on one of the required screens
 				$current_page = $current_screen->base;
 				if ( ! in_array( $current_page, $wpsmushit_admin->pages ) ) {
@@ -202,7 +205,7 @@ if ( ! class_exists( 'WpSmushResize' ) ) {
 			$resize = $this->perform_resize( $file_path, $original_file_size, $id, $meta );
 
 			//If resize wasn't successful
-			if ( ! $resize || $resize['filesize'] == $original_file_size ) {
+			if ( ! $resize || $resize['filesize'] >= $original_file_size ) {
 				update_post_meta( $id, WP_SMUSH_PREFIX . 'resize_savings', $savings );
 				return $meta;
 			}
@@ -355,7 +358,7 @@ if ( ! class_exists( 'WpSmushResize' ) ) {
 			}
 
 			//Unlink directly if meta value is not specified
-			if ( empty( $meta ) || empty( $meta['sizes'] ) ) {
+			if ( empty( $meta['sizes'] ) ) {
 				@unlink( $path );
 			}
 
@@ -363,11 +366,13 @@ if ( ! class_exists( 'WpSmushResize' ) ) {
 			//Check if the file name is similar to one of the image sizes
 			$path_parts = pathinfo( $path );
 			$filename   = ! empty( $path_parts['basename'] ) ? $path_parts['basename'] : $path_parts['filename'];
-			foreach ( $meta['sizes'] as $image_size ) {
-				if ( false === strpos( $image_size['file'], $filename ) ) {
-					continue;
+			if ( ! empty( $meta['sizes'] ) ) {
+				foreach ( $meta['sizes'] as $image_size ) {
+					if ( false === strpos( $image_size['file'], $filename ) ) {
+						continue;
+					}
+					$unlink = false;
 				}
-				$unlink = false;
 			}
 			if ( $unlink ) {
 				@unlink( $path );
