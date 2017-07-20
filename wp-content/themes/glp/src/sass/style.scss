@@ -1860,6 +1860,21 @@ input.copyable:focus {
     margin-right: 1em
 }
 
+.page-educators .static-page-container .type-page a.btn_order {
+    background: #ff9900;
+    border-radius: 10px;
+    border: 0 none;
+    color: #333;
+    padding: 20px;
+    text-align: left;
+    text-shadow: none;
+}
+
+.page-educators .static-page-container .type-page .btn_order span {
+    font-size: 28px;
+    font-weight: 800;
+}
+
 .blog {
     background: #555
 }
