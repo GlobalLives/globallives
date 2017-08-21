@@ -53,7 +53,9 @@ if ( ! class_exists( 'WpSmushResize' ) ) {
 			}
 
 			global $wpsmush_settings, $wpsmushit_admin;
-			$current_screen = get_current_screen();
+
+			// Make sure the screen function exists.
+			$current_screen = function_exists( 'get_current_screen' ) ? get_current_screen() : false;
 
 			if ( ! empty( $current_screen ) && ! $skip_check ) {
 				//Do not Proceed if not on one of the required screens
