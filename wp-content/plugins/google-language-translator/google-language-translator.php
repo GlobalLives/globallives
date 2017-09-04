@@ -2,7 +2,7 @@
 /*
 Plugin Name: Google Language Translator
 Plugin URI: http://www.studio88design.com/plugins/google-language-translator
-Version: 5.0.30
+Version: 5.0.31
 Description: The MOST SIMPLE Google Translator plugin.  This plugin adds Google Translator to your website by using a single shortcode, [google-translator]. Settings include: layout style, hide/show specific languages, hide/show Google toolbar, and hide/show Google branding. Add the shortcode to pages, posts, and widgets.
 Author: Rob Myrick
 Author URI: http://www.wp-studio.net/
@@ -303,13 +303,24 @@ class google_language_translator {
 
     $default_language = get_option('googlelanguagetranslator_language');
     $english_flag_choice = get_option('googlelanguagetranslator_english_flag_choice');
+    $spanish_flag_choice = get_option('googlelanguagetranslator_spanish_flag_choice');
+    $portuguese_flag_choice = get_option('googlelanguagetranslator_portuguese_flag_choice');
     $language_code = array_search($language,$this->languages_array);
     $language_name = $language;
     $language_name_flag = $language_name;
 
     if ( $language_name == 'English' && $english_flag_choice == 'canadian_flag') {
-      $language_name_flag = 'canada';
-    }
+	  $language_name_flag = 'canada';
+	}
+	if ( $language_name == "English" && $english_flag_choice == 'us_flag') {
+          $language_name_flag = 'united-states';
+	}
+	if ( $language_name == 'Spanish' && $spanish_flag_choice == 'mexican_flag') {
+	  $language_name_flag = 'mexico';
+	}
+	if ( $language_name == 'Portuguese' && $portuguese_flag_choice == 'brazilian_flag') {
+	  $language_name_flag = 'brazil';
+	}
 
     return "<a class='nturl notranslate ".$language_code." ".$language_name_flag." single-language flag' title='".$language."'>".($image=='yes' ? "<span class='flag size".$image_size."'></span>" : '') .($text=='yes' ? $label : '')."</a>";
   }
@@ -1352,7 +1363,7 @@ $('.choose_flags').find('input:checkbox').prop('checked', false); }); });
 
             <div class="metabox-holder box-right notranslate" style="float: right; width: 33%;">
               <div class="postbox">
-                <h3>GLT Premium 5.0.34 is Here! $30</h3>
+                <h3>GLT Premium 5.0.35 is Here! $30</h3>
                   <div class="inside">
                     <a class="wp-studio-logo" href="http://www.wp-studio.net/" target="_blank"><img style="background:#444; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; width:177px;" src="<?php echo plugins_url( 'images/logo.png' , __FILE__ ); ?>"></a><br />
                       <ul id="features" style="margin-left:15px">

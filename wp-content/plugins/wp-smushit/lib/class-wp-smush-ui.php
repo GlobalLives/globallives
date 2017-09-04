@@ -114,15 +114,10 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 		function smush_stats_container() {
 			global $WpSmush, $wpsmushit_admin, $wpsmush_db, $wpsmush_settings;
 
-			//@todo: Move this to Stats section, In order to have a proper count somewhere
-			//If we have resmush list, smushed_count = totalcount - resmush count, else smushed_count
-			$smushed_count = ( $resmush_count = count( $wpsmushit_admin->resmush_ids ) ) > 0 ? $wpsmushit_admin->total_count - ( $resmush_count + $wpsmushit_admin->remaining_count ) : $wpsmushit_admin->smushed_count;
-			$smushed_count = $smushed_count > 0 ? $smushed_count : 0;
-
-			$button = '<span class="spinner"></span><button tooltip="' . esc_html__( "Lets you check if any images can be further optimised. Useful after changing settings.", "wp-smushit" ) . '" class="wp-smush-title button button-grey button-small wp-smush-scan">' . esc_html__( "RE-CHECK IMAGES", "wp-smushit" ) . '</button>';
+			$button = '<span class="spinner"></span><button tooltip="' . esc_html__( "Lets you check if any images can be further optimized. Useful after changing settings.", "wp-smushit" ) . '" class="wp-smush-title button button-grey button-small wp-smush-scan">' . esc_html__( "RE-CHECK IMAGES", "wp-smushit" ) . '</button>';
 			$this->container_header( 'smush-stats-wrapper', 'wp-smush-stats-box', esc_html__( "STATS", "wp-smushit" ), $button );
 			$dasharray = 125.663706144;
-			$dash_offset = $wpsmushit_admin->total_count > 0 ? $dasharray - ( $dasharray * ( $smushed_count / $wpsmushit_admin->total_count) ) : $dasharray;
+			$dash_offset = $wpsmushit_admin->total_count > 0 ? $dasharray - ( $dasharray * ( $wpsmushit_admin->smushed_count / $wpsmushit_admin->total_count) ) : $dasharray;
 			$tooltip = $wpsmushit_admin->stats['total_images'] > 0 ? 'tooltip="' . sprintf( esc_html__("You've smushed %d images in total", "wp-smushit"), $wpsmushit_admin->stats['total_images'] ) . '"' : ''; ?>
 			<div class="box-content">
 			<div class="row smush-total-savings smush-total-reduction-percent">
@@ -167,7 +162,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 			 * Allows to hide the Super Smush stats as it might be heavy for some users
 			 */
 			if ( $WpSmush->validate_install() && apply_filters( 'wp_smush_show_lossy_stats', true ) ) {
-				$wpsmushit_admin->super_smushed = $wpsmush_db->super_smushed_count(); ?>
+				$wpsmushit_admin->super_smushed = $wpsmush_db->super_smushed_count();?>
 				<hr />
 				<div class="row super-smush-attachments">
 				<span class="float-l wp-smush-stats-label"><strong><?php esc_html_e( "ATTACHMENTS SUPER-SMUSHED", "wp-smushit" ); ?></strong></span>
@@ -175,7 +170,14 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					if ( $WpSmush->lossy_enabled ) {
 						echo '<span class="smushed-count">' . intval( $wpsmushit_admin->super_smushed ) . '</span>/' . $wpsmushit_admin->total_count;
 					} else {
-						printf( esc_html__( "%sENABLE SUPER-SMUSH%s", "wp-smushit" ), '<button class="wp-smush-lossy-enable button button-small">', '</button>' );
+					    //Output a button/link to enable respective setting
+					    if( !is_multisite() || !get_site_option( WP_SMUSH_PREFIX . 'networkwide', 1 ) ) {
+                            //@todo:Print a link to settings page for network sites
+                            printf( esc_html__( "%sENABLE SUPER-SMUSH%s", "wp-smushit" ), '<button class="wp-smush-lossy-enable button button-small">', '</button>' );
+						}else {
+					        $settings_link = $wpsmushit_admin->settings_link( array(), true );
+                            printf( esc_html__( "%sENABLE SUPER-SMUSH%s", "wp-smushit" ), '<a href="' . $settings_link .'" class="wp-smush-lossy-enable button button-small">', '</a>' );
+						}
 					} ?>
 				</span>
 				</div><?php
@@ -185,11 +187,16 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 				<span class="float-l wp-smush-stats-label"><strong><?php esc_html_e( "RESIZE SAVINGS", "wp-smushit" ); ?></strong></span>
 				<span class="float-r wp-smush-stats"><?php
 					if( !empty( $wpsmushit_admin->stats['resize_savings'] ) && $wpsmushit_admin->stats['resize_savings'] > 0 ) {
-						echo $wpsmushit_admin->stats['resize_savings'];
+						echo size_format( $wpsmushit_admin->stats['resize_savings'], 1 );
 					}else{
 						if( !$wpsmush_settings->get_setting( WP_SMUSH_PREFIX . 'resize' ) ) {
-							//If Not enabled, Add a enable button
-							printf( esc_html__( "%sENABLE IMAGE RESIZING%s", "wp-smushit" ), '<button class="wp-smush-resize-enable button button-small">', '</button>' );
+						    //Output a button/link to enable respective setting
+                            if( !is_multisite() || !get_site_option( WP_SMUSH_PREFIX . 'networkwide', 1 ) ) {
+                                printf( esc_html__( "%sENABLE IMAGE RESIZING%s", "wp-smushit" ), '<button class="wp-smush-resize-enable button button-small">', '</button>' );
+                            }else {
+                                $settings_link = $wpsmushit_admin->settings_link( array(), true );
+                                printf( esc_html__( "%sENABLE IMAGE RESIZING%s", "wp-smushit" ), '<a href="' . $settings_link .'" class="wp-smush-lossy-enable button button-small">', '</a>' );
+                            }
 						}else{
 							printf( esc_html__( "%sNO RESIZE SAVINGS AVAILABLE%s", "wp-smushit" ), '<span class="total-stats-label"><strong>', '</strong></span>' );
 						}
@@ -201,13 +208,18 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 				<hr />
 				<div class="row smush-conversion-savings">
 					<span class="float-l wp-smush-stats-label"><strong><?php esc_html_e( "PNG TO JPEG SAVINGS", "wp-smushit" ); ?></strong></span>
-					<span class="float-r wp-smush-stats"><?php echo $wpsmushit_admin->stats['conversion_savings'] > 0 ? $wpsmushit_admin->stats['conversion_savings'] : "0MB"; ?></span>
+					<span class="float-r wp-smush-stats"><?php echo $wpsmushit_admin->stats['conversion_savings'] > 0 ? size_format( $wpsmushit_admin->stats['conversion_savings'], 1 ) : "0MB"; ?></span>
 				</div><?php
 			}
 			/**
 			* Allows to output Directory Smush stats
             */
 			do_action('stats_ui_after_resize_savings');
+			/**
+			 * Allows you to output any content within the stats box at the end
+			 */
+			do_action( 'wp_smush_after_stats' );
+			echo "</div>";
 			//Pro Savings Expected: For free Version
 			if ( ! $WpSmush->validate_install() ) {
 			    //Initialize pro savings if not set already
@@ -226,12 +238,11 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					),
 					$wpsmushit_admin->upgrade_url
 				);
-				$pro_only = sprintf( esc_html__( '%sTRY PRO FREE%s', 'wp-smushit' ), '<a href="' . esc_url( $upgrade_url ) . '" target="_blank">', '</a>' ); ?>
+				$pro_only = sprintf( esc_html__( '%sPRO FEATURE%s', 'wp-smushit' ), '<a href="' . esc_url( $upgrade_url ) . '" target="_blank" tooltip="'. esc_html__( "Join WPMU DEV to try Smush Pro for free.", "wp-smushit" ) .'">', '</a>' ); ?>
 				<!-- Make a hidden div if not stats found -->
-				<div id="smush-avg-pro-savings" <?php echo $show_pro_savings ? '' : 'style="display: none;"'; ?>>
-					<hr />
-					<div class="row smush-avg-pro-savings" tooltip="<?php esc_html_e("BASED ON AVERAGE SAVINGS IF YOU UPGRADE TO PRO", "wp-smushit"); ?>">
-						<span class="float-l wp-smush-stats-label"><strong><?php esc_html_e( "PRO SAVINGS ESTIMATE", "wp-smushit" ); ?></strong><span class="wp-smush-stats-try-pro roboto-regular"><?php echo $pro_only; ?></span></span>
+				<div class="row" id="smush-avg-pro-savings" <?php echo $show_pro_savings ? '' : 'style="display: none;"'; ?>>
+					<div class="row smush-avg-pro-savings">
+						<span class="float-l wp-smush-stats-label"><span tooltip="<?php esc_html_e("BASED ON AVERAGE SAVINGS IF YOU UPGRADE TO PRO", "wp-smushit"); ?>"><strong><?php esc_html_e( "PRO SAVINGS ESTIMATE", "wp-smushit" ); ?></strong></span><span class="wp-smush-stats-try-pro roboto-regular"><?php echo $pro_only; ?></span></span>
 						<span class="float-r wp-smush-stats">
 							<span class="wp-smush-stats-human">
 								<?php echo $show_pro_savings ? $pro_savings['savings']: '0.0 B'; ?>
@@ -242,11 +253,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					</div>
 				</div><?php
 			}
-			/**
-			 * Allows you to output any content within the stats box at the end
-			 */
-			do_action( 'wp_smush_after_stats' );
-			echo "</div></section>";
+			echo "</section>";
 		}
 
 		/**
@@ -275,7 +282,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					),
 					$wpsmushit_admin->upgrade_url
 				);
-				$pro_only = sprintf( esc_html__( '%sTRY PRO FEATURES FREE%s', 'wp-smushit' ), '<a href="' . esc_url( $upgrade_url ) . '" target="_blank">', '</a>' );
+				$pro_only = sprintf( esc_html__( '%sPRO FEATURE%s', 'wp-smushit' ), '<a href="' . esc_url( $upgrade_url ) . '" target="_blank" tooltip="'. esc_html__( "Join WPMU DEV to try Smush Pro for free.", "wp-smushit" ) .'">', '</a>' );
 
 				$this->container_header( 'wp-smush-premium', 'wp-smush-pro-settings-box', esc_html__( "ADVANCED SETTINGS", "wp-smushit" ), $pro_only, false ); ?>
 				<div class="box-content"><?php
@@ -427,7 +434,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					if( !empty( $sizes ) ) { ?>
 						<!-- List of image sizes recognised by WP Smush -->
 						<div class="wp-smush-image-size-list">
-							<p><?php esc_html_e("The following image sizes will be optimised by WP Smush:", "wp-smushit"); ?></p><?php
+							<p><?php esc_html_e("The following image sizes will be optimized by WP Smush:", "wp-smushit"); ?></p><?php
 							foreach ( $sizes as $size_k => $size ) {
 								//If image sizes array isn't set, mark all checked ( Default Values )
 								if ( false === $image_sizes ) {
@@ -579,7 +586,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 		 */
 		function wp_smush_promo() {
 			global $wpsmushit_admin;
-			$this->container_header( 'wp-smush-pro-adv', 'wp-smush-pro-promo', "FANCY A FREE SUPER SMUSH?" );
+			$this->container_header( 'wp-smush-pro-adv', 'wp-smush-pro-promo', "READY TO LEVEL UP YOUR WEB DEVELOPMENT?" );
 			$upgrade_url = add_query_arg(
 				array(
 				'utm_source' => 'Smush-Free',
@@ -590,13 +597,12 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 			);
 			?>
 			<div class="box-content">
-				<p class="wp-smush-promo-content roboto-medium">You can now get Smush Pro... for FREE!</p>
-				<p class="wp-smush-promo-content wp-smush-promo-content-2 roboto-medium">No obligation, no contracts, no
-					catches. You'll get Smush Pro plus 100+ WPMU DEV plugins, Defender, Hummingbird & 24/7 WP support.
-					Try it today absolutely free.</p>
+				<p class="wp-smush-promo-content wp-smush-promo-content-2 roboto-medium">Create amazing websites, automate your workflow, and run your business like a well-oiled machine.
+				Get access to the tools that will win you more clients and help you spend less time working.
+				Start a free WPMU DEV trial today.</p>
 				<span class="wp-smush-pro-cta tc">
 					<a href="<?php echo esc_url( $upgrade_url ); ?>"
-					   class="button button-cta button-green" target="_blank">FIND OUT MORE</a>
+					   class="button button-cta button-green" target="_blank">GET STARTED</a>
 				</span>
 			</div><?php
 			echo "</section>";
@@ -676,7 +682,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 						</i>
 						<span class="wp-smush-notice-text"><?php
 							printf( _n( "%s, you have %s%s%d%s attachment%s that needs smushing!", "%s, you have %s%s%d%s attachments%s that need smushing!", $wpsmushit_admin->remaining_count, "wp-smushit" ), $wpsmushit_admin->get_user_name(), '<strong>', '<span class="wp-smush-remaining-count">', $wpsmushit_admin->remaining_count, '</span>', '</strong>' );
-							if( !$WpSmush->validate_install() ) {
+							if( !$WpSmush->validate_install() && $wpsmushit_admin->remaining_count > 50 ) {
 								printf( esc_html__(" %sUpgrade to Pro%s to bulk smush all your images with one click.", "wp-smushit") , '<a href="' . esc_url( $upgrade_url ). '" target="_blank" title="' . esc_html__("WP Smush Pro", "wp-smushit") . '">', '</a>' );
 								esc_html_e(" Free users can smush 50 images with each click.", "wp-smushit");
 							 }?>
@@ -701,10 +707,10 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 		function progress_bar( $count ) {
 
 			//If we have resmush list, smushed_count = totalcount - resmush count, else smushed_count
-			$smushed_count = ( $resmush_count = count( $count->resmush_ids ) ) > 0 ? ( $count->total_count - ( $count->remaining_count + $resmush_count ) ) : $count->smushed_count;
+//			$smushed_count = ( $resmush_count = count( $count->resmush_ids ) ) > 0 ? ( $count->total_count - ( $count->remaining_count + $resmush_count ) ) : $count->smushed_count;
 			// calculate %ages, avoid divide by zero error with no attachments
 			if ( $count->total_count > 0 && $count->smushed_count > 0 ) {
-				$smushed_pc = $smushed_count / $count->total_count * 100;
+				$smushed_pc = $count->smushed_count / $count->total_count * 100;
 			} else {
 				$smushed_pc = 0;
 			} ?>
@@ -720,7 +726,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 					</div>
 				</div>
 				<div class="wp-smush-count tc">
-					<?php printf( esc_html__( "%s%d%s of your media attachments has been smushed." ), '<span class="wp-smush-images-percent">', $smushed_pc, '</span>%' ); ?>
+					<?php printf( esc_html__( "%s%d%s of your media attachments have been smushed." ), '<span class="wp-smush-images-percent">', $smushed_pc, '</span>%' ); ?>
 				</div>
 			</div>
 			<hr class="wp-smush-sep">
@@ -754,7 +760,7 @@ if ( ! class_exists( 'WpSmushBulkUi' ) ) {
 						$wpsmushit_admin->setup_global_stats();
 					}
 
-					$count += $wpsmushit_admin->remaining_count;
+					$count = $wpsmushit_admin->remaining_count;
 				}
 			}
 			//Show only if we have any images to ber resmushed

@@ -101,6 +101,13 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		 * @return bool
 		 */
 		public function is_current_page() {
+<<<<<<< HEAD
+			if ( ! Tribe__Settings::instance()->should_setup_pages() || ! did_action( 'admin_menu' ) ) {
+				return false;
+			}
+
+=======
+>>>>>>> master
 			if ( is_null( $this->admin_page ) ) {
 				_doing_it_wrong(
 					__FUNCTION__,

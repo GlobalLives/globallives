@@ -25,6 +25,13 @@ class Tribe__Assets {
 	private $assets = array();
 
 	/**
+	 * Stores the localized scripts for reference
+	 *
+	 * @var array
+	 */
+	private $localized = array();
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @since 4.3
@@ -169,7 +176,23 @@ class Tribe__Assets {
 
 				// Only localize on JS and if we have data
 				if ( ! empty( $asset->localize ) ) {
-					wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+					/**
+					 * check to ensure we haven't already localized it before
+					 * @since 4.5.8
+					 */
+					if ( is_array( $asset->localize ) ) {
+						foreach ( $asset->localize as $local_asset ) {
+							if ( ! in_array( $local_asset->name, $this->localized ) ) {
+								wp_localize_script( $asset->slug, $local_asset->name, $local_asset->data );
+								$this->localized[] = $local_asset->name;
+							}
+						}
+					} else {
+						if ( ! in_array( $asset->localize->name, $this->localized ) ) {
+							wp_localize_script( $asset->slug, $asset->localize->name, $asset->localize->data );
+							$this->localized[] = $asset->localize->name;
+						}
+					}
 				}
 			} else {
 				wp_enqueue_style( $asset->slug );
@@ -184,46 +207,64 @@ class Tribe__Assets {
 	 * If the file does not exist, returns false.
 	 *
 	 * @since 4.3
+<<<<<<< HEAD
+	 * @since TBD Removed ability to pass a filepath as $url
+=======
 	 *
 	 * @param string $url   The path or URL to the un-minified file.
+>>>>>>> master
 	 *
-	 * @return string|false The path/url to minified version or false, if file not found.
+	 * @param string $url The absolute URL to the un-minified file.
+	 *
+	 * @return string|false The url to the minified version or false, if file not found.
 	 */
 	public static function maybe_get_min_file( $url ) {
 		$urls = array();
-		// If need add the Min Files
+		$wpmu_plugin_url = set_url_scheme( WPMU_PLUGIN_URL );
+		$wp_plugin_url = set_url_scheme( WP_PLUGIN_URL );
+		$wp_content_url = set_url_scheme( WP_CONTENT_URL );
+
+		if ( 0 === strpos( $url, $wpmu_plugin_url ) ) {
+			// URL inside WPMU plugin dir.
+			$base_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+			$base_url = $wpmu_plugin_url;
+		} elseif ( 0 === strpos( $url, $wp_plugin_url ) ) {
+			// URL inside WP plugin dir.
+			$base_dir = wp_normalize_path( WP_PLUGIN_DIR );
+			$base_url = $wp_plugin_url;
+		} elseif ( 0 === strpos( $url, $wp_content_url ) ) {
+			// URL inside WP content dir.
+			$base_dir = wp_normalize_path( WP_CONTENT_DIR );
+			$base_url = $wp_content_url;
+		} else {
+			// Resource needs to be inside wp-content or a plugins dir.
+			return false;
+		}
+
+		// Strip the plugin URL and make this relative.
+		$relative_location = str_replace( $base_url, '', $url );
+
+		// If needed add the Min Files.
 		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
-			if ( substr( $url, - 3, 3 ) === '.js' ) {
-				$urls[] = substr_replace( $url, '.min', - 3, 0 );
+			if ( substr( $relative_location, - 3, 3 ) === '.js' ) {
+				$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
 			}
 
-			if ( substr( $url, - 4, 4 ) === '.css' ) {
-				$urls[] = substr_replace( $url, '.min', - 4, 0 );
+			if ( substr( $relative_location, - 4, 4 ) === '.css' ) {
+				$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
 			}
 		}
 
-		// Add the actual url after having the Min file added
-		$urls[] = $url;
+		// Add the actual url after having the min file added.
+		$urls[] = $relative_location;
 
-		// Check for all Urls added to the array
-		foreach ( $urls as $key => $url ) {
-			//set path to file for Windows
-			$file = $url;
-			//Set variable for content normalized directory
-			$normalized_content_dir = wp_normalize_path( WP_CONTENT_DIR );
+		// Check for all Urls added to the array.
+		foreach ( $urls as $partial_path ) {
+			$file_path = wp_normalize_path( $base_dir . $partial_path );
+			$file_url  = plugins_url( basename( $file_path ), $file_path );
 
-			//Detect if $url is actually a file path
-			if ( false !== strpos( $url, $normalized_content_dir ) ) {
-				// Turn file Path to URL in Windows
-				$url = str_replace( $normalized_content_dir, content_url(), $url );
-			} else {
-				// Turn URL into file Path
-				$file = str_replace( content_url(), $normalized_content_dir, $url );
-			}
-
-			//if file exists return url
-			if ( file_exists( $file ) ) {
-				return $url;
+			if ( file_exists( $file_path ) ) {
+				return $file_url;
 			}
 		}
 
@@ -241,7 +282,7 @@ class Tribe__Assets {
 	 * @param  string       $file      Which file will be loaded, either CSS or JS
 	 * @param  array        $deps      Dependencies
 	 * @param  string|null  $action    (Optional) A WordPress Action, if set needs to happen after: `wp_enqueue_scripts`, `admin_enqueue_scripts`, or `login_enqueue_scripts`
-	 * @param  string|array $query {
+	 * @param  string|array $arguments {
 	 *     Optional. Array or string of parameters for this asset
 	 *
 	 *     @type string|null  $action         Which WordPress action this asset will be loaded on
@@ -371,10 +412,17 @@ class Tribe__Assets {
 		// If you are passing localize, you need `name` and `data`
 		if ( ! empty( $asset->localize ) && ( is_array( $asset->localize ) || is_object( $asset->localize ) ) ) {
 			$asset->localize = (object) $asset->localize;
+			if ( is_array( $asset->localize ) && empty( $asset->localize['name'] )  ) {
+				foreach ( $asset->localize as $index => $local ) {
+					$asset->localize[ $index ] = (object) $local;
+				}
+			} else {
+				$asset->localize = (object) $asset->localize;
 
-			// if we don't have both reset localize
-			if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
-				$asset->localize = array();
+				// if we don't have both reset localize
+				if ( ! isset( $asset->localize->data, $asset->localize->name ) ) {
+					$asset->localize = array();
+				}
 			}
 		}
 

@@ -23,6 +23,8 @@ In cases where spam is detected, users are offered a second chance to post their
 
 ***If you also love this plugin and want to see it live on, you can help me maintain it [on GitHub](https://github.com/bhadaway/stop-spammers).***
 
+***Need help? Read the [FAQs page](https://github.com/bhadaway/stop-spammers/wiki/faqs) first.***
+
 == Installation ==
 
 Go to "Add New" from your WP admin menu, search for Stop Spammers, and install.
@@ -36,6 +38,11 @@ OR
 
 == Changelog ==
 
+= 7.0.6 =
+* fixed issue with menu icon
+* removed debug submission form (not needed)
+* added link to new FAQs (https://github.com/bhadaway/stop-spammers/wiki/faqs)
+
 = 7.0.5 =
 * fixed SFS reporting
 
@@ -47,6 +54,7 @@ OR
 * continued design improvements
 * fixed SFS report messages
 * removed email notifications for admin logins
+
 = 7.0.2 =
 * continued general cleanup
 * continued design improvements

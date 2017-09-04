@@ -489,7 +489,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			$base_dir = realpath( $base_dir );
 
 			//Store the path in option
-			update_option( 'wp-smush-dir_path', $base_dir );
+			update_option( 'wp-smush-dir_path', $base_dir, false );
 
 			//Directory Iterator, Exclude . and ..
 			$dirIterator = new RecursiveDirectoryIterator(
@@ -1111,7 +1111,7 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				$error_msg = $smush_results->get_error_message();
 			} else if ( empty( $smush_results['data'] ) ) {
 				//If there are no stats
-				$error_msg = esc_html__( "Image couldn't be optimised", "wp-smushit" );
+				$error_msg = esc_html__( "Image couldn't be optimized", "wp-smushit" );
 			}
 
 			if ( ! empty( $error_msg ) ) {
@@ -1149,7 +1149,8 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 				$stats            = $wpsmushit_admin->stats;
 				$stats['total']   = $wpsmushit_admin->total_count;
 				$resmush_count    = empty( $wpsmushit_admin->resmush_ids ) ? count( $wpsmushit_admin->resmush_ids = get_option( "wp-smush-resmush-list" ) ) : count( $wpsmushit_admin->resmush_ids );
-				$stats['smushed'] = ! empty( $wpsmushit_admin->resmush_ids ) ? $wpsmushit_admin->smushed_count - $resmush_count : $wpsmushit_admin->smushed_count;
+//				$stats['smushed'] = ! empty( $wpsmushit_admin->resmush_ids ) ? $wpsmushit_admin->smushed_count - $resmush_count : $wpsmushit_admin->smushed_count;
+				$stats['smushed'] = $wpsmushit_admin->smushed_count;
 				if ( $lossy == 1 ) {
 					$stats['super_smushed'] = $wpsmushit_admin->super_smushed;
 				}
@@ -1164,13 +1165,13 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			//Show the image wise stats
 			$image = array(
 				'id'        => $id,
-				'orig_size' => $image['orig_size'],
-				'img_size'  => $smush_results['data']->after_size
+				'size_before' => $image['orig_size'],
+				'size_after'  => $smush_results['data']->after_size
 			);
 
-			$bytes            = $image['orig_size'] - $image['img_size'];
+			$bytes            = $image['size_before'] - $image['size_after'];
 			$image['savings'] = size_format( $bytes, 1 );
-			$image['percent'] = number_format_i18n( ( ( $bytes / $image['orig_size'] ) * 100 ), 1 ) . '%';
+			$image['percent'] = $image['size_before'] > 0 ? number_format_i18n( ( ( $bytes / $image['size_before'] ) * 100 ), 1 ) . '%' : 0;
 
 			$data = array(
 				'image'       => $image,
@@ -1270,15 +1271,11 @@ if ( ! class_exists( 'WpSmushDir' ) ) {
 			//Initialize Global Stats
 			$wpsmushit_admin->setup_global_stats();
 
-			//@todo: Redundant code, Move this to a single function
-			$smushed_count = ( $resmush_count = count( $wpsmushit_admin->resmush_ids ) ) > 0 ? $wpsmushit_admin->total_count - ( $resmush_count + $wpsmushit_admin->remaining_count ) : $wpsmushit_admin->smushed_count;
-			$smushed_count = $smushed_count > 0 ? $smushed_count : 0;
-
 			//Get the total/Smushed attachment count
 			$total_attachments = $wpsmushit_admin->total_count + $stats['total'];
 			$total_images      = $wpsmushit_admin->stats['total_images'] + $stats['total'];
 
-			$smushed     = $smushed_count + $stats['optimised'];
+			$smushed     = $wpsmushit_admin->smushed_count + $stats['optimised'];
 			$savings     = ! empty( $wpsmushit_admin->stats ) ? $wpsmushit_admin->stats['bytes'] + $stats['bytes'] : $stats['bytes'];
 			$size_before = ! empty( $wpsmushit_admin->stats ) ? $wpsmushit_admin->stats['size_before'] + $stats['orig_size'] : $stats['orig_size'];
 			$percent     = $size_before > 0 ? ( $savings / $size_before ) * 100 : 0;

@@ -449,12 +449,14 @@ if ( ! class_exists( 'WpSmushPngtoJpg' ) ) {
 		 * @uses WpSmushBackup::add_to_image_backup_sizes()
 		 *
 		 * @return mixed|string
+		 *
+		 * @todo: Save cummulative savings
 		 */
 		function png_to_jpg( $id = '', $meta = '' ) {
-			global $wpsmush_backup;
+			global $wpsmush_backup, $WpSmush;
 
-			//If we don't have meta or ID
-			if ( empty( $id ) || empty( $meta ) ) {
+			// If we don't have meta or ID, or if not a premium user.
+			if ( empty( $id ) || empty( $meta ) || ! $WpSmush->validate_install() ) {
 				return $meta;
 			}
 
