@@ -1,11 +1,20 @@
 === The Events Calendar ===
 
+<<<<<<< HEAD
 Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, jentheo, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.4
 Stable tag: 4.5.10.1
 Tested up to: 4.8.1
+=======
+Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, brook-tribe, cliffpaulick, courane01, faction23, GeoffBel, geoffgraham, ggwicz, jbrinley, leahkoerper, lucatume, mastromktg, mat-lipe, MZAWeb, neillmcshea, nicosantos, patriciahillebrandt, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, shelbelliott, tribecari, vicskf, zbtirrell
+Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
+Donate link: http://m.tri.be/29
+Requires at least: 3.9
+Stable tag: 4.5.7
+Tested up to: 4.8
+>>>>>>> master
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -327,6 +336,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+<<<<<<< HEAD
 = [4.5.10.1] 2017-08-16 =
 
 * Fix - Updates common library to resolve a range of issues preventing frontend assets from loading and breaking parts of our user interface [85017]
@@ -365,6 +375,8 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Avoid EA Client hanging when no events are found while attempting an import from a Facebook source [82713]
 * Fix - Improve compatibility of The Events Calendar when operating with WPML from within a subdirectory (props: @dgwatkins) [81998]
 
+=======
+>>>>>>> master
 = [4.5.7] 2017-06-28 =
 
 * Fix - Restore support for translated events category slugs when WPML is active [73478]

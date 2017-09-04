@@ -2,6 +2,7 @@
 
 == Changelog ==
 
+<<<<<<< HEAD
 = [4.5.10.1] 2017-08-16 =
 
 * Fix - Fixed issue with JS/CSS files not loading when WordPress URL is HTTPS but Site URL is not (our thanks to @carcal1 for first reporting this) [85017]
@@ -31,6 +32,8 @@
 * Tweak - Allow dependency.js to handle radio buttons. ensure that they are linked correctly. [82510]
 * Fix - Allow passing multiple localize-scripts to tribe-assets. Don't output a localized scrip more than once. [81644]
 
+=======
+>>>>>>> master
 = [4.5.7] 2017-06-28 =
 
 * Fix - Made the App Shop and help pages work on Windows. [77975]

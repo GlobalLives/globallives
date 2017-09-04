@@ -290,7 +290,11 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+<<<<<<< HEAD
 #: src/Tribe/PUE/Notices.php:302
+=======
+#: src/Tribe/PUE/Notices.php:298
+>>>>>>> master
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
@@ -314,7 +318,11 @@ msgstr ""
 msgid "Buy This Add-On"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:219
+=======
+#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:215
+>>>>>>> master
 msgid "Event Aggregator"
 msgstr ""
 
@@ -468,7 +476,11 @@ msgstr ""
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:265
+=======
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:257
+>>>>>>> master
 msgid "Filter Bar"
 msgstr "Фильтры"
 
@@ -650,7 +662,11 @@ msgstr ""
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:285
+=======
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:275
+>>>>>>> master
 msgid "Community Tickets"
 msgstr ""
 
@@ -722,11 +738,19 @@ msgstr ""
 msgid " and "
 msgstr "и"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:296
 msgid "Eventbrite Tickets"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:251
+=======
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:285
+msgid "Eventbrite Tickets"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:244
+>>>>>>> master
 msgid "Event Tickets Plus"
 msgstr ""
 
@@ -734,7 +758,11 @@ msgstr ""
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:242
+=======
+#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:236
+>>>>>>> master
 msgid "Event Tickets"
 msgstr ""
 
@@ -830,7 +858,11 @@ msgstr "Вайоминг"
 msgid "Free"
 msgstr "Бесплатные"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:275
+=======
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:266
+>>>>>>> master
 msgid "Community Events"
 msgstr "Встречи сообщества"
 
@@ -908,7 +940,11 @@ msgstr "Вам нужно обновиться!"
 msgid "You are up to date!"
 msgstr "У вас самая новая версия!"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:228
+=======
+#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:223
+>>>>>>> master
 msgid "Events Calendar PRO"
 msgstr ""
 
@@ -1415,7 +1451,11 @@ msgid "Greenland"
 msgstr "Гренландия"
 
 #: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
+<<<<<<< HEAD
 #: src/Tribe/Plugins_API.php:210
+=======
+#: src/Tribe/Plugins_API.php:207
+>>>>>>> master
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 

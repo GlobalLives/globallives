@@ -11,6 +11,7 @@ msgstr ""
 "Language: ro\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
+<<<<<<< HEAD
 #: src/admin-views/aggregator/tabs/import-form.php:95
 msgid "Add more sources"
 msgstr ""
@@ -30,6 +31,15 @@ msgstr ""
 #: src/Tribe/Aggregator/Service.php:209
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
 msgstr ""
+=======
+#: src/Tribe/Linked_Posts.php:902 src/Tribe/Linked_Posts.php:907
+msgid "Create or Find %s"
+msgstr "Creează sau găsește %s"
+
+#: src/Tribe/Linked_Posts.php:900 src/Tribe/Linked_Posts.php:905
+msgid "Find a %s"
+msgstr "Găsește un %s"
+>>>>>>> master
 
 #: common/src/Tribe/Plugins_API.php:218
 msgid "Import events from across the web! Event Aggregator makes it easy to run scheduled or manual imports from Facebook, Meetup, Google Calendar, and iCalendar, along with uploads from CSV and ICS files. You can also import directly from other sites running The Events Calendar thanks to our built-in REST API support."

@@ -207,7 +207,12 @@ class Tribe__Assets {
 	 * If the file does not exist, returns false.
 	 *
 	 * @since 4.3
+<<<<<<< HEAD
 	 * @since TBD Removed ability to pass a filepath as $url
+=======
+	 *
+	 * @param string $url   The path or URL to the un-minified file.
+>>>>>>> master
 	 *
 	 * @param string $url The absolute URL to the un-minified file.
 	 *

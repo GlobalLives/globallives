@@ -2,6 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: Tribe Common 4.5.10\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
 "POT-Creation-Date: 2017-08-09 12:48:54+00:00\n"
@@ -9,6 +10,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2017-08-09 12:48\n"
+=======
+"Project-Id-Version: Tribe Common 4.5.7\n"
+"Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
+"POT-Creation-Date: 2017-06-27 15:39:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-06-27 15:39\n"
+>>>>>>> master
 "Last-Translator: \n"
 "Language-Team: \n"
 
@@ -29,7 +39,11 @@ msgid "Return to WordPress Updates"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
+<<<<<<< HEAD
 #: src/Tribe/Plugins_API.php:210
+=======
+#: src/Tribe/Plugins_API.php:207
+>>>>>>> master
 msgid "The Events Calendar"
 msgstr ""
 
@@ -39,7 +53,11 @@ msgid ""
 "easily share your events."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:242
+=======
+#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:236
+>>>>>>> master
 msgid "Event Tickets"
 msgstr ""
 
@@ -63,6 +81,7 @@ msgstr ""
 msgid " and "
 msgstr ""
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:228
 msgid "Events Calendar PRO"
 msgstr ""
@@ -88,6 +107,33 @@ msgid "Event Tickets Plus"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:285
+=======
+#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:223
+msgid "Events Calendar PRO"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:285
+msgid "Eventbrite Tickets"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:266
+msgid "Community Events"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:215
+msgid "Event Aggregator"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:257
+msgid "Filter Bar"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:244
+msgid "Event Tickets Plus"
+msgstr ""
+
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:275
+>>>>>>> master
 msgid "Community Tickets"
 msgstr ""
 

@@ -2,7 +2,11 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "PO-Revision-Date: 2017-08-05 22:37:13+0000\n"
+=======
+"PO-Revision-Date: 2017-06-15 21:23:27+0000\n"
+>>>>>>> master
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -288,11 +292,19 @@ msgid_plural "Updates are available for %1$s but your license keys have expired.
 msgstr[0] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenz ist abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 msgstr[1] "Für %1$s steht ein Update zur Verfügung, aber Ihre Lizenzen sind abgelaufen. %2$sBesuchen Sie die Events Calendar Website, um Ihre Lizenz zu verlängern.%3$s"
 
+<<<<<<< HEAD
 #: src/Tribe/PUE/Notices.php:302
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] "Sie haben einen Lizenzschlüssel für %1$s eingegeben, aber der Schlüssel wird schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenz zu aktualisieren oder eine neue zu kaufen."
 msgstr[1] "Sie haben Lizenzschlüssel für %1$s eingegeben, aber die Schlüssel werden schon verwendet. %2$sBesuchen Sie die  Events Calendar Website%3$s, um Ihre Installationen zu verwalten, Ihre Lizenzen zu aktualisieren oder neue zu kaufen."
+=======
+#: src/Tribe/PUE/Notices.php:298
+msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
+msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
+msgstr[0] ""
+msgstr[1] ""
+>>>>>>> master
 
 #: src/Tribe/PUE/Notices.php:383
 msgctxt "formatted plugin list"
@@ -311,7 +323,11 @@ msgstr "All Add-Ons anzeigen"
 msgid "Buy This Add-On"
 msgstr "Kaufen Sie dieses Add-On"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:219
+=======
+#: src/Tribe/Admin/Help_Page.php:219 src/Tribe/Plugins_API.php:215
+>>>>>>> master
 msgid "Event Aggregator"
 msgstr "Event Aggregator"
 
@@ -465,7 +481,11 @@ msgstr "Der Events Calendar PRO ist ein kostenpflichtiges Add-On für unser Open
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 msgstr "Es ist großartig, dass Ihr Kalender <em>DER PLATZ</em> für Premium Verkäufe ist. Sie haben mehr Events als Rihanna? Schade nur, dass Besucher einen persönlichen Assistenten benötigen, um sich durch die ganzen Angebote zu wühlen. Wollen Sie Ihre Veranstaltungen filtern, z.B. nach Entfernung, nur am Wochenende oder kostenlose Events? Dann nutzen Sie The Filter Bar! "
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:265
+=======
+#: src/Tribe/Admin/Help_Page.php:227 src/Tribe/Plugins_API.php:257
+>>>>>>> master
 msgid "Filter Bar"
 msgstr "Filterleiste"
 
@@ -647,7 +667,11 @@ msgstr "Unterstützung erhalten"
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr "Optimieren Sie Ihre Veranstaltungswebsite mit %1$sThe Events Calendar%2$s, unserem kostenlosen Kalender-Plugin. Suchen Sie zusätzliche Funktionalität einschließlich Serientermine, Übermittlung von Terminen durch Nutze, erweiterten Ticketverkauf und mehr? Schauen Sie sich unsere %3$sPremium-Add-ons%4$s an."
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:285
+=======
+#: src/Tribe/Admin/Help_Page.php:244 src/Tribe/Plugins_API.php:275
+>>>>>>> master
 msgid "Community Tickets"
 msgstr "Community Tickets"
 
@@ -719,11 +743,19 @@ msgstr "Starten Sie den Turbo für Beiträge mit benutzerdefinierte Feldern,  so
 msgid " and "
 msgstr ", und "
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:296
 msgid "Eventbrite Tickets"
 msgstr "Eventbrite Tickets"
 
 #: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:251
+=======
+#: src/Tribe/Admin/Help_Page.php:203 src/Tribe/Plugins_API.php:285
+msgid "Eventbrite Tickets"
+msgstr "Eventbrite Tickets"
+
+#: src/Tribe/Admin/Help_Page.php:235 src/Tribe/Plugins_API.php:244
+>>>>>>> master
 msgid "Event Tickets Plus"
 msgstr "Event Tickets Plus"
 
@@ -731,7 +763,11 @@ msgstr "Event Tickets Plus"
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
 msgstr "The Events Calendar ist ein sorgfältig erstelltes, erweiterbares Plugin, mit dem Sie ganz einfach Tickets für Ihre Veranstaltungen verkaufen können."
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:242
+=======
+#: src/Tribe/Admin/Help_Page.php:75 src/Tribe/Plugins_API.php:236
+>>>>>>> master
 msgid "Event Tickets"
 msgstr "Veranstaltungstickets"
 
@@ -827,7 +863,11 @@ msgstr "Wyoming"
 msgid "Free"
 msgstr "Eintritt frei"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:275
+=======
+#: src/Tribe/Admin/Help_Page.php:211 src/Tribe/Plugins_API.php:266
+>>>>>>> master
 msgid "Community Events"
 msgstr "Veranstaltungen bearbeiten"
 
@@ -905,7 +945,11 @@ msgstr "Sie müssen updaten!"
 msgid "You are up to date!"
 msgstr "Sie sind auf dem neuesten Stand!"
 
+<<<<<<< HEAD
 #: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:228
+=======
+#: src/Tribe/Admin/Help_Page.php:194 src/Tribe/Plugins_API.php:223
+>>>>>>> master
 msgid "Events Calendar PRO"
 msgstr "Events Calendar PRO"
 
@@ -1412,7 +1456,11 @@ msgid "Greenland"
 msgstr "Grönland"
 
 #: src/Tribe/Admin/Help_Page.php:59 src/Tribe/Customizer.php:565
+<<<<<<< HEAD
 #: src/Tribe/Plugins_API.php:210
+=======
+#: src/Tribe/Plugins_API.php:207
+>>>>>>> master
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
