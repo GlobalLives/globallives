@@ -24,6 +24,7 @@ ignore
 
 # wordpress specific
 wp-config.php
+wp-content/plugins/*
 wp-content/uploads/
 wp-content/blogs.dir/
 wp-content/upgrade/*
@@ -119,5 +120,5 @@ outside_src/bak/
 outside_src/staging/
 
 *.scssc
-
 *.cssc
+wp-content/plugins/
