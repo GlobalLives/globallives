@@ -1463,6 +1463,7 @@ input.copyable:focus {
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail {
     position: relative;
     cursor: pointer;
+	height: 100px;
     margin: 0 10px;
     padding-bottom: 16.666%;
     border: 3px solid #fff;
@@ -1485,7 +1486,6 @@ input.copyable:focus {
     left: 40%;
     color: #fff;
     font-size: 36px;
-    content: 'â–º'
 }
 
 .single-participant .participant-filter-clips {
