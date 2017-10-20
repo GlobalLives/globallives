@@ -27,14 +27,14 @@
 			</div>
 			<div class="span3">
 				<?php dynamic_sidebar('sidebar-footer'); ?>
-				<div class="fb-like" data-href="https://www.facebook.com/globallives/" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+				<div class="fb-like" data-href="https://www.globallives.org" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 			</div>
 		</div>
 	</div>
 </footer>
 
 <?php if (!is_user_logged_in()) : ?>
-<div id="signup-modal" class="modal hide">
+<div id="signup-modal" class="modal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3><?php _e('Sign Up','glp'); ?></h3>
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 </div>
-<div id="login-modal" class="modal hide">
+<div id="login-modal" class="modal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3><?php _e('Log In','glp'); ?></h3>
