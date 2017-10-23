@@ -22,7 +22,7 @@
               <?php } ?>
           <?php } ?>
           <h3>Emeritus</h3>
-          <?phpå
+          <?php
             foreach ($rows as $individual) { ?>
               <?php if($individual['emeritus']) { //checks for emeritus status ?>
                 <div>
