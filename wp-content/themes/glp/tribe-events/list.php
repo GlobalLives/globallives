@@ -22,9 +22,7 @@ global $query_string;
 		$hasPosts = true; $first = true;
 ?>
 
-	<header>
-		<h2 class="page-title"><?php _e('Past Events','glp'); ?></h2>
-	</header>
+	<h3><?php _e('Past Events','glp'); ?></h3>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
 		<?php get_template_part('templates/content','event'); ?>		
@@ -40,9 +38,7 @@ global $query_string;
 
 ?>
 
-	<header>
-		<h2 class="page-title"><?php _e('Upcoming Events','glp'); ?></h2>
-	</header>
+	<h3><?php _e('Upcoming Events','glp'); ?></h3>
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php global $more; $more = false; ?>		
 		<?php get_template_part('templates/content','event'); ?>
