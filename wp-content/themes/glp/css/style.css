@@ -7632,13 +7632,8 @@ img {
   color: #ccc;
   font-size: 10px; }
 
-.page-partners .row .col-sm-4 a img,
-.page-sponsors .row .col-sm-4 a img {
-  max-height: 200px; }
-
-.page-partners .row .col-sm-4 a,
-.page-sponsors .row .col-sm-4 a {
-  border: 0 none;
+.page-sponsors .row .col-sm-4 a,
+.page-partners .row .col-sm-4 a {
   line-height: 200px; }
 
 #participant-155 h3, #participant-314 h3 {
