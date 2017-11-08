@@ -3076,7 +3076,7 @@ figure.alignnone {
     min-height: 156px;
     width: 239px;
     background: #555;
-    border-radius: 0 none;
+    border-radius: 0;
     border: 0 none;
     padding: 0;
 }
@@ -9185,6 +9185,10 @@ img {
     .row,
     .thumbnails {
         margin-left: 0
+    }
+
+    .thumbnail {
+        border-radius: 0;
     }
     
     .thumbnails>li {
