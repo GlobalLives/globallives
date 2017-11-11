@@ -61,6 +61,9 @@ if( tribe_is_multiday( $post->ID ) || !$event->AllDay ) {
 		<a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a>
 	</div>
 </li>
-  <?php endwhile; wp_reset_query(); // posts ?>
+  <?php endwhile; wp_reset_query(); // posts
+  if ( !have_posts() ) { ?>
+    <p>No future events yet. We're planning big things.</p>
+  <?php } // no posts ?>
 </ul>
 <?php $alt_text = ( empty( $alt_text ) ) ? 'alt' : ''; ?>

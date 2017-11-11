@@ -1001,10 +1001,10 @@ a:focus {
   color: #fff; }
 
 .page-sidebar {
-  margin: 4em 0 0; }
+  margin: 25px 0 0; }
 
 .page-sidebar h4:first-child {
-  padding: 0 0 0 2em; }
+  padding: 0 0 0 25px; }
 
 input.copyable {
   width: 100%;
@@ -1016,11 +1016,11 @@ input.copyable {
 input.copyable:focus {
   outline: 0; }
 
-.home {
+body.home {
   background: transparent url(../img/bg-home.jpg) center no-repeat fixed;
   background-size: cover; }
 
-.home #wrap {
+body.home #wrap {
   background-color: rgba(0, 0, 0, 0.3);
   background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.75));
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(0, 0, 0, 0.75)));
@@ -1030,7 +1030,7 @@ input.copyable:focus {
   background-repeat: repeat-x;
   min-height: 610px; }
 
-.home #stage {
+body.home #stage {
   padding: 2em 0; }
 
 .front-page {
@@ -1462,6 +1462,7 @@ input.copyable:focus {
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail {
   position: relative;
   cursor: pointer;
+  height: 100px;
   margin: 0 10px;
   padding-bottom: 16.666%;
   border: 3px solid #fff;
@@ -1481,8 +1482,7 @@ input.copyable:focus {
   top: 40%;
   left: 40%;
   color: #fff;
-  font-size: 36px;
-  content: "â–º"; }
+  font-size: 36px; }
 
 .single-participant .participant-filter-clips {
   margin-top: 4em;
@@ -2043,7 +2043,7 @@ input.copyable:focus {
   border-radius: 10px 0 10px 10px; }
 
 .tribe-events-events {
-  margin: 2em 2em 0 0; }
+  margin: 2px 25px 0 0; }
 
 .tribe-events-events .btn {
   color: #555;
@@ -2836,7 +2836,7 @@ figure.alignnone {
   min-height: 156px;
   width: 239px;
   background: #555;
-  border-radius: 0 none;
+  border-radius: 0;
   border: 0 none;
   padding: 0; }
 
@@ -5709,6 +5709,7 @@ input[type=submit].btn.btn-mini {
   filter: alpha(opacity=80); }
 
 .modal {
+  bottom: auto;
   position: fixed;
   top: 10%;
   left: 50%;
@@ -7632,8 +7633,13 @@ img {
   color: #ccc;
   font-size: 10px; }
 
-.page-sponsors .row .col-sm-4 a,
-.page-partners .row .col-sm-4 a {
+.page-partners .row .col-sm-4 a img,
+.page-sponsors .row .col-sm-4 a img {
+  max-height: 200px; }
+
+.page-partners .row .col-sm-4 a,
+.page-sponsors .row .col-sm-4 a {
+  border: 0 none;
   line-height: 200px; }
 
 #participant-155 h3, #participant-314 h3 {
@@ -8171,6 +8177,9 @@ img {
   .row,
   .thumbnails {
     margin-left: 0; }
+
+  .thumbnail {
+    border-radius: 0; }
 
   .thumbnails > li {
     float: none;
