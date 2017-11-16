@@ -2286,6 +2286,10 @@ body.home #stage {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   line-height: 22px; }
 
+.tax-themes .theme-header .nav {
+  margin: 0;
+}
+
 .tax-themes .theme-videos {
   margin: 2em inherit; }
 
