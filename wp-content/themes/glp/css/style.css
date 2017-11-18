@@ -1351,6 +1351,7 @@ body.home #stage {
   width: 100%; }
 
 .single-participant h3 {
+  border-bottom: 1px solid #fff;
   font-family: "Montreal Serial", "Montreal Serial Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400; }
 
@@ -1411,23 +1412,29 @@ body.home #stage {
   text-decoration: none;
   text-align: center; }
 
+.single-participant .crew-member {
+  float: left;
+  margin: 0 0 0 15px;
+  text-align: left;
+  width: 230px;
+}
+
 .single-participant .participant-crew .profile-thumbnail {
-  margin: 0 auto;
-  width: 100%;
+  float: left;
   height: auto;
+  margin: 0 0 15px;
   overflow: hidden;
   border-radius: 50%; }
 
+.single-participant .participant-crew .profile-details {
+  float: left;
+  margin: 0 0 10px;
+  overflow: hidden;
+  text-align: left;}
+
 .single-participant .participant-crew .profile-thumbnail img {
   height: auto;
-  width: auto; }
-
-.single-participant .participant-crew .profile-thumbnail h4 {
-  clear: both; }
-
-.single-participant .participant-clips h3 {
-  line-height: 50px;
-  border-bottom: 1px dotted #555; }
+  width: 60px; }
 
 .single-participant .participant-clips .participant-clips-scrollbox {
   height: 320px;
