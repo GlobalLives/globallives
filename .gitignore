@@ -122,3 +122,8 @@ outside_src/staging/
 *.scssc
 *.cssc
 wp-content/plugins/
+wp-content/ai1wm-backups/
+*.config
+wp-content/themes/glp/bower.json
+wp-content/w3tc-config/
+wp-content/themes/glp/Gruntfile.js
