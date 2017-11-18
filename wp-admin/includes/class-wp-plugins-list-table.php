@@ -637,7 +637,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 				} // end if $is_active
 
 			 } // end if $screen->in_admin( 'network' )
-
+      
 		} // end if $context
 
 		$actions = array_filter( $actions );
