@@ -3963,6 +3963,9 @@ legend + .control-group {
   margin-top: 18px;
   -webkit-margin-top-collapse: separate; }
 
+.comment-form-comment textarea {
+  width: 100%}
+
 .form-horizontal .control-group {
   margin-bottom: 18px;
   *zoom: 1; }

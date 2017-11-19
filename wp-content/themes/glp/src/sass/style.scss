@@ -1850,7 +1850,7 @@ body.home #stage {
 .page-profile .profile-edit-form .profile-website,
 .author .profile-edit-form .profile-website {
     width: 80%
-}©
+}
 
 .page-profile .profile-edit-form .checkbox,
 .author .profile-edit-form .checkbox {
@@ -4392,6 +4392,10 @@ input.search-query {
 legend+.control-group {
     margin-top: 18px;
     -webkit-margin-top-collapse: separate
+}
+
+.comment-form-comment textarea {
+    width: 100%
 }
 
 .form-horizontal .control-group {
@@ -9926,7 +9930,7 @@ img {
     .uneditable-input {
         margin-left: 0
     }
-    
+
     .controls-row [class*=span]+[class*=span] {
         margin-left: 20px
     }
