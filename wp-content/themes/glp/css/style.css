@@ -2094,14 +2094,16 @@ body.home #stage {
   margin: 0;
   width: auto; }
 
+.tribe-events-content a,
 .tribe-events-events .tribe-events-event .entry-content a {
   color: #000;
   border-bottom: 1px solid #f89406;
   text-decoration: none; }
 
+.tribe-events-content a:hover,
 .tribe-events-events .tribe-events-event .entry-content a:hover {
   color: #f89406; }
-
+  
 .tribe-events-events .tribe-events-event .entry-share {
   display: inline-block; }
 
