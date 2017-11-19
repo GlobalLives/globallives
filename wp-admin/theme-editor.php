@@ -164,7 +164,6 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 
 		$content = esc_textarea( $content );
 	}
-
 $file_description = get_file_description( $relative_file );
 $file_show = array_search( $file, array_filter( $allowed_files ) );
 $description = esc_html( $file_description );
