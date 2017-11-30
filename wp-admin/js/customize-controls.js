@@ -9288,6 +9288,7 @@
 				window.tinymce.ui.FloatPanel.zIndex = 500001;
 			}
 		} );
+
 		body.addClass( 'ready' );
 		api.trigger( 'ready' );
 	});
