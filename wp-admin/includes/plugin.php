@@ -193,6 +193,25 @@ function _get_plugin_data_markup_translate( $plugin_file, $plugin_data, $markup 
 function get_plugin_files( $plugin ) {
 	$plugin_file = WP_PLUGIN_DIR . '/' . $plugin;
 	$dir = dirname( $plugin_file );
+	$plugin_files = array( plugin_basename( $plugin_file ) );
+
+	if ( is_dir( $dir ) && WP_PLUGIN_DIR !== $dir ) {
+
+		/**
+		 * Filters the array of excluded directories and files while scanning the folder.
+		 *
+		 * @since 4.9.0
+		 *
+		 * @param array $exclusions Array of excluded directories and files.
+		 */
+		$exclusions = (array) apply_filters( 'plugin_files_exclusions', array( 'CVS', 'node_modules', 'vendor', 'bower_components' ) );
+
+		$list_files = list_files( $dir, 100, $exclusions );
+		$list_files = array_map( 'plugin_basename', $list_files );
+
+		$plugin_files = array_merge( $plugin_files, $list_files );
+		$plugin_files = array_values( array_unique( $plugin_files ) );
+	}
 
 	$plugin_files = array( plugin_basename( $plugin_file ) );
 
@@ -213,6 +232,8 @@ function get_plugin_files( $plugin ) {
 		$plugin_files = array_merge( $plugin_files, $list_files );
 		$plugin_files = array_values( array_unique( $plugin_files ) );
 	}
+
+	set_transient( $transient_key, $plugin_files, HOUR_IN_SECONDS );
 
 	return $plugin_files;
 }

@@ -984,7 +984,13 @@ final class WP_Theme implements ArrayAccess {
 	 *               being absolute paths.
 	 */
 	public function get_files( $type = null, $depth = 0, $search_parent = false ) {
-		$files = (array) self::scandir( $this->get_stylesheet_directory(), $type, $depth );
+		// get and cache all theme files to start with.
+		$label = sanitize_key( 'files_' . $this->cache_hash . '-' . $this->get( 'Version' ) );
+		$transient_key = substr( $label, 0, 29 ) . md5( $label );
+
+		$all_files = get_transient( $transient_key );
+		if ( false === $all_files ) {
+			$all_files = (array) self::scandir( $this->get_stylesheet_directory(), null, -1 );
 
 		if ( $search_parent && $this->parent() ) {
 			$files += (array) self::scandir( $this->get_template_directory(), $type, $depth );

@@ -5920,7 +5920,6 @@
 			var control = this, notificationCode, notification;
 
 			notificationCode = 'not_future_date';
-
 			if ( notify ) {
 				notification = new api.Notification( notificationCode, {
 					type: 'error',
@@ -6002,7 +6001,6 @@
 					button( button.element.data( 'copied-text' ) );
 				}
 			} );
-
 			url.element.parent().on( 'click', function( event ) {
 				if ( $( this ).hasClass( 'disabled' ) ) {
 					event.preventDefault();
@@ -9288,7 +9286,6 @@
 				window.tinymce.ui.FloatPanel.zIndex = 500001;
 			}
 		} );
-
 		body.addClass( 'ready' );
 		api.trigger( 'ready' );
 	});
