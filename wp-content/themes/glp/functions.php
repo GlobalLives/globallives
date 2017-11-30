@@ -65,3 +65,49 @@ $urls = array_diff( $urls, array( $emoji_svg_url ) );
 
 return $urls;
 }
+
+// disable default dashboard widgets
+function disable_default_dashboard_widgets() {
+  $user = wp_get_current_user();
+  if ( in_array( 'editor', (array) $user->roles ) ) {
+    // disable default dashboard widgets
+    //remove_meta_box('dashboard_right_now', 'dashboard', 'core');
+    remove_meta_box('dashboard_activity', 'dashboard', 'core');
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'core');
+    remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');
+    remove_meta_box('dashboard_plugins', 'dashboard', 'core');
+    remove_meta_box('dashboard_right_now', 'dashboard', 'core');
+    remove_meta_box('dashboard_primary', 'dashboard', 'core');
+    remove_meta_box('wpe_dify_news_feed', 'dashboard', 'core');
+
+    remove_meta_box('simple_history_dashboard_widget', 'dashboard', 'normal');
+    remove_meta_box('tribe_dashboard_widget', 'dashboard', 'normal');
+  }
+}
+add_action('admin_menu', 'disable_default_dashboard_widgets');
+
+/**
+ * vpm_default_hidden_meta_boxes
+ */
+function vpm_default_hidden_meta_boxes( $hidden, $screen ) {
+    // Grab the current post type
+    $post_type = $screen->post_type;
+
+    $hidden = array(
+        'dashboard_quick_press'
+    );
+
+    // If we're on a 'post'...
+    if ( $post_type == 'post' ) {
+        // Define which meta boxes we wish to hide
+        $hidden = array(
+            'dashboard_quick_press'
+        );
+        // Pass our new defaults onto WordPress
+        return $hidden;
+    }
+    // If we are not on a 'post', pass the
+    // original defaults, as defined by WordPress
+    return $hidden;
+}
+add_action( 'default_hidden_meta_boxes', 'vpm_default_hidden_meta_boxes', 10, 2 );

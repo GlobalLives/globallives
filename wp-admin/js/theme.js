@@ -102,7 +102,7 @@ themes.view.Appearance = wp.Backbone.View.extend({
 			collection: self.collection,
 			parent: this
 		});
-		self.searchView = view;
+		self.SearchView = view;
 
 		// Render and append after screen title
 		view.render();
