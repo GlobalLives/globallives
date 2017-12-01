@@ -444,7 +444,6 @@ function wp_edit_theme_plugin_file( $args ) {
 					break;
 			}
 		}
-
 		if ( 0 !== validate_file( $real_file, $allowed_files ) ) {
 			return new WP_Error( 'disallowed_theme_file', __( 'Sorry, that file cannot be edited.' ) );
 		}

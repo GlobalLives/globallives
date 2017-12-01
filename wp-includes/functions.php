@@ -2561,8 +2561,9 @@ function get_allowed_mime_types( $user = null ) {
 	if ( function_exists( 'current_user_can' ) )
 		$unfiltered = $user ? user_can( $user, 'unfiltered_html' ) : current_user_can( 'unfiltered_html' );
 
-	if ( empty( $unfiltered ) )
-		unset( $t['htm|html'] );
+	if ( empty( $unfiltered ) ) {
+		unset( $t['htm|html'], $t['js'] );
+	}
 
 	/**
 	 * Filters list of allowed mime types and file extensions.
@@ -4418,7 +4419,6 @@ function is_main_site( $site_id = null, $network_id = null ) {
 	if ( ! $site_id ) {
 		$site_id = get_current_blog_id();
 	}
-
 	$site_id = (int) $site_id;
 
 	return $site_id === get_main_site_id( $network_id );

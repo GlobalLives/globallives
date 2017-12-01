@@ -341,7 +341,6 @@ class WP_Upgrader {
 			// Append children recursively
 			if ( ! empty( $details['files'] ) ) {
 				$children = $this->flatten_dirlist( $details['files'], $path . $name . '/' );
-
 				$files = array_merge( $files, $children );
 			}
 		}
