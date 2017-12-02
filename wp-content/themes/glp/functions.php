@@ -69,7 +69,7 @@ return $urls;
 // disable default dashboard widgets
 function disable_default_dashboard_widgets() {
   $user = wp_get_current_user();
-  if ( in_array( 'editor', (array) $user->roles ) || in_array( 'author', (array) $user->roles ) ) {
+  if ( in_array( 'editor', (array) $user->roles ) ) {
     // disable default dashboard widgets
     //remove_meta_box('dashboard_right_now', 'dashboard', 'core');
     remove_meta_box('dashboard_activity', 'dashboard', 'core');
