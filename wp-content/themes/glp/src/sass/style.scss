@@ -1402,10 +1402,21 @@ body.home #stage {
 }
 
 .single-participant .crew-member {
+  border-bottom: 1px dotted #555;
   float: left;
   margin: 0 0 0 15px;
+  padding: 10px 0;
   text-align: left;
   width: 230px;
+}
+
+.profile-container .author .profile-container .profile-collaborators a {
+  color: #000;
+  text-align: left;
+}
+
+.author .profile-container .profile-collaborators .profile-thumbnail {
+    width:60px;
 }
 
 .single-participant .participant-crew .profile-thumbnail {
@@ -1414,6 +1425,11 @@ body.home #stage {
   margin: 0 0 15px;
   overflow: hidden;
   border-radius: 50%; 
+  width: 60px;
+}
+
+.author .profile-container .profile-collaborators a {
+  text-align: left;
 }
 
 .single-participant .participant-crew .profile-thumbnail img {
@@ -1765,8 +1781,31 @@ body.home #stage {
     overflow: auto
 }
 
-.page-profile .profile-container .profile-collaborators a,
-.author .profile-container .profile-collaborators a {
+.profile-container .profile-collaborators .crew-member a {
+    color: #000;
+    text-decoration: none;
+    text-align: left;
+}
+
+.author .profile-container .profile-collaborators .profile-thumbnail,
+.author .profile-details {
+    float:left;
+}
+
+.author .profile-details {
+    margin: 0 0 0 15px;
+}
+
+.author .crew-member {
+    border-bottom: 1px dotted #555;
+    clear: both;
+    height: 100%;
+    min-height: 70px;
+    margin: 15px 0;
+    padding: 0 0 10px;
+}
+
+.page-profile .profile-container .profile-collaborators a {
     font-size: 10.998px;
     color: #fff;
     text-decoration: none;
@@ -1776,7 +1815,6 @@ body.home #stage {
 .page-profile .profile-container .profile-collaborators .profile-thumbnail,
 .author .profile-container .profile-collaborators .profile-thumbnail {
     margin: 0 auto;
-    width: 100%;
     height: auto;
     overflow: hidden
 }
@@ -1784,7 +1822,6 @@ body.home #stage {
 .page-profile .profile-container .profile-collaborators .profile-thumbnail img,
 .author .profile-container .profile-collaborators .profile-thumbnail img {
     height: auto;
-    width: auto;
     border-radius: 50%
 }
 
