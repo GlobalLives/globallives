@@ -75,6 +75,32 @@
 					<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
+				<?php 
+				/* Reintroducing Profile Activity Statistics
+				<p class="profile-activity-buttons">
+					<span class="span1"><?php _e('Activity','glp'); ?></span>
+					<a class="" href=""><i class="fa fa-video-camera"></i> Shoots</a>
+					<a class="" href=""><i class="fa fa-comment"></i> Comments</a>
+					<a class="" href=""><i class="fa fa-tag"></i> Tags</a>
+					<a class="" href=""><i class="fa fa-twitter"></i> @ Mentions</a>
+					<a class="" href=""><i class="fa fa-bookmark"></i> Bookmarks</a>
+					<a class="" href=""><i class="fa fa-heart"></i> Favorites</a>
+				</p>
+				<ul class="profile-activity">
+				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
+					<li class="activity <?php echo $activity['activity_type']; ?> row">
+						<div class="activity-thumbnail span1"><img src="<?php the_profile_thumbnail_url($activity['activity_user']); ?>"></div>
+						<div class="activity-meta span7">
+							<i class="fa fa-<?php echo $activity['activity_icon']; ?>"></i>
+							<span class="activity-username"><?php the_fullname($activity_user->ID); ?></span> 
+							<?php echo $activity['activity_description']; ?> 
+							<?php echo human_time_diff( $activity['activity_timestamp'], current_time('timestamp') ); ?> ago.
+						</div>
+						<div class="activity-content span6"><?php echo $activity['activity_content']; ?></div>
+					</li>
+				<?php endforeach; ?>
+				</ul> */
+				?>
 			</div>
 		</div>
 	</div>
