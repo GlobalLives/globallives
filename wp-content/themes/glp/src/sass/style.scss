@@ -1439,7 +1439,7 @@ body.home #stage {
 
 .single-participant .participant-crew .profile-details {
   float: left;
-  margin: 0 0 10px;
+  margin: 0 0 10px 15px;
   overflow: hidden;
   text-align: left;
 }
@@ -1752,7 +1752,7 @@ body.home #stage {
 
 .page-profile .profile-container .profile-body-inner,
 .author .profile-container .profile-body-inner {
-    padding: 2em 1em 2em 0
+    padding: 2em 1em 5em 0
 }
 
 .page-profile .profile-container .profile-body-inner .profile-activity-buttons,
@@ -1787,13 +1787,13 @@ body.home #stage {
     text-align: left;
 }
 
+.profile-container .profile-collaborators .profile-details {
+    margin: 0 0 0 15px;
+}
+
 .author .profile-container .profile-collaborators .profile-thumbnail,
 .author .profile-details {
     float:left;
-}
-
-.author .profile-details {
-    margin: 0 0 0 15px;
 }
 
 .author .crew-member {
@@ -9094,7 +9094,9 @@ img {
 }
 @media(max-width:575px) {
     /* Extra Small devices only */
-    
+    #nav-main .menu-primary-header-navigation-container li a {
+        border-left:0 none;
+    }
     .nav-collapse {
         -webkit-transform: translate3d(0, 0, 0)
     }

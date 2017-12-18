@@ -67,9 +67,11 @@
 				<?php endif; ?>
 				<?php if ($collaborators = get_profile_collaborators($profile->ID)) : ?>
 					<div class="profile-collaborators">
-					<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators); ?>)</small></h4>
+					<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators)-1; ?>)</small></h4>
 					<?php foreach ($collaborators as $crew_member) : ?>
-						<?php include(locate_template('templates/profile-crew_member.php')); ?>
+						<?php if($profile->ID!=$crew_member->ID) { ?>
+							<?php include(locate_template('templates/profile-crew_member.php')); ?>
+						<?php } ?>
 					<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
