@@ -17,7 +17,7 @@
 	<div class="profile-container row">
 		<div class="profile-sidebar span3">
 			<div class="profile-sidebar-inner">
-				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
+				<div class="profile-thumbnail"><?php if(get_field('glp_avatar')['url']) { ?><img src="<?php echo get_field('glp_avatar')['url'] ?>" alt="<?php echo get_field('glp_avatar')['title'] ?>"><?php } else { ?><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"><?php } ?></div>
 				<p><b><?php _e('Member since','glp'); ?>:</b> <?php echo date("F Y", strtotime($profile->user_registered)); ?></p>
 				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo human_time_diff( get_profile_last_active( $profile->ID ), current_time('timestamp') ); ?> ago.</p>
 				<hr>
