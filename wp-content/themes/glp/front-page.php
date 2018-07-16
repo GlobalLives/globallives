@@ -4,18 +4,18 @@
 		<div class="page-content"><?php the_content(); ?></div>
 	</article>
 	<?php endwhile; ?>
-	<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 10)); ?>
+	<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 20)); ?>
 	<?php foreach ($participants as $participant) : ?>
 		<?php $current_wp_post = get_post($participant->ID) ?>
 		<article id="content_<?php echo $participant->ID; ?>" class="content-pane">
+			
 			<div class="page-content">
 				<h2><?php echo $participant->post_title; ?> &mdash; <span class="participant-location"><?php the_field($field_keys['participant_location'], $participant->ID); ?></span></h2>
-				
 				<div class="participant-meta row">
 					<div class="span4 tinyDetails">
 
-						<?php //<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&zoom=6&size=600x400&markers=color:red|<?php the_field($field_keys['participant_latitude'],$participant->ID); ?>,<?php the_field($field_keys['participant_longitude'],$participant->ID); ?>&maptype=roadmap&sensor=false&style=feature:all%7Celement:geometry%7Csaturation:-100" class="location" alt="Map with location at: <?php the_field($field_keys['participant_latitude'],$participant->ID); ?>, <?php the_field($field_keys['participant_longitude'],$participant->ID); ?>" />
-						?>
+						<img src="<?php the_field('map_image',$participant->ID); ?>" alt="<?php echo $participant->post_title; ?>" />
+						
 						<div class="row">
 							<div class="span2">
 								<b><?php _e('Occupation','glp'); ?>:</b> <?php the_field($field_keys['participant_occupation'], $participant->ID); ?><br>
