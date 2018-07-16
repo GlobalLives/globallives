@@ -13,7 +13,7 @@
         <div class="entry-summary">
           <?php $rows = get_field('individual'); //sets the feildname of ACF ?>
           <?php foreach ($rows as $individual) { ?>
-            <?php if($individual['individual_status'] == 'staff') { //checks for staff status ?>
+            <?php if($individual['individual_status'] == 'current') { //checks for staff status ?>
               <div>
                 <h4><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; //getting the repeater information ?></small></h4>
                 <?php if($individual['individual_picture']) { //checks for image presence in the repeater information ?><img src="<?php echo $individual['individual_picture']; ?>" /><?php } ?><?php echo $individual['individual_description']; //getting the repeater information ?>
@@ -23,7 +23,7 @@
           <h3>Emeritus</h3>
           <?php
             foreach ($rows as $individual) { ?>
-              <?php if($individual['individual_status'] == 'emeritus') { //checks for emeritus status ?>
+              <?php if($individual['individual_status'] == 'past') { //checks for emeritus status ?>
                 <div>
                   <h4><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; ?></small></h4>
                   <?php if($individual['individual_picture']) { //checks for image presence in the repeater information ?><img src="<?php echo $individual['individual_picture']; ?>" /><?php } ?><?php echo $individual['individual_description']; //getting the repeater information ?>
