@@ -123,5 +123,8 @@
 		$('#menu-item-1712').click(function() {
 			track_link('socialClick','click','youTube');
 		});
+		$('#menu-item-7575').click(function() {
+			track_link('socialClick','click','instagram');
+		});
 	});
 </script>
