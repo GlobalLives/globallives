@@ -9176,6 +9176,10 @@ img {
   background: transparent url(../img/icon-yt.png) center no-repeat;
 }
 
+#nav-main .menu-social-media-icons-container li.social-ig a {
+  background: transparent url(../img/icon-ig.png) center no-repeat;
+}
+
 #nav-utility {
   background: url(../img/edges-color.png) center no-repeat;
   background-size: cover;
