@@ -646,8 +646,10 @@
 
 #nav-themes li.active,
 #nav-themes li:hover {
+    background: #222;
     color: #fff;
-    background: #222
+    text-transform: capitalize;
+    white-space: nowrap;
 }
 
 #nav-themes li .theme-filter {
@@ -3146,6 +3148,7 @@ figure.alignnone {
 #theme-carousel a,
 #theme-carousel a:link {
     color: #999;
+    text-transform: capitalize;
     white-space: nowrap;
 }
 
