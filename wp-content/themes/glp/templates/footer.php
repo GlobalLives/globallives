@@ -28,6 +28,7 @@
 			<div class="span3">
 				<?php dynamic_sidebar('sidebar-footer'); ?>
 				<div class="fb-like" data-href="http://www.globallives.org/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				copyright 2012-<?php echo date("Y"); ?>
 			</div>
 		</div>
 	</div>
