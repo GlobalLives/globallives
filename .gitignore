@@ -122,6 +122,13 @@ outside_src/staging/
 *.scssc
 *.cssc
 wp-content/plugins/
+wp-content/cache/
+wp-content/w3tc-config/
+wp-content/ewww/
+wp-content/cimy-user-manager/
+wp-content/gravityforms-O929acdRInDz9b5TBYRneBsIl1ioWHJC/
+wp-content/languages/
+wp-content/mu-plugins/
 wp-content/ai1wm-backups/
 *.config
 wp-content/themes/glp/bower.json
