@@ -17,21 +17,22 @@
 	<div class="profile-container row">
 		<div class="profile-sidebar span3">
 			<div class="profile-sidebar-inner">
-				<div class="profile-thumbnail"><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"></div>
+				<div class="profile-thumbnail"><?php if(get_field('glp_avatar')['url']) { ?><img src="<?php echo get_field('glp_avatar')['url'] ?>" alt="<?php echo get_field('glp_avatar')['title'] ?>"><?php } else { ?><img src="<?php the_profile_thumbnail_url($profile->ID,'medium'); ?>"><?php } ?></div>
 				<p><b><?php _e('Member since','glp'); ?>:</b> <?php echo date("F Y", strtotime($profile->user_registered)); ?></p>
 				<p><b><?php _e('Last activity','glp'); ?>:</b> <?php echo human_time_diff( get_profile_last_active( $profile->ID ), current_time('timestamp') ); ?> ago.</p>
 				<hr>
 
 				<?php if (get_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
-				<p>
-					<b><?php _e('Volunteer Skills','glp'); ?></b><br>
+				<ul>
+					<li><b><?php _e('Volunteer Skills','glp'); ?></b></li>
 				<?php while (has_sub_field($field_keys['user_skills'],'user_'.$profile->ID)) : ?>
-					<?php if (get_sub_field('skill_name')) : ?><span class="skill_name"><?php the_sub_field('skill_name'); ?></span> <span class="skill_level"><?php $skill_level = get_sub_field('skill_level'); for ($i = 0; $i < $skill_level; $i++) :?>&bull;<?php endfor; ?></span><br><?php endif; ?>
+					<?php if (get_sub_field('skill_name')) : ?><li><span class="skill_name"><?php the_sub_field('skill_name'); ?></span> <span class="skill_level"><?php $skill_level = get_sub_field('skill_level'); for ($i = 0; $i < $skill_level; $i++) :?>&bull;<?php endfor; ?></span></li><?php endif; ?>
 				<?php endwhile; ?>
-				</p>
+				</ul>
 				<?php endif; ?>
 
 				<?php if (get_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
+				<hr>
 				<p>
 					<b><?php _e('Languages Spoken','glp'); ?></b><br>
 				<?php while (has_sub_field($field_keys['user_languages'],'user_'.$profile->ID)) : ?>
@@ -41,6 +42,7 @@
 				<?php endif; ?>
 
 				<?php if (get_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
+				<hr>
 				<p>
 					<b><?php _e('Contact Information','glp'); ?></b><br>
 				<?php while (has_sub_field($field_keys['user_contact'],'user_'.$profile->ID)) : ?>
@@ -59,28 +61,31 @@
 			<div class="profile-body-inner">
 				<h4><?php _e('Bio','glp'); ?></h4>
 				<p><?php echo $profile->description; ?></p>
-			<?php if ($profile->user_url) : ?>
-				<h4><?php _e('Website','glp'); ?></h4>
-				<p><?php echo '<a target="_blank" href="'.$profile->user_url.'">'.$profile->user_url.'</a>'; ?></p>
-			<?php endif; ?>
-			<?php if ($collaborators = get_profile_collaborators($profile->ID)) : ?>
-				<div class="profile-collaborators">
-				<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators); ?>)</small></h4>
-				<?php foreach ($collaborators as $crew_member) : ?>
-					<?php include(locate_template('templates/profile-crew_member.php')); ?>
-				<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
+				<?php if ($profile->user_url) : ?>
+					<h4><?php _e('Website','glp'); ?></h4>
+					<p><?php echo '<a target="_blank" href="'.$profile->user_url.'">'.$profile->user_url.'</a>'; ?></p>
+				<?php endif; ?>
+				<?php if ($collaborators = get_profile_collaborators($profile->ID)) : ?>
+					<div class="profile-collaborators">
+					<h4><?php _e('Collaborators','glp'); ?> <small>(<?php echo count($collaborators)-1; ?>)</small></h4>
+					<?php foreach ($collaborators as $crew_member) : ?>
+						<?php if($profile->ID!=$crew_member->ID) { ?>
+							<?php include(locate_template('templates/profile-crew_member.php')); ?>
+						<?php } ?>
+					<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+				<?php 
+				/* Reintroducing Profile Activity Statistics
 				<p class="profile-activity-buttons">
 					<span class="span1"><?php _e('Activity','glp'); ?></span>
 					<a class="" href=""><i class="fa fa-video-camera"></i> Shoots</a>
 					<a class="" href=""><i class="fa fa-comment"></i> Comments</a>
 					<a class="" href=""><i class="fa fa-tag"></i> Tags</a>
-					<a class="" href="">@ Mentions</a>
+					<a class="" href=""><i class="fa fa-twitter"></i> @ Mentions</a>
 					<a class="" href=""><i class="fa fa-bookmark"></i> Bookmarks</a>
 					<a class="" href=""><i class="fa fa-heart"></i> Favorites</a>
 				</p>
-								
 				<ul class="profile-activity">
 				<?php foreach( get_profile_activities( $profile->ID ) as $activity ) : $activity_user = get_userdata( $activity['activity_user'] ); ?>
 					<li class="activity <?php echo $activity['activity_type']; ?> row">
@@ -94,7 +99,8 @@
 						<div class="activity-content span6"><?php echo $activity['activity_content']; ?></div>
 					</li>
 				<?php endforeach; ?>
-				</ul>
+				</ul> */
+				?>
 			</div>
 		</div>
 	</div>

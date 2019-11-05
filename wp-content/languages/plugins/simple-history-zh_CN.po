@@ -1,0 +1,2265 @@
+# Translation of Plugins - Simple History - Stable (latest release) in Chinese (China)
+# This file is distributed under the same license as the Plugins - Simple History - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-03-10 09:51:15+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: zh_CN\n"
+"Project-Id-Version: Plugins - Simple History - Stable (latest release)\n"
+
+#: loggers/SimplePostLogger.php:1133
+msgid "Featured image"
+msgstr "特色图像"
+
+#. translators: 1: WordPress version
+#: index.php:117
+msgid "Simple History requires WordPress version 4.5.1 or higher (you have version %s)."
+msgstr "Simple History需要WordPress4.5.1或更高的版本（您有%s版本）。"
+
+#: loggers/SimpleUserLogger.php:837
+msgctxt "User logger"
+msgid "Locale"
+msgstr "地区"
+
+#: loggers/SimplePluginLogger.php:89
+msgctxt "Plugin was disabled because of an error"
+msgid "Deactivated plugin \"{plugin_slug}\" because of an error (\"{deactivation_reason}\")."
+msgstr "由于错误 (\"{deactivation_reason}\")致使插件\"{plugin_slug}\"停用。"
+
+#: inc/SimpleHistory.php:3444
+msgid "The slug for a logger in Simple History can be max 30 chars long."
+msgstr "操作日志记录器的固定链接最大长度为30字符。"
+
+#. translators: 1: URL to settings page
+#: dropins/SimpleHistorySidebarSettings.php:72
+msgid "<a href=\"%1$s\">Visit the settings page</a> to change things like the number of events to show and to get access to the RSS feed with all events, and more."
+msgstr "<a href=\"%1$s\">访问设置页</a>并更改事件数显示，要访问的 RSS 等。"
+
+#: loggers/FileEditsLogger.php:241
+msgid "File contents"
+msgstr "文件内容"
+
+#: loggers/FileEditsLogger.php:25
+msgctxt "Plugin logger: file edits"
+msgid "Edited theme files"
+msgstr "编辑主题文件"
+
+#: loggers/FileEditsLogger.php:23
+msgctxt "Plugin logger: file edits"
+msgid "All file edits"
+msgstr "所有文件编辑"
+
+#: loggers/FileEditsLogger.php:22
+msgctxt "Plugin logger: file edits"
+msgid "Edited theme and plugin files"
+msgstr "编辑主题和插件的文件"
+
+#: loggers/FileEditsLogger.php:18
+msgid "Edited file \"{file_name}\" in plugin \"{plugin_name}\""
+msgstr "编辑\"{plugin_name}\"插件中的\"{file_name}\"文件"
+
+#: loggers/FileEditsLogger.php:17
+msgid "Edited file \"{file_name}\" in theme \"{theme_name}\""
+msgstr "编辑\"{theme_name}\"主题中的\"{file_name}\"文件"
+
+#: dropins/SimpleHistoryWPCLIDropin.php:112
+msgid "Error: parameter \"count\" must be a number"
+msgstr "错误: “count”参数必须是一个数字"
+
+#: templates/template-settings-tab-debug.php:281
+msgctxt "debug dropin"
+msgid "Active"
+msgstr "启用"
+
+#: templates/template-settings-tab-debug.php:280
+msgctxt "debug dropin"
+msgid "Plugin file path"
+msgstr "插件文件路径"
+
+#: templates/template-settings-tab-debug.php:279
+msgctxt "debug dropin"
+msgid "Plugin name"
+msgstr "插件名称"
+
+#: loggers/Plugin_DuplicatePost.php:111
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Cloned {duplicated_post_post_type_singular_name} <a href=\"{duplicated_post_edit_link}\">\"{duplicated_post_title}\"</a> to <a href=\"{new_post_edit_link}\">a new {duplicated_post_post_type_singular_name}</a>"
+msgstr "克隆 {duplicated_post_post_type_singular_name} <a href=\"{duplicated_post_edit_link}\">\"{duplicated_post_title}\"</a> 到 <a href=\"{new_post_edit_link}\">一个新的 {duplicated_post_post_type_singular_name}</a>"
+
+#: loggers/Plugin_DuplicatePost.php:25
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Cloned \"{duplicated_post_title}\" to a new post"
+msgstr "将\"{duplicated_post_title}\"克隆到新文章"
+
+#: loggers/Plugin_DuplicatePost.php:22
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Using plugin Duplicate Posts"
+msgstr "使用插件Duplicate Posts"
+
+#: loggers/Plugin_DuplicatePost.php:21
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Logs posts and pages cloned using plugin Duplicate Post"
+msgstr "使用插件Duplicate Post记录文章和页面克隆"
+
+#: inc/SimpleHistory.php:2021
+msgid "Number of items per page on the dashboard"
+msgstr "仪表盘每页显示的条目数量"
+
+#: inc/SimpleHistory.php:2009
+msgid "Number of items per page on the log page"
+msgstr "日志页面每页显示的条目数量"
+
+#: loggers/Plugin_Redirection.php:31
+msgctxt "Logger: Redirection"
+msgid "Deleted {items_count} group(s)"
+msgstr "删除了{items_count}组"
+
+#: loggers/Plugin_Redirection.php:30
+msgctxt "Logger: Redirection"
+msgid "Added group \"{group_name}\""
+msgstr "添加组\"{group_name}\""
+
+#: loggers/Plugin_Redirection.php:29
+msgctxt "Logger: Redirection"
+msgid "Removed all options and deactivated plugin"
+msgstr "删除所有设置并禁用插件"
+
+#: loggers/Plugin_Redirection.php:28
+msgctxt "Logger: Redirection"
+msgid "Updated options"
+msgstr "更新设置"
+
+#: loggers/Plugin_Redirection.php:27
+msgctxt "Logger: Redirection"
+msgid "Removed redirection for {items_count} URL(s)"
+msgstr "删除了{items_count}条重定向URL"
+
+#: loggers/Plugin_Redirection.php:26
+msgctxt "Logger: Redirection"
+msgid "Disabled the redirection for {items_count} URL(s)"
+msgstr "禁用了{items_count}条重定向URL"
+
+#: loggers/Plugin_Redirection.php:25
+msgctxt "Logger: Redirection"
+msgid "Enabled the redirection for {items_count} URL(s)"
+msgstr "启用了{items_count}条重定向URL"
+
+#: loggers/Plugin_Redirection.php:24
+msgctxt "Logger: Redirection"
+msgid "Edited the redirection for URL \"{source_url}"
+msgstr "编辑重定向URL\"{source_url}\""
+
+#: loggers/Plugin_Redirection.php:23
+msgctxt "Logger: Redirection"
+msgid "Added a redirection for URL \"{source_url}\""
+msgstr "添加重定向URL\"{source_url}\""
+
+#: loggers/Plugin_Redirection.php:20
+msgctxt "Logger: Redirection"
+msgid "In plugin Redirection"
+msgstr "插件内置重定向"
+
+#: loggers/Plugin_Redirection.php:19
+msgctxt "Logger: Redirection"
+msgid "Text"
+msgstr "文本"
+
+#: loggers/AvailableUpdatesLogger.php:287
+msgid "View all updates"
+msgstr "查看所有更新"
+
+#: loggers/AvailableUpdatesLogger.php:277
+msgid "Installed version"
+msgstr "安装版本"
+
+#: loggers/AvailableUpdatesLogger.php:273
+msgid "Available version"
+msgstr "有效版本"
+
+#: loggers/AvailableUpdatesLogger.php:50
+msgctxt "Plugin logger: updates found"
+msgid "Theme updates found"
+msgstr "发现主题更新"
+
+#: loggers/AvailableUpdatesLogger.php:47
+msgctxt "Plugin logger: updates found"
+msgid "Plugin updates found"
+msgstr "发现插件更新"
+
+#: loggers/AvailableUpdatesLogger.php:44
+msgctxt "Plugin logger: updates found"
+msgid "WordPress updates found"
+msgstr "发现WordPress更新"
+
+#: loggers/AvailableUpdatesLogger.php:42
+msgctxt "Plugin logger: updates found"
+msgid "All found updates"
+msgstr "所有发现的更新"
+
+#: loggers/AvailableUpdatesLogger.php:41
+msgctxt "Plugin logger: updates found"
+msgid "WordPress and plugins updates found"
+msgstr "发现WordPress和插件的更新"
+
+#: loggers/AvailableUpdatesLogger.php:37
+msgid "Found an update to theme \"{theme_name}\""
+msgstr "发现主题\"{theme_name}\"的更新"
+
+#: loggers/AvailableUpdatesLogger.php:36
+msgid "Found an update to plugin \"{plugin_name}\""
+msgstr "发现插件\"{plugin_name}\"的更新"
+
+#: loggers/AvailableUpdatesLogger.php:35
+msgid "Found an update to WordPress."
+msgstr "发现WordPress的更新"
+
+#. translators: 1: month, 2: day, 3: year, 4: hour, 5: minute
+#: dropins/SimpleHistoryFilterDropin.php:598
+msgid "%1$s %2$s, %3$s "
+msgstr "%3$s 年 %1$s 月 %2$s 日 "
+
+#: dropins/SimpleHistoryFilterDropin.php:591
+msgid "Year"
+msgstr "年"
+
+#: dropins/SimpleHistoryFilterDropin.php:590
+msgid "Day"
+msgstr "天"
+
+#. translators: 1: month number (01, 02, etc.), 2: month abbreviation
+#: dropins/SimpleHistoryFilterDropin.php:585
+msgid "%1$s-%2$s"
+msgstr "%1$s 月 - %2$s 月"
+
+#: dropins/SimpleHistoryFilterDropin.php:567
+msgctxt "Filter dropin, custom date range"
+msgid "To"
+msgstr "到"
+
+#: dropins/SimpleHistoryFilterDropin.php:564
+msgctxt "Filter dropin, custom date range"
+msgid "From"
+msgstr "从"
+
+#: dropins/SimpleHistoryFilterDropin.php:231
+msgctxt "Filter label"
+msgid "Between dates:"
+msgstr "日期区间："
+
+#: dropins/SimpleHistoryFilterDropin.php:175
+msgctxt "Filter dropin: filter custom range"
+msgid "Custom date range..."
+msgstr "自定义日期范围..."
+
+#: loggers/SimpleThemeLogger.php:49
+msgctxt "Theme logger: search"
+msgid "Installed themes"
+msgstr "安装主题"
+
+#: loggers/SimpleThemeLogger.php:46
+msgctxt "Theme logger: search"
+msgid "Deleted themes"
+msgstr "删除主题"
+
+#: loggers/SimpleThemeLogger.php:43
+msgctxt "Theme logger: search"
+msgid "Updated themes"
+msgstr "更新主题"
+
+#: loggers/SimpleThemeLogger.php:30
+msgid "Updated theme \"{theme_name}\""
+msgstr "更新主题\"{theme_name}\""
+
+#: loggers/SimpleThemeLogger.php:29
+msgid "Deleted theme with slug \"{theme_slug}\""
+msgstr "删除主题\"{theme_slug}\""
+
+#: loggers/SimpleThemeLogger.php:28
+msgid "Installed theme \"{theme_name}\""
+msgstr "安装主题\"{theme_name}\""
+
+#: loggers/SimplePluginLogger.php:69
+msgctxt "Plugin update failed"
+msgid "Failed to update plugin \"{plugin_name}\""
+msgstr "更新插件\"{plugin_name}\"失败"
+
+#: loggers/Plugin_LimitLoginAttempts.php:231
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "IP was blocked for %1$s"
+msgstr "IP被锁定 %1$s"
+
+#: loggers/Plugin_LimitLoginAttempts.php:226
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d 分钟"
+
+#: loggers/Plugin_LimitLoginAttempts.php:222
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 小时"
+
+#: loggers/Plugin_LimitLoginAttempts.php:214
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%1$d failed login attempts (%2$d lockout(s)) from IP: %3$s"
+msgstr "IP: %3$s 登录 %1$d 失败 (%2$d 锁定)"
+
+#: loggers/Plugin_LimitLoginAttempts.php:29
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Updated options"
+msgstr "更新设置"
+
+#: loggers/Plugin_LimitLoginAttempts.php:28
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Cleared current lockouts"
+msgstr "清除当前的锁定"
+
+#: loggers/Plugin_LimitLoginAttempts.php:27
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Reseted lockout count"
+msgstr "重置当前锁定计数"
+
+#: loggers/Plugin_LimitLoginAttempts.php:26
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Cleared IP log"
+msgstr "清除IP日志"
+
+#: loggers/Plugin_LimitLoginAttempts.php:25
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Was locked out because too many failed login attempts"
+msgstr "因登录尝试失败次数过多被锁定"
+
+#: loggers/Plugin_LimitLoginAttempts.php:24
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Failed login attempt from whitelisted IP"
+msgstr "白名单IP登录失败"
+
+#: loggers/Plugin_LimitLoginAttempts.php:20
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Using plugin Limit Login Attempts"
+msgstr "使用插件\"Limit Login Attempts\""
+
+#: loggers/Plugin_LimitLoginAttempts.php:19
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Logs failed login attempts, lockouts, and configuration changes made in the plugin Limit Login Attempts"
+msgstr "记录插件Limit Login Attempts中登录失败，锁定，配置更改的动作"
+
+#: dropins/SimpleHistoryFilterDropin.php:416
+msgctxt "Filter label"
+msgid "Users:"
+msgstr "用户："
+
+#: dropins/SimpleHistoryFilterDropin.php:323
+msgctxt "Filter label"
+msgid "Message types:"
+msgstr "消息类型："
+
+#: dropins/SimpleHistoryFilterDropin.php:286
+msgctxt "Filter label"
+msgid "Log levels:"
+msgstr "日志级别："
+
+#: dropins/SimpleHistoryFilterDropin.php:255
+msgctxt "Filter label"
+msgid "Containing words:"
+msgstr "包含字符："
+
+#: dropins/SimpleHistoryFilterDropin.php:161
+msgctxt "Filter label"
+msgid "Dates:"
+msgstr "日期："
+
+#: templates/template-settings-tab-debug.php:207
+msgctxt "debug dropin"
+msgid "%1$s message strings"
+msgstr "%1$s 条消息"
+
+#: templates/template-settings-tab-debug.php:174
+msgctxt "debug dropin"
+msgid "Rows count"
+msgstr "行数统计"
+
+#: templates/template-settings-tab-debug.php:173
+msgctxt "debug dropin"
+msgid "Capability"
+msgstr "权限"
+
+#: templates/template-settings-tab-debug.php:172
+msgctxt "debug dropin"
+msgid "Messages"
+msgstr "全部消息"
+
+#: templates/template-settings-tab-debug.php:171
+msgctxt "debug dropin"
+msgid "Description"
+msgstr "图像描述"
+
+#: templates/template-settings-tab-debug.php:170
+msgctxt "debug dropin"
+msgid "Slug"
+msgstr "固定链接"
+
+#: templates/template-settings-tab-debug.php:169
+msgctxt "debug dropin"
+msgid "Logger name"
+msgstr "记录器名"
+
+#: templates/template-settings-tab-debug.php:150
+msgctxt "debug dropin"
+msgid "Listing %1$d loggers, ordered by rows count in database."
+msgstr "列出 %1$d 个记录器，来源于数据库行统计。"
+
+#: templates/template-settings-tab-debug.php:145
+msgctxt "debug dropin"
+msgid "Loggers"
+msgstr "记录器"
+
+#: templates/template-settings-tab-debug.php:101
+msgctxt "debug dropin"
+msgid "Total %s rows, when grouped by occasion id."
+msgstr "共 %s 行按ID筛选的结果。"
+
+#: templates/template-settings-tab-debug.php:71
+msgctxt "debug dropin"
+msgid "%s rows"
+msgstr "%s 行"
+
+#: templates/template-settings-tab-debug.php:66
+msgctxt "debug dropin"
+msgid "%s MB"
+msgstr "%s MB"
+
+#: templates/template-settings-tab-debug.php:59
+msgctxt "debug dropin"
+msgid "Rows"
+msgstr "行"
+
+#: templates/template-settings-tab-debug.php:58
+msgctxt "debug dropin"
+msgid "Size"
+msgstr "大小"
+
+#: templates/template-settings-tab-debug.php:57
+msgctxt "debug dropin"
+msgid "Table name"
+msgstr "表名"
+
+#: loggers/SimpleOptionsLogger.php:225
+msgid "&hellip;"
+msgstr "&hellip;"
+
+#: dropins/SimpleHistorySettingsDebugDropin.php:23
+msgid "Debug"
+msgstr "调试"
+
+#: loggers/SimpleOptionsLogger.php:378 loggers/SimpleOptionsLogger.php:405
+msgid "Your latests posts"
+msgstr "您最新的文章"
+
+#: loggers/SimpleOptionsLogger.php:369 loggers/SimpleOptionsLogger.php:395
+msgid "Page %1$s"
+msgstr "%1$s 页"
+
+#: inc/SimpleHistory.php:453
+msgctxt "Admin bar name"
+msgid "Simple History"
+msgstr "操作日志"
+
+#: inc/SimpleHistory.php:386
+msgctxt "Admin bar network name"
+msgid "View History"
+msgstr "查看历史"
+
+#: loggers/SimpleUserLogger.php:916
+msgctxt "User logger"
+msgid "Notification"
+msgstr "邮件通知"
+
+#: loggers/SimpleUserLogger.php:899
+msgctxt "User logger"
+msgid "Yes, email with account details was sent"
+msgstr "好的，有关登录信息的Email已被发出"
+
+#: loggers/SimpleUserLogger.php:891
+msgctxt "User logger"
+msgid "User notification email sent"
+msgstr "用户通知邮件已发出"
+
+#: loggers/SimpleUserLogger.php:869
+msgctxt "User logger"
+msgid "Changed"
+msgstr "更改"
+
+#: loggers/SimpleUserLogger.php:868
+msgctxt "User logger"
+msgid "Password"
+msgstr "密码"
+
+#: loggers/SimpleUserLogger.php:834
+msgctxt "User logger"
+msgid "Role"
+msgstr "角色"
+
+#: loggers/SimpleUserLogger.php:831 loggers/SimpleUserLogger.php:888
+msgctxt "User logger"
+msgid "Website"
+msgstr "站点"
+
+#: loggers/SimpleUserLogger.php:828
+msgctxt "User logger"
+msgid "Display name"
+msgstr "显示名称"
+
+#: loggers/SimpleUserLogger.php:824
+msgctxt "User logger"
+msgid "Email"
+msgstr "电邮"
+
+#: loggers/SimpleUserLogger.php:817
+msgctxt "User logger"
+msgid "Jabber / Google Talk "
+msgstr "Jabber / Google Talk"
+
+#: loggers/SimpleUserLogger.php:814
+msgctxt "User logger"
+msgid "Yahoo IM"
+msgstr "雅虎通"
+
+#: loggers/SimpleUserLogger.php:811
+msgctxt "User logger"
+msgid "AIM"
+msgstr "AIM"
+
+#: loggers/SimpleUserLogger.php:808
+msgctxt "User logger"
+msgid "Colour Scheme"
+msgstr "配色方案"
+
+#: loggers/SimpleUserLogger.php:804
+msgctxt "User logger"
+msgid "Show Toolbar"
+msgstr "显示工具栏"
+
+#: loggers/SimpleUserLogger.php:800
+msgctxt "User logger"
+msgid "Keyboard shortcuts"
+msgstr "键盘快捷键"
+
+#: loggers/SimpleUserLogger.php:796
+msgctxt "User logger"
+msgid "Visual editor"
+msgstr "可视化编辑器"
+
+#: loggers/SimpleUserLogger.php:792
+msgctxt "User logger"
+msgid "Description"
+msgstr "图像描述"
+
+#: loggers/SimpleUserLogger.php:789
+msgctxt "User logger"
+msgid "Nickname"
+msgstr "昵称"
+
+#: loggers/SimpleUserLogger.php:786 loggers/SimpleUserLogger.php:885
+msgctxt "User logger"
+msgid "Last name"
+msgstr "姓氏"
+
+#: loggers/SimpleUserLogger.php:783 loggers/SimpleUserLogger.php:882
+msgctxt "User logger"
+msgid "First name"
+msgstr "名字"
+
+#: loggers/SimpleUserLogger.php:505
+msgid "Created user <a href=\"{edit_profile_link}\">{created_user_login} ({created_user_email})</a> with role {created_user_role}"
+msgstr "根据用户组{created_user_role}创建用户<a href=\"{edit_profile_link}\">{created_user_login} ({created_user_email})</a>"
+
+#: dropins/SimpleHistorySidebarStats.php:181
+msgid "Number of events per day."
+msgstr "每天事件数"
+
+#: dropins/SimpleHistorySidebarStats.php:167
+msgid "<b>%1$s events</b> have been logged the last <b>%2$s days</b>."
+msgstr "前 %2$s 日记录了%1$s 个事件。"
+
+#: loggers/PluginUserSwitchingLogger.php:26
+msgctxt "PluginUserSwitchingLogger"
+msgid "Using plugin User Switching"
+msgstr "使用插件User Switching"
+
+#: loggers/PluginEnableMediaReplaceLogger.php:25
+msgctxt "PluginUserSwitchingLogger"
+msgid "Using plugin Enable Media Replace"
+msgstr "使用插件Enable Media Replace"
+
+#: inc/SimpleHistory.php:1945
+msgctxt "Options page menu title"
+msgid "Simple History"
+msgstr "操作日志"
+
+#: inc/SimpleHistory.php:1926
+msgctxt "dashboard title name"
+msgid "Simple History"
+msgstr "操作日志"
+
+#: dropins/SimpleHistorySidebarDropin.php:121
+msgctxt "Sidebar box"
+msgid "<a href=\"%1$s\">Visit the support forum</a> if you need help or have questions."
+msgstr "若您需要帮助或有疑问，请<a href=\"%1$s\">浏览论坛</a>"
+
+#: dropins/SimpleHistorySidebarDropin.php:120
+msgctxt "Sidebar box"
+msgid "Support"
+msgstr "支持"
+
+#: dropins/SimpleHistoryDonateDropin.php:74
+msgid "If you find Simple History useful please <a href=\"%1$s\">donate</a>."
+msgstr "若您认为操作日志插件对您有帮助请<a href=\"%1$s\">捐赠</a>."
+
+#: loggers/SimpleUserLogger.php:27
+msgid "Failed to login with username \"{failed_username}\" (username does not exist)"
+msgstr "登录用户\"{failed_username}\"失败(用户名不存在)"
+
+#: loggers/SimpleUserLogger.php:23
+msgid "Failed to login with username \"{login}\" (incorrect password entered)"
+msgstr "登录用户\"{login}\"失败(密码不正确)"
+
+#: loggers/SimpleUserLogger.php:20
+msgid "Logs user logins, logouts, and failed logins"
+msgstr "记录用户登录、登出、登录失败"
+
+#: loggers/SimpleUserLogger.php:19
+msgid "User Logger"
+msgstr "用户记录器"
+
+#: loggers/SimpleCategoriesLogger.php:25
+msgid "Edited term \"{to_term_name}\" in taxonomy \"{to_term_taxonomy}\""
+msgstr "编辑\"{to_term_taxonomy}\"中的\"{to_term_name}\"目录"
+
+#: loggers/SimpleCategoriesLogger.php:24
+msgid "Deleted term \"{term_name}\" from taxonomy \"{term_taxonomy}\""
+msgstr "删除\"{term_taxonomy}\"中的\"{term_name}\"目录"
+
+#: loggers/SimpleCategoriesLogger.php:23
+msgid "Added term \"{term_name}\" in taxonomy \"{term_taxonomy}\""
+msgstr "添加\"{term_name}\"目录到\"{term_taxonomy}\"中"
+
+#: loggers/SimpleCategoriesLogger.php:20
+msgid "Categories Logger"
+msgstr "分类目录记录器"
+
+#: loggers/SimpleUserLogger.php:44
+msgid "Requested a password reset link for user with login '{user_login}' and email '{user_email}'"
+msgstr "请求用户'{user_login}'(邮件'{user_email}')的密码重置链接"
+
+#: loggers/SimpleUserLogger.php:43
+msgid "Reset their password"
+msgstr "重置密码"
+
+#: loggers/SimpleLogger.php:444
+msgid "%1$s local time %3$s (%2$s GMT time)"
+msgstr "%1$s 本地时间 %3$s（GMT时间 %2$s）"
+
+#: examples/example-dropin.php:48
+msgid "Example tab"
+msgstr "标签样例"
+
+#: dropins/SimpleHistorySidebarDropin.php:108
+msgctxt "Sidebar box"
+msgid "Are there things you miss in the history log?"
+msgstr "您在历史记录中遗漏了什么吗？"
+
+#: dropins/SimpleHistorySidebarDropin.php:107
+msgctxt "Sidebar box"
+msgid "Add more to the log"
+msgstr "添加更多的日志"
+
+#: dropins/SimpleHistoryRSSDropin.php:143
+msgid "Enable RSS feed"
+msgstr "启用RSS订阅"
+
+#: dropins/SimpleHistoryRSSDropin.php:68
+msgid "Enable"
+msgstr "启用"
+
+#: dropins/SimpleHistoryFilterDropin.php:183
+msgctxt "Filter dropin: filter week"
+msgid "Last day"
+msgstr "昨天"
+
+#: loggers/SimpleCoreUpdatesLogger.php:67
+msgid "WordPress database version updated to {new_version} from {prev_version}"
+msgstr "WordPress数据库版本从{prev_version}升级到{new_version}"
+
+#: inc/SimpleHistory.php:1458
+msgid "Hm, the log could not be loaded right now. Perhaps another plugin is giving some errors. Anyway, below is the output I got from the server."
+msgstr "呃，日志无法加载。可能是其它插件影响从而产生了一些错误。总之，以下是我从服务器输出的数据。"
+
+#. Author URI of the plugin/theme
+msgid "http://simple-history.com/"
+msgstr "http://simple-history.com/"
+
+#. Author of the plugin/theme
+msgid "Pär Thernström"
+msgstr "Pär Thernström"
+
+#. Description of the plugin/theme
+msgid "Plugin that logs various things that occur in WordPress and then presents those events in a very * nice GUI."
+msgstr "将记录发生在WordPress中的各种事件,并在一个非常漂亮的图形界面中展示它们。"
+
+#. Plugin URI of the plugin/theme
+msgid "http://simple-history.com"
+msgstr "http://simple-history.com"
+
+#: templates/settings-statsUsers.php:10
+msgid "Deleted users are also included."
+msgstr "也包括已被删除的用户。"
+
+#: templates/settings-statsUsers.php:9
+msgid "Number of logged items for the 5 users with most logged rows."
+msgstr "在记录的条目中，这5位用户操作记录最多。"
+
+#: templates/settings-statsUsers.php:7
+msgid "Users"
+msgstr "用户"
+
+#: dropins/SimpleHistorySidebarStats.php:192
+#: templates/settings-statsRowsPerDay.php:38
+msgctxt "stats: date in rows per day chart"
+msgid "M j"
+msgstr "M 月 j 日"
+
+#: templates/settings-statsRowsPerDay.php:6
+msgid "Rows per day"
+msgstr "每天的记录数"
+
+#: templates/settings-statsLoggers.php:5
+msgid "Loggers"
+msgstr "记录器"
+
+#: templates/settings-statsLogLevels.php:8
+msgid "Number of rows logged for each log level."
+msgstr "每个日志级别记录的行数。"
+
+#: templates/settings-statsLogLevels.php:6
+msgid "Log levels"
+msgstr "日志级别"
+
+#: templates/settings-statsIntro.php:21
+msgid "<b>%1$s rows</b> have been logged the last <b>%2$s days</b>"
+msgstr "<b>共 %1$s 条</b><b>在 %2$s 天</b>内曾经登录过的记录"
+
+#: loggers/SimpleUserLogger.php:489
+msgid "Edited the profile for user <a href=\"{edit_profile_link}\">{edited_user_login} ({edited_user_email})</a>"
+msgstr "用户<a href=\"{edit_profile_link}\">{edited_user_login} ({edited_user_email})</a>修改了资料"
+
+#: loggers/SimpleUserLogger.php:482
+msgid "Edited your profile"
+msgstr "修改您的资料"
+
+#: loggers/SimpleUserLogger.php:476
+msgid "Edited <a href=\"{edit_profile_link}\">their profile</a>"
+msgstr "修改<a href=\"{edit_profile_link}\">TA的资料</a>"
+
+#: loggers/SimpleUserLogger.php:474
+msgid "Edited <a href=\"{edit_profile_link}\">your profile</a>"
+msgstr "修改<a href=\"{edit_profile_link}\">您的资料</a>"
+
+#: loggers/SimpleUserLogger.php:93
+msgctxt "User logger: search"
+msgid "User deletions"
+msgstr "用户被删除"
+
+#: loggers/SimpleUserLogger.php:90
+msgctxt "User logger: search"
+msgid "User profile updates"
+msgstr "用户资料更新"
+
+#: loggers/SimpleUserLogger.php:87
+msgctxt "User logger: search"
+msgid "Created users"
+msgstr "创建用户"
+
+#: loggers/SimpleUserLogger.php:84
+msgctxt "User logger: search"
+msgid "User logouts"
+msgstr "用户登出"
+
+#: loggers/SimpleUserLogger.php:80
+msgctxt "User logger: search"
+msgid "Failed user logins"
+msgstr "用户登录失败"
+
+#: loggers/SimpleUserLogger.php:76
+msgctxt "User logger: search"
+msgid "Successful user logins"
+msgstr "用户成功登录"
+
+#: loggers/SimpleUserLogger.php:74
+msgctxt "User logger: search"
+msgid "All user activity"
+msgstr "所有关于用户的操作"
+
+#: loggers/SimpleUserLogger.php:73
+msgctxt "User logger: search"
+msgid "Users"
+msgstr "用户"
+
+#: loggers/SimpleUserLogger.php:64
+msgctxt "User destroys all login sessions for a user"
+msgid "Logged out \"{user_display_name}\" from all sessions"
+msgstr "在所有设备中登出\"{user_display_name}\""
+
+#: loggers/SimpleUserLogger.php:55
+msgctxt "User destroys other login sessions for themself"
+msgid "Logged out from all other sessions"
+msgstr "从所有设备中登出"
+
+#: loggers/SimpleUserLogger.php:42
+msgid "Deleted user {deleted_user_login} ({deleted_user_email})"
+msgstr "删除用户{deleted_user_login} ({deleted_user_email})"
+
+#: loggers/SimpleUserLogger.php:38
+msgid "Created user {created_user_login} ({created_user_email}) with role {created_user_role}"
+msgstr "在{created_user_role}用户组创建了用户{created_user_login} ({created_user_email})"
+
+#: loggers/SimpleUserLogger.php:34
+msgid "Edited the profile for user {edited_user_login} ({edited_user_email})"
+msgstr "{edited_user_login} ({edited_user_email}) 更改了个人信息"
+
+#: loggers/SimpleUserLogger.php:33
+msgid "Logged out"
+msgstr "登出"
+
+#: loggers/SimpleUserLogger.php:32
+msgid "Unknown user logged in"
+msgstr "未知用户登录"
+
+#: loggers/SimpleUserLogger.php:31
+msgid "Logged in"
+msgstr "登录"
+
+#: loggers/SimpleThemeLogger.php:746
+msgid "Section"
+msgstr "小节"
+
+#: loggers/SimpleThemeLogger.php:70
+msgctxt "Theme logger: search"
+msgid "Background of themes changed"
+msgstr "后台更改主题"
+
+#: loggers/SimpleThemeLogger.php:67
+msgctxt "Theme logger: search"
+msgid "Edited widgets"
+msgstr "修改工具栏"
+
+#: loggers/SimpleThemeLogger.php:64
+msgctxt "Theme logger: search"
+msgid "Changed widgets order"
+msgstr "更改工具栏设置"
+
+#: loggers/SimpleThemeLogger.php:61
+msgctxt "Theme logger: search"
+msgid "Removed widgets"
+msgstr "移除工具"
+
+#: loggers/SimpleThemeLogger.php:58
+msgctxt "Theme logger: search"
+msgid "Added widgets"
+msgstr "添加工具"
+
+#: loggers/SimpleThemeLogger.php:55
+msgctxt "Theme logger: search"
+msgid "Changed appearance of themes"
+msgstr "改变主题外观"
+
+#: loggers/SimpleThemeLogger.php:52
+msgctxt "Theme logger: search"
+msgid "Switched themes"
+msgstr "选择主题"
+
+#: loggers/SimpleThemeLogger.php:41
+msgctxt "Theme logger: search"
+msgid "All theme activity"
+msgstr "所有关于主题的操作"
+
+#: loggers/SimpleThemeLogger.php:40
+msgctxt "Theme logger: search"
+msgid "Themes & Widgets"
+msgstr "主题&工具栏"
+
+#: loggers/SimpleThemeLogger.php:36
+msgid "Changed settings for the theme custom background"
+msgstr "改变主题设置的自定义背景"
+
+#: loggers/SimpleThemeLogger.php:35
+msgid "Changed widget \"{widget_id_base}\" in sidebar \"{sidebar_id}\""
+msgstr "在栏位\"{sidebar_id}\"更改\"{widget_id_base}\"工具"
+
+#: loggers/SimpleThemeLogger.php:34
+msgid "Changed widget order \"{widget_id_base}\" in sidebar \"{sidebar_id}\""
+msgstr "在栏位\"{sidebar_id}\"更改\"{widget_id_base}\"工具设置"
+
+#: loggers/SimpleThemeLogger.php:33
+msgid "Added widget \"{widget_id_base}\" to sidebar \"{sidebar_id}\""
+msgstr "添加 \"{widget_id_base}\" 工具到栏位\"{sidebar_id}\""
+
+#: loggers/SimpleThemeLogger.php:32
+msgid "Removed widget \"{widget_id_base}\" from sidebar \"{sidebar_id}\""
+msgstr "从\"{sidebar_id}\"栏位删除 \"{widget_id_base}\"工具"
+
+#: loggers/SimpleThemeLogger.php:31
+msgid "Customized theme appearance \"{setting_id}\""
+msgstr "自定义主题的外观\"{setting_id}\""
+
+#: loggers/SimpleThemeLogger.php:27
+msgid "Switched theme to \"{theme_name}\" from \"{prev_theme_name}\""
+msgstr "将主题从 \"{prev_theme_name}\"改为\"{theme_name}\""
+
+#: loggers/SimplePostLogger.php:939
+msgid "Custom fields"
+msgstr "自定义字段"
+
+#: loggers/SimplePostLogger.php:899
+msgid "Template"
+msgstr "模板"
+
+#: loggers/SimplePostLogger.php:891
+msgid "Changed from \"{prev_page_template_name}\" to \"{new_page_template_name}\""
+msgstr "将\"{prev_page_template_name}\" 改为 \"{new_page_template_name}\""
+
+#: loggers/SimplePostLogger.php:889
+msgid "Changed from {prev_page_template} to {new_page_template}"
+msgstr "将 {prev_page_template} 改为 {new_page_template}"
+
+#: loggers/SimplePostLogger.php:858
+msgid "Changed from {prev_user_display_name} ({prev_user_email}) to {new_user_display_name} ({new_user_email})"
+msgstr "将 {prev_user_display_name} ({prev_user_email}) 改为 {new_user_display_name} ({new_user_email})"
+
+#: loggers/SimplePostLogger.php:856
+msgid "Author"
+msgstr "作者"
+
+#: loggers/SimplePostLogger.php:833
+msgid "Comment status"
+msgstr "评论状态"
+
+#: loggers/SimplePostLogger.php:819
+msgid "Permalink"
+msgstr "固定链接"
+
+#: loggers/SimplePostLogger.php:804
+msgid "Publish date"
+msgstr "发布日期"
+
+#: loggers/SimplePostLogger.php:789
+msgid "Status"
+msgstr "状态"
+
+#: loggers/SimplePostLogger.php:776
+msgid "Content"
+msgstr "内容"
+
+#: loggers/SimplePostLogger.php:763
+msgid "Title"
+msgstr "标题"
+
+#: loggers/SimplePostLogger.php:708
+msgid "Moved {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a> to the trash"
+msgstr "将{post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>丢入回收站"
+
+#: loggers/SimplePostLogger.php:703
+msgid "Created {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+msgstr "创建{post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+
+#: loggers/SimplePostLogger.php:695
+msgid "Updated {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+msgstr "更新{post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+
+#: loggers/SimplePostLogger.php:142
+msgctxt "Post logger: search"
+msgid "Posts restored"
+msgstr "恢复文章"
+
+#: loggers/SimplePostLogger.php:139
+msgctxt "Post logger: search"
+msgid "Posts deleted"
+msgstr "删除文章"
+
+#: loggers/SimplePostLogger.php:136
+msgctxt "Post logger: search"
+msgid "Posts trashed"
+msgstr "文章被放入回收站"
+
+#: loggers/SimplePostLogger.php:133
+msgctxt "Post logger: search"
+msgid "Posts updated"
+msgstr "更新文章"
+
+#: loggers/SimplePostLogger.php:130
+msgctxt "Post logger: search"
+msgid "Posts created"
+msgstr "创建文章"
+
+#: loggers/SimplePostLogger.php:128
+msgctxt "Post logger: search"
+msgid "All posts & pages activity"
+msgstr "所有关于文章及页面的操作"
+
+#: loggers/SimplePostLogger.php:127
+msgctxt "Post logger: search"
+msgid "Posts & Pages"
+msgstr "文章&页面"
+
+#: loggers/SimplePostLogger.php:123
+msgid "Moved {post_type} \"{post_title}\" to the trash"
+msgstr "将{post_type} \"{post_title}\"丢入回收站"
+
+#: loggers/SimplePostLogger.php:122 loggers/SimplePostLogger.php:699
+msgid "Deleted {post_type} \"{post_title}\""
+msgstr "删除{post_type} \"{post_title}\""
+
+#: loggers/SimplePostLogger.php:121
+msgid "Restored {post_type} \"{post_title}\" from trash"
+msgstr "从回收站恢复{post_type} \"{post_title}\""
+
+#: loggers/SimplePostLogger.php:120
+msgid "Updated {post_type} \"{post_title}\""
+msgstr "更新{post_type} \"{post_title}\""
+
+#: loggers/SimplePostLogger.php:119
+msgid "Created {post_type} \"{post_title}\""
+msgstr "创建{post_type} \"{post_title}\""
+
+#: loggers/SimplePluginLogger.php:1176
+msgctxt "plugin logger: plugin info thickbox title"
+msgid "View changelog"
+msgstr "浏览修订历史"
+
+#: loggers/SimplePluginLogger.php:1171
+msgctxt "plugin logger: plugin info thickbox title"
+msgid "View plugin info"
+msgstr "浏览插件信息"
+
+#: loggers/SimplePluginLogger.php:1140 loggers/SimplePluginLogger.php:1157
+#: loggers/SimplePluginLogger.php:1201
+msgctxt "plugin logger: plugin info thickbox title view all info"
+msgid "View plugin info"
+msgstr "浏览插件信息"
+
+#: loggers/SimplePluginLogger.php:1079
+msgid "Uploaded ZIP archive"
+msgstr "上传ZIP文件"
+
+#: loggers/SimplePluginLogger.php:1076
+msgid "WordPress Plugin Repository"
+msgstr "WordPress插件仓库"
+
+#: loggers/SimplePluginLogger.php:1033
+msgctxt "plugin logger - detailed output url"
+msgid "URL"
+msgstr "网址"
+
+#: loggers/SimplePluginLogger.php:1032
+msgctxt "plugin logger - detailed output author"
+msgid "Author"
+msgstr "作者"
+
+#: loggers/SimplePluginLogger.php:1031
+msgctxt "plugin logger - detailed output version"
+msgid "Version"
+msgstr "版本"
+
+#: loggers/SimplePluginLogger.php:1030
+msgctxt "plugin logger - detailed output install source"
+msgid "Source file name"
+msgstr "源文件名"
+
+#: loggers/SimplePluginLogger.php:1029
+msgctxt "plugin logger - detailed output install source"
+msgid "Source"
+msgstr "源"
+
+#: loggers/SimplePluginLogger.php:1028
+msgctxt "plugin logger - detailed output"
+msgid "Description"
+msgstr "图像描述"
+
+#: loggers/SimplePluginLogger.php:398
+msgid "You do not have sufficient permissions to delete plugins for this site."
+msgstr "您没有足够的权限删除这个网站的插件。"
+
+#: loggers/SimplePluginLogger.php:334
+msgid "<p>Viewing <code>readme</code> from repository <code><a target=\"_blank\" href=\"%1$s\">%2$s</a></code>.</p>"
+msgstr "<p>到GitHub中浏览 <code>README文件</code> <code><a target=\"_blank\" href=\"%1$s\">%2$s</a></code>.</p>"
+
+#: loggers/SimplePluginLogger.php:309 loggers/SimplePluginLogger.php:314
+msgid "Could not find GitHub repository."
+msgstr "无法找到GitHub仓库。"
+
+#: loggers/SimplePluginLogger.php:303
+msgid "You don't have access to this page."
+msgstr "您没有足够的权限访问此页。"
+
+#: loggers/SimplePluginLogger.php:121
+msgctxt "Plugin logger: search"
+msgid "Deleted plugins"
+msgstr "删除插件"
+
+#: loggers/FileEditsLogger.php:28
+msgctxt "Plugin logger: file edits"
+msgid "Edited plugin files"
+msgstr "编辑插件文件"
+
+#: loggers/SimplePluginLogger.php:118
+msgctxt "Plugin logger: search"
+msgid "Failed plugin updates"
+msgstr "更新插件失败"
+
+#: loggers/SimplePluginLogger.php:114
+msgctxt "Plugin logger: search"
+msgid "Updated plugins"
+msgstr "更新插件"
+
+#: loggers/SimplePluginLogger.php:111
+msgctxt "Plugin logger: search"
+msgid "Failed plugin installs"
+msgstr "插件安装失败"
+
+#: loggers/SimplePluginLogger.php:108
+msgctxt "Plugin logger: search"
+msgid "Installed plugins"
+msgstr "安装插件"
+
+#: loggers/SimplePluginLogger.php:104
+msgctxt "Plugin logger: search"
+msgid "Deactivated plugins"
+msgstr "禁用插件"
+
+#: loggers/SimplePluginLogger.php:101
+msgctxt "Plugin logger: search"
+msgid "Activated plugins"
+msgstr "启用插件"
+
+#: loggers/SimplePluginLogger.php:99
+msgctxt "Plugin logger: search"
+msgid "All plugin activity"
+msgstr "所有关于插件的操作"
+
+#: loggers/SimplePluginLogger.php:98
+msgctxt "Plugin logger: search"
+msgid "Plugins"
+msgstr "插件"
+
+#: loggers/SimplePluginLogger.php:82
+msgctxt "Plugin was updated in bulk"
+msgid "Updated plugin \"{plugin_name}\" to {plugin_version} from {plugin_prev_version}"
+msgstr "将插件\"{plugin_name}\"从 {plugin_prev_version} 版本更新到 {plugin_version} 版本"
+
+#: loggers/SimplePluginLogger.php:75
+msgctxt "Plugin files was deleted"
+msgid "Deleted plugin \"{plugin_name}\""
+msgstr "删除插件\"{plugin_name}\""
+
+#: loggers/SimplePluginLogger.php:63
+msgctxt "Plugin was updated"
+msgid "Updated plugin \"{plugin_name}\" to version {plugin_version} from {plugin_prev_version}"
+msgstr "将插件\"{plugin_name}\"从 {plugin_prev_version} 版本更新到 {plugin_version} 版本"
+
+#: loggers/SimplePluginLogger.php:57
+msgctxt "Plugin failed to install"
+msgid "Failed to install plugin \"{plugin_name}\""
+msgstr "安装\"{plugin_name}\"插件失败"
+
+#: loggers/SimplePluginLogger.php:51
+msgctxt "Plugin was installed"
+msgid "Installed plugin \"{plugin_name}\""
+msgstr "安装插件\"{plugin_name}\""
+
+#: loggers/SimplePluginLogger.php:45
+msgctxt "Plugin was non-silently deactivated by a user"
+msgid "Deactivated plugin \"{plugin_name}\""
+msgstr "禁用插件\"{plugin_name}\""
+
+#: loggers/SimplePluginLogger.php:39
+msgctxt "Plugin was non-silently activated by a user"
+msgid "Activated plugin \"{plugin_name}\""
+msgstr "启用插件\"{plugin_name}\""
+
+#: loggers/SimpleOptionsLogger.php:268 loggers/SimpleOptionsLogger.php:285
+msgid "Settings page"
+msgstr "设置页面"
+
+#: loggers/SimpleOptionsLogger.php:247 loggers/SimpleOptionsLogger.php:394
+#: loggers/SimpleOptionsLogger.php:404 loggers/SimpleOptionsLogger.php:470
+#: loggers/SimpleThemeLogger.php:795
+msgid "Old value"
+msgstr "原值"
+
+#: loggers/SimpleOptionsLogger.php:241 loggers/SimpleOptionsLogger.php:368
+#: loggers/SimpleOptionsLogger.php:377 loggers/SimpleOptionsLogger.php:480
+#: loggers/SimpleThemeLogger.php:783
+msgid "New value"
+msgstr "新值"
+
+#: loggers/SimpleOptionsLogger.php:40
+msgctxt "Options logger: search"
+msgid "Changed options"
+msgstr "更改设置"
+
+#: loggers/SimpleOptionsLogger.php:38
+msgctxt "Options logger: search"
+msgid "Options"
+msgstr "设置"
+
+#: loggers/SimpleOptionsLogger.php:26
+msgid "Updated option \"{option}\""
+msgstr "更新选项\"{option}\""
+
+#: loggers/SimpleMenuLogger.php:331
+msgctxt "menu logger"
+msgid "%1$s menu item removed"
+msgid_plural "%1$s menu items removed"
+msgstr[0] "删除 %1$s 菜单项"
+
+#: loggers/SimpleMenuLogger.php:324
+msgctxt "menu logger"
+msgid "%1$s menu item added"
+msgid_plural "%1$s menu items added"
+msgstr[0] "添加 %1$s 菜单项"
+
+#: loggers/SimpleMenuLogger.php:44
+msgctxt "Menu updates logger: search"
+msgid "Deleted menus"
+msgstr "删除菜单"
+
+#: loggers/SimpleMenuLogger.php:39
+msgctxt "Menu updates logger: search"
+msgid "Edited menus"
+msgstr "编辑菜单"
+
+#: loggers/SimpleMenuLogger.php:36
+msgctxt "Menu updates logger: search"
+msgid "Created menus"
+msgstr "创建菜单"
+
+#: loggers/SimpleMenuLogger.php:34
+msgctxt "Menu updates logger: search"
+msgid "All menu activity"
+msgstr "所有关于菜单的操作"
+
+#: loggers/SimpleMenuLogger.php:33
+msgctxt "Menu logger: search"
+msgid "Menus"
+msgstr "菜单"
+
+#: loggers/SimpleMenuLogger.php:29
+msgid "Updated menu locations"
+msgstr "更新菜单位置"
+
+#: loggers/SimpleMenuLogger.php:28
+msgid "Edited a menu item"
+msgstr "编辑菜单选项"
+
+#: loggers/SimpleMenuLogger.php:27
+msgid "Deleted menu \"{menu_name}\""
+msgstr "删除菜单 \"{menu_name}\""
+
+#: loggers/SimpleMenuLogger.php:26
+msgid "Edited menu \"{menu_name}\""
+msgstr "编辑菜单 \"{menu_name}\""
+
+#: loggers/SimpleMenuLogger.php:25
+msgid "Created menu \"{menu_name}\""
+msgstr "创建菜单 \"{menu_name}\""
+
+#: loggers/SimpleMediaLogger.php:253
+msgid "{full_image_width} × {full_image_height}"
+msgstr "{full_image_width} × {full_image_height}"
+
+#: loggers/SimpleMediaLogger.php:249
+msgid "{attachment_filetype_extension}"
+msgstr "{attachment_filetype_extension}"
+
+#: loggers/SimpleMediaLogger.php:248
+msgid "{attachment_size_format}"
+msgstr "{attachment_size_format}"
+
+#: loggers/SimpleMediaLogger.php:240
+msgid "{attachment_thumb}"
+msgstr "{attachment_thumb}"
+
+#: loggers/SimpleMediaLogger.php:126
+msgid "Uploaded {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+msgstr "上传{post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+
+#: loggers/SimpleMediaLogger.php:122
+msgid "Edited {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+msgstr "编辑 {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+
+#: loggers/SimpleMediaLogger.php:40
+msgctxt "Media logger: search"
+msgid "Deleted media"
+msgstr "删除媒体"
+
+#: loggers/SimpleMediaLogger.php:37
+msgctxt "Media logger: search"
+msgid "Updated media"
+msgstr "更新媒体"
+
+#: loggers/SimpleMediaLogger.php:34
+msgctxt "Media logger: search"
+msgid "Added media"
+msgstr "添加媒体"
+
+#: loggers/SimpleMediaLogger.php:32
+msgctxt "Media logger: search"
+msgid "All media activity"
+msgstr "所有关于媒体的操作"
+
+#: loggers/SimpleMediaLogger.php:31
+msgctxt "Media logger: search"
+msgid "Media"
+msgstr "媒体"
+
+#: loggers/SimpleMediaLogger.php:27
+msgid "Deleted {post_type} \"{attachment_title}\" (\"{attachment_filename}\")"
+msgstr "删除 {post_type} \"{attachment_title}\" (\"{attachment_filename}\")"
+
+#: loggers/SimpleMediaLogger.php:26
+msgid "Edited {post_type} \"{attachment_title}\""
+msgstr "编辑{post_type} \"{attachment_title}\""
+
+#: loggers/SimpleMediaLogger.php:25
+msgid "Created {post_type} \"{attachment_title}\""
+msgstr "创建{post_type} \"{attachment_title}\""
+
+#. translators: 1: last modified date and time in human time diff-format
+#: loggers/SimpleLogger.php:433
+msgid "%1$s ago"
+msgstr "%1$s 前"
+
+#. translators: Date format for log row header, see http://php.net/date
+#: loggers/SimpleLogger.php:425
+msgid "M j, Y \\a\\t G:i"
+msgstr "Y年M月j日 @ H:i"
+
+#: dropins/SimpleHistoryWPCLIDropin.php:97 loggers/SimpleLogger.php:360
+msgctxt "Event header output, when initiator is unknown"
+msgid "Other"
+msgstr "其它"
+
+#: loggers/SimpleLogger.php:344
+msgid "Anonymous user from %1$s"
+msgstr "来自 %1$s 的匿名用户"
+
+#: dropins/SimpleHistoryWPCLIDropin.php:94 loggers/SimpleLogger.php:315
+msgid "Anonymous web user"
+msgstr "匿名网站用户"
+
+#: dropins/SimpleHistoryWPCLIDropin.php:86 loggers/SimpleLogger.php:289
+msgid "Deleted user (had id %1$s, email %2$s, login %3$s)"
+msgstr "删除用户(ID: %1$s，Email:%2$s，登录: %3$s)"
+
+#: loggers/SimpleLogger.php:275
+msgctxt "header output when initiator is the currently logged in user"
+msgid "You"
+msgstr "您"
+
+#: loggers/SimpleLegacyLogger.php:91
+msgid "%d occasions"
+msgstr "%d 事件"
+
+#: loggers/SimpleLegacyLogger.php:86
+msgid "By %s"
+msgstr "由 %s"
+
+#: loggers/SimpleExportLogger.php:31
+msgctxt "Export logger: search"
+msgid "Created exports"
+msgstr "创建导出"
+
+#: loggers/SimpleExportLogger.php:29
+msgctxt "Export logger: search"
+msgid "Export"
+msgstr "导出"
+
+#: loggers/SimpleExportLogger.php:25
+msgid "Created XML export"
+msgstr "创建XML导出"
+
+#: loggers/SimpleExportLogger.php:22
+msgid "Logs updates to WordPress export"
+msgstr "日志更新至WordPress导出"
+
+#: loggers/SimpleExportLogger.php:21
+msgid "Export Logger"
+msgstr "导出日志"
+
+#: loggers/SimpleCoreUpdatesLogger.php:73
+msgctxt "User logger: search"
+msgid "WordPress core updates"
+msgstr "WordPress Core更新"
+
+#: loggers/SimpleCoreUpdatesLogger.php:71
+msgctxt "User logger: search"
+msgid "WordPress Core"
+msgstr "WordPress Core"
+
+#: loggers/SimpleCoreUpdatesLogger.php:66
+msgid "WordPress auto-updated to {new_version} from {prev_version}"
+msgstr "WordPress 自动从{prev_version}升级到{new_version}"
+
+#: loggers/SimpleCoreUpdatesLogger.php:65
+msgid "Updated WordPress to {new_version} from {prev_version}"
+msgstr "将WordPress从{prev_version}升级到{new_version}"
+
+#: loggers/SimpleCommentsLogger.php:775
+msgctxt "comments logger - edit comment"
+msgid "View/Edit"
+msgstr "查看/编辑"
+
+#: loggers/SimpleCommentsLogger.php:716
+msgid "Comment"
+msgstr "评论"
+
+#: loggers/SimpleCommentsLogger.php:714
+msgid "Pingback"
+msgstr "Pingback"
+
+#: loggers/SimpleCommentsLogger.php:712
+msgid "Trackback"
+msgstr "Trackback"
+
+#: loggers/SimpleCommentsLogger.php:699
+msgid "Pending"
+msgstr "待发布"
+
+#: loggers/SimpleCommentsLogger.php:697
+msgid "Approved"
+msgstr "已批准"
+
+#: loggers/SimpleCommentsLogger.php:695
+msgid "Spam"
+msgstr "垃圾"
+
+#: loggers/SimpleCommentsLogger.php:642
+msgctxt "comments logger - detailed output content"
+msgid "Comment"
+msgstr "评论"
+
+#: loggers/SimpleCommentsLogger.php:615 loggers/SimpleCommentsLogger.php:628
+msgctxt "comments logger - detailed output content"
+msgid "Content"
+msgstr "内容"
+
+#: loggers/SimpleCommentsLogger.php:614 loggers/SimpleCommentsLogger.php:627
+#: loggers/SimpleCommentsLogger.php:641
+msgctxt "comments logger - detailed output email"
+msgid "Email"
+msgstr "电邮"
+
+#: loggers/SimpleCommentsLogger.php:613 loggers/SimpleCommentsLogger.php:626
+#: loggers/SimpleCommentsLogger.php:640
+msgctxt "comments logger - detailed output author"
+msgid "Name"
+msgstr "名字"
+
+#: loggers/SimpleCommentsLogger.php:611 loggers/SimpleCommentsLogger.php:624
+#: loggers/SimpleCommentsLogger.php:638
+msgctxt "comments logger - detailed output comment status"
+msgid "Status"
+msgstr "状态"
+
+#: loggers/SimpleCommentsLogger.php:308
+msgctxt "Comments logger: search"
+msgid "Deleted comments"
+msgstr "删除评论"
+
+#: loggers/SimpleCommentsLogger.php:303
+msgctxt "Comments logger: search"
+msgid "Untrashed comments"
+msgstr "恢复评论"
+
+#: loggers/SimpleCommentsLogger.php:298
+msgctxt "Comments logger: search"
+msgid "Trashed comments"
+msgstr "删除评论"
+
+#: loggers/SimpleCommentsLogger.php:293
+msgctxt "Comments logger: search"
+msgid "Comments status changed to spam"
+msgstr "将评论状态更改为垃圾"
+
+#: loggers/SimpleCommentsLogger.php:288
+msgctxt "Comments logger: search"
+msgid "Held comments"
+msgstr "保留评论"
+
+#: loggers/SimpleCommentsLogger.php:283
+msgctxt "Comments logger: search"
+msgid "Approved  comments"
+msgstr "批准评论"
+
+#: loggers/SimpleCommentsLogger.php:278
+msgctxt "Comments logger: search"
+msgid "Edited comments"
+msgstr "编辑评论"
+
+#: loggers/SimpleCommentsLogger.php:270
+msgctxt "Comments logger: search"
+msgid "Added comments"
+msgstr "添加评论"
+
+#: loggers/SimpleCommentsLogger.php:268
+msgctxt "Comments logger: search"
+msgid "All comments activity"
+msgstr "所有关于评论的操作"
+
+#: loggers/SimpleCommentsLogger.php:267
+msgctxt "Comments logger: search"
+msgid "Comments"
+msgstr "评论"
+
+#: loggers/SimpleCommentsLogger.php:256
+msgctxt "A pingback was edited"
+msgid "Edited a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "编辑了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack"
+
+#: loggers/SimpleCommentsLogger.php:250
+msgctxt "A pingback was deleted"
+msgid "Deleted a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "删除了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack"
+
+#: loggers/SimpleCommentsLogger.php:244
+msgctxt "A pingback was restored from the trash"
+msgid "Restored a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "恢复了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack"
+
+#: loggers/SimpleCommentsLogger.php:238
+msgctxt "A pingback was marked moved to the trash"
+msgid "Trashed a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "将{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack丢入回收站"
+
+#: loggers/SimpleCommentsLogger.php:232
+msgctxt "A pingback was marked as spam"
+msgid "Marked a pingback to post \"{comment_post_title}\" as spam"
+msgstr "将 \"{comment_post_title}\" 的PingBack标记为垃圾"
+
+#: loggers/SimpleCommentsLogger.php:226
+msgctxt "A pingback was was unapproved"
+msgid "Unapproved a pingback to \"{comment_post_title}\" by \"{comment_author}\" ({comment_author_email})"
+msgstr "驳回了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack"
+
+#: loggers/SimpleCommentsLogger.php:220
+msgctxt "A pingback was approved"
+msgid "Approved a pingback to \"{comment_post_title}\" by \"{comment_author}\"\" ({comment_author_email})"
+msgstr "通过了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的PingBack"
+
+#: loggers/SimpleCommentsLogger.php:214
+msgctxt "A pingback was added to the database by a logged in user"
+msgid "Added a pingback to {comment_post_type} \"{comment_post_title}\""
+msgstr "为{comment_post_type} \"{comment_post_title}\"添加了PingBack"
+
+#: loggers/SimpleCommentsLogger.php:208
+msgctxt "A trackback was added to the database by a non-logged in internet user"
+msgid "Added a pingback to {comment_post_type} \"{comment_post_title}\""
+msgstr "为{comment_post_type} \"{comment_post_title}\"添加了PingBack"
+
+#: loggers/SimpleCommentsLogger.php:201
+msgctxt "A trackback was edited"
+msgid "Edited a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "编辑了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:195
+msgctxt "A trackback was deleted"
+msgid "Deleted a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "删除了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:189
+msgctxt "A trackback was restored from the trash"
+msgid "Restored a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "恢复了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:183
+msgctxt "A trackback was marked moved to the trash"
+msgid "Trashed a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "将{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack丢入回收站"
+
+#: loggers/SimpleCommentsLogger.php:177
+msgctxt "A trackback was marked as spam"
+msgid "Marked a trackback to post \"{comment_post_title}\" as spam"
+msgstr "将 \"{comment_post_title}\" 的TrackBack标记为垃圾"
+
+#: loggers/SimpleCommentsLogger.php:171
+msgctxt "A trackback was was unapproved"
+msgid "Unapproved a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "驳回了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:165
+msgctxt "A trackback was approved"
+msgid "Approved a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "通过了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:159
+msgctxt "A trackback was added to the database by a logged in user"
+msgid "Added a trackback to {comment_post_type} \"{comment_post_title}\""
+msgstr "为{comment_post_type} \"{comment_post_title}\"添加了TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:153
+msgctxt "A trackback was added to the database by a non-logged in internet user"
+msgid "Added a trackback to {comment_post_type} \"{comment_post_title}\""
+msgstr "为{comment_post_type} \"{comment_post_title}\"添加了TrackBack"
+
+#: loggers/SimpleCommentsLogger.php:146
+msgctxt "A comment was edited"
+msgid "Edited a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "编辑了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论"
+
+#: loggers/SimpleCommentsLogger.php:140
+msgctxt "A comment was deleted"
+msgid "Deleted a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "删除了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论"
+
+#: loggers/SimpleCommentsLogger.php:134
+msgctxt "A comment was restored from the trash"
+msgid "Restored a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "恢复了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论"
+
+#: loggers/SimpleCommentsLogger.php:128
+msgctxt "A comment was marked moved to the trash"
+msgid "Trashed a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "将{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论丢入回收站"
+
+#: loggers/SimpleCommentsLogger.php:122
+msgctxt "A comment was marked as spam"
+msgid "Marked a comment to post \"{comment_post_title}\" as spam"
+msgstr "将 \"{comment_post_title}\" 标记为垃圾评论"
+
+#: loggers/SimpleCommentsLogger.php:116
+msgctxt "A comment was was unapproved"
+msgid "Unapproved a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "驳回了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论"
+
+#: loggers/SimpleCommentsLogger.php:110
+msgctxt "A comment was approved"
+msgid "Approved a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "通过了{comment_author} ({comment_author_email})在\"{comment_post_title}\" 的一条评论"
+
+#: loggers/SimpleCommentsLogger.php:104
+msgctxt "A comment was added to the database by a logged in user"
+msgid "Added a comment to {comment_post_type} \"{comment_post_title}\""
+msgstr "添加评论到{comment_post_type} \"{comment_post_title}\""
+
+#: loggers/SimpleCommentsLogger.php:98
+msgctxt "A comment was added to the database by a non-logged in internet user"
+msgid "Added a comment to {comment_post_type} \"{comment_post_title}\""
+msgstr "添加评论到{comment_post_type} \"{comment_post_title}\""
+
+#: loggers/Plugin_UltimateMembers_Logger.php:27
+msgctxt "PluginUltimateMembersLogger"
+msgid "Logged in"
+msgstr "登录"
+
+#: loggers/Plugin_UltimateMembers_Logger.php:24
+msgctxt "PluginUltimateMembersLogger"
+msgid "Logs actions from the Ultimate Members plugin"
+msgstr "记录Ultimate Members插件的动作"
+
+#: loggers/Plugin_UltimateMembers_Logger.php:23
+msgctxt "PluginUltimateMembersLogger"
+msgid "Ultimate Members Logger"
+msgstr "Ultimate Members 记录器"
+
+#: loggers/PluginUserSwitchingLogger.php:32
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched off user \"{user_login}\""
+msgstr "关闭 \"{user_login}\""
+
+#: loggers/PluginUserSwitchingLogger.php:31
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched back to user \"{user_login_to}\""
+msgstr "切换回\"{user_login_to}\""
+
+#: loggers/PluginUserSwitchingLogger.php:30
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched back to user \"{user_login_to}\" from user \"{user_login_from}\""
+msgstr "将\"{user_login_from}\"切换回\"{user_login_to}\""
+
+#: loggers/PluginUserSwitchingLogger.php:29
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched to user \"{user_login_to}\" from user \"{user_login_from}\""
+msgstr "将\"{user_login_from}\"切换为\"{user_login_to}\""
+
+#: loggers/PluginUserSwitchingLogger.php:24
+msgctxt "PluginUserSwitchingLogger"
+msgid "Logs user switches"
+msgstr "记录User Switching日志"
+
+#: loggers/PluginUserSwitchingLogger.php:23
+msgctxt "PluginUserSwitchingLogger"
+msgid "User Switching Logger"
+msgstr "User Switching记录器"
+
+#: loggers/PluginEnableMediaReplaceLogger.php:28
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Replaced attachment \"{prev_attachment_title}\" with new attachment \"{new_attachment_title}\""
+msgstr "将\"{prev_attachment_title}\"附件替换为 \"{new_attachment_title}\""
+
+#: loggers/PluginEnableMediaReplaceLogger.php:24
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Logs media updates made with the Enable Media Replace Plugin"
+msgstr "记录Enable Media Replace 插件作出的更新媒体行为"
+
+#: loggers/PluginEnableMediaReplaceLogger.php:23
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Enable Media Replace Logger"
+msgstr "Enable Media Replace记录"
+
+#. translators: 1: PHP version
+#: index.php:107
+msgid "Simple History is a great plugin, but to use it your server must have at least PHP 5.3 installed (you have version %s)."
+msgstr "操作日志是一个很棒的插件，但若想使用它，您的服务器必须安装PHP5.3及以上版本(您当前的版本为 %s)。"
+
+#: inc/SimpleHistory.php:3273
+msgid "%1$s events today from %2$d users and %3$d other sources."
+msgstr "今天有来自于 %2$d 个用户和 %3$d 个其它源的 %1$s 个事件。"
+
+#: inc/SimpleHistory.php:3267
+msgid "%1$d events today from one user and %3$d other sources."
+msgstr "今天有来自于一个用户和 %3$d 个其它源的 %1$d 个事件。"
+
+#: inc/SimpleHistory.php:3255 inc/SimpleHistory.php:3261
+msgid "%1$d events today from one user and one other source."
+msgstr "今天有来自于一个用户和一个其它源的 %1$d 个事件。"
+
+#: inc/SimpleHistory.php:3249
+msgid "%1$d events today from %2$d users."
+msgstr "今天有来自于 %2$d 个用户的 %1$d 个事件。"
+
+#: inc/SimpleHistory.php:3243
+msgid "%1$d events today from one user."
+msgstr "今天有来自于一个用户的 %1$d 个事件。"
+
+#: inc/SimpleHistory.php:3237
+msgid "One event today from one source."
+msgstr "今天有来自一个源的一个事件。"
+
+#: inc/SimpleHistory.php:3231
+msgid "One event today from one user."
+msgstr "今天有来自于一个用户的一个事件。"
+
+#: inc/SimpleHistory.php:3212
+msgid "No events today so far."
+msgstr "今天没有事件。"
+
+#: inc/SimpleHistory.php:2880
+msgctxt "Log level in gui"
+msgid "Debug"
+msgstr "调试"
+
+#: inc/SimpleHistory.php:2876
+msgctxt "Log level in gui"
+msgid "Info"
+msgstr "信息"
+
+#: inc/SimpleHistory.php:2872
+msgctxt "Log level in gui"
+msgid "Notice"
+msgstr "注意"
+
+#: inc/SimpleHistory.php:2868
+msgctxt "Log level in gui"
+msgid "Warning"
+msgstr "警告"
+
+#: inc/SimpleHistory.php:2864
+msgctxt "Log level in gui"
+msgid "Error"
+msgstr "错误"
+
+#: inc/SimpleHistory.php:2860
+msgctxt "Log level in gui"
+msgid "Critical"
+msgstr "严重"
+
+#: inc/SimpleHistory.php:2856
+msgctxt "Log level in gui"
+msgid "Alert"
+msgstr "警告提醒"
+
+#: inc/SimpleHistory.php:2852
+msgctxt "Log level in gui"
+msgid "Emergency"
+msgstr "紧急情况"
+
+#: inc/SimpleHistory.php:2847
+msgctxt "Log level in gui"
+msgid "debug"
+msgstr "调试"
+
+#: inc/SimpleHistory.php:2843
+msgctxt "Log level in gui"
+msgid "info"
+msgstr "信息"
+
+#: inc/SimpleHistory.php:2839
+msgctxt "Log level in gui"
+msgid "notice"
+msgstr "注意"
+
+#: inc/SimpleHistory.php:2835
+msgctxt "Log level in gui"
+msgid "warning"
+msgstr "警告"
+
+#: inc/SimpleHistory.php:2831
+msgctxt "Log level in gui"
+msgid "error"
+msgstr "错误"
+
+#: inc/SimpleHistory.php:2827
+msgctxt "Log level in gui"
+msgid "critical"
+msgstr "危险"
+
+#: inc/SimpleHistory.php:2823
+msgctxt "Log level in gui"
+msgid "alert"
+msgstr "警报"
+
+#: inc/SimpleHistory.php:2819
+msgctxt "Log level in gui"
+msgid "emergency"
+msgstr "紧急情况"
+
+#: inc/SimpleHistory.php:2593
+msgid "This is potentially useful meta data that a logger has saved."
+msgstr "这是记录保存的潜在有用的Meta数据。"
+
+#: inc/SimpleHistory.php:2592
+msgid "Context data"
+msgstr "环境数据"
+
+#: inc/SimpleHistory.php:2553
+msgid "Showing %1$s more"
+msgstr "显示 %1$s 条更多内容"
+
+#: inc/SimpleHistory.php:2546
+msgid "Loading…"
+msgstr "载入中..."
+
+#: inc/SimpleHistory.php:2539
+msgid "+%1$s similar event"
+msgid_plural "+%1$s similar events"
+msgstr[0] "+ %1$s 类似事件"
+
+#: inc/SimpleHistory.php:2362
+msgctxt "simple-history"
+msgid "Simple History removed one event that were older than {days} days"
+msgid_plural "Simple History removed {num_rows} events that were older than {days} days"
+msgstr[0] "操作日志删除了 {num_rows} 条 {days} 天前的事件"
+
+#: inc/SimpleHistory.php:2278
+msgid "The log for Simple History was cleared ({num_rows} rows were removed)."
+msgstr "操作日志被清空（共清除 {num_rows} 行）。"
+
+#: inc/SimpleHistory.php:2227
+msgid "Clear log now"
+msgstr "清除日志"
+
+#: inc/SimpleHistory.php:2222
+msgid "Items in the database are kept forever."
+msgstr "数据库中的记录将永久保留。"
+
+#: inc/SimpleHistory.php:2220
+msgid "Items in the database are automatically removed after %1$s days."
+msgstr "数据库中的记录将在 %1$s 天后删除。"
+
+#: inc/SimpleHistory.php:2203
+msgid "as a page under the dashboard menu"
+msgstr "在仪表盘菜单中作为一个单独的页面"
+
+#: inc/SimpleHistory.php:2198
+msgid "on the dashboard"
+msgstr "显示在控制面版上"
+
+#: inc/SimpleHistory.php:2069
+msgctxt "history page headline"
+msgid "Simple History"
+msgstr "操作日志"
+
+#: inc/SimpleHistory.php:2034
+msgid "Clear log"
+msgstr "清除日志"
+
+#: inc/SimpleHistory.php:1996
+msgid "Show history"
+msgstr "显示日志"
+
+#: inc/SimpleHistory.php:1968
+msgid "Cleared database"
+msgstr "清除数据库"
+
+#: inc/SimpleHistory.php:1927
+msgctxt "dashboard menu name"
+msgid "Simple History"
+msgstr "操作日志"
+
+#: inc/SimpleHistory.php:1864
+msgid "No valid callback found"
+msgstr "没有找到有效的返回值"
+
+#: inc/SimpleHistory.php:1828 inc/SimpleHistory.php:1944
+msgid "Simple History Settings"
+msgstr "操作日志 设置"
+
+#: inc/SimpleHistory.php:1459
+msgid "Your search did not match any history events."
+msgstr "未搜索到任何记录。"
+
+#: inc/SimpleHistory.php:1457
+msgid "Oups, the log could not be loaded right now."
+msgstr "日志现在无法加载。"
+
+#: inc/SimpleHistory.php:1455
+msgid "Current page"
+msgstr "当前页"
+
+#: inc/SimpleHistory.php:1454
+msgid "Go to the last page"
+msgstr "跳转至最后一页"
+
+#: inc/SimpleHistory.php:1453
+msgid "Go to the next page"
+msgstr "跳转至下一页"
+
+#: inc/SimpleHistory.php:1452
+msgid "Go to the previous page"
+msgstr "跳转至上一页"
+
+#: inc/SimpleHistory.php:1451
+msgid "Go to the first page"
+msgstr "跳转至第一页"
+
+#: inc/SimpleHistory.php:1449
+msgid "Remove all log items?"
+msgstr "清除所有日志？"
+
+#. #-#-#-#-#  simple-history-code.pot (Simple History 2.20)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: inc/SimpleHistory.php:1374
+msgid "Simple History"
+msgstr "操作日志"
+
+#: inc/SimpleHistory.php:926
+msgid "Styles example (debug)"
+msgstr "样例(Debug)"
+
+#: inc/SimpleHistory.php:921
+msgid "Log (debug)"
+msgstr "日志(Debug)"
+
+#: dropins/SimpleHistorySidebarSettings.php:53 inc/SimpleHistory.php:910
+#: inc/SimpleHistory.php:1349
+msgid "Settings"
+msgstr "设置"
+
+#: inc/SimpleHistory.php:719
+msgctxt "API: not enought arguments passed"
+msgid "Not enough args specified"
+msgstr "没有足够的参数"
+
+#: inc/SimpleHistory.php:669
+msgid "Sorry, but there are too many similar events to show."
+msgstr "对不起，相似记录太多。"
+
+#: inc/SimpleHistory.php:626
+msgctxt "page n of n"
+msgid "of"
+msgstr "of"
+
+#: inc/SimpleHistory.php:589
+msgctxt "Message visible while waiting for log to load from server the first time"
+msgid "Loading history..."
+msgstr "加载日志中……"
+
+#: examples/example-logger.php:52
+msgctxt "User logger: 404"
+msgid "Pages not found"
+msgstr "找不到页面"
+
+#: examples/example-logger.php:50
+msgctxt "User logger: 404"
+msgid "Pages not found (404 errors)"
+msgstr "找不到页面(404错误)"
+
+#: examples/example-logger.php:46
+msgid "Got a 404-page when trying to visit \"{request_uri}\""
+msgstr "浏览\"{request_uri}\"时返回404"
+
+#: dropins/SimpleHistorySidebarDropin.php:182 loggers/SimpleLogger.php:420
+msgid "Just now"
+msgstr "刚刚"
+
+#: dropins/SimpleHistorySidebarDropin.php:73
+msgctxt "Sidebar box"
+msgid "A good review will help new users find this plugin. And it will make the plugin author very happy :)"
+msgstr "一个好的反馈会让新用户找到此插件，也会使插件作者非常开心。:)"
+
+#: dropins/SimpleHistorySidebarDropin.php:69
+msgctxt "Sidebar box"
+msgid "If you like Simple History then please <a href=\"%1$s\">give it a nice review over at wordpress.org</a>."
+msgstr "若您喜欢操作日志，请<a href=\"%1$s\">在Wordpress页面给一个好评</a>."
+
+#: dropins/SimpleHistorySidebarDropin.php:66
+msgctxt "Sidebar box"
+msgid "Review this plugin if you like it"
+msgstr "若您喜欢此插件，请为其反馈"
+
+#: dropins/SimpleHistorySidebarDropin.php:52
+msgctxt "Sidebar box"
+msgid "If you like and use Simple History you should <a href=\"%1$s\">donate to keep this plugin free</a>."
+msgstr "如果您喜欢该插件，您应该 <a href=\"%1$s\">用捐赠来维持插件免费</a>."
+
+#: dropins/SimpleHistorySidebarDropin.php:49
+msgctxt "Sidebar box"
+msgid "Donate to support development"
+msgstr "捐赠以支持开发"
+
+#: dropins/SimpleHistorySidebarDropin.php:35
+msgctxt "Sidebar box"
+msgid "You can star, fork, or report issues with this plugin over at the <a href=\"%1$s\">GitHub page</a>."
+msgstr "您可以在<a href=\"%1$s\">GitHub页面</a>顶、踩或报告问题。"
+
+#: dropins/SimpleHistorySidebarDropin.php:32
+msgctxt "Sidebar box"
+msgid "Simple History is on GitHub"
+msgstr "操作日志的GitHub页面"
+
+#: dropins/SimpleHistorySettingsStatsDropin.php:29
+#: dropins/SimpleHistorySidebarStats.php:159
+msgid "Stats"
+msgstr "统计"
+
+#: dropins/SimpleHistorySettingsLogtestDropin.php:229
+msgid "Enter title of new page"
+msgstr "输入页面标题"
+
+#: dropins/SimpleHistorySettingsLogtestDropin.php:226
+msgid "Plugin"
+msgstr "插件"
+
+#: dropins/SimpleHistorySettingsLogtestDropin.php:22
+msgid "Test data (debug)"
+msgstr "测试数据(Debug)"
+
+#: dropins/SimpleHistoryRSSDropin.php:431
+msgid "Simple History has a RSS feed which you can subscribe to and receive log updates. Make sure you only share the feed with people you trust, since it can contain sensitive or confidential information."
+msgstr "操作日志有一个RSS提要,您可以订阅和接收日志更新。确保您只和您信任的人分享提要,因为它可能包含敏感或机密信息。"
+
+#: dropins/SimpleHistoryRSSDropin.php:398
+msgid "Generate new address"
+msgstr "生成新地址"
+
+#: dropins/SimpleHistoryRSSDropin.php:391
+msgid "You can generate a new address for the RSS feed. This is useful if you think that the address has fallen into the wrong hands."
+msgstr "您可以为 RSS 订阅建立一个新的地址。当您认为地址已经泄露时，这是非常有用的。"
+
+#: dropins/SimpleHistoryRSSDropin.php:344
+msgid "Your RSS secret for Simple History RSS feed is wrong. Please see WordPress settings for current link to the RSS feed."
+msgstr "您的操作日志 RSS Secret订阅是错误的。请参阅 WordPress 中的 RSS 订阅链接设置。"
+
+#: dropins/SimpleHistoryRSSDropin.php:343
+msgid "Wrong RSS secret"
+msgstr "错误的私隐 RSS"
+
+#: dropins/SimpleHistoryRSSDropin.php:276
+msgid "+%1$s occasion"
+msgid_plural "+%1$s occasions"
+msgstr[0] "+%1$s次"
+
+#: dropins/SimpleHistoryRSSDropin.php:262
+msgid "Severity level: %1$s"
+msgstr "级别 %1$s"
+
+#: dropins/SimpleHistoryRSSDropin.php:208
+#: dropins/SimpleHistoryRSSDropin.php:340
+msgid "WordPress History for %s"
+msgstr "WordPress  简易历史 %s"
+
+#: dropins/SimpleHistoryRSSDropin.php:207
+#: dropins/SimpleHistoryRSSDropin.php:339
+msgid "History for %s"
+msgstr "操作日志 %s"
+
+#: dropins/SimpleHistoryRSSDropin.php:106
+msgid "Created new secret RSS address"
+msgstr "建立新的 RSS 私密地址"
+
+#: dropins/SimpleHistoryRSSDropin.php:88
+msgid "Regenerate"
+msgstr "重新生成"
+
+#: dropins/SimpleHistoryRSSDropin.php:79
+msgid "Address"
+msgstr "地址"
+
+#: dropins/SimpleHistoryRSSDropin.php:60
+msgctxt "rss settings headline"
+msgid "RSS feed"
+msgstr "RSS订阅"
+
+#: dropins/SimpleHistoryNewRowsNotifier.php:89
+msgid "1 new event"
+msgid_plural "%d new events"
+msgstr[0] "%d 个新事件"
+
+#: dropins/SimpleHistoryNewRowsNotifier.php:40
+msgctxt "New rows notifier: error while checking for new rows"
+msgid "An error occured while checking for new events"
+msgstr "检查新事件时出错"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:166
+msgctxt "IP Info Dropin"
+msgid "IP info provided by %1$s ipinfo.io %2$s"
+msgstr "IP信息由%1$s ipinfo.io %2$s提供"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:155
+msgctxt "IP Info Dropin"
+msgid "Country"
+msgstr "国家"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:144
+msgctxt "IP Info Dropin"
+msgid "Region"
+msgstr "地区"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:133
+msgctxt "IP Info Dropin"
+msgid "City"
+msgstr "城市"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:111
+#: dropins/SimpleHistoryIpInfoDropin.php:122
+msgctxt "IP Info Dropin"
+msgid "Network"
+msgstr "站点网络"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:100
+msgctxt "IP Info Dropin"
+msgid "Hostname"
+msgstr "主机名"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:89
+msgctxt "IP Info Dropin"
+msgid "IP address"
+msgstr "IP地址"
+
+#: dropins/SimpleHistoryIpInfoDropin.php:68
+msgctxt "IP Info Dropin"
+msgid "That IP address does not seem like a public one."
+msgstr "这看起来不像一个公共IP地址"
+
+#: dropins/SimpleHistoryFilterDropin.php:440
+msgid "Search"
+msgstr "搜索"
+
+#: dropins/SimpleHistoryFilterDropin.php:433
+msgctxt "Filter dropin: button to hide more search options"
+msgid "Hide search options"
+msgstr "隐藏搜索设置"
+
+#: dropins/SimpleHistoryFilterDropin.php:420
+msgid "All users"
+msgstr "全部用户"
+
+#: dropins/SimpleHistoryFilterDropin.php:328
+msgid "All messages"
+msgstr "全部消息"
+
+#: dropins/SimpleHistoryFilterDropin.php:291
+msgid "All log levels"
+msgstr "所有日志级别"
+
+#: dropins/SimpleHistoryFilterDropin.php:269
+msgctxt "Filter dropin: button to show more search options"
+msgid "Show search options"
+msgstr "显示搜索设置"
+
+#: dropins/SimpleHistoryFilterDropin.php:268
+#: dropins/SimpleHistoryFilterDropin.php:432
+msgid "Search events"
+msgstr "搜索事件"
+
+#: dropins/SimpleHistoryFilterDropin.php:211
+msgctxt "Filter dropin: filter week"
+msgid "Last 60 days"
+msgstr "最近60天"
+
+#: dropins/SimpleHistoryFilterDropin.php:204
+msgctxt "Filter dropin: filter week"
+msgid "Last 30 days"
+msgstr "最近30天"
+
+#: dropins/SimpleHistoryFilterDropin.php:197
+msgctxt "Filter dropin: filter week"
+msgid "Last 14 days"
+msgstr "最近14天"
+
+#: dropins/SimpleHistoryFilterDropin.php:190
+msgctxt "Filter dropin: filter week"
+msgid "Last 7 days"
+msgstr "最近7天"
+
+#: dropins/SimpleHistoryFilterDropin.php:165
+msgid "All dates"
+msgstr "全部日期"
+
+#: dropins/SimpleHistoryFilterDropin.php:60
+msgid "Filter history"
+msgstr "过滤日志"
+
+#: dropins/SimpleHistoryExportDropin.php:247
+msgctxt "Export dropin: submit button"
+msgid "Download Export File"
+msgstr "下载导出的文件"
+
+#: dropins/SimpleHistoryExportDropin.php:229
+msgctxt "Export dropin: export format"
+msgid "CSV"
+msgstr "CSV"
+
+#: dropins/SimpleHistoryExportDropin.php:222
+msgctxt "Export dropin: export format"
+msgid "JSON"
+msgstr "JSON"
+
+#: dropins/SimpleHistoryExportDropin.php:217
+msgctxt "Export dropin: format"
+msgid "Choose format to export to"
+msgstr "选择导出的格式"
+
+#: dropins/SimpleHistoryExportDropin.php:213
+msgctxt "Export dropin: introtext"
+msgid "The export function will export the full history."
+msgstr "导出命令将导出所有数据。"
+
+#: dropins/SimpleHistoryExportDropin.php:23
+msgctxt "Export dropin: Tab name on settings page"
+msgid "Export"
+msgstr "导出"
+
+#: dropins/SimpleHistoryDonateDropin.php:53
+msgctxt "donate settings headline"
+msgid "Donate"
+msgstr "捐赠"
+
+#: dropins/SimpleHistoryDonateDropin.php:38
+msgid "Donate"
+msgstr "捐赠"

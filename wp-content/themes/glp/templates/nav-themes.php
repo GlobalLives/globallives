@@ -3,14 +3,14 @@
 	<div class="nav-themes-inner container">
 		<div id="theme-carousel" class="carousel slide">
 			<ul class="carousel-inner">
-				<li class="theme-navitem span2 active"><?php echo _e('All Themes','glp'); ?></li>			
+				<li class="theme-navitem span1 active"><?php echo _e('All Themes','glp'); ?></li>			
 <?php
 	$total_themes = count($themes);
-	$themes_per_row = 4;
+	$themes_per_row = 8;
 	foreach($themes as $i => $theme) :
 ?>
 				<?php if ($i % $themes_per_row == 0) : ?><div class="item row<?php if ($i == 0) :?> active<?php endif; ?>"><?php endif; ?>
-				<li class="theme-navitem span2" data-term="<?php echo $theme->slug; ?>">
+				<li class="theme-navitem pull-left" data-term="<?php echo $theme->slug; ?>">
 					<a class="theme-link hide" href="<?php echo get_term_link($theme,'theme'); ?>">
 						<div class="theme-watch"><?php _e('Watch this theme','glp'); ?></div>
 						<div class="thumbnails">

@@ -127,3 +127,4 @@ wp-content/ai1wm-backups/
 wp-content/themes/glp/bower.json
 wp-content/w3tc-config/
 wp-content/themes/glp/Gruntfile.js
+*.map

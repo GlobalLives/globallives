@@ -17,6 +17,7 @@ function glp_queue() {
 		wp_enqueue_style('glp_bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', false, filemtime(get_stylesheet_directory() . '/css/bootstrap.min.css'));
 		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.min.css', false, null);
 		wp_enqueue_style('jquery-ui-custom', get_template_directory_uri() . '/css/jquery-ui/jquery-ui-1.9.2.custom.min.css');
+		wp_enqueue_style('fa-fontawesome', get_template_directory_uri() . '/css/font-awesome.min.css');
 
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
 
@@ -59,7 +60,8 @@ function glp_queue() {
 		wp_enqueue_style('glp_bootstrapcss', get_template_directory_uri() . '/css/bootstrap.min.css', false, filemtime(get_stylesheet_directory() . '/css/bootstrap.min.css'));
 		wp_enqueue_style('glp_style', get_template_directory_uri() . '/css/style.min.css', false, filemtime(get_stylesheet_directory() . '/css/style.min.css'));
 		wp_enqueue_style('jquery-ui-custom', get_template_directory_uri() . '/css/jquery-ui/jquery-ui-1.9.2.custom.min.css');
-
+		wp_enqueue_style('fa-fontawesome', get_template_directory_uri() . '/css/font-awesome.min.css');
+		
 		// Register scripts: wp_register_script( $handle, $src, $deps, $ver, $in_footer )
 
 		wp_register_script('glp_app', get_template_directory_uri() . '/js/app.min.js', array('glp_bootstrap','glp_plugins'), filemtime(get_stylesheet_directory() . '/js/app.min.js'), true);

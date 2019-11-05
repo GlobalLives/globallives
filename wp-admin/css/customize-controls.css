@@ -1506,7 +1506,6 @@ p.customize-section-description {
 
 .customize-control-header .placeholder:hover .dice,
 .customize-control-header .header-view:hover > button.random .dice {
-	-webkit-animation: dice-color-change 3s infinite;
 	animation: dice-color-change 3s infinite;
 }
 

@@ -27,7 +27,8 @@
 			</div>
 			<div class="span3">
 				<?php dynamic_sidebar('sidebar-footer'); ?>
-				<div class="fb-like" data-href="https://www.globallives.org" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				<div class="fb-like" data-href="http://www.globallives.org/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+				copyright 2012-<?php echo date("Y"); ?>
 			</div>
 		</div>
 	</div>
@@ -106,4 +107,25 @@
   ga('create', 'UA-2159509-3', 'auto');
   ga('send', 'pageview');
 
+	$(function () {
+
+/* Functions */
+		function track_link(eventCatagory,eventAction,eventLabel) {
+			ga('send','event',eventCatagory,eventAction,eventLabel);
+		}
+
+/* Global Calls */
+		$('#menu-item-1710').click(function() {
+			track_link('socialClick','click','twitter');
+		});
+		$('#menu-item-1711').click(function() {
+			track_link('socialClick','click','facebook');
+		});
+		$('#menu-item-1712').click(function() {
+			track_link('socialClick','click','youTube');
+		});
+		$('#menu-item-7575').click(function() {
+			track_link('socialClick','click','instagram');
+		});
+	});
 </script>

@@ -36,12 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -58,6 +78,7 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
+/******/
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 26);
@@ -953,9 +974,6 @@ Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Librar
 			}) );
 		}
 
-		this._filterContext();
-		this.get('library').on( 'add', this._filterContext, this );
-
 		this.resetDisplays();
 	},
 
@@ -1111,6 +1129,7 @@ Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Librar
 		}
 	},
 
+
 	/**
 	 * Callback handler when an attachment is uploaded.
 	 *
@@ -1155,20 +1174,8 @@ Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Librar
 		if ( view && view.get( mode ) ) {
 			setUserSetting( 'libraryContent', mode );
 		}
-	},
-
-	/**
-	 * Filter out contextually created attachments (e.g. headers, logos, etc.)
-	 *
-	 * @since 4.9.0
-	 */
-	_filterContext: function() {
-		var library = this.get('library');
-
-		library.set( library.filter( function( item ) {
-			return item.get('context') === '';
-		} ) );
 	}
+
 });
 
 // Make selectionSync available on any Media Library state.
@@ -2793,6 +2800,22 @@ MediaFrame = Frame.extend(/** @lends wp.media.view.MediaFrame.prototype */{
 	events: {
 		'click div.media-frame-title h1': 'toggleMenu'
 	},
+	/**
+	 * Map activeMode collection events to the frame.
+	 */
+	triggerModeEvents: function( model, collection, options ) {
+		var collectionEvent,
+			modeEventMap = {
+				add: 'activate',
+				remove: 'deactivate'
+			},
+			eventToTrigger;
+		// Probably a better way to do this.
+		_.each( options, function( value, key ) {
+			if ( value ) {
+				collectionEvent = key;
+			}
+		} );
 
 	/**
 	 * @constructs
@@ -2824,6 +2847,9 @@ MediaFrame = Frame.extend(/** @lends wp.media.view.MediaFrame.prototype */{
 		if ( wp.Uploader.limitExceeded || ! wp.Uploader.browser.supported ) {
 			this.options.uploader = false;
 		}
+		this.activeModes.add( [ { id: mode } ] );
+		// Add a CSS class to the frame so elements can be styled for the mode.
+		this.$el.addClass( 'mode-' + mode );
 
 		// Initialize window-wide uploader.
 		if ( this.options.uploader ) {
@@ -2858,6 +2884,8 @@ MediaFrame = Frame.extend(/** @lends wp.media.view.MediaFrame.prototype */{
 		if ( ! this.state() && this.options.state ) {
 			this.setState( this.options.state );
 		}
+		this.activeModes.remove( this.activeModes.where( { id: mode } ) );
+		this.$el.removeClass( 'mode-' + mode );
 		/**
 		 * call 'render' directly on the parent class
 		 */
@@ -3196,6 +3224,8 @@ Select = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.Select.prototype 
 		});
 	},
 
+// Map some of the modal's methods to the frame.
+_.each(['open','close','attach','detach','escape'], function( method ) {
 	/**
 	 * Render callback for the content region in the `upload` mode.
 	 */
@@ -3501,6 +3531,7 @@ Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 			menu.show( state );
 		}
 	},
+
 	/**
 	 * @param {wp.Backbone.View} view
 	 */
@@ -4173,10 +4204,6 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 	tagName:  'div',
 	template: wp.template('media-modal'),
 
-	attributes: {
-		tabindex: 0
-	},
-
 	events: {
 		'click .media-modal-backdrop, .media-modal-close': 'escapeHandler',
 		'keydown': 'keydown'
@@ -4188,8 +4215,7 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 		_.defaults( this.options, {
 			container: document.body,
 			title:     '',
-			propagate: true,
-			freeze:    true
+			propagate: true
 		});
 
 		this.focusManager = new wp.media.view.FocusManager({
@@ -4244,7 +4270,6 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 	 */
 	open: function() {
 		var $el = this.$el,
-			options = this.options,
 			mceEditor;
 
 		if ( $el.is(':visible') ) {
@@ -4257,13 +4282,6 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 			this.attach();
 		}
 
-		// If the `freeze` option is set, record the window's scroll position.
-		if ( options.freeze ) {
-			this._freeze = {
-				scrollTop: $( window ).scrollTop()
-			};
-		}
-
 		// Disable page scrolling.
 		$( 'body' ).addClass( 'modal-open' );
 
@@ -4271,7 +4289,7 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 
 		// Try to close the onscreen keyboard
 		if ( 'ontouchend' in document ) {
-			if ( ( mceEditor = window.tinymce && window.tinymce.activeEditor )  && ! mceEditor.isHidden() && mceEditor.iframeElement ) {
+			if ( ( mceEditor = window.tinymce && window.tinymce.activeEditor ) && ! mceEditor.isHidden() && mceEditor.iframeElement ) {
 				mceEditor.iframeElement.focus();
 				mceEditor.iframeElement.blur();
 
@@ -4281,7 +4299,8 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 			}
 		}
 
-		this.$el.focus();
+		// Set initial focus on the content instead of this view element, to avoid page scrolling.
+		this.$( '.media-modal' ).focus();
 
 		return this.propagate('open');
 	},
@@ -4291,8 +4310,6 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	close: function( options ) {
-		var freeze = this._freeze;
-
 		if ( ! this.views.attached || ! this.$el.is(':visible') ) {
 			return this;
 		}
@@ -4311,11 +4328,6 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 		}
 
 		this.propagate('close');
-
-		// If the `freeze` option is set, restore the container's scroll position.
-		if ( freeze ) {
-			$( window ).scrollTop( freeze.scrollTop );
-		}
 
 		if ( options && options.escape ) {
 			this.propagate('escape');
@@ -4871,6 +4883,16 @@ UploaderInline = View.extend(/** @lends wp.media.view.UploaderInline.prototype *
 		_.defer( _.bind( this.refresh, this ) );
 		return result;
 	},
+	/**
+	 * @returns {wp.media.view.UploaderInline} Returns itself to allow chaining
+	 */
+	dispose: function() {
+		if ( this.disposing ) {
+			/**
+			 * call 'dispose' directly on the parent class
+			 */
+			return View.prototype.dispose.apply( this, arguments );
+		}
 
 	refresh: function() {
 		var uploader = this.controller.uploader;
@@ -5011,6 +5033,12 @@ UploaderStatus = View.extend(/** @lends wp.media.view.UploaderStatus.prototype *
 			return memo + ( _.isNumber( percent ) ? percent : 100 );
 		}, 0 ) / queue.length ) + '%' );
 	},
+	/**
+	 * @returns {wp.media.view.UploaderInline}
+	 */
+	ready: function() {
+		var $browser = this.options.$browser,
+			$placeholder;
 
 	info: function() {
 		var queue = this.queue,
@@ -5059,6 +5087,7 @@ UploaderStatus = View.extend(/** @lends wp.media.view.UploaderStatus.prototype *
 		}
 		wp.Uploader.errors.reset();
 	}
+
 });
 
 module.exports = UploaderStatus;
@@ -5383,6 +5412,7 @@ module.exports = Embed;
  * @memberOf wp.media.view
  *
  * @class
+ * @augments wp.media.view.Toolbar
  * @augments wp.media.View
  * @augments wp.Backbone.View
  * @augments Backbone.View
@@ -5948,6 +5978,11 @@ Attachment = View.extend(/** @lends wp.media.view.Attachment.prototype */{
 			'data-id':      this.model.get( 'id' )
 		};
 	},
+	/**
+	 * @param {string} id
+	 */
+	select: function( id ) {
+		var view = this.get( id );
 
 	events: {
 		'click':                          'toggleSelectionHandler',
@@ -6410,7 +6445,6 @@ Attachment = View.extend(/** @lends wp.media.view.Attachment.prototype */{
 
 		this.collection.remove( this.model );
 	},
-
 	/**
 	 * Add the model if it isn't in the selection, if it is in the selection,
 	 * remove it.
@@ -6627,6 +6661,14 @@ Attachments = View.extend(/** @lends wp.media.view.Attachments.prototype */{
 			_.defer( this.setColumns, this );
 		}
 	},
+	/**
+	 * @param {Object} event
+	 */
+	removeFromLibrary: function( event ) {
+		// Catch enter and space events
+		if ( 'keydown' === event.type && 13 !== event.keyCode && 32 !== event.keyCode ) {
+			return;
+		}
 
 	bindEvents: function() {
 		this.$window.off( this.resizeEvent ).on( this.resizeEvent, _.debounce( this.setColumns, 50 ) );
@@ -7056,11 +7098,14 @@ Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attac
 	createFilters: function() {
 		var type = this.model.get('type'),
 			types = wp.media.view.settings.mimeTypes,
+			uid = window.userSettings ? parseInt( window.userSettings.uid, 10 ) : 0,
 			text;
 
 		if ( types && type ) {
 			text = types[ type ];
 		}
+	}, 300 )
+});
 
 		this.filters = {
 			all: {
@@ -7068,7 +7113,8 @@ Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attac
 				props: {
 					uploadedTo: null,
 					orderby: 'date',
-					order:   'DESC'
+					order:   'DESC',
+					author:	 null
 				},
 				priority: 10
 			},
@@ -7078,7 +7124,8 @@ Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attac
 				props: {
 					uploadedTo: wp.media.view.settings.post.id,
 					orderby: 'menuOrder',
-					order:   'ASC'
+					order:   'ASC',
+					author:	 null
 				},
 				priority: 20
 			},
@@ -7088,11 +7135,24 @@ Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attac
 				props: {
 					uploadedTo: 0,
 					orderby: 'menuOrder',
-					order:   'ASC'
+					order:   'ASC',
+					author:	 null
 				},
 				priority: 50
 			}
 		};
+
+		if ( uid ) {
+			this.filters.mine = {
+				text:  l10n.mine,
+				props: {
+					orderby: 'date',
+					order:   'DESC',
+					author:  uid
+				},
+				priority: 50
+			};
+		}
 	}
 });
 
@@ -7119,7 +7179,8 @@ var l10n = wp.media.view.l10n,
  */
 All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.All.prototype */{
 	createFilters: function() {
-		var filters = {};
+		var filters = {},
+			uid = window.userSettings ? parseInt( window.userSettings.uid, 10 ) : 0;
 
 		_.each( wp.media.view.settings.mimeTypes || {}, function( text, key ) {
 			filters[ key ] = {
@@ -7129,7 +7190,8 @@ All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attachment
 					type:    key,
 					uploadedTo: null,
 					orderby: 'date',
-					order:   'DESC'
+					order:   'DESC',
+					author:  null
 				}
 			};
 		});
@@ -7141,7 +7203,8 @@ All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attachment
 				type:    null,
 				uploadedTo: null,
 				orderby: 'date',
-				order:   'DESC'
+				order:   'DESC',
+				author:  null
 			},
 			priority: 10
 		};
@@ -7154,7 +7217,8 @@ All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attachment
 					type:    null,
 					uploadedTo: wp.media.view.settings.post.id,
 					orderby: 'menuOrder',
-					order:   'ASC'
+					order:   'ASC',
+					author:  null
 				},
 				priority: 20
 			};
@@ -7167,10 +7231,26 @@ All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attachment
 				uploadedTo: 0,
 				type:       null,
 				orderby:    'menuOrder',
-				order:      'ASC'
+				order:      'ASC',
+				author:     null
 			},
 			priority: 50
 		};
+
+		if ( uid ) {
+			filters.mine = {
+				text:  l10n.mine,
+				props: {
+					status:		null,
+					type:		null,
+					uploadedTo:	null,
+					orderby:	'date',
+					order:		'DESC',
+					author:		uid
+				},
+				priority: 50
+			};
+		}
 
 		if ( wp.media.view.settings.mediaTrash &&
 			this.controller.isModeActive( 'grid' ) ) {
@@ -7182,7 +7262,8 @@ All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.Attachment
 					status:     'trash',
 					type:       null,
 					orderby:    'date',
-					order:      'DESC'
+					order:      'DESC',
+					author:     null
 				},
 				priority: 50
 			};
@@ -8957,17 +9038,27 @@ Cropper = View.extend(/** @lends wp.media.view.Cropper.prototype */{
 		imgOptions = _.extend(imgOptions, {
 			parent: this.$el,
 			onInit: function() {
-				this.parent.children().on( 'mousedown touchstart', function( e ){
 
-					if ( e.shiftKey ) {
+				// Store the set ratio.
+				var setRatio = imgSelect.getOptions().aspectRatio;
+
+				// On mousedown, if no ratio is set and the Shift key is down, use a 1:1 ratio.
+				this.parent.children().on( 'mousedown touchstart', function( e ) {
+
+					// If no ratio is set and the shift key is down, use a 1:1 ratio.
+					if ( ! setRatio && e.shiftKey ) {
 						imgSelect.setOptions( {
 							aspectRatio: '1:1'
 						} );
-					} else {
-						imgSelect.setOptions( {
-							aspectRatio: false
-						} );
 					}
+				} );
+
+				this.parent.children().on( 'mouseup touchend', function() {
+
+					// Restore the set ratio.
+					imgSelect.setOptions( {
+						aspectRatio: setRatio ? setRatio : false
+					} );
 				} );
 			}
 		} );

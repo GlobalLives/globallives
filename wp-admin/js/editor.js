@@ -465,7 +465,7 @@ window.wp = window.wp || {};
 			}
 
 			var isCursorStartInShortcode = getShortcodeWrapperInfo( content, cursorStart );
-			if ( isCursorStartInShortcode && isCursorStartInShortcode.isPreviewable ) {
+			if ( isCursorStartInShortcode && ! isCursorStartInShortcode.showAsPlainText ) {
 				/**
 				 * If a URL is at the start or the end of the content,
 				 * the selection doesn't work, because it inserts a marker in the text,
@@ -482,7 +482,7 @@ window.wp = window.wp || {};
 			}
 
 			var isCursorEndInShortcode = getShortcodeWrapperInfo( content, cursorEnd );
-			if ( isCursorEndInShortcode && isCursorEndInShortcode.isPreviewable ) {
+			if ( isCursorEndInShortcode && ! isCursorEndInShortcode.showAsPlainText ) {
 				if ( isCursorEndInShortcode.urlAtEndOfContent ) {
 					cursorEnd = isCursorEndInShortcode.startIndex;
 				} else {
@@ -695,10 +695,10 @@ window.wp = window.wp || {};
 		 */
 		function findBookmarkedPosition( editor ) {
 			// Get the TinyMCE `window` reference, since we need to access the raw selection.
-			var TinyMCEWIndow = editor.getWin(),
-				selection = TinyMCEWIndow.getSelection();
+			var TinyMCEWindow = editor.getWin(),
+				selection = TinyMCEWindow.getSelection();
 
-			if ( selection.rangeCount <= 0 ) {
+			if ( ! selection || selection.rangeCount < 1 ) {
 				// no selection, no need to continue.
 				return;
 			}
