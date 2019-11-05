@@ -134,7 +134,7 @@ wp-content/themes/glp/bower.json
 wp-content/w3tc-config/
 wp-content/themes/glp/Gruntfile.js
 *.map
-
 /outside_src
 /shared_src
 /WP Internal pages
+/src
