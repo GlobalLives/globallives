@@ -1072,10 +1072,8 @@ a:focus {
 #banner .site-title a {
   display: block;
   padding: 5px 0 0;
-  line-height: 60px;
-  background: transparent url(../img/site-title.png) left center no-repeat;
+  padding-top: 12px;
   overflow: hidden;
-  text-indent: -9999px;
 }
 
 #banner .btn {
