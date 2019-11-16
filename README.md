@@ -34,3 +34,8 @@ The Global Lives Project is a video library of life experience. A nonprofit, vol
 - WPML String Translation
 - WPML Translation Management 
 - Yoast SEO  
+
+## CSS
+
+- Bootstrap 3 used
+- SASS
