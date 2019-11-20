@@ -1065,13 +1065,13 @@ a:focus {
 }
 
 #banner .site-title {
-  margin-top: 0;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 #banner .site-title a {
   display: block;
-  padding: 5px 0 0;
+  padding: 5px 0;
   padding-top: 12px;
   overflow: hidden;
 }
