@@ -1,3 +1,16 @@
+$black:         #000;
+$blue:          #19afd0;
+$gray-light:    #ccc;
+$gray-dark:     #111;
+$gray-med:      #555;
+$gray-medDark:  #2f2f2f;
+$gray-medLight: #999;
+$white:         #fff;
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
 article,
 aside,
 details,
@@ -138,7 +151,7 @@ textarea {
 }
 
 .hide-text {
-    font: 0/0 a;
+    font: 0;
     color: transparent;
     text-shadow: none;
     background-color: transparent;
@@ -159,18 +172,18 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     line-height: 18px;
-    color: #444;
-    background-color: #fff
+    color: $gray-med
+    background-color: $white
 }
 
 a {
-    color: #555;
+    color: $gray-med;
     text-decoration: none
 }
 
 a:hover,
 a:focus {
-    color: #2f2f2f;
+    color: $gray-medDark;
     text-decoration: underline
 }
 
@@ -182,9 +195,8 @@ a:focus {
 
 .img-polaroid {
     padding: 4px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, .2);
+    background-color: $white;
+    border: 1px solid $gray-medDark;
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
