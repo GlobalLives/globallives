@@ -56,8 +56,8 @@
 						<?php the_content(); ?>
 					</div>
 					<?php if ( $crew_members = get_participant_crew_members( get_the_ID() )) : ?>
-					<div class="participant-crew row">
-						<h3 class="span6">Crew Members</h3>
+					<div class="participant-crew">
+						<h3>Crew Members</h3>
 						<?php foreach ( $crew_members as $crew_member ) : ?>
 							<?php include(locate_template('templates/profile-crew_member.php')); ?>
 						<?php endforeach; ?>
