@@ -40,7 +40,7 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3><?php _e('Sign Up','glp'); ?></h3>
 	</div>
-	<div class="modal-body row-fluid">
+	<div class="modal-body">
 		<div class="span6">
 			<h4><?php _e('Sign up with email','glp'); ?></h4>
 			<form name="registerform" id="registerform" action="<?php echo site_url('wp-login.php?wpe-login=globallives&action=register'); ?>" method="post">
@@ -70,7 +70,7 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3><?php _e('Log In','glp'); ?></h3>
 	</div>
-	<div class="modal-body row-fluid">
+	<div class="modal-body">
 		<div class="span6">
 			<h4><?php _e('Log in with email','glp'); ?></h4>
 			<form name="loginform" id="loginform" action="<?php echo site_url('wp-login.php?wpe-login=globallives', 'login_post'); ?>" method="post">
