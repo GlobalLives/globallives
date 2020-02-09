@@ -215,11 +215,11 @@
     margin: 0;
     padding: 0;
     background-color: #141414;
-    background-image: -moz-linear-gradient(top, $gray-dark1, $black);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-dark1), to($black));
-    background-image: -webkit-linear-gradient(top, $gray-dark1, $black);
-    background-image: -o-linear-gradient(top, $gray-dark1, $black);
-    background-image: linear-gradient(to bottom, $gray-dark1, $black);
+    background-image: -moz-linear-gradient(top, $gray-medDark, $black);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-medDark), to($black));
+    background-image: -webkit-linear-gradient(top, $gray-medDark, $black);
+    background-image: -o-linear-gradient(top, $gray-medDark, $black);
+    background-image: linear-gradient(to bottom, $gray-medDark, $black);
     background-repeat: repeat-x;
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
@@ -384,11 +384,11 @@
     padding: 0;
     background: #555;
     background-color: #141414;
-    background-image: -moz-linear-gradient(top, $gray-dark1, $black);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-dark1), to($black));
-    background-image: -webkit-linear-gradient(top, $gray-dark1, $black);
-    background-image: -o-linear-gradient(top, $gray-dark1, $black);
-    background-image: linear-gradient(to bottom, $gray-dark1, $black);
+    background-image: -moz-linear-gradient(top, $gray-medDark, $black);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-medDark), to($black));
+    background-image: -webkit-linear-gradient(top, $gray-medDark, $black);
+    background-image: -o-linear-gradient(top, $gray-medDark, $black);
+    background-image: linear-gradient(to bottom, $gray-medDark, $black);
     background-repeat: repeat-x;
 }
 
@@ -428,7 +428,7 @@
 
 #nav-themes li.active,
 #nav-themes li:hover {
-    background: $gray-dark1;
+    background: $gray-medDark;
     color: $white;
     text-transform: capitalize;
     white-space: nowrap;
@@ -487,7 +487,7 @@
 #nav-modules .widget {
     margin-top: 2em;
     margin-bottom: 2em;
-    color: $gray-dark1;
+    color: $gray-medDark;
     background: $white;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -860,11 +860,11 @@ body.home #stage {
     position: relative;
     overflow: auto;
     background-color: #0e0e0e;
-    background-image: -moz-linear-gradient(top, $black, $gray-dark1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($black), to($gray-dark1));
-    background-image: -webkit-linear-gradient(top, $black, $gray-dark1);
-    background-image: -o-linear-gradient(top, $black, $gray-dark1);
-    background-image: linear-gradient(to bottom, $black, $gray-dark1);
+    background-image: -moz-linear-gradient(top, $black, $gray-medDark);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($black), to($gray-medDark));
+    background-image: -webkit-linear-gradient(top, $black, $gray-medDark);
+    background-image: -o-linear-gradient(top, $black, $gray-medDark);
+    background-image: linear-gradient(to bottom, $black, $gray-medDark);
     background-repeat: repeat-x;
 }
 
@@ -930,7 +930,7 @@ body.home #stage {
 }
 
 #mapview #countries {
-    fill: $gray-dark1;
+    fill: $gray-medDark;
     stroke: #555;
     stroke-width: 1
 }
@@ -1142,11 +1142,11 @@ body.home #stage {
     padding: 1em 0;
     color: $white;
     background-color: #303030;
-    background-image: -moz-linear-gradient(top, $gray-dark1, #444);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-dark1), to(#444));
-    background-image: -webkit-linear-gradient(top, $gray-dark1, #444);
-    background-image: -o-linear-gradient(top, $gray-dark1, #444);
-    background-image: linear-gradient(to bottom, $gray-dark1, #444);
+    background-image: -moz-linear-gradient(top, $gray-medDark, #444);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-medDark), to(#444));
+    background-image: -webkit-linear-gradient(top, $gray-medDark, #444);
+    background-image: -o-linear-gradient(top, $gray-medDark, #444);
+    background-image: linear-gradient(to bottom, $gray-medDark, #444);
     background-repeat: repeat-x;
     border-top: 1px solid #555;
     text-shadow: 0 0 1px $black
@@ -1294,7 +1294,7 @@ body.home #stage {
 .single-participant .participant-filter-clips {
     margin-top: 4em;
     padding: .75em;
-    background: $gray-dark1;
+    background: $gray-medDark;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -2145,7 +2145,7 @@ body.home #stage {
     margin: 0 0 1em;
     padding: 5px 0;
     height: 30px;
-    background: $gray-dark1;
+    background: $gray-medDark;
     border-bottom: 1px solid $black;
     text-align: right
 }
@@ -2220,7 +2220,7 @@ body.home #stage {
     margin: 0 0 1em;
     padding: 5px 0;
     height: 30px;
-    background: $gray-dark1;
+    background: $gray-medDark;
     border-bottom: 1px solid $black;
     text-align: right
 }
@@ -2308,11 +2308,11 @@ body.home #stage {
     padding: 1em 0;
     color: $white;
     background-color: #303030;
-    background-image: -moz-linear-gradient(top, $gray-dark1, #444);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-dark1), to(#444));
-    background-image: -webkit-linear-gradient(top, $gray-dark1, #444);
-    background-image: -o-linear-gradient(top, $gray-dark1, #444);
-    background-image: linear-gradient(to bottom, $gray-dark1, #444);
+    background-image: -moz-linear-gradient(top, $gray-medDark, #444);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-medDark), to(#444));
+    background-image: -webkit-linear-gradient(top, $gray-medDark, #444);
+    background-image: -o-linear-gradient(top, $gray-medDark, #444);
+    background-image: linear-gradient(to bottom, $gray-medDark, #444);
     background-repeat: repeat-x;
     border-top: 1px solid #555;
     text-shadow: 0 0 1px $black
@@ -2361,7 +2361,7 @@ body.home #stage {
     padding: 2em 0 5em;
     background: $black url(../img/edges.jpg) no-repeat;
     background-size: cover;
-    border-top: 1px solid $gray-dark1;
+    border-top: 1px solid $gray-medDark;
     font-size: 10.998px
 }
 
@@ -2446,13 +2446,13 @@ body.home #stage {
 
 .participant-video-controls .popover {
     border-radius: 0;
-    background: $gray-dark1;
+    background: $gray-medDark;
     border: 0;
     padding: 0
 }
 
 .participant-video-controls .popover.top .arrow:after {
-    border-top-color: $gray-dark1
+    border-top-color: $gray-medDark
 }
 
 .participant-video-controls .popover form {
@@ -2539,7 +2539,7 @@ body.home #stage {
 }
 
 .participant-video-controls .popover .popover-content .comment.tagged {
-    background: $gray-dark1
+    background: $gray-medDark
 }
 
 .participant-video-controls .popover .popover-content .error {
@@ -2692,7 +2692,7 @@ body.home #stage {
     bottom: 35px;
     width: 13px;
     padding: 20px 13px;
-    background: $gray-dark1;
+    background: $gray-medDark;
     display: none;
     z-index: 101
 }
@@ -5480,15 +5480,15 @@ input[type=button].btn-block {
     color: $white;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
     background-color: #363636;
-    background-image: -moz-linear-gradient(top, #444, $gray-dark1);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444), to($gray-dark1));
-    background-image: -webkit-linear-gradient(top, #444, $gray-dark1);
-    background-image: -o-linear-gradient(top, #444, $gray-dark1);
-    background-image: linear-gradient(to bottom, #444, $gray-dark1);
+    background-image: -moz-linear-gradient(top, #444, $gray-medDark);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444), to($gray-medDark));
+    background-image: -webkit-linear-gradient(top, #444, $gray-medDark);
+    background-image: -o-linear-gradient(top, #444, $gray-medDark);
+    background-image: linear-gradient(to bottom, #444, $gray-medDark);
     background-repeat: repeat-x;
-    border-color: $gray-dark1 $gray-dark1 $black;
+    border-color: $gray-medDark $gray-medDark $black;
     border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
-    *background-color: $gray-dark1;
+    *background-color: $gray-medDark;
 }
 
 .btn-inverse:hover,
@@ -5498,7 +5498,7 @@ input[type=button].btn-block {
 .btn-inverse.disabled,
 .btn-inverse[disabled] {
     color: $white;
-    background-color: $gray-dark1;
+    background-color: $gray-medDark;
     *background-color: #151515
 }
 
@@ -5742,7 +5742,7 @@ input[type=submit].btn.btn-mini {
 }
 
 .btn-group.open .btn-inverse.dropdown-toggle {
-    background-color: $gray-dark1
+    background-color: $gray-medDark
 }
 
 .btn .caret {
@@ -8078,11 +8078,11 @@ img {
 .btn.active {
     color: $white;
     background-color: #141414;
-    background-image: -moz-linear-gradient(top, $gray-dark1, $black);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-dark1), to($black));
-    background-image: -webkit-linear-gradient(top, $gray-dark1, $black);
-    background-image: -o-linear-gradient(top, $gray-dark1, $black);
-    background-image: linear-gradient(to bottom, $gray-dark1, $black);
+    background-image: -moz-linear-gradient(top, $gray-medDark, $black);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gray-medDark), to($black));
+    background-image: -webkit-linear-gradient(top, $gray-medDark, $black);
+    background-image: -o-linear-gradient(top, $gray-medDark, $black);
+    background-image: linear-gradient(to bottom, $gray-medDark, $black);
     background-repeat: repeat-x;
     -webkit-transition: none;
     -moz-transition: none;
