@@ -1823,17 +1823,6 @@ body.home #stage {
     margin: 2em 2em 0 0
 }
 
-.blog .page-container .post {
-    margin: 0 0 2em;
-    padding: 2em;
-    background: #ccc url("/wp-content/uploads/2013/01/twitter_background_repeat.jpg") center no-repeat;
-    background-size: cover
-}
-
-.blog .page-container .post .entry-date {
-    margin: 10em 0 0
-}
-
 .blog .page-container .post .entry-header {
     display: block
 }
@@ -1994,11 +1983,11 @@ body.home #stage {
     box-shadow: 0 0 0 #ddd
 }
 
-.tribe-events-events .tribe-events-event {
+.tribe-events-events .tribe-events-event, 
+.blog .page-container .post {
     margin: 0 0 2em;
     padding: 2em;
-    background: #ccc center no-repeat url("https://globallives.org/wp-content/uploads/2013/01/twitter_background_repeat.jpg");
-    background-size: cover
+    background: #ccc center repeat url("https://globallives.org/wp-content/uploads/2013/01/twitter_background_repeat.jpg");
 }
 
 .tribe-events-events .tribe-events-event .entry-date {
