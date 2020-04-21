@@ -66,7 +66,7 @@
 				</div>
 				
 				<div class="span6"><div class="row">
-					<div class="participant-clips span4">
+					<div class="participant-clips span6">
 						<h3><?php _e('Footage','glp'); ?> (<?php $clips = get_field($field_keys['participant_clips'], get_the_ID()); echo count($clips); ?>)</h3>
 						<div class="participant-clips-scrollbox">
 						<?php if ($clips) : ?>
@@ -80,13 +80,6 @@
 						<?php endif; ?>
 						</div>
 					</div>
-					<div class="span2"><div class="participant-filter-clips">
-						<h4><?php _e('Filter Clips','glp'); ?></h4>
-						<h5><?php _e('By Popular Tags','glp'); ?></h5>
-						<?php if ( $clip_tags = get_participant_clip_tags( get_the_ID() )) : foreach( $clip_tags as $clip_tag ) : ?>
-						<a class="active filter" data-tag="<?php echo $clip_tag->name; ?>"><?php echo $clip_tag->name; ?></a>
-						<?php endforeach; endif; ?>
-					</div></div>
 				</div></div>
 		
 			</div>
