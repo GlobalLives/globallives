@@ -9518,6 +9518,8 @@ input[type=radio] {
   .row,
 .thumbnails {
     margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 50px;
   }
 
   .thumbnail {
