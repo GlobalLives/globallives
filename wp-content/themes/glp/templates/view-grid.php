@@ -1,8 +1,4 @@
-<?php global $participants, $field_keys;
-$participants = get_posts(array('post_type'      => 'participant',
-																'orderby'        => 'menu_order',
-																'order'          => 'asc',
-																'posts_per_page' => 20)) ?>
+<?php global $participants, $field_keys; ?>
 <div id="gridview" class="view">
 	<div class="container">
 	<?php foreach ($participants as $participant) : ?>

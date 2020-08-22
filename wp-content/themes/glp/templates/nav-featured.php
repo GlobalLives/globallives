@@ -1,6 +1,7 @@
 <nav id="nav-featured" class="nav">
 
 	<div class="nav-featured-inner container">
+
 		<div id="featured-carousel" class="carousel slide" data-ride="carousel">
 
       <!-- Wrapper for slides -->
@@ -10,8 +11,7 @@
 					<ul>
 						<li class="featured-thumbnail home-thumbnail span2 active" data-controls="content_glp">
 							<a href="#content_glp" aria-controls="content_glp" role="tab" data-toggle="tab" title="Global Lives Project">
-								<img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo-featured.png">
-							</a>
+							<img src="<?php bloginfo('stylesheet_directory'); ?>/img/logo-featured.png">
 						</li>
 						<?php $participants = get_posts(array( 'post_type' => 'participant', 'posts_per_page' => 5)); // First row only grabs 5, because of the "Home" thumbnail ?>
 						<?php foreach ($participants as $participant) : ?>
