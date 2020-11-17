@@ -1264,13 +1264,14 @@ body.home #stage {
 }
 
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail {
-    position: relative;
+    border: 3px solid $white;
     cursor: pointer;
 	height: 100px;
     margin: 0 10px;
+    overflow: hidden;
     padding-bottom: 16.666%;
-    border: 3px solid $white;
-    overflow: hidden
+    position: relative;
+    width: 250px;
 }
 
 .single-participant .participant-clips .participant-clip-listing .clip-thumbnail img {
