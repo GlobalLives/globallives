@@ -4,13 +4,6 @@ foreach (glob(get_template_directory() . '/inc/*.php') as $filename) {
 	require $filename;
 }
 
-load_theme_textdomain( 'glptheme', get_template_directory() . '/languages' );
-
-add_action( 'after_setup_theme', 'rad_theme_setup' );
-function rad_theme_setup() {
-    load_theme_textdomain( 'glptheme', get_template_directory() . '/languages' );
-}
-
 # Additional Settings
 
 function remove_admin_bar() {
