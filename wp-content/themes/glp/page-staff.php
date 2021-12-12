@@ -23,7 +23,7 @@
           <h3>Interns &amp; Volunteers</h3>
           <?php foreach ($rows as $individual) {
             if($individual['individual_status'] == 'intern' || $individual['individual_status'] == 'volunteer') { //checks for status ?>
-            <div>
+            <div class="staff_alt">
               <h4><?php echo $individual['individual_name']; //getting the repeater information ?> <small><?php echo $individual['individual_title']; //getting the repeater information ?> <?php if($individual['individual_status'] == 'intern') { ?><span>(<?php echo $individual['individual_status']; //getting the repeater information ?>)</span><?php } ?></small></h4>
               <?php if($individual['individual_picture']) { //checks for image presence in the repeater information ?><img src="<?php echo $individual['individual_picture']; //getting the repeater information ?>" alt="<?php echo $individual['individual_name']; //getting the repeater information ?>" /><?php } ?><?php echo $individual['individual_description']; //getting the repeater information ?>
             </div>
@@ -33,7 +33,7 @@
           <ul>
             <?php foreach ($rows as $individual) {
               if($individual['individual_status'] == 'past') { //checks for past status ?>
-                <li>
+                <li class="past_staffer">
                   <?php echo $individual['individual_name']; //getting the repeater information ?> <em><?php echo $individual['individual_title']; //getting the repeater information ?></em> <?php echo $individual['individual_location']; //getting the repeater information ?>
                 </li>
               <?php } ?>
